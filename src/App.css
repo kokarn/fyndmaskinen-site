@@ -1,0 +1,65 @@
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.App {
+    margin: 20px;
+}
+
+.root {
+    overflow-x: 'auto';
+    width: '100%';
+}
+
+.table {
+    minWidth: 700,
+}
+
+.table-title {
+    padding-left: 24px;
+}
+
+.gridlist-root {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.grid-root {
+    flex-grow: 1,
+}
+
+.gridList {
+    width: 500;
+    height: 450;
+}
+
+.icon {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.loading-indicator {
+    left: -20px;
+    position: relative;
+    top: 36px;
+}
+
+.auto-deal-header {
+    color: #fff;
+}
+
+.live-items-wrapper {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-around;
+}
+
+button.live-price-button {
+    /* border-radius: 0; */
+    margin-left: auto;
+    /* padding: 0 20px;
+    width: auto; */
+}
