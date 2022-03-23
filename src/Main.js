@@ -168,12 +168,11 @@ class Main extends Component {
                                   margin = 'normal'
                               />
                               { this.state.showLoading &&
-                                  <CircularProgress
-                                      className = { 'loading-indicator' }
-                                      size = { 20 }
-                                  />
+                                  <div>
+                                      Söker...
+                                  </div>
                               }
-                              <FormGroup>
+                              {/* <FormGroup>
                                 <FormControlLabel
                                     control={<Checkbox defaultChecked />}
                                     label="Auctions"
@@ -188,19 +187,19 @@ class Main extends Component {
                                     control={<Checkbox />}
                                     label="Marketplace"
                                 />
-                            </FormGroup>
+                            </FormGroup> */}
                           </form>
                       </Grid>
                       <Grid
                           item
-                          md = { 2 }
-                          xs = { 4 }
+                          md = { 12 }
+                        //   xs = { 4 }
                       >
                           { this.state.validSearch && <Typography
-                              align = { 'right' }
+                              align = { 'left' }
                               variant = { 'h6' }
                           >
-                              { `Hittade ${ this.state.searchItems.length } objekt` }
+                              { `Hittade ${ this.state.searchItems.length } objekt för sökningen ${ this.state.search }` }
                           </Typography> }
                       </Grid>
                       <Grid
