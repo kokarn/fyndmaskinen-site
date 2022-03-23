@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Main from './Main.js';
 import Deals from './Deals.js';
 import Live from './Live';
+import Book from './pages/book2.jsx';
 
 const styles = {
     root: {
@@ -87,6 +88,13 @@ class App extends Component {
                                     { 'Deals' }
                                 </Link>
                             </Button>
+                            <Button
+                                color = { 'inherit' }
+                            >
+                                <Link to="/book2">
+                                    { 'Book' }
+                                </Link>
+                            </Button>
                             {/* <Button
                                 color = { 'inherit' }
                             >
@@ -106,6 +114,7 @@ class App extends Component {
 
                     <Route exact path="/" component={Main} />
                     <Route path="/deals" component={Deals} />
+                    <Route path="/book2" component={Book} />
                     {/* <Route path="/live" component={Live} /> */}
                 </div>
             </Router>
