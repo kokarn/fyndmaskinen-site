@@ -31,7 +31,8 @@ class Main extends Component {
         this.handleFilterChange = this.handleFilterChange.bind( this );
 
         // this.errorImage = `https://images.weserv.nl/?url=i.imgur.com/PPVXbBi.jpg&w=200&h=200&t=letterbox&bg=black`;
-        this.errorImage = `https://i.imgur.com/fFRz0s0.jpg`;
+        // this.errorImage = `https://i.imgur.com/fFRz0s0.jpg`;
+        this.errorImage = `https://fyndmaskinen.pages.dev/images/no-image.jpg`;
     }
 
     search() {
