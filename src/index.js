@@ -5,7 +5,9 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'typeface-roboto';
 
-window.API_HOSTNAME = 'https://home.kokarn.com:4080';
+window.API_HOSTNAME = 'https://d2cmhnbxvwhy7s.cloudfront.net';
+
+// window.API_HOSTNAME = 'https://localhost:4080';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
