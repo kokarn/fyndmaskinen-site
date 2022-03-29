@@ -7,10 +7,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-import Main from './Main.js';
-import Deals from './Deals.js';
-import Live from './Live';
+import Main from './pages/main';
+import Deals from './pages/deals';
+// import Live from './Live';
 import Book from './pages/book2.jsx';
+
+import './App.css';
 
 const styles = {
     root: {

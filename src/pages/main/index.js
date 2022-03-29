@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+
 import TextField from '@material-ui/core/TextField';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -9,8 +9,8 @@ import InfoIcon from '@material-ui/icons/Info';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
+// import CircularProgress from '@material-ui/core/CircularProgress';
+// import { FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
 
 class Main extends Component {
     constructor ( props ) {

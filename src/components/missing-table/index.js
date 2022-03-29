@@ -8,8 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Countdown from 'react-countdown-now';
 
-import countdownRenderer from './countown-renderer.js';
-import './App.css';
+import countdownRenderer from '../../countown-renderer.js';
 
 class MissingTable extends Component {
     render(){

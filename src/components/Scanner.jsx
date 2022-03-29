@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useMemo } from 'react';
+import { useCallback, useLayoutEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import Quagga from '@ericblade/quagga2';
 
