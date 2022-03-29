@@ -154,7 +154,7 @@ class Main extends Component {
                       <Grid
                           item
                           md = { 12 }
-                          xs = { 8 }
+                          xs = { 12 }
                       >
                           <form
                             noValidate
