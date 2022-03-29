@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import { withStyles } from '@mui/material/styles';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 import LiveAuction from './LiveAuction.js';
 

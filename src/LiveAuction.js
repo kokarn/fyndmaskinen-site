@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@mui/material/styles';
 
-import Fab from '@material-ui/core/Fab';
+import Fab from '@mui/material/Fab';
 
 import LiveItem from './LiveItem.js';
 

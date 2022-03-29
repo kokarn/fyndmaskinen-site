@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Toolbar from '@material-ui/core/Toolbar';
+import AppBar from '@mui/material/AppBar';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Toolbar from '@mui/material/Toolbar';
 
 import MatchingTable from '../../components/matching-table';
 import MissingTable from '../../components/missing-table';

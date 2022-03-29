@@ -1,47 +1,41 @@
-import React, { Component } from 'react';
+import {useState} from 'react';
 
-import TextField from '@material-ui/core/TextField';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
-// import CircularProgress from '@material-ui/core/CircularProgress';
-// import { FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
+import {
+    Box,
+    Grid,
+    Typography,
+    Card,
+    CardHeader,
+    CardMedia,
+    CardContent,
+    TextField,
+    IconButton,
+    CardActionArea,
+} from '@mui/material';
+// import InfoIcon from '@material-ui/icons/Info';
+// import CircularProgress from '@mui/material/CircularProgress';
+// import { FormGroup, FormControlLabel, Checkbox } from '@mui/material';
 
-class Main extends Component {
-    constructor ( props ) {
-        super( props );
+function Main(props){
+    const [searchPhrase, setSearchPhrase] = useState('');
+    const [searchItems, setSearchItems] = useState([]);
+    const [showLoading, setShowLoading] = useState(false);
+    const [totalItems, setTotalItems] = useState(0);
+    const [validSearch, setValidSearch] = useState(false);
 
-        this.state = {
-            deals: false,
-            search: '',
-            searchItems: [],
-            showLoading: false,
-            totalItems: 0,
-            validSearch: false,
-        };
+    let searchTimeout = false;
+    const errorImage = `https://fyndmaskinen.pages.dev/images/no-image.jpg`;
 
-        this.searchTimeout = false;
+    // errorImage = `https://images.weserv.nl/?url=i.imgur.com/PPVXbBi.jpg&w=200&h=200&t=letterbox&bg=black`;
+    // errorImage = `https://i.imgur.com/fFRz0s0.jpg`;
 
-        this.search = this.search.bind( this );
-        this.handleFilterChange = this.handleFilterChange.bind( this );
-
-        // this.errorImage = `https://images.weserv.nl/?url=i.imgur.com/PPVXbBi.jpg&w=200&h=200&t=letterbox&bg=black`;
-        // this.errorImage = `https://i.imgur.com/fFRz0s0.jpg`;
-        this.errorImage = `https://fyndmaskinen.pages.dev/images/no-image.jpg`;
-    }
-
-    search() {
+    const search = () => {
         fetch( `${ window.API_HOSTNAME }/graphql`,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify( { query: `{
-                  findItems( match: "${ this.state.search }" ) {
+                  findItems( match: "${ searchPhrase }" ) {
                     title
                     url
                     currentPrice
@@ -55,46 +49,40 @@ class Main extends Component {
             return response.json();
         } )
         .then( ( response ) => {
-            this.setState( {
-                searchItems: response.data.findItems.slice( 0, 40 ),
-                showLoading: false,
-                validSearch: true,
-            } );
+            setSearchItems(response.data.findItems.slice( 0, 40 ));
+            setShowLoading(false);
+            setValidSearch(true);
         } )
         .catch( ( fetchError  ) => {
             console.error( fetchError );
         } )
     }
 
-    handleFilterChange( event ) {
-        this.setState( {
-            search: event.target.value,
-            showLoading: true,
-        } );
+    const handleFilterChange = ( event ) => {
+        setSearchPhrase(event.target.value);
+        setShowLoading(true);
 
-        clearTimeout( this.searchTimeout );
+        clearTimeout( searchTimeout );
 
         if ( event.target.value.length <= 2 ) {
-            this.setState( {
-                searchItems: [],
-                showLoading: false,
-                validSearch: false,
-            } );
+            setSearchItems([]);
+            setShowLoading(false);
+            setValidSearch(false);
 
             return true;
         }
 
-        this.searchTimeout = setTimeout( () => {
-            this.search();
+        searchTimeout = setTimeout( () => {
+            search();
         }, 300 );
     }
 
-    getSearchTable() {
-        if ( this.state.searchItems.length <= 0 ) {
+    const getSearchTable = () => {
+        if ( searchItems.length <= 0 ) {
             return null;
         }
 
-        return this.state.searchItems.map( ( tile ) => {
+        return searchItems.map( ( tile ) => {
             let currentPrice = <span>Nuvarande bud: { tile.currentPrice }</span>;
 
             if ( tile.currentPrice === -1 ) {
@@ -102,125 +90,116 @@ class Main extends Component {
             }
             // src = { `https://images.weserv.nl/?url=${ tile.img }&w=200&h=200&t=crop&a=center` }
             // src = { `https://images.weserv.nl/?url=${ tile.img }&w=200&h=200&t=letterbox&bg=white` }
-            return <GridListTile
-                key = { tile.img }
+            return <Grid
+                item
+                md = {2}
             >
-                <img
-                    src = { `https://images.weserv.nl/?url=${ tile.img }&w=200&h=200&t=letterbox&bg=black&errorredirect=${ this.errorImage }` }
-                    alt = { tile.title }
-                />
-                <GridListTileBar
-                    title = { tile.title }
-                    subtitle = { currentPrice }
-                    actionIcon = {
-                        <IconButton
-                            href = { tile.url }
-                        >
-                            <InfoIcon
-                                className = { 'icon' }
-                            />
-                        </IconButton>
-                    }
-                />
-            </GridListTile>
+                <Card
+                    key = { tile.img }
+                >
+                    <CardActionArea>
+                        <CardMedia
+                            alt = { tile.title }
+                            height = {200}
+                            component='img'
+                            image = { `https://images.weserv.nl/?url=${ tile.img }&w=200&h=200&t=letterbox&bg=black&errorredirect=${ errorImage }` }
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="h7" component="div">
+                                { tile.title }
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                                { currentPrice }
+                            </Typography>
+
+                                {/* <IconButton
+                                    href = { tile.url }
+                                >
+                                    <InfoIcon
+                                        className = { 'icon' }
+                                    />
+                                </IconButton> */}
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+            </Grid>
         } )
     }
 
-    getGridListCols() {
-        // if (isWidthUp('xl', this.props.width)) {
-        //     return 4;
-        // }
-
-        if ( isWidthUp( 'lg', this.props.width ) ) {
-            return 5;
-        }
-
-        if ( isWidthUp( 'md', this.props.width ) ) {
-            return 2;
-        }
-
-        return 1;
-    }
-
-    render() {
-        return (
-            <div className="App">
-                <div className = { 'gridlist-root' }>
-                  <Grid
-                      container
-                      spacing = { 24 }
-                      alignItems = { 'flex-end' }
-                  >
-                      <Grid
-                          item
-                          md = { 12 }
-                          xs = { 12 }
-                      >
-                          <form
-                            noValidate
-                            autoComplete="off"
+    return (
+        <div className="App">
+            <Box
+                mx = {2}
+            >
+                <Grid
+                    container
+                    spacing = { 2 }
+                    // alignItems = { 'flex-end' }
+                >
+                    <Grid
+                        item
+                        md = { 12 }
+                    >
+                        <form
+                        noValidate
+                        autoComplete="off"
+                    >
+                            <TextField
+                                fullWidth
+                                id = 'standard-name'
+                                label = { 'Sök' }
+                                value = { searchPhrase }
+                                onChange = { handleFilterChange }
+                                margin = 'normal'
+                            />
+                            { showLoading &&
+                                <div>
+                                    Söker...
+                                </div>
+                            }
+                            {/* <FormGroup>
+                            <FormControlLabel
+                                control={<Checkbox defaultChecked />}
+                                label="Auctions"
+                            />
+                            <FormControlLabel
+                                disabled
+                                control={<Checkbox />}
+                                label="Blocket"
+                            />
+                            <FormControlLabel
+                                disabled
+                                control={<Checkbox />}
+                                label="Marketplace"
+                            />
+                        </FormGroup> */}
+                        </form>
+                    </Grid>
+                    <Grid
+                        item
+                        md = { 12 }
+                    >
+                        { validSearch && <Typography
+                            align = { 'left' }
+                            variant = { 'h6' }
                         >
-                              <TextField
-                                    fullWidth
-                                  id = 'standard-name'
-                                  label = { 'Sök' }
-                                  value = { this.state.search }
-                                  onChange = { this.handleFilterChange }
-                                  margin = 'normal'
-                              />
-                              { this.state.showLoading &&
-                                  <div>
-                                      Söker...
-                                  </div>
-                              }
-                              {/* <FormGroup>
-                                <FormControlLabel
-                                    control={<Checkbox defaultChecked />}
-                                    label="Auctions"
-                                />
-                                <FormControlLabel
-                                    disabled
-                                    control={<Checkbox />}
-                                    label="Blocket"
-                                />
-                                <FormControlLabel
-                                    disabled
-                                    control={<Checkbox />}
-                                    label="Marketplace"
-                                />
-                            </FormGroup> */}
-                          </form>
-                      </Grid>
-                      <Grid
-                          item
-                          md = { 12 }
-                        //   xs = { 4 }
-                      >
-                          { this.state.validSearch && <Typography
-                              align = { 'left' }
-                              variant = { 'h6' }
-                          >
-                              { `Hittade ${ this.state.searchItems.length } objekt för sökningen ${ this.state.search }` }
-                          </Typography> }
-                      </Grid>
-                      <Grid
-                          item
-                          xs = { 12 }
-                      >
-                          <GridList
-                              cellHeight = { 'auto' }
-                              className = { 'gridList' }
-                              cols = { this.getGridListCols() }
-                              spacing = { 4 }
-                          >
-                              { this.getSearchTable() }
-                          </GridList>
-                      </Grid>
-                  </Grid>
-              </div>
-            </div>
-        );
-    }
+                            { `Hittade ${ searchItems.length } objekt för sökningen ${ searchPhrase }` }
+                        </Typography> }
+                    </Grid>
+                </Grid>
+                <Grid
+                    container
+                    spacing = {2}
+                    columns = { {
+                        md: 12,
+                        xs: 4,
+                    } }
+                >
+                    { getSearchTable() }
+                </Grid>
+            </Box>
+        </div>
+    );
 }
 
-export default withWidth()(Main);
+export default Main;

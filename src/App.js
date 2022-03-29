@@ -1,11 +1,19 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { withStyles } from '@material-ui/core/styles';
+import { useState, useMemo } from "react";
+import {
+    Routes,
+    Route,
+    Link
+} from "react-router-dom";
 
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import {
+    AppBar,
+    Toolbar,
+    Typography,
+    Button,
+    Box,
+    Menu,
+    MenuItem,
+} from '@mui/material';
 
 import Main from './pages/main';
 import Deals from './pages/deals';
@@ -14,114 +22,93 @@ import Book from './pages/book2.jsx';
 
 import './App.css';
 
-const styles = {
-    root: {
-        flexGrow: 1,
-    },
-    grow: {
-        flexGrow: 1,
-    },
-    menuButton: {
-        marginLeft: -12,
-        marginRight: 20,
-    },
-};
+const App = () => {
+    const [totalItems, setTotalItems] = useState('?');
 
-class App extends Component {
-    constructor( props ) {
-        super( props );
-
-        this.classes = props.classes;
-        this.state = {
-            selectedTab: false,
-            totalItems: 0,
-        };
-
-        this.handleTabChange = this.handleTabChange.bind( this );
-    }
-
-    componentDidMount(){
-        this.updateData();
-    }
-
-    updateData () {
+    const updateData = () => {
         fetch( `${ window.API_HOSTNAME }/deals` )
             .then( ( response ) => {
                 return response.json();
             } )
             .then( ( response ) => {
-                this.setState( {
-                    totalItems: response.totalItems,
-                } );
+                setTotalItems(response.totalItems);
             } )
             .catch( ( fetchError  ) => {
                 console.error( fetchError );
             } );
-    }
-
-    handleTabChange ( event, value ) {
-        this.setState( {
-            selectedTab: value,
-        } );
     };
 
-    render() {
-        return (
-            <Router>
-                <div
-                    className = { this.classes.root }
-                >
-                    <AppBar
-                        position = "static"
-                    >
-                        <Toolbar>
-                            <Typography
-                                color = { 'inherit' }
-                                variant = { 'h5' }
-                            >
-                                <Link to="/">
-                                    { 'Fyndmaskinen' }
-                                </Link>
-                            </Typography>
-                            <Button
-                                color = { 'inherit' }
-                            >
-                                <Link to="/deals">
-                                    { 'Deals' }
-                                </Link>
-                            </Button>
-                            <Button
-                                color = { 'inherit' }
-                            >
-                                <Link to="/book2">
-                                    { 'Book' }
-                                </Link>
-                            </Button>
-                            {/* <Button
-                                color = { 'inherit' }
-                            >
-                                <Link to="/live">
-                                    { 'Live' }
-                                </Link>
-                            </Button> */}
-                            <Typography
-                                className = { this.classes.grow }
-                                color = { 'inherit' }
-                                align = { 'right' }
-                            >
-                                { `Sök bland ${ this.state.totalItems } objekt` }
-                            </Typography>
-                        </Toolbar>
-                    </AppBar>
+    useMemo(() => {
+        updateData();
+    }, []);
 
-                    <Route exact path="/" component={Main} />
-                    <Route path="/deals" component={Deals} />
-                    <Route path="/book2" component={Book} />
+    return (
+        <div>
+            <Box sx={{ flexGrow: 1 }}>
+                <AppBar
+                    position = "static"
+                >
+                    <Toolbar>
+                        <Typography
+                            color = { 'inherit' }
+                            variant = { 'h5' }
+                        >
+                            <Link to="/">
+                                { 'Fyndmaskinen' }
+                            </Link>
+                        </Typography>
+                        <Button
+                            sx = {{
+                                flexGrow: 1,
+                                justifyContent: 'start',
+                                color: '#fff',
+                            }}
+                            component={Link}
+                            to="/deals"
+                        >
+                            { 'Deals' }
+                        </Button>
+                        {/* <Button
+                            color = { 'inherit' }
+                        >
+                            <Link to="/book2">
+                                { 'Book' }
+                            </Link>
+                        </Button> */}
+                        {/* <Button
+                            color = { 'inherit' }
+                        >
+                            <Link to="/live">
+                                { 'Live' }
+                            </Link>
+                        </Button> */}
+                        <Typography
+                            color = { 'inherit' }
+                            align = { 'right' }
+                        >
+                            { `Sök bland ${ totalItems } objekt` }
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+            </Box>
+            <Routes>
+                <Route
+                    path="/"
+                    element={<Main />}
+                />
+                <Route
+                    path="/deals"
+                    element={<Deals />}
+                />
+                {/* <Route
+                    path="/book2"
+                >
+                    <Book />
+                </Route> */}
+            </Routes>
                     {/* <Route path="/live" component={Live} /> */}
-                </div>
-            </Router>
-        );
-    }
+        </div>
+    );
 }
 
-export default withStyles(styles)(App);
+export default App;
