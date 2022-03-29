@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { useState, useMemo } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -7,51 +7,38 @@ import Toolbar from '@mui/material/Toolbar';
 import MatchingTable from '../../components/matching-table';
 import MissingTable from '../../components/missing-table';
 
-class Deals extends Component {
-    constructor ( props ) {
-        super( props );
+const Deals = () => {
+    const [deals, setDeals] = useState([]);
+    const [selectedTab, setSelectedTab] = useState(false);
 
-        this.state = {
-            deals: [],
-            selectedTab: false,
-        };
-
-        this.handleTabChange = this.handleTabChange.bind( this );
-    }
-
-    componentDidMount(){
-        this.updateData();
-    }
-
-    updateData () {
+    const updateData = () => {
         fetch( `${ window.API_HOSTNAME }/deals` )
             .then( ( response ) => {
                 return response.json();
             } )
             .then( ( response ) => {
-                this.setState( {
-                    deals: response.data,
-                    totalItems: response.totalItems,
-                } );
+                setDeals(response.data);
             } )
             .catch( ( fetchError  ) => {
                 console.error( fetchError );
             } );
-    }
-
-    handleTabChange ( event, value ) {
-        this.setState( {
-            selectedTab: value,
-        } );
     };
 
-    getTabs() {
+    useMemo(() => {
+        updateData();
+    }, []);
+
+    const handleTabChange = ( event, value ) => {
+        setSelectedTab(value);
+    };
+
+    const getTabs = () => {
         const tabs = [];
 
-        for ( const identifier in this.state.deals ) {
+        for ( const identifier in deals ) {
             tabs.push( <Tab
                 key = { identifier }
-                label = { `${ identifier } ${ this.state.deals[ identifier ].matching.length } / ${ this.state.deals[ identifier ].missing.length }` }
+                label = { `${ identifier } ${ deals[ identifier ].matching.length } / ${ deals[ identifier ].missing.length }` }
                 value = { identifier }
             /> );
         }
@@ -59,56 +46,54 @@ class Deals extends Component {
         return tabs;
     }
 
-    render() {
-        return (
-            <div>
-                { this.state.deals &&
-                    <AppBar position="sticky">
-                        <Toolbar>
-                            <Tabs
-                                centered
-                                onChange = { this.handleTabChange }
-                                value = { this.state.selectedTab }
-                                >
-                                { this.getTabs() }
-                            </Tabs>
-                        </Toolbar>
-                    </AppBar>
-                }
-                { /*
-                <div
-                    className = { 'gridlist-root' }
-                >
-                    <GridList
-                        cellHeight = { 'auto' }
-                        className = { 'gridList' }
-                        cols = { 6 }
-                        spacing = { 5 }
-                    >
-                        <GridListTile
-                            key = "search"
-                            cols = { 6 }
-                            style = { { height: 'auto', } }
+    return (
+        <div>
+            { deals &&
+                <AppBar position="sticky">
+                    <Toolbar>
+                        <Tabs
+                            centered
+                            onChange = { handleTabChange }
+                            value = { selectedTab }
                         >
+                            { getTabs() }
+                        </Tabs>
+                    </Toolbar>
+                </AppBar>
+            }
+            { /*
+            <div
+                className = { 'gridlist-root' }
+            >
+                <GridList
+                    cellHeight = { 'auto' }
+                    className = { 'gridList' }
+                    cols = { 6 }
+                    spacing = { 5 }
+                >
+                    <GridListTile
+                        key = "search"
+                        cols = { 6 }
+                        style = { { height: 'auto', } }
+                    >
 
-                        </GridListTile>
-                        { this.getSearchTable() }
-                    </GridList>
-                </div>
-                */ }
-                { this.state.selectedTab &&
-                    <MatchingTable
-                        items = { this.state.deals[ this.state.selectedTab ].matching  }
-                    />
-                }
-                { this.state.selectedTab &&
-                    <MissingTable
-                        items = {this.state.deals[ this.state.selectedTab ].missing }
-                    />
-                }
+                    </GridListTile>
+                    { getSearchTable() }
+                </GridList>
             </div>
-        );
-    }
+            */ }
+            { selectedTab &&
+                <MatchingTable
+                    items = { deals[ selectedTab ].matching  }
+                />
+            }
+            { selectedTab &&
+                <MissingTable
+                    items = {deals[ selectedTab ].missing }
+                />
+            }
+        </div>
+    );
 }
 
 export default Deals;
