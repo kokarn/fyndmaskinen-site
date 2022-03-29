@@ -22,8 +22,8 @@ function Main(props){
     const [showLoading, setShowLoading] = useState(false);
     const [totalItems, setTotalItems] = useState(0);
     const [validSearch, setValidSearch] = useState(false);
+    const [searchTimeout, setSearchTimeout] = useState(false);
 
-    let searchTimeout = false;
     const errorImage = `https://fyndmaskinen.pages.dev/images/no-image.jpg`;
 
     // errorImage = `https://images.weserv.nl/?url=i.imgur.com/PPVXbBi.jpg&w=200&h=200&t=letterbox&bg=black`;
@@ -72,9 +72,9 @@ function Main(props){
             return true;
         }
 
-        searchTimeout = setTimeout( () => {
+        setSearchTimeout(setTimeout( () => {
             search();
-        }, 300 );
+        }, 300 ));
     }
 
     const getSearchTable = () => {
@@ -151,6 +151,7 @@ function Main(props){
                                 value = { searchPhrase }
                                 onChange = { handleFilterChange }
                                 margin = 'normal'
+                                variant='standard'
                             />
                             { showLoading &&
                                 <div>
