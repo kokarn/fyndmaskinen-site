@@ -25,10 +25,10 @@ const MissingTable = ({
     return (
         <Grid
             item
-            key = { 'matching' }
+            key = {'matching'}
         >
             <Typography
-                variant = { 'h6' }
+                variant = {'h6'}
             >
                 { 'Missing' }
             </Typography>
@@ -66,14 +66,14 @@ const MissingTable = ({
                             return (
                                 <TableRow
                                     hover
-                                    key = { `${ row.url }-${ row.matcher }` }
+                                    key = {`${ row.url }-${ row.matcher }`}
                                 >
                                     <TableCell
-                                        component = { 'th' }
-                                        scope = { 'row' }
+                                        component = {'th'}
+                                        scope = {'row'}
                                     >
                                         <a
-                                            href = { row.url }
+                                            href = {row.url}
                                         >
                                             { row.title }
                                         </a>
@@ -97,8 +97,8 @@ const MissingTable = ({
                                         align = 'right'
                                     >
                                         <Countdown
-                                            date = { row.startTime }
-                                            renderer = { countdownRenderer }
+                                            date = {row.startTime}
+                                            renderer = {countdownRenderer}
                                         />
                                     </TableCell>
                                 </TableRow>

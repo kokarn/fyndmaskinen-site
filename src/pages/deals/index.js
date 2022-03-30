@@ -44,9 +44,9 @@ const Deals = () => {
 
         for (const identifier in deals) {
             tabs.push(<Tab
-                key = { identifier }
-                label = { `${ identifier } ${ deals[ identifier ].matching.length } / ${ deals[ identifier ].missing.length }` }
-                value = { identifier }
+                key = {identifier}
+                label = {`${ identifier } ${ deals[ identifier ].matching.length } / ${ deals[ identifier ].missing.length }`}
+                value = {identifier}
             />);
         }
 
@@ -62,8 +62,8 @@ const Deals = () => {
                     <Toolbar>
                         <Tabs
                             centered
-                            onChange = { handleTabChange }
-                            value = { selectedTab }
+                            onChange = {handleTabChange}
+                            value = {selectedTab}
                         >
                             { getTabs() }
                         </Tabs>
@@ -93,12 +93,12 @@ const Deals = () => {
             */ }
             { selectedTab &&
                 <MatchingTable
-                    items = { deals[ selectedTab ].matching  }
+                    items = {deals[ selectedTab ].matching}
                 />
             }
             { selectedTab &&
                 <MissingTable
-                    items = { deals[ selectedTab ].missing }
+                    items = {deals[ selectedTab ].missing}
                 />
             }
         </div>

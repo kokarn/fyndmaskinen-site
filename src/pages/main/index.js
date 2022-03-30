@@ -8,16 +8,11 @@ import {
     Grid,
     Typography,
     Card,
-    // CardHeader,
     CardMedia,
     CardContent,
     TextField,
-    // IconButton,
     CardActionArea,
 } from '@mui/material';
-// import InfoIcon from '@material-ui/icons/Info';
-// import CircularProgress from '@mui/material/CircularProgress';
-// import { FormGroup, FormControlLabel, Checkbox } from '@mui/material';
 
 const MAX_ITEMS = 40;
 const SEARCH_DELAY = 300;
@@ -43,9 +38,6 @@ const Main = () => {
     ] = useState(false);
 
     const errorImage = 'https://fyndmaskinen.pages.dev/images/no-image.jpg';
-
-    // errorImage = `https://images.weserv.nl/?url=i.imgur.com/PPVXbBi.jpg&w=200&h=200&t=letterbox&bg=black`;
-    // errorImage = `https://i.imgur.com/fFRz0s0.jpg`;
 
     const search = () => {
         fetch(
@@ -114,26 +106,24 @@ const Main = () => {
                 currentPrice = <span>{'Förhandsvisning'}</span>;
             }
 
-            // src = { `https://images.weserv.nl/?url=${ tile.img }&w=200&h=200&t=crop&a=center` }
-            // src = { `https://images.weserv.nl/?url=${ tile.img }&w=200&h=200&t=letterbox&bg=white` }
             return (
                 <Grid
                     item
-                    key = { `${tile.title}` }
-                    md = { 2 }
-                    xs = { 2 }
+                    key = {`${tile.title}`}
+                    md = {2}
+                    xs = {2}
                 >
                     <Card
-                        key = { tile.img }
+                        key = {tile.img}
                     >
                         <CardActionArea
-                            href = { tile.url }
+                            href = {tile.url}
                         >
                             <CardMedia
-                                alt = { tile.title }
+                                alt = {tile.title}
                                 component = 'img'
-                                height = { 200 }
-                                image = { `https://images.weserv.nl/?url=${ tile.img }&w=200&h=200&fit=cover&errorredirect=${ errorImage }` }
+                                height = {200}
+                                image = {`https://images.weserv.nl/?url=${ tile.img }&w=200&h=200&fit=cover&errorredirect=${ errorImage }`}
                             />
                             <CardContent>
                                 <Typography
@@ -149,14 +139,6 @@ const Main = () => {
                                 >
                                     { currentPrice }
                                 </Typography>
-
-                                {/* <IconButton
-                                        href = { tile.url }
-                                    >
-                                        <InfoIcon
-                                            className = { 'icon' }
-                                        />
-                                    </IconButton> */}
                             </CardContent>
                         </CardActionArea>
                     </Card>
@@ -170,17 +152,17 @@ const Main = () => {
             className = 'App'
         >
             <Box
-                mx = { 2 }
+                mx = {2}
             >
                 <Grid
                     container
-                    spacing = { 2 }
+                    spacing = {2}
                     // alignItems = { 'flex-end' }
                 >
                     <Grid
                         item
-                        md = { 12 }
-                        xs = { 12 }
+                        md = {12}
+                        xs = {12}
                     >
                         <form
                             autoComplete = 'off'
@@ -189,10 +171,13 @@ const Main = () => {
                             <TextField
                                 fullWidth
                                 id = 'standard-name'
-                                label = { 'Sök' }
+                                inputProps = {{
+                                    type: 'search',
+                                }}
+                                label = {'Sök'}
                                 margin = 'normal'
-                                onChange = { handleFilterChange }
-                                value = { searchPhrase }
+                                onChange = {handleFilterChange}
+                                value = {searchPhrase}
                                 variant = 'standard'
                             />
                             { showLoading &&
@@ -220,12 +205,12 @@ const Main = () => {
                     </Grid>
                     <Grid
                         item
-                        md = { 12 }
+                        md = {12}
                     >
                         { validSearch && (
                             <Typography
-                                align = { 'left' }
-                                variant = { 'h6' }
+                                align = {'left'}
+                                variant = {'h6'}
                             >
                                 { `Hittade ${ searchItems.length } objekt för sökningen ${ searchPhrase }` }
                             </Typography>
@@ -233,12 +218,12 @@ const Main = () => {
                     </Grid>
                 </Grid>
                 <Grid
-                    columns = { {
+                    columns = {{
                         md: 12,
                         xs: 4,
-                    } }
+                    }}
                     container
-                    spacing = { 2 }
+                    spacing = {2}
                 >
                     { getSearchTable() }
                 </Grid>

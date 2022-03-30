@@ -36,10 +36,10 @@ const MatchingTable = ({
     return (
         <Grid
             item
-            key = { 'matching' }
+            key = {'matching'}
         >
             <Typography
-                variant = { 'h6' }
+                variant = {'h6'}
             >
                 { 'Matching' }
             </Typography>
@@ -77,14 +77,14 @@ const MatchingTable = ({
                             return (
                                 <TableRow
                                     hover
-                                    key = { `${ row.url }-${ row.matcher }` }
+                                    key = {`${ row.url }-${ row.matcher }`}
                                 >
                                     <TableCell
-                                        component = { 'th' }
-                                        scope = { 'row' }
+                                        component = {'th'}
+                                        scope = {'row'}
                                     >
                                         <a
-                                            href = { row.url }
+                                            href = {row.url}
                                         >
                                             { row.title }
                                         </a>
@@ -108,8 +108,8 @@ const MatchingTable = ({
                                         align = 'right'
                                     >
                                         <Countdown
-                                            date = { row.startTime }
-                                            renderer = { countdownRenderer }
+                                            date = {row.startTime}
+                                            renderer = {countdownRenderer}
                                         />
                                     </TableCell>
                                 </TableRow>

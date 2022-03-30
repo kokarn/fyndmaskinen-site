@@ -11,7 +11,7 @@ import {
     AppBar,
     Toolbar,
     Typography,
-    Button,
+    // Button,
     Box,
     // Menu,
     // MenuItem,
@@ -50,17 +50,22 @@ const App = () => {
     return (
         <div>
             <Box
-                sx = { {
+                sx = {{
                     flexGrow: 1,
-                } }
+                }}
             >
                 <AppBar
                     position = 'static'
                 >
                     <Toolbar>
                         <Typography
-                            color = { 'inherit' }
-                            variant = { 'h5' }
+                            color = {'inherit'}
+                            sx = {{
+                                color: '#fff',
+                                flexGrow: 1,
+                                justifyContent: 'start',
+                            }}
+                            variant = {'h5'}
                         >
                             <Link
                                 to = '/'
@@ -68,7 +73,7 @@ const App = () => {
                                 { 'Fyndmaskinen' }
                             </Link>
                         </Typography>
-                        <Button
+                        {/* <Button
                             component = { Link }
                             sx = { {
                                 color: '#fff',
@@ -78,7 +83,7 @@ const App = () => {
                             to = '/deals'
                         >
                             { 'Deals' }
-                        </Button>
+                        </Button> */}
                         {/* <Button
                             color = { 'inherit' }
                         >
@@ -94,8 +99,8 @@ const App = () => {
                             </Link>
                         </Button> */}
                         <Typography
-                            align = { 'right' }
-                            color = { 'inherit' }
+                            align = {'right'}
+                            color = {'inherit'}
                         >
                             { `${ totalItems } objekt` }
                         </Typography>
@@ -104,11 +109,11 @@ const App = () => {
             </Box>
             <Routes>
                 <Route
-                    element = { <Main /> }
+                    element = {<Main />}
                     path = '/'
                 />
                 <Route
-                    element = { <Deals /> }
+                    element = {<Deals />}
                     path = '/deals'
                 />
                 {/* <Route
