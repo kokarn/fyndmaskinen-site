@@ -131,7 +131,7 @@ const Main = () => {
                                 alt = { tile.title }
                                 component = 'img'
                                 height = { 200 }
-                                image = { `https://images.weserv.nl/?url=${ tile.img }&w=200&h=200&t=letterbox&bg=black&errorredirect=${ errorImage }` }
+                                image = { `https://images.weserv.nl/?url=${ tile.img }&w=200&h=200&fit=cover&errorredirect=${ errorImage }` }
                             />
                             <CardContent>
                                 <Typography
