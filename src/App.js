@@ -97,7 +97,7 @@ const App = () => {
                             align = { 'right' }
                             color = { 'inherit' }
                         >
-                            { `Sök bland ${ totalItems } objekt` }
+                            { `${ totalItems } objekt` }
                         </Typography>
                     </Toolbar>
                 </AppBar>
