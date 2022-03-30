@@ -126,7 +126,9 @@ const Main = () => {
                     <Card
                         key = { tile.img }
                     >
-                        <CardActionArea>
+                        <CardActionArea
+                            href = { tile.url }
+                        >
                             <CardMedia
                                 alt = { tile.title }
                                 component = 'img'
