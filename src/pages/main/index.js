@@ -1,18 +1,16 @@
 import {
     useState,
-    useCallback,
+    useMemo,
 } from 'react';
-
 import {
     Box,
     Grid,
     Typography,
-    Card,
-    CardMedia,
-    CardContent,
     TextField,
-    CardActionArea,
 } from '@mui/material';
+import shuffle from 'just-shuffle';
+
+import SearchTable from '../../components/search-table';
 
 const MAX_ITEMS = 40;
 const SEARCH_DELAY = 300;
@@ -25,22 +23,19 @@ const Main = () => {
         searchItems, setSearchItems,
     ] = useState([]);
     const [
-        showLoading, setShowLoading,
-    ] = useState(false);
-    // const [
-    //     totalItems, setTotalItems,
-    // ] = useState(0);
-    const [
-        validSearch, setValidSearch,
-    ] = useState(false);
-    const [
         searchTimeout, setSearchTimeout,
     ] = useState(false);
-
-    const errorImage = 'https://fyndmaskinen.pages.dev/images/no-image.jpg';
+    const [
+        searchTitle,
+        setSearchTitle,
+    ] = useState('');
+    const [
+        searchActive,
+        setSearchActive,
+    ] = useState(false);
 
     const search = () => {
-        fetch(
+        return fetch(
             `${ window.API_HOSTNAME }/graphql`,
             {
                 body: JSON.stringify({
@@ -64,87 +59,45 @@ const Main = () => {
                 return response.json();
             })
             .then((response) => {
-                setSearchItems(response.data.findItems.slice(0, MAX_ITEMS));
-                setShowLoading(false);
-                setValidSearch(true);
+                return response.data.findItems;
             })
             .catch((fetchError) => {
                 console.error(fetchError);
             });
     };
 
-    const handleFilterChange = useCallback((event) => {
+    useMemo(async () => {
+        const responseItems = await search();
+        const shuffledItems = shuffle(responseItems);
+
+        setSearchItems(shuffledItems.slice(0, MAX_ITEMS));
+        setSearchActive(false);
+    }, []);
+
+    const handleFilterChange = (event) => {
         setSearchPhrase(event.target.value);
-        setShowLoading(true);
 
         clearTimeout(searchTimeout);
 
         if (event.target.value.length <= 2) {
             setSearchItems([]);
-            setShowLoading(false);
-            setValidSearch(false);
+            setSearchTitle('');
+            setSearchActive(false);
 
             return true;
         }
 
-        setSearchTimeout(setTimeout(() => {
-            search();
+        setSearchActive(true);
+
+        setSearchTimeout(setTimeout(async () => {
+            const resultItems = await search();
+
+            setSearchTitle(`Hittade ${ resultItems.length } objekt för sökningen ${ event.target.value }`);
+            setSearchItems(resultItems);
+            setSearchActive(false);
         }, SEARCH_DELAY));
 
         return true;
-    });
-
-    const getSearchTable = () => {
-        if (searchItems.length <= 0) {
-            return null;
-        }
-
-        return searchItems.map((tile) => {
-            let currentPrice = <span>{'Nuvarande bud: '}{ tile.currentPrice }</span>;
-
-            if (tile.currentPrice === -1) {
-                currentPrice = <span>{'Förhandsvisning'}</span>;
-            }
-
-            return (
-                <Grid
-                    item
-                    key = {`${tile.title}`}
-                    md = {2}
-                    xs = {2}
-                >
-                    <Card
-                        key = {tile.img}
-                    >
-                        <CardActionArea
-                            href = {tile.url}
-                        >
-                            <CardMedia
-                                alt = {tile.title}
-                                component = 'img'
-                                height = {200}
-                                image = {`https://images.weserv.nl/?url=${ tile.img }&w=200&h=200&fit=cover&errorredirect=${ errorImage }`}
-                            />
-                            <CardContent>
-                                <Typography
-                                    component = 'div'
-                                    gutterBottom
-                                    variant = 'h7'
-                                >
-                                    { tile.title }
-                                </Typography>
-                                <Typography
-                                    color = 'text.secondary'
-                                    variant = 'body2'
-                                >
-                                    { currentPrice }
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Grid>
-            );
-        });
     };
 
     return (
@@ -152,13 +105,25 @@ const Main = () => {
             className = 'App'
         >
             <Box
-                mx = {2}
+                m = {2}
             >
                 <Grid
                     container
                     spacing = {2}
                     // alignItems = { 'flex-end' }
                 >
+                    {/* <Grid
+                        item
+                        md = {12}
+                        xs = {12}
+                    >
+                        <Typography
+                            component = 'h1'
+                            variant = 'h4'
+                        >
+                            {'Sök efter just dina fynd'}
+                        </Typography>
+                    </Grid> */}
                     <Grid
                         item
                         md = {12}
@@ -180,11 +145,6 @@ const Main = () => {
                                 value = {searchPhrase}
                                 variant = 'standard'
                             />
-                            { showLoading &&
-                                <div>
-                                    {'Söker...'}
-                                </div>
-                            }
                             {/* <FormGroup>
                             <FormControlLabel
                                 control={<Checkbox defaultChecked />}
@@ -202,19 +162,22 @@ const Main = () => {
                             />
                         </FormGroup> */}
                         </form>
+                        {searchActive && (
+                            <div>
+                                {'Söker...'}
+                            </div>
+                        )}
                     </Grid>
                     <Grid
                         item
                         md = {12}
                     >
-                        { validSearch && (
-                            <Typography
-                                align = {'left'}
-                                variant = {'h6'}
-                            >
-                                { `Hittade ${ searchItems.length } objekt för sökningen ${ searchPhrase }` }
-                            </Typography>
-                        )}
+                        <Typography
+                            align = {'left'}
+                            variant = {'h6'}
+                        >
+                            { searchTitle }
+                        </Typography>
                     </Grid>
                 </Grid>
                 <Grid
@@ -225,7 +188,9 @@ const Main = () => {
                     container
                     spacing = {2}
                 >
-                    { getSearchTable() }
+                    <SearchTable
+                        displayItems = {searchItems}
+                    />
                 </Grid>
             </Box>
         </div>

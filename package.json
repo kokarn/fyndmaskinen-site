@@ -18,6 +18,7 @@
         "@emotion/styled": "^11.8.1",
         "@ericblade/quagga2": "^1.6.0",
         "@mui/material": "^5.5.3",
+        "just-shuffle": "^4.0.1",
         "react": "^18.0.0",
         "react-countdown-now": "^2.1.0",
         "react-dom": "^18.0.0",
@@ -55,7 +56,16 @@
             "plugin:react/jsx-runtime"
         ],
         "rules": {
-            "react/jsx-closing-bracket-location": [1, "line-aligned"]
+            "react/jsx-closing-bracket-location": [
+                1,
+                "line-aligned"
+            ],
+            "react/jsx-no-bind": [
+                1,
+                {
+                    "ignoreDOMComponents": true
+                }
+            ]
         }
     }
 }
