@@ -1,5 +1,9 @@
-import React, { Component } from 'react';
-import { withStyles } from '@mui/material/styles';
+import React, {
+    Component,
+} from 'react';
+import {
+    withStyles,
+} from '@mui/material/styles';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
@@ -7,16 +11,18 @@ import Button from '@mui/material/Button';
 
 import LiveAuction from './LiveAuction.js';
 
-const styles = theme => ( {
-    selector: {
-        margin: '0 20px',
-        top: 31,
-    },
-    submit: {
-        margin: '0 20px',
-        top: 20,
-    },
-} );
+const styles = ( theme ) => {
+    return  {
+        selector: {
+            margin: '0 20px',
+            top: 31,
+        },
+        submit: {
+            margin: '0 20px',
+            top: 20,
+        },
+    };
+};
 
 class Live extends Component {
     constructor ( props ) {
@@ -42,15 +48,15 @@ class Live extends Component {
         return this.state.auctions.map( ( auction ) => {
             return (
                 <LiveAuction
-                    key = { `${ auction.house } - ${ auction.auctionID }` }
-                    house = { auction.house }
                     auctionID = { auction.auctionID }
+                    house = { auction.house }
+                    key = { `${ auction.house } - ${ auction.auctionID }` }
                 />
             );
         } );
     }
 
-    handleHouseSelect( event ) {
+    handleHouseSelect ( event ) {
         this.setState( {
             selectedHouse: event.target.value,
         } );
@@ -75,24 +81,24 @@ class Live extends Component {
         } );
     }
 
-    render() {
+    render () {
         return [
             <div
                 className = { 'live-items-wrapper' }
             >
                 { this.getLive() }
                 <form
+                    autoComplete = 'off'
                     noValidate
-                    autoComplete="off"
                 >
                     <Select
                         className = { this.props.classes.selector }
-                        value = { this.state.selectedHouse }
-                        onChange = { this.handleHouseSelect }
                         inputProps = { {
                             name: 'house',
                             id: 'house-simple',
                         } }
+                        onChange = { this.handleHouseSelect }
+                        value = { this.state.selectedHouse }
                     >
                         <MenuItem
                             value = { 'gta' }
@@ -106,15 +112,15 @@ class Live extends Component {
                         </MenuItem>
                     </Select>
                     <TextField
-                        id = "standard-name"
-                        label = "Name"
-                        value = { this.name }
+                        id = 'standard-name'
+                        label = 'Name'
+                        margin = 'normal'
                         onChange = { this.handleAuctionIdUpdate }
-                        margin = "normal"
+                        value = { this.name }
                     />
                     <Button
-                        color = { 'primary' }
                         className = { this.props.classes.submit }
+                        color = { 'primary' }
                         onClick = { this.handleLiveAuctionAdd }
                         variant = { 'contained' }
                     >
@@ -126,4 +132,4 @@ class Live extends Component {
     }
 }
 
-export default withStyles(styles)(Live);
+export default withStyles( styles )( Live );

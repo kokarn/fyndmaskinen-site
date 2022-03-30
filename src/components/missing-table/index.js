@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,52 +11,50 @@ import Countdown from 'react-countdown-now';
 
 import countdownRenderer from '../../countown-renderer.js';
 
-class MissingTable extends Component {
-    render(){
-        if ( this.props.items.length <= 0 ) {
-            return null;
-        }
+const MissingTable = ({
+    items,
+}) => {
+    if (items.length <= 0) {
+        return null;
+    }
 
-        const sortedItems = this.props.items.sort( ( a, b ) => {
-            return a.title.localeCompare( b.title );
-        } );
+    const sortedItems = items.sort((a, b) => {
+        return a.title.localeCompare(b.title);
+    });
 
-        return <Grid
+    return (
+        <Grid
             item
-            className = { 'root' }
-            key = { `matching` }
+            key = { 'matching' }
         >
             <Typography
-                className = { 'table-title' }
                 variant = { 'h6' }
             >
-                { `Missing` }
+                { 'Missing' }
             </Typography>
-            <Table
-                className = { 'table' }
-            >
+            <Table>
                 <TableHead>
                     <TableRow>
                         <TableCell>
                             { 'Item title' }
                         </TableCell>
                         <TableCell
-                            align="right"
+                            align = 'right'
                         >
                             { 'Best match' }
                         </TableCell>
                         <TableCell
-                            align="right"
+                            align = 'right'
                         >
                             { 'Certainty' }
                         </TableCell>
                         <TableCell
-                            align = "right"
+                            align = 'right'
                         >
                             { 'Current bid' }
                         </TableCell>
                         <TableCell
-                            align = "right"
+                            align = 'right'
                         >
                             { 'Starting' }
                         </TableCell>
@@ -63,11 +62,11 @@ class MissingTable extends Component {
                 </TableHead>
                 <TableBody>
                     {
-                        sortedItems.map( ( row ) => {
+                        sortedItems.map((row) => {
                             return (
                                 <TableRow
-                                    key = { `${ row.url }-${ row.matcher }` }
                                     hover
+                                    key = { `${ row.url }-${ row.matcher }` }
                                 >
                                     <TableCell
                                         component = { 'th' }
@@ -79,16 +78,24 @@ class MissingTable extends Component {
                                             { row.title }
                                         </a>
                                     </TableCell>
-                                    <TableCell align="right">
+                                    <TableCell
+                                        align = 'right'
+                                    >
                                         { row.bestMatch }
                                     </TableCell>
-                                    <TableCell align="right">
+                                    <TableCell
+                                        align = 'right'
+                                    >
                                         { row.matchRating }
                                     </TableCell>
-                                    <TableCell align="right">
+                                    <TableCell
+                                        align = 'right'
+                                    >
                                         { row.bid }
                                     </TableCell>
-                                    <TableCell align="right">
+                                    <TableCell
+                                        align = 'right'
+                                    >
                                         <Countdown
                                             date = { row.startTime }
                                             renderer = { countdownRenderer }
@@ -96,12 +103,23 @@ class MissingTable extends Component {
                                     </TableCell>
                                 </TableRow>
                             );
-                        } )
+                        })
                     }
                 </TableBody>
             </Table>
-        </Grid>;
-    }
-}
+        </Grid>
+    );
+};
+
+MissingTable.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.shape({
+        bid: PropTypes.string,
+        matcher: PropTypes.string,
+        startTime: PropTypes.string,
+        title: PropTypes.string,
+        url: PropTypes.string,
+        value: PropTypes.string,
+    })).isRequired,
+};
 
 export default MissingTable;

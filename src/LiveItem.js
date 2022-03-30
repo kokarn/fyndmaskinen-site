@@ -1,5 +1,9 @@
-import React, { Component } from 'react';
-import { withStyles } from '@mui/material/styles';
+import React, {
+    Component,
+} from 'react';
+import {
+    withStyles,
+} from '@mui/material/styles';
 
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
@@ -10,27 +14,31 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
 import CheckIcon from '@material-ui/icons/Check';
-import { Textfit } from 'react-textfit';
+import {
+    Textfit,
+} from 'react-textfit';
 
 const PERCENTAGE_SIZE = 16;
 const TITLE_MAX_LENGTH = 35;
 
 const imageSize = Math.floor( window.outerWidth / 100 * PERCENTAGE_SIZE );
 
-const styles = theme => ( {
-    liveCard: {
-        marginBottom: '1%',
-        width: `${ PERCENTAGE_SIZE }%`,
-    },
-    liveCardMedia: {
-        height: imageSize,
-    }
-} );
+const styles = ( theme ) => {
+    return  {
+        liveCard: {
+            marginBottom: '1%',
+            width: `${ PERCENTAGE_SIZE }%`,
+        },
+        liveCardMedia: {
+            height: imageSize,
+        },
+    };
+};
 
 class LiveItem extends Component {
     getIcon () {
         if ( this.props.timeLeft > 0 ) {
-            return <AddIcon />
+            return <AddIcon />;
         }
 
         return <CheckIcon />;
@@ -61,8 +69,8 @@ class LiveItem extends Component {
                     />
                     <CardContent>
                         <Textfit
-                            mode = { 'single' }
                             max = { 24 }
+                            mode = { 'single' }
                         >
                             { this.getTitle() }
                         </Textfit>
@@ -72,15 +80,15 @@ class LiveItem extends Component {
                     >
                         { this.props.timeLeft }s kvar
                         <Tooltip
-                            title = { `Lägg bud på ${ this.props.nextBid } kr` }
                             placement = { 'top' }
+                            title = { `Lägg bud på ${ this.props.nextBid } kr` }
                         >
                             <Button
                                 className = { 'live-price-button' }
                                 color = { 'primary' }
                                 disabled = { this.props.timeLeft === 0 }
-                                size="small"
-                                variant="contained"
+                                size = 'small'
+                                variant = 'contained'
                             >
                                 { this.getIcon() }
                                 { this.props.currentBid } kr
@@ -93,4 +101,4 @@ class LiveItem extends Component {
     }
 }
 
-export default withStyles(styles)(LiveItem);
+export default withStyles( styles )( LiveItem );

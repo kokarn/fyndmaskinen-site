@@ -1,17 +1,23 @@
-import React, { Component } from 'react';
-import { withStyles } from '@mui/material/styles';
+import React, {
+    Component,
+} from 'react';
+import {
+    withStyles,
+} from '@mui/material/styles';
 
 import Fab from '@mui/material/Fab';
 
 import LiveItem from './LiveItem.js';
 
-const styles = theme => ( {
-    fab: {
-        bottom: 20,
-        position: 'fixed',
-        right: 20,
-    },
-} );
+const styles = ( theme ) => {
+    return  {
+        fab: {
+            bottom: 20,
+            position: 'fixed',
+            right: 20,
+        },
+    };
+};
 
 class LiveAuction extends Component {
     constructor ( props ) {
@@ -26,18 +32,22 @@ class LiveAuction extends Component {
         this.notification = new Audio( 'bell_ring.mp3' );
     }
 
-    componentDidMount(){
+    componentDidMount () {
         this.updateData();
 
         // setInterval( this.updateData.bind( this ), 2000 );
     }
 
     updateData () {
-        fetch( `${ window.API_HOSTNAME }/graphql`,
+        fetch(
+            `${ window.API_HOSTNAME }/graphql`,
             {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify( { query: `{
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify( {
+                    query: `{
                   live( house: "${ this.props.house }", auctionID: "${ this.props.auctionID }" ) {
                     currentBid
                     highBidder
@@ -53,7 +63,8 @@ class LiveAuction extends Component {
                         startTime
                     }
                   }
-                }` } ),
+                }`,
+                } ),
             }
         )
             .then( ( response ) => {
@@ -84,14 +95,14 @@ class LiveAuction extends Component {
             } );
     }
 
-    getLiveItems (){
+    getLiveItems () {
         return this.state.live.map( ( liveItem ) => {
             return (
                 <LiveItem
                     currentBid = { liveItem.currentBid }
                     img = { liveItem.img }
-                    timeLeft = { liveItem.timeLeft }
                     nextBid = { liveItem.nextBid }
+                    timeLeft = { liveItem.timeLeft }
                     title = { liveItem.item.title }
                     url = { liveItem.url }
                 />
@@ -99,7 +110,7 @@ class LiveAuction extends Component {
         } );
     }
 
-    render() {
+    render () {
         return [
             <div
                 className = { 'live-items-wrapper' }
@@ -108,7 +119,7 @@ class LiveAuction extends Component {
                 <Fab
                     className = { this.props.classes.fab }
                     color = { 'primary' }
-                    variant = "extended"
+                    variant = 'extended'
                 >
                     { this.state.timeLeft }
                 </Fab>
@@ -129,4 +140,4 @@ class LiveAuction extends Component {
     }
 }
 
-export default withStyles(styles)(LiveAuction);
+export default withStyles( styles )( LiveAuction );

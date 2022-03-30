@@ -1,9 +1,11 @@
-import { useState, useMemo } from "react";
+import {
+    useState, useMemo,
+} from 'react';
 import {
     Routes,
     Route,
-    Link
-} from "react-router-dom";
+    Link,
+} from 'react-router-dom';
 
 import {
     AppBar,
@@ -11,31 +13,34 @@ import {
     Typography,
     Button,
     Box,
-    Menu,
-    MenuItem,
+    // Menu,
+    // MenuItem,
 } from '@mui/material';
 
 import Main from './pages/main';
 import Deals from './pages/deals';
 // import Live from './Live';
-import Book from './pages/book2.jsx';
+// import Book from './pages/book2.jsx';
 
 import './App.css';
 
+// eslint-disable-next-line
 const App = () => {
-    const [totalItems, setTotalItems] = useState('?');
+    const [
+        totalItems, setTotalItems,
+    ] = useState('?');
 
     const updateData = () => {
-        fetch( `${ window.API_HOSTNAME }/deals` )
-            .then( ( response ) => {
+        fetch(`${ window.API_HOSTNAME }/deals`)
+            .then((response) => {
                 return response.json();
-            } )
-            .then( ( response ) => {
+            })
+            .then((response) => {
                 setTotalItems(response.totalItems);
-            } )
-            .catch( ( fetchError  ) => {
-                console.error( fetchError );
-            } );
+            })
+            .catch((fetchError) => {
+                console.error(fetchError);
+            });
     };
 
     useMemo(() => {
@@ -44,27 +49,33 @@ const App = () => {
 
     return (
         <div>
-            <Box sx={{ flexGrow: 1 }}>
+            <Box
+                sx = { {
+                    flexGrow: 1,
+                } }
+            >
                 <AppBar
-                    position = "static"
+                    position = 'static'
                 >
                     <Toolbar>
                         <Typography
                             color = { 'inherit' }
                             variant = { 'h5' }
                         >
-                            <Link to="/">
+                            <Link
+                                to = '/'
+                            >
                                 { 'Fyndmaskinen' }
                             </Link>
                         </Typography>
                         <Button
-                            sx = {{
+                            component = { Link }
+                            sx = { {
+                                color: '#fff',
                                 flexGrow: 1,
                                 justifyContent: 'start',
-                                color: '#fff',
-                            }}
-                            component={Link}
-                            to="/deals"
+                            } }
+                            to = '/deals'
                         >
                             { 'Deals' }
                         </Button>
@@ -83,8 +94,8 @@ const App = () => {
                             </Link>
                         </Button> */}
                         <Typography
-                            color = { 'inherit' }
                             align = { 'right' }
+                            color = { 'inherit' }
                         >
                             { `Sök bland ${ totalItems } objekt` }
                         </Typography>
@@ -93,12 +104,12 @@ const App = () => {
             </Box>
             <Routes>
                 <Route
-                    path="/"
-                    element={<Main />}
+                    element = { <Main /> }
+                    path = '/'
                 />
                 <Route
-                    path="/deals"
-                    element={<Deals />}
+                    element = { <Deals /> }
+                    path = '/deals'
                 />
                 {/* <Route
                     path="/book2"
@@ -106,9 +117,9 @@ const App = () => {
                     <Book />
                 </Route> */}
             </Routes>
-                    {/* <Route path="/live" component={Live} /> */}
+            {/* <Route path="/live" component={Live} /> */}
         </div>
     );
-}
+};
 
 export default App;

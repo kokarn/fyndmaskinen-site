@@ -1,4 +1,6 @@
-import { useState, useMemo } from 'react';
+import {
+    useState, useMemo,
+} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -8,8 +10,12 @@ import MatchingTable from '../../components/matching-table';
 import MissingTable from '../../components/missing-table';
 
 const Deals = () => {
-    const [deals, setDeals] = useState([]);
-    const [selectedTab, setSelectedTab] = useState(false);
+    const [
+        deals, setDeals,
+    ] = useState( [] );
+    const [
+        selectedTab, setSelectedTab,
+    ] = useState( false );
 
     const updateData = () => {
         fetch( `${ window.API_HOSTNAME }/deals` )
@@ -17,19 +23,19 @@ const Deals = () => {
                 return response.json();
             } )
             .then( ( response ) => {
-                setDeals(response.data);
+                setDeals( response.data );
             } )
             .catch( ( fetchError  ) => {
                 console.error( fetchError );
             } );
     };
 
-    useMemo(() => {
+    useMemo( () => {
         updateData();
-    }, []);
+    }, [] );
 
     const handleTabChange = ( event, value ) => {
-        setSelectedTab(value);
+        setSelectedTab( value );
     };
 
     const getTabs = () => {
@@ -44,12 +50,14 @@ const Deals = () => {
         }
 
         return tabs;
-    }
+    };
 
     return (
         <div>
             { deals &&
-                <AppBar position="sticky">
+                <AppBar
+                    position = 'sticky'
+                >
                     <Toolbar>
                         <Tabs
                             centered
@@ -89,11 +97,11 @@ const Deals = () => {
             }
             { selectedTab &&
                 <MissingTable
-                    items = {deals[ selectedTab ].missing }
+                    items = { deals[ selectedTab ].missing }
                 />
             }
         </div>
     );
-}
+};
 
 export default Deals;

@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,63 +11,61 @@ import Countdown from 'react-countdown-now';
 
 import countdownRenderer from '../../countown-renderer.js';
 
-class MatchingTable extends Component {
-    render() {
-        if ( this.props.items.length <= 0 ) {
-            return null;
+const MatchingTable = ({
+    items,
+}) => {
+    if (items.length <= 0) {
+        return null;
+    }
+
+    const sortedItems = items.sort((a, b) => {
+        const aProfit = a.value - a.bid;
+        const bProfit = b.value - b.bid;
+
+        if (aProfit > bProfit) {
+            return -1;
         }
 
-        const sortedItems = this.props.items.sort( ( a, b ) => {
-            const aProfit = a.value - a.bid;
-            const bProfit = b.value - b.bid;
+        if (bProfit > aProfit) {
+            return 1;
+        }
 
-            if ( aProfit > bProfit ) {
-                return -1;
-            }
+        return 0;
+    });
 
-            if ( bProfit > aProfit ) {
-                return 1;
-            }
-
-            return 0;
-        } );
-
-        return <Grid
+    return (
+        <Grid
             item
-            className = { 'root' }
-            key = { `matching` }
+            key = { 'matching' }
         >
             <Typography
-                className = { 'table-title' }
                 variant = { 'h6' }
             >
-                { `Matching` }
+                { 'Matching' }
             </Typography>
-            <Table
-                className = { 'table' }
-            >
+            <Table>
                 <TableHead>
                     <TableRow>
                         <TableCell>
                             { 'Item title' }
                         </TableCell>
                         <TableCell
-                            align = "right"
+                            align = 'right'
                         >
                             { 'Current bid' }
                         </TableCell>
                         <TableCell
-                            align = "right"
+                            align = 'right'
                         >
                             { 'Estimate value' }
                         </TableCell>
                         <TableCell
-                            align = "right"
+                            align = 'right'
                         >
                             { 'Possible profit' }
                         </TableCell>
                         <TableCell
-                            align = "right"
+                            align = 'right'
                         >
                             { 'Starting' }
                         </TableCell>
@@ -74,11 +73,11 @@ class MatchingTable extends Component {
                 </TableHead>
                 <TableBody>
                     {
-                        sortedItems.map( ( row ) => {
+                        sortedItems.map((row) => {
                             return (
                                 <TableRow
-                                    key = { `${ row.url }-${ row.matcher }` }
                                     hover
+                                    key = { `${ row.url }-${ row.matcher }` }
                                 >
                                     <TableCell
                                         component = { 'th' }
@@ -90,16 +89,24 @@ class MatchingTable extends Component {
                                             { row.title }
                                         </a>
                                     </TableCell>
-                                    <TableCell align="right">
+                                    <TableCell
+                                        align = 'right'
+                                    >
                                         { row.bid }
                                     </TableCell>
-                                    <TableCell align="right">
+                                    <TableCell
+                                        align = 'right'
+                                    >
                                         { row.value }
                                     </TableCell>
-                                    <TableCell align="right">
+                                    <TableCell
+                                        align = 'right'
+                                    >
                                         { row.value - row.bid }
                                     </TableCell>
-                                    <TableCell align="right">
+                                    <TableCell
+                                        align = 'right'
+                                    >
                                         <Countdown
                                             date = { row.startTime }
                                             renderer = { countdownRenderer }
@@ -107,12 +114,23 @@ class MatchingTable extends Component {
                                     </TableCell>
                                 </TableRow>
                             );
-                        } )
+                        })
                     }
                 </TableBody>
             </Table>
-        </Grid>;
-    }
-}
+        </Grid>
+    );
+};
+
+MatchingTable.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.shape({
+        bid: PropTypes.string,
+        matcher: PropTypes.string,
+        startTime: PropTypes.string,
+        title: PropTypes.string,
+        url: PropTypes.string,
+        value: PropTypes.string,
+    })).isRequired,
+};
 
 export default MatchingTable;
