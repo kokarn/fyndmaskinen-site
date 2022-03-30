@@ -1,5 +1,6 @@
 import {
     useState, useMemo,
+    useCallback,
 } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
@@ -34,9 +35,9 @@ const Deals = () => {
         updateData();
     }, []);
 
-    const handleTabChange = (event, value) => {
+    const handleTabChange = useCallback((event, value) => {
         setSelectedTab(value);
-    };
+    });
 
     const getTabs = () => {
         const tabs = [];
@@ -46,7 +47,7 @@ const Deals = () => {
                 key = { identifier }
                 label = { `${ identifier } ${ deals[ identifier ].matching.length } / ${ deals[ identifier ].missing.length }` }
                 value = { identifier }
-                      />);
+            />);
         }
 
         return tabs;

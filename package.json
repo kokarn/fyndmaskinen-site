@@ -18,9 +18,9 @@
         "@emotion/styled": "^11.8.1",
         "@ericblade/quagga2": "^1.6.0",
         "@mui/material": "^5.5.3",
-        "react": "^17.0.2",
+        "react": "^18.0.0",
         "react-countdown-now": "^2.1.0",
-        "react-dom": "^17.0.2",
+        "react-dom": "^18.0.0",
         "react-router-dom": "^6.2.2",
         "react-scripts": "^5.0.0",
         "react-textfit": "^1.1.0",
@@ -46,7 +46,6 @@
             "src/App.test.js",
             "src/serviceWorker.js",
             "src/countown-renderer.js",
-            "src/pages/**/*.js",
             "src/Live.js",
             "src/LiveAuction.js",
             "src/LiveItem.js"
@@ -54,6 +53,9 @@
         "extends": [
             "kokarn/react",
             "plugin:react/jsx-runtime"
-        ]
+        ],
+        "rules": {
+            "react/jsx-closing-bracket-location": [1, "line-aligned"]
+        }
     }
 }

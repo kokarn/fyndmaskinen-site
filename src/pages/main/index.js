@@ -1,5 +1,6 @@
 import {
     useState,
+    useCallback,
 } from 'react';
 
 import {
@@ -7,18 +8,21 @@ import {
     Grid,
     Typography,
     Card,
-    CardHeader,
+    // CardHeader,
     CardMedia,
     CardContent,
     TextField,
-    IconButton,
+    // IconButton,
     CardActionArea,
 } from '@mui/material';
 // import InfoIcon from '@material-ui/icons/Info';
 // import CircularProgress from '@mui/material/CircularProgress';
 // import { FormGroup, FormControlLabel, Checkbox } from '@mui/material';
 
-function Main (props) {
+const MAX_ITEMS = 40;
+const SEARCH_DELAY = 300;
+
+const Main = () => {
     const [
         searchPhrase, setSearchPhrase,
     ] = useState('');
@@ -28,9 +32,9 @@ function Main (props) {
     const [
         showLoading, setShowLoading,
     ] = useState(false);
-    const [
-        totalItems, setTotalItems,
-    ] = useState(0);
+    // const [
+    //     totalItems, setTotalItems,
+    // ] = useState(0);
     const [
         validSearch, setValidSearch,
     ] = useState(false);
@@ -47,28 +51,28 @@ function Main (props) {
         fetch(
             `${ window.API_HOSTNAME }/graphql`,
             {
-                method: 'POST',
+                body: JSON.stringify({
+                    query: `{
+                        findItems( match: "${ searchPhrase }" ) {
+                            title
+                            url
+                            currentPrice
+                            img
+                            startTime
+                        }
+                    }`,
+                }),
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    query: `{
-                  findItems( match: "${ searchPhrase }" ) {
-                    title
-                    url
-                    currentPrice
-                    img
-                    startTime
-                  }
-                }`,
-                }),
+                method: 'POST',
             }
         )
             .then((response) => {
                 return response.json();
             })
             .then((response) => {
-                setSearchItems(response.data.findItems.slice(0, 40));
+                setSearchItems(response.data.findItems.slice(0, MAX_ITEMS));
                 setShowLoading(false);
                 setValidSearch(true);
             })
@@ -77,7 +81,7 @@ function Main (props) {
             });
     };
 
-    const handleFilterChange = (event) => {
+    const handleFilterChange = useCallback((event) => {
         setSearchPhrase(event.target.value);
         setShowLoading(true);
 
@@ -93,8 +97,10 @@ function Main (props) {
 
         setSearchTimeout(setTimeout(() => {
             search();
-        }, 300));
-    };
+        }, SEARCH_DELAY));
+
+        return true;
+    });
 
     const getSearchTable = () => {
         if (searchItems.length <= 0) {
@@ -102,54 +108,57 @@ function Main (props) {
         }
 
         return searchItems.map((tile) => {
-            let currentPrice = <span>Nuvarande bud: { tile.currentPrice }</span>;
+            let currentPrice = <span>{'Nuvarande bud: '}{ tile.currentPrice }</span>;
 
             if (tile.currentPrice === -1) {
-                currentPrice = <span>Förhandsvisning</span>;
+                currentPrice = <span>{'Förhandsvisning'}</span>;
             }
 
             // src = { `https://images.weserv.nl/?url=${ tile.img }&w=200&h=200&t=crop&a=center` }
             // src = { `https://images.weserv.nl/?url=${ tile.img }&w=200&h=200&t=letterbox&bg=white` }
-            return (<Grid
-                item
-                md = { 2 }
-                    >
-                <Card
-                    key = { tile.img }
+            return (
+                <Grid
+                    item
+                    key = { `${tile.title}` }
+                    md = { 2 }
                 >
-                    <CardActionArea>
-                        <CardMedia
-                            alt = { tile.title }
-                            component = 'img'
-                            height = { 200 }
-                            image = { `https://images.weserv.nl/?url=${ tile.img }&w=200&h=200&t=letterbox&bg=black&errorredirect=${ errorImage }` }
-                        />
-                        <CardContent>
-                            <Typography
-                                component = 'div'
-                                gutterBottom
-                                variant = 'h7'
-                            >
-                                { tile.title }
-                            </Typography>
-                            <Typography
-                                color = 'text.secondary'
-                                variant = 'body2'
-                            >
-                                { currentPrice }
-                            </Typography>
-
-                            {/* <IconButton
-                                    href = { tile.url }
+                    <Card
+                        key = { tile.img }
+                    >
+                        <CardActionArea>
+                            <CardMedia
+                                alt = { tile.title }
+                                component = 'img'
+                                height = { 200 }
+                                image = { `https://images.weserv.nl/?url=${ tile.img }&w=200&h=200&t=letterbox&bg=black&errorredirect=${ errorImage }` }
+                            />
+                            <CardContent>
+                                <Typography
+                                    component = 'div'
+                                    gutterBottom
+                                    variant = 'h7'
                                 >
-                                    <InfoIcon
-                                        className = { 'icon' }
-                                    />
-                                </IconButton> */}
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
-                    </Grid>);
+                                    { tile.title }
+                                </Typography>
+                                <Typography
+                                    color = 'text.secondary'
+                                    variant = 'body2'
+                                >
+                                    { currentPrice }
+                                </Typography>
+
+                                {/* <IconButton
+                                        href = { tile.url }
+                                    >
+                                        <InfoIcon
+                                            className = { 'icon' }
+                                        />
+                                    </IconButton> */}
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                </Grid>
+            );
         });
     };
 
@@ -184,7 +193,7 @@ function Main (props) {
                             />
                             { showLoading &&
                                 <div>
-                                    Söker...
+                                    {'Söker...'}
                                 </div>
                             }
                             {/* <FormGroup>
@@ -209,12 +218,14 @@ function Main (props) {
                         item
                         md = { 12 }
                     >
-                        { validSearch && <Typography
-                            align = { 'left' }
-                            variant = { 'h6' }
-                        >
-                            { `Hittade ${ searchItems.length } objekt för sökningen ${ searchPhrase }` }
-                        </Typography> }
+                        { validSearch && (
+                            <Typography
+                                align = { 'left' }
+                                variant = { 'h6' }
+                            >
+                                { `Hittade ${ searchItems.length } objekt för sökningen ${ searchPhrase }` }
+                            </Typography>
+                        )}
                     </Grid>
                 </Grid>
                 <Grid
@@ -230,6 +241,6 @@ function Main (props) {
             </Box>
         </div>
     );
-}
+};
 
 export default Main;
