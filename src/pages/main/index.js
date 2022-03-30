@@ -121,6 +121,7 @@ const Main = () => {
                     item
                     key = { `${tile.title}` }
                     md = { 2 }
+                    xs = { 2 }
                 >
                     <Card
                         key = { tile.img }
@@ -177,6 +178,7 @@ const Main = () => {
                     <Grid
                         item
                         md = { 12 }
+                        xs = { 12 }
                     >
                         <form
                             autoComplete = 'off'
