@@ -35,19 +35,33 @@ const Main = () => {
     ] = useState(false);
 
     const search = () => {
+        let query = `{
+            findItems( match: "${ searchPhrase }" ) {
+                title
+                url
+                currentPrice
+                img
+                startTime
+            }
+        }`;
+
+        if (searchPhrase === '') {
+            query = `{
+                getRandomItems {
+                    title
+                    url
+                    currentPrice
+                    img
+                    startTime
+                }
+            }`;
+        }
+
         return fetch(
             `${ window.API_HOSTNAME }/graphql`,
             {
                 body: JSON.stringify({
-                    query: `{
-                        findItems( match: "${ searchPhrase }" ) {
-                            title
-                            url
-                            currentPrice
-                            img
-                            startTime
-                        }
-                    }`,
+                    query: query,
                 }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -59,7 +73,7 @@ const Main = () => {
                 return response.json();
             })
             .then((response) => {
-                return response.data.findItems;
+                return response.data.findItems || response.data.getRandomItems;
             })
             .catch((fetchError) => {
                 console.error(fetchError);

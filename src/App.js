@@ -31,12 +31,25 @@ const App = () => {
     ] = useState('?');
 
     const updateData = () => {
-        fetch(`${ window.API_HOSTNAME }/deals`)
+        fetch(
+            `${ window.API_HOSTNAME }/graphql`,
+            {
+                body: JSON.stringify({
+                    query: `{
+                        getItemCount
+                    }`,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+            }
+        )
             .then((response) => {
                 return response.json();
             })
             .then((response) => {
-                setTotalItems(response.totalItems);
+                setTotalItems(response.data.getItemCount);
             })
             .catch((fetchError) => {
                 console.error(fetchError);
