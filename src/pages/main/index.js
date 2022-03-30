@@ -18,25 +18,25 @@ import {
 // import CircularProgress from '@mui/material/CircularProgress';
 // import { FormGroup, FormControlLabel, Checkbox } from '@mui/material';
 
-function Main ( props ) {
+function Main (props) {
     const [
         searchPhrase, setSearchPhrase,
-    ] = useState( '' );
+    ] = useState('');
     const [
         searchItems, setSearchItems,
-    ] = useState( [] );
+    ] = useState([]);
     const [
         showLoading, setShowLoading,
-    ] = useState( false );
+    ] = useState(false);
     const [
         totalItems, setTotalItems,
-    ] = useState( 0 );
+    ] = useState(0);
     const [
         validSearch, setValidSearch,
-    ] = useState( false );
+    ] = useState(false);
     const [
         searchTimeout, setSearchTimeout,
-    ] = useState( false );
+    ] = useState(false);
 
     const errorImage = 'https://fyndmaskinen.pages.dev/images/no-image.jpg';
 
@@ -51,7 +51,7 @@ function Main ( props ) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify( {
+                body: JSON.stringify({
                     query: `{
                   findItems( match: "${ searchPhrase }" ) {
                     title
@@ -61,59 +61,59 @@ function Main ( props ) {
                     startTime
                   }
                 }`,
-                } ),
+                }),
             }
         )
-            .then( ( response ) => {
+            .then((response) => {
                 return response.json();
-            } )
-            .then( ( response ) => {
-                setSearchItems( response.data.findItems.slice( 0, 40 ) );
-                setShowLoading( false );
-                setValidSearch( true );
-            } )
-            .catch( ( fetchError  ) => {
-                console.error( fetchError );
-            } );
+            })
+            .then((response) => {
+                setSearchItems(response.data.findItems.slice(0, 40));
+                setShowLoading(false);
+                setValidSearch(true);
+            })
+            .catch((fetchError) => {
+                console.error(fetchError);
+            });
     };
 
-    const handleFilterChange = ( event ) => {
-        setSearchPhrase( event.target.value );
-        setShowLoading( true );
+    const handleFilterChange = (event) => {
+        setSearchPhrase(event.target.value);
+        setShowLoading(true);
 
-        clearTimeout( searchTimeout );
+        clearTimeout(searchTimeout);
 
-        if ( event.target.value.length <= 2 ) {
-            setSearchItems( [] );
-            setShowLoading( false );
-            setValidSearch( false );
+        if (event.target.value.length <= 2) {
+            setSearchItems([]);
+            setShowLoading(false);
+            setValidSearch(false);
 
             return true;
         }
 
-        setSearchTimeout( setTimeout( () => {
+        setSearchTimeout(setTimeout(() => {
             search();
-        }, 300 ) );
+        }, 300));
     };
 
     const getSearchTable = () => {
-        if ( searchItems.length <= 0 ) {
+        if (searchItems.length <= 0) {
             return null;
         }
 
-        return searchItems.map( ( tile ) => {
+        return searchItems.map((tile) => {
             let currentPrice = <span>Nuvarande bud: { tile.currentPrice }</span>;
 
-            if ( tile.currentPrice === -1 ) {
+            if (tile.currentPrice === -1) {
                 currentPrice = <span>Förhandsvisning</span>;
             }
 
             // src = { `https://images.weserv.nl/?url=${ tile.img }&w=200&h=200&t=crop&a=center` }
             // src = { `https://images.weserv.nl/?url=${ tile.img }&w=200&h=200&t=letterbox&bg=white` }
-            return ( <Grid
+            return (<Grid
                 item
                 md = { 2 }
-            >
+                    >
                 <Card
                     key = { tile.img }
                 >
@@ -149,8 +149,8 @@ function Main ( props ) {
                         </CardContent>
                     </CardActionArea>
                 </Card>
-                     </Grid> );
-        } );
+                    </Grid>);
+        });
     };
 
     return (

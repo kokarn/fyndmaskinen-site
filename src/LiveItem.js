@@ -21,9 +21,9 @@ import {
 const PERCENTAGE_SIZE = 16;
 const TITLE_MAX_LENGTH = 35;
 
-const imageSize = Math.floor( window.outerWidth / 100 * PERCENTAGE_SIZE );
+const imageSize = Math.floor(window.outerWidth / 100 * PERCENTAGE_SIZE);
 
-const styles = ( theme ) => {
+const styles = (theme) => {
     return  {
         liveCard: {
             marginBottom: '1%',
@@ -37,7 +37,7 @@ const styles = ( theme ) => {
 
 class LiveItem extends Component {
     getIcon () {
-        if ( this.props.timeLeft > 0 ) {
+        if (this.props.timeLeft > 0) {
             return <AddIcon />;
         }
 
@@ -47,8 +47,8 @@ class LiveItem extends Component {
     getTitle () {
         let titleString = this.props.title;
 
-        if ( titleString.length > TITLE_MAX_LENGTH ) {
-            titleString = `${ titleString.substring( 0, TITLE_MAX_LENGTH - 1 ) }...`;
+        if (titleString.length > TITLE_MAX_LENGTH) {
+            titleString = `${ titleString.substring(0, TITLE_MAX_LENGTH - 1) }...`;
         }
 
         return titleString;
@@ -101,4 +101,4 @@ class LiveItem extends Component {
     }
 }
 
-export default withStyles( styles )( LiveItem );
+export default withStyles(styles)(LiveItem);

@@ -12,41 +12,41 @@ import MissingTable from '../../components/missing-table';
 const Deals = () => {
     const [
         deals, setDeals,
-    ] = useState( [] );
+    ] = useState([]);
     const [
         selectedTab, setSelectedTab,
-    ] = useState( false );
+    ] = useState(false);
 
     const updateData = () => {
-        fetch( `${ window.API_HOSTNAME }/deals` )
-            .then( ( response ) => {
+        fetch(`${ window.API_HOSTNAME }/deals`)
+            .then((response) => {
                 return response.json();
-            } )
-            .then( ( response ) => {
-                setDeals( response.data );
-            } )
-            .catch( ( fetchError  ) => {
-                console.error( fetchError );
-            } );
+            })
+            .then((response) => {
+                setDeals(response.data);
+            })
+            .catch((fetchError) => {
+                console.error(fetchError);
+            });
     };
 
-    useMemo( () => {
+    useMemo(() => {
         updateData();
-    }, [] );
+    }, []);
 
-    const handleTabChange = ( event, value ) => {
-        setSelectedTab( value );
+    const handleTabChange = (event, value) => {
+        setSelectedTab(value);
     };
 
     const getTabs = () => {
         const tabs = [];
 
-        for ( const identifier in deals ) {
-            tabs.push( <Tab
+        for (const identifier in deals) {
+            tabs.push(<Tab
                 key = { identifier }
                 label = { `${ identifier } ${ deals[ identifier ].matching.length } / ${ deals[ identifier ].missing.length }` }
                 value = { identifier }
-            /> );
+                      />);
         }
 
         return tabs;

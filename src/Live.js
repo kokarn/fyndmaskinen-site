@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 
 import LiveAuction from './LiveAuction.js';
 
-const styles = ( theme ) => {
+const styles = (theme) => {
     return  {
         selector: {
             margin: '0 20px',
@@ -25,8 +25,8 @@ const styles = ( theme ) => {
 };
 
 class Live extends Component {
-    constructor ( props ) {
-        super( props );
+    constructor (props) {
+        super(props);
 
         this.state = {
             auctions: [],
@@ -38,14 +38,14 @@ class Live extends Component {
             ],
         };
 
-        this.getLive = this.getLive.bind( this );
-        this.handleHouseSelect = this.handleHouseSelect.bind( this );
-        this.handleLiveAuctionAdd = this.handleLiveAuctionAdd.bind( this );
-        this.handleAuctionIdUpdate = this.handleAuctionIdUpdate.bind( this );
+        this.getLive = this.getLive.bind(this);
+        this.handleHouseSelect = this.handleHouseSelect.bind(this);
+        this.handleLiveAuctionAdd = this.handleLiveAuctionAdd.bind(this);
+        this.handleAuctionIdUpdate = this.handleAuctionIdUpdate.bind(this);
     }
 
     getLive () {
-        return this.state.auctions.map( ( auction ) => {
+        return this.state.auctions.map((auction) => {
             return (
                 <LiveAuction
                     auctionID = { auction.auctionID }
@@ -53,32 +53,32 @@ class Live extends Component {
                     key = { `${ auction.house } - ${ auction.auctionID }` }
                 />
             );
-        } );
+        });
     }
 
-    handleHouseSelect ( event ) {
-        this.setState( {
+    handleHouseSelect (event) {
+        this.setState({
             selectedHouse: event.target.value,
-        } );
+        });
     }
 
-    handleAuctionIdUpdate ( event ) {
-        this.setState( {
+    handleAuctionIdUpdate (event) {
+        this.setState({
             currentAuctionID: event.target.value,
-        } );
+        });
     }
 
-    handleLiveAuctionAdd ( event ) {
+    handleLiveAuctionAdd (event) {
         const newAuctions = [ ...this.state.auctions ];
 
-        newAuctions.push( {
+        newAuctions.push({
             house: this.state.selectedHouse,
             auctionID: this.state.currentAuctionID,
-        } );
+        });
 
-        this.setState( {
+        this.setState({
             auctions: newAuctions,
-        } );
+        });
     }
 
     render () {
@@ -132,4 +132,4 @@ class Live extends Component {
     }
 }
 
-export default withStyles( styles )( Live );
+export default withStyles(styles)(Live);

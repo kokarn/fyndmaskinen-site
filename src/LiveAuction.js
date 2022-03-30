@@ -9,7 +9,7 @@ import Fab from '@mui/material/Fab';
 
 import LiveItem from './LiveItem.js';
 
-const styles = ( theme ) => {
+const styles = (theme) => {
     return  {
         fab: {
             bottom: 20,
@@ -20,16 +20,16 @@ const styles = ( theme ) => {
 };
 
 class LiveAuction extends Component {
-    constructor ( props ) {
-        super( props );
+    constructor (props) {
+        super(props);
 
         this.state = {
             timeLeft: 0,
             live: [],
         };
 
-        this.getLiveItems = this.getLiveItems.bind( this );
-        this.notification = new Audio( 'bell_ring.mp3' );
+        this.getLiveItems = this.getLiveItems.bind(this);
+        this.notification = new Audio('bell_ring.mp3');
     }
 
     componentDidMount () {
@@ -46,7 +46,7 @@ class LiveAuction extends Component {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify( {
+                body: JSON.stringify({
                     query: `{
                   live( house: "${ this.props.house }", auctionID: "${ this.props.auctionID }" ) {
                     currentBid
@@ -64,39 +64,39 @@ class LiveAuction extends Component {
                     }
                   }
                 }`,
-                } ),
+                }),
             }
         )
-            .then( ( response ) => {
+            .then((response) => {
                 return response.json();
-            } )
-            .then( ( response ) => {
+            })
+            .then((response) => {
                 let timeLeft = 0;
 
-                response.data.live.map( ( liveItem ) => {
-                    if ( liveItem.timeLeft > timeLeft ) {
+                response.data.live.map((liveItem) => {
+                    if (liveItem.timeLeft > timeLeft) {
                         timeLeft = liveItem.timeLeft;
                     }
 
                     return true;
-                } );
+                });
 
-                if ( this.state.live[ 0 ] && this.state.live[ 0 ].url !== response.data.live[ 0 ].url ) {
+                if (this.state.live[ 0 ] && this.state.live[ 0 ].url !== response.data.live[ 0 ].url) {
                     this.notification.play();
                 }
 
-                this.setState( {
+                this.setState({
                     live: response.data.live,
                     timeLeft: timeLeft,
-                } );
-            } )
-            .catch( ( fetchError  ) => {
-                console.error( fetchError );
-            } );
+                });
+            })
+            .catch((fetchError) => {
+                console.error(fetchError);
+            });
     }
 
     getLiveItems () {
-        return this.state.live.map( ( liveItem ) => {
+        return this.state.live.map((liveItem) => {
             return (
                 <LiveItem
                     currentBid = { liveItem.currentBid }
@@ -107,7 +107,7 @@ class LiveAuction extends Component {
                     url = { liveItem.url }
                 />
             );
-        } );
+        });
     }
 
     render () {
@@ -140,4 +140,4 @@ class LiveAuction extends Component {
     }
 }
 
-export default withStyles( styles )( LiveAuction );
+export default withStyles(styles)(LiveAuction);
