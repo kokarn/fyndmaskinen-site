@@ -90,15 +90,14 @@ const Main = () => {
 
     const handleFilterChange = (event) => {
         setSearchPhrase(event.target.value);
-
         clearTimeout(searchTimeout);
 
         if (event.target.value.length <= 2) {
-            setSearchItems([]);
-            setSearchTitle('');
-            setSearchActive(false);
-
             return true;
+
+            // setSearchItems([]);
+            // setSearchTitle('');
+            // setSearchActive(false);
         }
 
         setSearchActive(true);
