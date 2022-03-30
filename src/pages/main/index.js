@@ -145,6 +145,9 @@ const Main = () => {
                         <form
                             autoComplete = 'off'
                             noValidate
+                            onSubmit = {(event) => {
+                                event.preventDefault();
+                            }}
                         >
                             <TextField
                                 fullWidth
