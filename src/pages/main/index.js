@@ -1,6 +1,7 @@
 import {
     useState,
     useMemo,
+    useRef,
 } from 'react';
 import {
     Box,
@@ -33,6 +34,8 @@ const Main = () => {
         searchActive,
         setSearchActive,
     ] = useState(false);
+
+    const searchRef = useRef(null);
 
     const search = () => {
         let query = `{
@@ -147,6 +150,7 @@ const Main = () => {
                             noValidate
                             onSubmit = {(event) => {
                                 event.preventDefault();
+                                searchRef.current.blur();
                             }}
                         >
                             <TextField
@@ -155,6 +159,7 @@ const Main = () => {
                                 inputProps = {{
                                     type: 'search',
                                 }}
+                                inputRef = {searchRef}
                                 label = {'Sök'}
                                 margin = 'normal'
                                 onChange = {handleFilterChange}
