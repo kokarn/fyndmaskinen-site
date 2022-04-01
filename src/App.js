@@ -18,6 +18,7 @@ import {
 } from '@mui/material';
 
 import Main from './pages/main';
+import Search from './pages/search';
 import Deals from './pages/deals';
 // import Live from './Live';
 // import Book from './pages/book2.jsx';
@@ -128,6 +129,10 @@ const App = () => {
                 <Route
                     element = {<Deals />}
                     path = '/deals'
+                />
+                <Route
+                    element = {<Search />}
+                    path = '/search/:searchString'
                 />
                 {/* <Route
                     path="/book2"
