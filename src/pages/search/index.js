@@ -33,6 +33,10 @@ const Search = () => {
         setSearchPhrase,
     ] = useState(searchString || '');
     const navigate = useNavigate();
+    const [
+        searchPending,
+        setSearchPending,
+    ] = useState(false);
 
     const searchRef = useRef(null);
     const debouncedSearchPhrase = useDebounce(searchPhrase, SEARCH_DELAY);
@@ -52,12 +56,14 @@ const Search = () => {
 
     const handleFilterChange = (event) => {
         setSearchPhrase(event.target.value);
+        setSearchPending(true);
 
         return true;
     };
 
     useMemo(() => {
         navigate(`/search/${debouncedSearchPhrase}`);
+        setSearchPending(false);
     }, [debouncedSearchPhrase]);
 
     return (
@@ -127,13 +133,13 @@ const Search = () => {
                             />
                         </FormGroup> */}
                         </form>
-                        {isFetching && searchPhrase.length > 0 && (
+                        {(isFetching || searchPending) && searchPhrase.length > 0 && (
                             <div>
                                 {`Söker efter ${searchPhrase}...`}
                             </div>
                         )}
                     </Grid>
-                    {searchPhrase.length > 0 && !isFetching && (
+                    {searchPhrase.length > 0 && !isFetching && !searchPending && (
                         <Grid
                             item
                             md = {12}
