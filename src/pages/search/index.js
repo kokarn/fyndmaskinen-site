@@ -1,7 +1,7 @@
 import {
     useState,
     useRef,
-    useMemo,
+    useEffect,
 } from 'react';
 import {
     Box,
@@ -61,7 +61,7 @@ const Search = () => {
         return true;
     };
 
-    useMemo(() => {
+    useEffect(() => {
         navigate(`/search/${debouncedSearchPhrase}`);
         setSearchPending(false);
     }, [debouncedSearchPhrase]);
