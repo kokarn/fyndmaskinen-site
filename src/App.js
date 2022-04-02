@@ -134,6 +134,10 @@ const App = () => {
                     element = {<Search />}
                     path = '/search/:searchString'
                 />
+                <Route
+                    element = {<Search />}
+                    path = '/search/'
+                />
                 {/* <Route
                     path="/book2"
                 >

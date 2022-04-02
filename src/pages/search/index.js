@@ -1,7 +1,7 @@
 import {
     useState,
-    useMemo,
     useRef,
+    useMemo,
 } from 'react';
 import {
     Box,
@@ -9,130 +9,56 @@ import {
     Typography,
     TextField,
 } from '@mui/material';
-import shuffle from 'just-shuffle';
+// import shuffle from 'just-shuffle';
 import {
     useParams,
+    useNavigate,
 } from 'react-router-dom';
+import {
+    useQuery,
+} from 'react-query';
 
 import SearchTable from '../../components/search-table';
+import doSearch from '../../features/search';
+import useDebounce from '../../hooks/useDebounce';
 
-const MAX_ITEMS = 40;
-const SEARCH_DELAY = 300;
+const SEARCH_DELAY = 200;
 
 const Search = () => {
     const {
         searchString,
     } = useParams();
     const [
-        searchPhrase, setSearchPhrase,
+        searchPhrase,
+        setSearchPhrase,
     ] = useState(searchString || '');
-    const [
-        searchItems, setSearchItems,
-    ] = useState([]);
-    const [
-        searchTimeout, setSearchTimeout,
-    ] = useState(false);
-    const [
-        searchTitle,
-        setSearchTitle,
-    ] = useState('');
-    const [
-        searchActive,
-        setSearchActive,
-    ] = useState(false);
+    const navigate = useNavigate();
 
     const searchRef = useRef(null);
+    const debouncedSearchPhrase = useDebounce(searchPhrase, SEARCH_DELAY);
 
-    const search = () => {
-        setSearchActive(true);
-        let query = `{
-            findItems( match: "${ searchPhrase }" ) {
-                title
-                url
-                currentPrice
-                img
-                startTime
-            }
-        }`;
-
-        if (searchPhrase === '') {
-            query = `{
-                getRandomItems {
-                    title
-                    url
-                    currentPrice
-                    img
-                    startTime
-                }
-            }`;
-        }
-
-        console.log(`Searching for "${searchPhrase}"`);
-
-        return fetch(
-            `${ window.API_HOSTNAME }/graphql`,
-            {
-                body: JSON.stringify({
-                    query: query,
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                method: 'POST',
-            }
-        )
-            .then((response) => {
-                return response.json();
-            })
-            .then((response) => {
-                setSearchActive(false);
-
-                return response.data.findItems || response.data.getRandomItems;
-            })
-            .catch((fetchError) => {
-                console.error(fetchError);
-            });
-    };
-
-    useMemo(async () => {
-        const responseItems = await search();
-        const shuffledItems = shuffle(responseItems);
-
-        setSearchItems(shuffledItems.slice(0, MAX_ITEMS));
-        setSearchActive(false);
-    }, []);
-
-    useMemo(async () => {
-        const responseItems = await search();
-
-        setSearchItems(responseItems.slice(0, MAX_ITEMS));
-        setSearchActive(false);
-    }, [searchPhrase]);
+    const {
+        isFetching,
+        data: searchResult,
+    } = useQuery([
+        'search',
+        debouncedSearchPhrase,
+    ], doSearch, {
+        placeholderData: [],
+        refetchInterval: 600000,
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+    });
 
     const handleFilterChange = (event) => {
         setSearchPhrase(event.target.value);
-        clearTimeout(searchTimeout);
-
-        if (event.target.value.length <= 2) {
-            return true;
-
-            // setSearchItems([]);
-            // setSearchTitle('');
-            // setSearchActive(false);
-        }
-
-        setSearchActive(true);
-
-        setSearchTimeout(setTimeout(async () => {
-            const resultItems = await search();
-
-            setSearchTitle(`Hittade ${ resultItems.length } objekt för sökningen ${ event.target.value }`);
-            setSearchItems(resultItems);
-            setSearchActive(false);
-        }, SEARCH_DELAY));
 
         return true;
     };
+
+    useMemo(() => {
+        navigate(`/search/${debouncedSearchPhrase}`);
+    }, [debouncedSearchPhrase]);
 
     return (
         <div
@@ -190,7 +116,7 @@ const Search = () => {
                                 label="Auctions"
                             />
                             <FormControlLabel
-                                disabled
+                                disabled,
                                 control={<Checkbox />}
                                 label="Blocket"
                             />
@@ -201,23 +127,25 @@ const Search = () => {
                             />
                         </FormGroup> */}
                         </form>
-                        {searchActive && (
+                        {isFetching && searchPhrase.length > 0 && (
                             <div>
-                                {'Söker...'}
+                                {`Söker efter ${searchPhrase}...`}
                             </div>
                         )}
                     </Grid>
-                    <Grid
-                        item
-                        md = {12}
-                    >
-                        <Typography
-                            align = {'left'}
-                            variant = {'h6'}
+                    {searchPhrase.length > 0 && !isFetching && (
+                        <Grid
+                            item
+                            md = {12}
                         >
-                            { searchTitle }
-                        </Typography>
-                    </Grid>
+                            <Typography
+                                align = {'left'}
+                                variant = {'h6'}
+                            >
+                                { `Hittade ${ searchResult.length } objekt för sökningen ${ searchPhrase }` }
+                            </Typography>
+                        </Grid>
+                    )}
                 </Grid>
                 <Grid
                     columns = {{
@@ -228,7 +156,7 @@ const Search = () => {
                     spacing = {2}
                 >
                     <SearchTable
-                        displayItems = {searchItems}
+                        displayItems = {searchResult}
                     />
                 </Grid>
             </Box>

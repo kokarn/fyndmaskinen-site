@@ -6,14 +6,26 @@ import 'typeface-roboto';
 import {
     BrowserRouter as Router,
 } from 'react-router-dom';
+import {
+    QueryClient,
+    QueryClientProvider,
+} from 'react-query';
 
 window.API_HOSTNAME = 'https://d2cmhnbxvwhy7s.cloudfront.net';
-
 // window.API_HOSTNAME = 'https://localhost:4080';
 
+const queryClient = new QueryClient();
 const root = ReactDOMClient.createRoot(document.getElementById('root'));
 
-root.render(<Router><App /></Router>);
+root.render((
+    <QueryClientProvider
+        client = {queryClient}
+    >
+        <Router>
+            <App />
+        </Router>
+    </QueryClientProvider>
+));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
