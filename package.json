@@ -14,9 +14,11 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@auth0/auth0-react": "^1.9.0",
         "@emotion/react": "^11.8.2",
         "@emotion/styled": "^11.8.1",
         "@ericblade/quagga2": "^1.6.0",
+        "@mui/icons-material": "^5.5.1",
         "@mui/material": "^5.5.3",
         "just-shuffle": "^4.0.1",
         "react": "^18.0.0",
@@ -71,6 +73,12 @@
                 1
             ],
             "comma-dangle": [
+                1
+            ],
+            "arrow-body-style": [
+                1
+            ],
+            "id-blacklist": [
                 1
             ]
         }

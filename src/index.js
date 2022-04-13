@@ -11,6 +11,9 @@ import {
     QueryClient,
     QueryClientProvider,
 } from 'react-query';
+import {
+    Auth0Provider,
+} from '@auth0/auth0-react';
 
 window.API_HOSTNAME = 'https://d2cmhnbxvwhy7s.cloudfront.net';
 // window.API_HOSTNAME = 'https://localhost:4080';
@@ -20,13 +23,19 @@ const root = ReactDOMClient.createRoot(document.getElementById('root'));
 
 root.render((
     <React.StrictMode>
-        <QueryClientProvider
-            client = {queryClient}
+        <Auth0Provider
+            clientId = 'pGEsN4mWTCZiRbKxXR5pPqu6y5IXxuhQ'
+            domain = 'https://fyndmaskinen.eu.auth0.com'
+            redirectUri = {window.location.origin}
         >
-            <Router>
-                <App />
-            </Router>
-        </QueryClientProvider>
+            <QueryClientProvider
+                client = {queryClient}
+            >
+                <Router>
+                    <App />
+                </Router>
+            </QueryClientProvider>
+        </Auth0Provider>
     </React.StrictMode>
 ));
 

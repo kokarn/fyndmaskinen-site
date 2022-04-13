@@ -17,9 +17,12 @@ import {
     // MenuItem,
 } from '@mui/material';
 
+import LoginButton from './components/login-button';
+
 import Main from './pages/main';
 import Search from './pages/search';
 import Deals from './pages/deals';
+import Profile from './pages/profile';
 // import Live from './Live';
 // import Book from './pages/book2.jsx';
 
@@ -118,6 +121,7 @@ const App = () => {
                         >
                             { `${ totalItems } objekt` }
                         </Typography>
+                        <LoginButton />
                     </Toolbar>
                 </AppBar>
             </Box>
@@ -137,6 +141,10 @@ const App = () => {
                 <Route
                     element = {<Search />}
                     path = '/search/'
+                />
+                <Route
+                    element = {<Profile />}
+                    path = '/profile'
                 />
                 {/* <Route
                     path="/book2"
