@@ -29,6 +29,9 @@ const LoginButton = () => {
                     >
                         <Avatar
                             alt = {user.name}
+                            imgProps = {{
+                                referrerpolicy: 'no-referrer',
+                            }}
                             src = {user.picture}
                             variant = {'rounded'}
                         />
