@@ -2,12 +2,12 @@ import {
     useAuth0,
 } from '@auth0/auth0-react';
 import {
-    Checkbox,
+    // Checkbox,
     List,
     ListItem,
-    ListItemButton,
+    // ListItemButton,
     ListItemText,
-    ListItemIcon,
+    // ListItemIcon,
     IconButton,
     Box,
     Grid,
@@ -29,16 +29,13 @@ const Profile = () => {
         // isAuthenticated,
         // isLoading,
         getAccessTokenWithPopup,
+        getAccessTokenSilently,
     } = useAuth0();
     const opts = {
         audience: 'https://fyndmaskinen.kokarn.com',
         scope: 'read:users email read:current_user',
 
     };
-
-    // if (!isAuthenticated) {
-    //     return null;
-    // }
 
     const {
         // loading,
@@ -70,6 +67,37 @@ const Profile = () => {
         refresh();
     };
 
+    const handleDeleteButtonClick = async (match) => {
+        let accessToken;
+
+        try {
+            accessToken = await getAccessTokenSilently({
+                audience: opts.audience,
+                scope: opts.scope,
+            });
+        } catch (accessTokenError) {
+            console.error(accessTokenError);
+        }
+
+        await fetch(`${window.API_HOSTNAME}/graphql`, {
+            body: JSON.stringify({
+                query: `mutation {
+                    removeWatch(match: "${match}") {
+                        match
+                        notify
+                    }
+                }`,
+            }),
+            headers: {
+                authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+        });
+
+        return true;
+    };
+
     if (error) {
         if (error.error === 'login_required') {
             return (
@@ -99,6 +127,9 @@ const Profile = () => {
     return (
         <Box
             m = {2}
+            sx = {{
+                minHeight: '100vh',
+            }}
         >
             <Grid
                 container
@@ -131,17 +162,22 @@ const Profile = () => {
                         {apiData.getWatches.map((watch) => {
                             return (
                                 <ListItem
+                                    disableGutters
                                     key = {`watch-${user?.name}-${watch.match}`}
                                     secondaryAction = {
                                         <IconButton
                                             aria-label = 'delete'
                                             edge = 'end'
                                         >
-                                            <DeleteIcon />
+                                            <DeleteIcon
+                                                onClick = {() => {
+                                                    handleDeleteButtonClick(watch.match);
+                                                }}
+                                            />
                                         </IconButton>
                                     }
                                 >
-                                    <ListItemButton
+                                    {/* <ListItemButton
                                         role = {'undefined'}
                                         // onClick = {handleToggle(value)}
                                     >
@@ -155,10 +191,10 @@ const Profile = () => {
                                                 tabIndex = {-1}
                                             />
                                         </ListItemIcon>
-                                        <ListItemText
-                                            primary = {watch.match}
-                                        />
-                                    </ListItemButton>
+                                    </ListItemButton> */}
+                                    <ListItemText
+                                        primary = {watch.match}
+                                    />
                                 </ListItem>
                             );
                         })}

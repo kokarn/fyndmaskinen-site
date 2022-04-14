@@ -65,66 +65,67 @@ const App = () => {
     }, []);
 
     return (
-        <div>
-            <Box
-                sx = {{
-                    flexGrow: 1,
-                }}
+        <Box
+            sx = {{
+                flexGrow: 1,
+                minHeight: '100vh',
+            }}
+        >
+            <AppBar
+                position = 'static'
             >
-                <AppBar
-                    position = 'static'
-                >
-                    <Toolbar>
-                        <Typography
-                            color = {'inherit'}
-                            sx = {{
-                                color: '#fff',
-                                flexGrow: 1,
-                                justifyContent: 'start',
-                            }}
-                            variant = {'h5'}
+                <Toolbar>
+                    <Typography
+                        color = {'inherit'}
+                        sx = {{
+                            flexGrow: 1,
+                            justifyContent: 'start',
+                        }}
+                        variant = {'h5'}
+                    >
+                        <Link
+                            to = '/'
                         >
-                            <Link
-                                to = '/'
-                            >
-                                { 'Fyndmaskinen' }
-                            </Link>
-                        </Typography>
-                        {/* <Button
-                            component = { Link }
-                            sx = { {
-                                color: '#fff',
-                                flexGrow: 1,
-                                justifyContent: 'start',
-                            } }
-                            to = '/deals'
-                        >
-                            { 'Deals' }
-                        </Button> */}
-                        {/* <Button
-                            color = { 'inherit' }
-                        >
-                            <Link to="/book2">
-                                { 'Book' }
-                            </Link>
-                        </Button> */}
-                        {/* <Button
-                            color = { 'inherit' }
-                        >
-                            <Link to="/live">
-                                { 'Live' }
-                            </Link>
-                        </Button> */}
-                        <Typography
-                            align = {'right'}
-                            color = {'inherit'}
-                        >
-                            { `${ totalItems } objekt` }
-                        </Typography>
-                        <LoginButton />
-                    </Toolbar>
-                </AppBar>
-            </Box>
+                            { 'Fyndmaskinen' }
+                        </Link>
+                    </Typography>
+                    {/* <Button
+                        component = { Link }
+                        sx = { {
+                            color: '#fff',
+                            flexGrow: 1,
+                            justifyContent: 'start',
+                        } }
+                        to = '/deals'
+                    >
+                        { 'Deals' }
+                    </Button> */}
+                    {/* <Button
+                        color = { 'inherit' }
+                    >
+                        <Link to="/book2">
+                            { 'Book' }
+                        </Link>
+                    </Button> */}
+                    {/* <Button
+                        color = { 'inherit' }
+                    >
+                        <Link to="/live">
+                            { 'Live' }
+                        </Link>
+                    </Button> */}
+                    <Typography
+                        align = {'right'}
+                        color = {'inherit'}
+                        sx = {{
+                            marginRight: '10px',
+                        }}
+                    >
+                        { `${ totalItems } objekt` }
+                    </Typography>
+                    <LoginButton />
+                </Toolbar>
+            </AppBar>
             <Routes>
                 <Route
                     element = {<Main />}
@@ -150,10 +151,14 @@ const App = () => {
                     path="/book2"
                 >
                     <Book />
-                </Route> */}
+                </Route>
+                <Route
+                    path="/live"
+                    component={Live}
+                />
+                */}
             </Routes>
-            {/* <Route path="/live" component={Live} /> */}
-        </div>
+        </Box>
     );
 };
 

@@ -19,6 +19,7 @@
         "@emotion/styled": "^11.8.1",
         "@ericblade/quagga2": "^1.6.0",
         "@mui/icons-material": "^5.5.1",
+        "@mui/lab": "^5.0.0-alpha.77",
         "@mui/material": "^5.5.3",
         "just-shuffle": "^4.0.1",
         "react": "^18.0.0",

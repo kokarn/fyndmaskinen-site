@@ -18,7 +18,7 @@ const AddWatch = () => {
     const {
         // loginWithRedirect,
         // login,
-        // user,
+        user,
         // isAuthenticated,
         // isLoading,
         // getAccessTokenWithPopup,
@@ -58,7 +58,9 @@ const AddWatch = () => {
             await fetch(`${window.API_HOSTNAME}/graphql`, {
                 body: JSON.stringify({
                     query: `mutation {
-                        addWatch(match: "${newMatchString}")
+                        addWatch(match: "${newMatchString}", notify: "${user.email}") {
+                            match
+                        }
                     }`,
                 }),
                 headers: {

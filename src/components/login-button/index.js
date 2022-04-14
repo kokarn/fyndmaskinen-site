@@ -3,10 +3,14 @@ import {
 } from '@auth0/auth0-react';
 import {
     Avatar,
+    Button,
 } from '@mui/material';
 import {
     Link,
 } from 'react-router-dom';
+import {
+    LoadingButton,
+} from '@mui/lab';
 
 const LoginButton = () => {
     const {
@@ -26,52 +30,32 @@ const LoginButton = () => {
                         <Avatar
                             alt = {user.name}
                             src = {user.picture}
-                            // sx = {{ bgcolor: deepOrange[500] }}
-                        >
-                            {'B'}
-                        </Avatar>
+                            variant = {'rounded'}
+                        />
                     </Link>
                 </div>
             )}
             {!isAuthenticated && !isLoading && (
-                <button
+                <Button
+                    color = 'inherit'
                     onClick = {() => {
                         return loginWithRedirect();
                     }}
+                    variant = 'text'
                 >
                     {'Logga in'}
-                </button>
+                </Button>
             )}
             {isLoading && (
-                <div>
-                    {'Laddar'}
-                </div>
+                <LoadingButton
+                    loading
+                    variant = 'text'
+                >
+                    {'Submit'}
+                </LoadingButton>
             )}
         </div>
     );
 };
 
 export default LoginButton;
-
-// import { useAuth0 } from "@auth0/auth0-react";
-// import React from "react";
-
-// const Profile = () => {
-//   const { user, isAuthenticated, isLoading } = useAuth0();
-
-//   if (isLoading) {
-//     return <div>Loading ...</div>;
-//   }
-
-//   return (
-//     isAuthenticated && (
-//       <div>
-//         <img src={user.picture} alt={user.name} />
-//         <h2>{user.name}</h2>
-//         <p>{user.email}</p>
-//       </div>
-//     )
-//   );
-// };
-
-// export default Profile;

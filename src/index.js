@@ -16,7 +16,10 @@ import {
 } from '@auth0/auth0-react';
 
 window.API_HOSTNAME = 'https://d2cmhnbxvwhy7s.cloudfront.net';
-// window.API_HOSTNAME = 'https://localhost:4080';
+
+if (window.location.origin.includes('localhost')) {
+    window.API_HOSTNAME = 'https://localhost:4080';
+}
 
 const queryClient = new QueryClient();
 const root = ReactDOMClient.createRoot(document.getElementById('root'));
