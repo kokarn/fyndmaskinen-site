@@ -1,10 +1,17 @@
-const doGetWatches = () => {
+const getWatches = ({
+    queryKey,
+}) => {
+    const accessToken = queryKey[ 1 ];
     const query = `{
         getWatches {
             notify
             match
         }
     }`;
+
+    if (!accessToken) {
+        return [];
+    }
 
     return fetch(
         `${ window.API_HOSTNAME }/graphql`,
@@ -13,6 +20,7 @@ const doGetWatches = () => {
                 query: query,
             }),
             headers: {
+                authorization: `Bearer ${accessToken}`,
                 'Content-Type': 'application/json',
             },
             method: 'POST',
@@ -29,4 +37,4 @@ const doGetWatches = () => {
         });
 };
 
-export default doGetWatches;
+export default getWatches;

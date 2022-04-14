@@ -9,19 +9,16 @@ import {
 import {
     TextField,
 } from '@mui/material';
+import {
+    useMutation,
+    useQueryClient,
+} from 'react-query';
 
-// import {
-//     useApi,
-// } from '../../hooks/useApi';
+import addWatch from '../../features/add-watch';
 
 const AddWatch = () => {
     const {
-        // loginWithRedirect,
-        // login,
         user,
-        // isAuthenticated,
-        // isLoading,
-        // getAccessTokenWithPopup,
         getAccessTokenSilently,
     } = useAuth0();
     const [
@@ -35,43 +32,33 @@ const AddWatch = () => {
         scope: 'read:users email read:current_user',
     };
 
-    // if (!isAuthenticated) {
-    //     return null;
-    // }
-    useEffect(() => {
-        (async () => {
-            let accessToken;
+    const queryClient = useQueryClient();
 
-            try {
-                accessToken = await getAccessTokenSilently({
-                    audience: opts.audience,
-                    scope: opts.scope,
-                });
-            } catch (accessTokenError) {
-                console.error(accessTokenError);
-            }
+    const mutation = useMutation(async () => {
+        let accessToken;
 
-            if (newMatchString.length === 0) {
-                return true;
-            }
-
-            await fetch(`${window.API_HOSTNAME}/graphql`, {
-                body: JSON.stringify({
-                    query: `mutation {
-                        addWatch(match: "${newMatchString}", notify: "${user.email}") {
-                            match
-                        }
-                    }`,
-                }),
-                headers: {
-                    authorization: `Bearer ${accessToken}`,
-                    'Content-Type': 'application/json',
-                },
-                method: 'POST',
+        try {
+            accessToken = await getAccessTokenSilently({
+                audience: opts.audience,
+                scope: opts.scope,
             });
+        } catch (accessTokenError) {
+            console.error(accessTokenError);
+        }
 
+        if (newMatchString.length === 0) {
             return true;
-        })();
+        }
+
+        return addWatch(accessToken, user.email, newMatchString);
+    }, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('watches');
+        },
+    });
+
+    useEffect(() => {
+        mutation.mutate(newMatchString);
     }, [newMatchString]);
 
     return (

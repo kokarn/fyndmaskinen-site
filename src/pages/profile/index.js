@@ -1,4 +1,8 @@
 import {
+    useEffect,
+    useState,
+} from 'react';
+import {
     useAuth0,
 } from '@auth0/auth0-react';
 import {
@@ -14,64 +18,47 @@ import {
     Typography,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-
 import {
-    useApi,
-} from '../../hooks/useApi';
+    useQuery,
+    useMutation,
+    useQueryClient,
+} from 'react-query';
+
+
+import removeWatch from '../../features/remove-watch';
+import getWatches from '../../features/get-watches';
+
 import AddWatch from '../../components/add-watch';
 import LogoutButton from '../../components/logout-button';
 
 const Profile = () => {
     const {
-        loginWithRedirect,
-        // login,
+        // loginWithRedirect,
         user,
-        // isAuthenticated,
-        // isLoading,
-        getAccessTokenWithPopup,
+        // getAccessTokenWithPopup,
         getAccessTokenSilently,
     } = useAuth0();
+    const [
+        accessToken,
+        setAccessToken,
+    ] = useState('');
     const opts = {
         audience: 'https://fyndmaskinen.kokarn.com',
         scope: 'read:users email read:current_user',
-
     };
 
-    const {
-        // loading,
-        error,
-        refresh,
-        apiData,
-    } = useApi(
-        `${window.API_HOSTNAME}/graphql`,
-        {
-            ...opts,
-            body: JSON.stringify({
-                query: `{
-                    getWatches {
-                        match
-                        notify
-                    }
-                }`,
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-        },
-    );
+    const queryClient = useQueryClient();
 
-    const getTokenAndTryAgain = async () => {
-        console.log('get token and try again');
-        await getAccessTokenWithPopup(opts);
-        refresh();
-    };
+    // const getTokenAndTryAgain = async () => {
+    //     console.log('get token and try again');
+    //     await getAccessTokenWithPopup(opts);
+    // };
 
-    const handleDeleteButtonClick = async (match) => {
-        let accessToken;
+    const mutation = useMutation(async (match) => {
+        let temporaryAccessToken;
 
         try {
-            accessToken = await getAccessTokenSilently({
+            temporaryAccessToken = await getAccessTokenSilently({
                 audience: opts.audience,
                 scope: opts.scope,
             });
@@ -79,50 +66,77 @@ const Profile = () => {
             console.error(accessTokenError);
         }
 
-        await fetch(`${window.API_HOSTNAME}/graphql`, {
-            body: JSON.stringify({
-                query: `mutation {
-                    removeWatch(match: "${match}") {
-                        match
-                        notify
-                    }
-                }`,
-            }),
-            headers: {
-                authorization: `Bearer ${accessToken}`,
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-        });
+        return removeWatch(temporaryAccessToken, match);
+    }, {
+        onSuccess: () => {
+            queryClient.invalidateQueries([
+                'watches',
+                accessToken,
+            ]);
+        },
+    });
 
-        return true;
-    };
+    useEffect(() => {
+        (async () => {
+            try {
+                const currentAccessToken = await getAccessTokenSilently({
+                    audience: opts.audience,
+                    scope: opts.scope,
+                });
 
-    if (error) {
-        if (error.error === 'login_required') {
-            return (
-                <button
-                    onClick = {() => {
-                        return loginWithRedirect(opts);
-                    }}
-                >
-                    {'Login'}
-                </button>
-            );
+                setAccessToken(currentAccessToken);
+                queryClient.invalidateQueries([
+                    'watches',
+                    accessToken,
+                ]);
+            } catch (accessTokenError) {
+                console.error(accessTokenError);
+            }
+        })();
+    }, []);
+
+    const {
+        // isFetching,
+        data: watches,
+    } = useQuery(
+        [
+            'watches',
+            accessToken,
+        ],
+        getWatches,
+        {
+            placeholderData: [],
+            refetchInterval: 600000,
+            // refetchOnMount: false,
+            refetchOnWindowFocus: false,
         }
+    );
 
-        if (error.error === 'consent_required') {
-            return (
-                <button
-                    onClick = {getTokenAndTryAgain}
-                >
-                    {'Consent to reading users'}
-                </button>
-            );
-        }
+    // if (error) {
+    //     if (error.error === 'login_required') {
+    //         return (
+    //             <button
+    //                 onClick = {() => {
+    //                     return loginWithRedirect(opts);
+    //                 }}
+    //             >
+    //                 {'Login'}
+    //             </button>
+    //         );
+    //     }
 
-        return <div>{'Oops'} {error.message}</div>;
-    }
+    //     if (error.error === 'consent_required') {
+    //         return (
+    //             <button
+    //                 onClick = {getTokenAndTryAgain}
+    //             >
+    //                 {'Consent to reading users'}
+    //             </button>
+    //         );
+    //     }
+
+    //     return <div>{'Oops'} {error.message}</div>;
+    // }
 
     return (
         <Box
@@ -159,7 +173,7 @@ const Profile = () => {
                     <List
                         key = 'my-monitors'
                     >
-                        {apiData.getWatches.map((watch) => {
+                        {watches.map((watch) => {
                             return (
                                 <ListItem
                                     disableGutters
@@ -171,7 +185,7 @@ const Profile = () => {
                                         >
                                             <DeleteIcon
                                                 onClick = {() => {
-                                                    handleDeleteButtonClick(watch.match);
+                                                    mutation.mutate(watch.match);
                                                 }}
                                             />
                                         </IconButton>
