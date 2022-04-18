@@ -24,7 +24,7 @@ import {
     useQueryClient,
 } from 'react-query';
 import {
-    Link
+    Link,
 } from 'react-router-dom';
 
 import removeWatch from '../../features/remove-watch';
