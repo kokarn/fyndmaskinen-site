@@ -187,8 +187,9 @@ const Profile = () => {
                                             edge = 'end'
                                         >
                                             <DeleteIcon
-                                                onClick = {() => {
+                                                onClick = {(event) => {
                                                     mutation.mutate(watch.match);
+                                                    event.preventDefault();
                                                 }}
                                             />
                                         </IconButton>
@@ -197,7 +198,6 @@ const Profile = () => {
                                 >
                                     <ListItemButton
                                         disableGutters
-                                        role = {'undefined'}
                                         // onClick = {handleToggle(value)}
                                     >
                                         {/* <ListItemIcon>
@@ -212,7 +212,7 @@ const Profile = () => {
                                         </ListItemIcon> */}
                                         <ListItemText
                                             primary = {watch.match}
-                                            secondary = {'XXX objekt'}
+                                            // secondary = {'XXX objekt'}
                                         />
                                     </ListItemButton>
                                 </ListItem>
