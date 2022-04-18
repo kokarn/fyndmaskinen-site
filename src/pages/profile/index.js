@@ -9,7 +9,7 @@ import {
     // Checkbox,
     List,
     ListItem,
-    // ListItemButton,
+    ListItemButton,
     ListItemText,
     // ListItemIcon,
     IconButton,
@@ -23,7 +23,9 @@ import {
     useMutation,
     useQueryClient,
 } from 'react-query';
-
+import {
+    Link
+} from 'react-router-dom';
 
 import removeWatch from '../../features/remove-watch';
 import getWatches from '../../features/get-watches';
@@ -176,6 +178,7 @@ const Profile = () => {
                         {watches.map((watch) => {
                             return (
                                 <ListItem
+                                    component = {Link}
                                     disableGutters
                                     key = {`watch-${user?.name}-${watch.match}`}
                                     secondaryAction = {
@@ -190,12 +193,14 @@ const Profile = () => {
                                             />
                                         </IconButton>
                                     }
+                                    to = {`/search/${watch.match}`}
                                 >
-                                    {/* <ListItemButton
+                                    <ListItemButton
+                                        disableGutters
                                         role = {'undefined'}
                                         // onClick = {handleToggle(value)}
                                     >
-                                        <ListItemIcon>
+                                        {/* <ListItemIcon>
                                             <Checkbox
                                                 // checked = {checked.indexOf(value) !== -1}
                                                 checked
@@ -204,11 +209,12 @@ const Profile = () => {
                                                 // inputProps = {{ 'aria-labelledby': labelId }}
                                                 tabIndex = {-1}
                                             />
-                                        </ListItemIcon>
-                                    </ListItemButton> */}
-                                    <ListItemText
-                                        primary = {watch.match}
-                                    />
+                                        </ListItemIcon> */}
+                                        <ListItemText
+                                            primary = {watch.match}
+                                            secondary = {'XXX objekt'}
+                                        />
+                                    </ListItemButton>
                                 </ListItem>
                             );
                         })}
