@@ -69,6 +69,7 @@ const AddWatch = () => {
                 event.preventDefault();
                 console.log(searchRef.current.value);
                 setNewMatchString(searchRef.current.value);
+                searchRef.current.value = '';
             }}
         >
             <TextField
