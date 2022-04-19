@@ -4,9 +4,12 @@ import {
 } from 'react';
 import {
     Box,
+    Button,
     Grid,
-    // Typography,
     TextField,
+    FormGroup,
+    FormControlLabel,
+    Checkbox,
 } from '@mui/material';
 import {
     Link,
@@ -20,82 +23,110 @@ const Main = () => {
     const navigate = useNavigate();
 
     return (
-        <div
-            className = 'App'
+        <Box
+            m = {2}
         >
-            <Box
-                m = {2}
+            <form
+                autoComplete = 'off'
+                noValidate
+                onSubmit = {(event) => {
+                    event.preventDefault();
+                    navigate(`/search/${searchRef.current.value}`);
+                }}
             >
                 <Grid
+                    alignItems = 'center'
                     container
                     spacing = {2}
-                    // alignItems = { 'flex-end' }
                 >
                     <Grid
                         item
                         md = {12}
                         xs = {12}
                     >
-                        <form
-                            autoComplete = 'off'
-                            noValidate
-                            onSubmit = {(event) => {
-                                event.preventDefault();
-                                navigate(`/search/${searchRef.current.value}`);
+                        <TextField
+                            fullWidth
+                            id = 'standard-name'
+                            inputProps = {{
+                                type: 'search',
                             }}
+                            inputRef = {searchRef}
+                            label = {'Sök'}
+                            margin = 'normal'
+                            variant = 'standard'
+                        />
+                    </Grid>
+                    <Grid
+                        item
+                        md = {12}
+                        xs = {12}
+                    >
+                        {'Populära sökningar: '}
+                        <Button
+                            variant = 'text'
                         >
-                            <TextField
-                                fullWidth
-                                id = 'standard-name'
-                                inputProps = {{
-                                    type: 'search',
-                                }}
-                                inputRef = {searchRef}
-                                label = {'Sök'}
-                                margin = 'normal'
-                                variant = 'standard'
-                            />
-                            {/* <FormGroup>
-                            <FormControlLabel
-                                control={<Checkbox defaultChecked />}
-                                label="Auctions"
-                            />
-                            <FormControlLabel
-                                disabled
-                                control={<Checkbox />}
-                                label="Blocket"
-                            />
-                            <FormControlLabel
-                                disabled
-                                control={<Checkbox />}
-                                label="Marketplace"
-                            />
-                        </FormGroup> */}
-                        </form>
-                        <div>
-                            {'Populära sökningar: '}
                             <Link
                                 to = '/search/string'
                             >
                                 {'string'}
                             </Link>
-                            {' '}
+                        </Button>
+                        <Button
+                            variant = 'text'
+                        >
                             <Link
                                 to = '/search/lego'
                             >
                                 {'lego'}
                             </Link>
-                            {' '}
+                        </Button>
+                        <Button
+                            variant = 'text'
+                        >
                             <Link
                                 to = '/search/guld'
                             >
                                 {'guld'}
                             </Link>
-                        </div>
+                        </Button>
+                    </Grid>
+                    <Grid
+                        item
+                        md = {12}
+                        xs = {12}
+                    >
+                        <FormGroup>
+                            <FormControlLabel
+                                control = {<Checkbox
+                                    defaultChecked
+                                />}
+                                label = {'Mindre auktionshus'}
+                            />
+                            <FormControlLabel
+                                control = {<Checkbox />}
+                                disabled
+                                label = 'Blocket'
+                            />
+                            <FormControlLabel
+                                control = {<Checkbox />}
+                                disabled
+                                label = 'Marketplace'
+                            />
+                            <FormControlLabel
+                                control = {<Checkbox />}
+                                disabled
+                                label = 'Tradera'
+                            />
+                            <FormControlLabel
+                                control = {<Checkbox />}
+                                disabled
+                                label = 'Auctionnet'
+                            />
+                        </FormGroup>
                     </Grid>
                 </Grid>
-            </Box>
-        </div>
+            </form>
+        </Box>
     );
 };
 
