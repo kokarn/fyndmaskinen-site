@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
-import 'typeface-roboto';
 import {
     BrowserRouter as Router,
 } from 'react-router-dom';
