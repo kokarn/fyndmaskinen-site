@@ -8,8 +8,8 @@ const doSearch = ({
             title
             url
             currentPrice
-            img
-            startTime
+            imageUrl
+            type
         }
     }`;
 
@@ -19,8 +19,8 @@ const doSearch = ({
                 title
                 url
                 currentPrice
-                img
-                startTime
+                imageUrl
+                type
             }
         }`;
     }

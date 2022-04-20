@@ -121,7 +121,7 @@ const App = () => {
                             marginRight: '10px',
                         }}
                     >
-                        { `${ totalItems } objekt` }
+                        { `${ new Intl.NumberFormat('sv-SE').format(totalItems) } objekt` }
                     </Typography>
                     <LoginButton />
                 </Toolbar>

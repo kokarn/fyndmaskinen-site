@@ -61,6 +61,45 @@ const Main = () => {
                         md = {12}
                         xs = {12}
                     >
+                        <FormGroup
+                            row
+                        >
+                            <FormControlLabel
+                                control = {<Checkbox
+                                    defaultChecked
+                                />}
+                                disabled
+                                label = {'Mindre auktionshus'}
+                            />
+                            {/* <FormControlLabel
+                                control = {<Checkbox />}
+                                disabled
+                                label = 'Blocket'
+                            />
+                            <FormControlLabel
+                                control = {<Checkbox />}
+                                disabled
+                                label = 'Marketplace'
+                            /> */}
+                            <FormControlLabel
+                                control = {<Checkbox
+                                    defaultChecked
+                                />}
+                                disabled
+                                label = 'Tradera'
+                            />
+                            {/* <FormControlLabel
+                                control = {<Checkbox />}
+                                disabled
+                                label = 'Auctionnet'
+                            /> */}
+                        </FormGroup>
+                    </Grid>
+                    <Grid
+                        item
+                        md = {12}
+                        xs = {12}
+                    >
                         {'Populära sökningar: '}
                         <Button
                             variant = 'text'
@@ -89,40 +128,6 @@ const Main = () => {
                                 {'guld'}
                             </Link>
                         </Button>
-                    </Grid>
-                    <Grid
-                        item
-                        md = {12}
-                        xs = {12}
-                    >
-                        <FormGroup>
-                            <FormControlLabel
-                                control = {<Checkbox
-                                    defaultChecked
-                                />}
-                                label = {'Mindre auktionshus'}
-                            />
-                            <FormControlLabel
-                                control = {<Checkbox />}
-                                disabled
-                                label = 'Blocket'
-                            />
-                            <FormControlLabel
-                                control = {<Checkbox />}
-                                disabled
-                                label = 'Marketplace'
-                            />
-                            <FormControlLabel
-                                control = {<Checkbox />}
-                                disabled
-                                label = 'Tradera'
-                            />
-                            <FormControlLabel
-                                control = {<Checkbox />}
-                                disabled
-                                label = 'Auctionnet'
-                            />
-                        </FormGroup>
                     </Grid>
                 </Grid>
             </form>

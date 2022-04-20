@@ -8,6 +8,9 @@ import {
     Grid,
     Typography,
     TextField,
+    FormGroup,
+    FormControlLabel,
+    Checkbox,
 } from '@mui/material';
 // import shuffle from 'just-shuffle';
 import {
@@ -116,29 +119,56 @@ const Search = () => {
                                 value = {searchPhrase}
                                 variant = 'standard'
                             />
-                            {/* <FormGroup>
-                            <FormControlLabel
-                                control={<Checkbox defaultChecked />}
-                                label="Auctions"
-                            />
-                            <FormControlLabel
-                                disabled,
-                                control={<Checkbox />}
-                                label="Blocket"
-                            />
-                            <FormControlLabel
-                                disabled
-                                control={<Checkbox />}
-                                label="Marketplace"
-                            />
-                        </FormGroup> */}
                         </form>
-                        {(isFetching || searchPending) && searchPhrase.length > 0 && (
-                            <div>
-                                {`Söker efter ${searchPhrase}...`}
-                            </div>
-                        )}
                     </Grid>
+                    <Grid
+                        item
+                        md = {12}
+                        xs = {12}
+                    >
+                        <FormGroup
+                            row
+                        >
+                            <FormControlLabel
+                                control = {<Checkbox
+                                    defaultChecked
+                                />}
+                                disabled
+                                label = {'Mindre auktionshus'}
+                            />
+                            {/* <FormControlLabel
+                                control = {<Checkbox />}
+                                disabled
+                                label = 'Blocket'
+                            />
+                            <FormControlLabel
+                                control = {<Checkbox />}
+                                disabled
+                                label = 'Marketplace'
+                            /> */}
+                            <FormControlLabel
+                                control = {<Checkbox
+                                    defaultChecked
+                                />}
+                                disabled
+                                label = 'Tradera'
+                            />
+                            {/* <FormControlLabel
+                                control = {<Checkbox />}
+                                disabled
+                                label = 'Auctionnet'
+                            /> */}
+                        </FormGroup>
+                    </Grid>
+                    {(isFetching || searchPending) && searchPhrase.length > 0 && (
+                        <Grid
+                            item
+                            md = {12}
+                            xs = {12}
+                        >
+                            {`Söker efter ${searchPhrase}...`}
+                        </Grid>
+                    )}
                     {searchPhrase.length > 0 && !isFetching && !searchPending && (
                         <Grid
                             item

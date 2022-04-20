@@ -53,13 +53,13 @@ class LiveAuction extends Component {
                     highBidder
                     nextBid
                     timeLeft
-                    img
+                    imageUrl
                     url
                     item {
                         title
                         url
                         currentPrice
-                        img
+                        imageUrl
                         startTime
                     }
                   }
@@ -100,7 +100,7 @@ class LiveAuction extends Component {
             return (
                 <LiveItem
                     currentBid = { liveItem.currentBid }
-                    img = { liveItem.img }
+                    img = { liveItem.imageUrl }
                     nextBid = { liveItem.nextBid }
                     timeLeft = { liveItem.timeLeft }
                     title = { liveItem.item.title }
