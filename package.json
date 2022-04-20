@@ -61,7 +61,7 @@
         "ignorePatterns": [
             "node_modules/**/*.js",
             "src/App.test.js",
-            "src/serviceWorker.js",
+            "src/service-worker.js",
             "src/countown-renderer.js",
             "src/Live.js",
             "src/LiveAuction.js",
@@ -92,6 +92,9 @@
                 1
             ],
             "id-blacklist": [
+                1
+            ],
+            "no-process-env": [
                 1
             ]
         }
