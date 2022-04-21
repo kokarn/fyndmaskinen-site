@@ -14,9 +14,6 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
 import CheckIcon from '@material-ui/icons/Check';
-import {
-    Textfit,
-} from 'react-textfit';
 
 const PERCENTAGE_SIZE = 16;
 const TITLE_MAX_LENGTH = 35;
@@ -68,12 +65,7 @@ class LiveItem extends Component {
                         title = { this.props.title }
                     />
                     <CardContent>
-                        <Textfit
-                            max = { 24 }
-                            mode = { 'single' }
-                        >
-                            { this.getTitle() }
-                        </Textfit>
+                        { this.getTitle() }
                     </CardContent>
                     <CardActions
                         disableActionSpacing
