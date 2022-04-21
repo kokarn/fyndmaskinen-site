@@ -1,4 +1,8 @@
 import {
+    useEffect,
+    useState,
+} from 'react';
+import {
     Grid,
     Typography,
     Card,
@@ -8,9 +12,12 @@ import {
     Grow,
 } from '@mui/material';
 import GavelIcon from '@mui/icons-material/Gavel';
+import {
+    useInView,
+} from 'react-intersection-observer';
 
 const ITEM_TRANSITION_STAGGER = 25;
-const MAX_ITEM_LIST = 40;
+const MAX_ITEM_LIST = 42;
 
 const SearchTable = ({
     displayItems,
@@ -18,17 +25,34 @@ const SearchTable = ({
     // if (searchItems.length <= 0) {
     //     return null;
     // }
+    const [
+        pageSize,
+        setPageSize,
+    ] = useState(MAX_ITEM_LIST);
 
     const errorImage = 'https://fyndmaskinen.se/images/no-image.jpg';
 
-    return displayItems.map((tile, index) => {
+    const {
+        ref,
+        inView,
+    } = useInView({
+        threshold: 0,
+    });
+
+    useEffect(() => {
+        if (inView && displayItems.length > pageSize) {
+            setPageSize(pageSize + MAX_ITEM_LIST);
+        }
+    }, [inView]);
+
+    const tiles = displayItems.map((tile, index) => {
         let currentPrice = `${tile.currentPrice}:-`;
 
         if (tile.currentPrice === -1) {
             currentPrice = 'Förhandsvisning';
         }
 
-        if (index > MAX_ITEM_LIST) {
+        if (index >= pageSize) {
             return false;
         }
 
@@ -88,8 +112,8 @@ const SearchTable = ({
                                     // component = 'div'
                                     gutterBottom
                                     sx = {{
+                                        height: '32px',
                                         lineHeight: 'initial',
-                                        maxHeight: '32px',
                                         overflow: 'hidden',
                                     }}
                                     variant = 'subtitle2'
@@ -115,6 +139,13 @@ const SearchTable = ({
             </Grow>
         );
     });
+
+    tiles.push(<span
+        key = 'ref-link'
+        ref = {ref}
+    />);
+
+    return tiles;
 };
 
 export default SearchTable;
