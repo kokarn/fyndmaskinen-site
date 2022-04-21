@@ -173,6 +173,7 @@ const Search = () => {
                         <Grid
                             item
                             md = {12}
+                            xs = {12}
                         >
                             <Typography
                                 align = {'left'}
@@ -182,18 +183,24 @@ const Search = () => {
                             </Typography>
                         </Grid>
                     )}
-                </Grid>
-                <Grid
-                    columns = {{
-                        md: 12,
-                        xs: 4,
-                    }}
-                    container
-                    spacing = {2}
-                >
-                    <SearchTable
-                        displayItems = {searchResult}
-                    />
+                    <Grid
+                        item
+                        md = {12}
+                        xs = {12}
+                    >
+                        <Grid
+                            columns = {{
+                                md: 12,
+                                xs: 4,
+                            }}
+                            container
+                            spacing = {2}
+                        >
+                            <SearchTable
+                                displayItems = {searchResult}
+                            />
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Box>
         </div>
