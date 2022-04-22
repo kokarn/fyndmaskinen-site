@@ -87,7 +87,7 @@ const SearchTable = ({
                 // eslint-disable-next-line
                 style = {{
                     transformOrigin: 'top center',
-                    transitionDelay: `${index * ITEM_TRANSITION_STAGGER}ms`,
+                    transitionDelay: `${(index % MAX_ITEM_LIST) * ITEM_TRANSITION_STAGGER}ms`,
                 }}
             >
                 <Grid
