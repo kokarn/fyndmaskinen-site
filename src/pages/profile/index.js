@@ -167,7 +167,7 @@ const Profile = () => {
                     xs = {12}
                 >
                     <Typography
-                        color = {'inherit'}
+                        // color = {'inherit'}
                         variant = {'h5'}
                     >
                         { 'Aktiva bevakningar' }

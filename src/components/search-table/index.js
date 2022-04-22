@@ -121,7 +121,7 @@ const SearchTable = ({
                                     { tile.title }
                                 </Typography>
                                 <Typography
-                                    color = 'text.secondary'
+                                    // color = 'text.secondary'
                                     sx = {{
                                         alignItems: 'center',
                                         display: 'flex',

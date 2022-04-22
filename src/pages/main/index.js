@@ -17,7 +17,6 @@ import {
     useNavigate,
 } from 'react-router-dom';
 
-
 const Main = () => {
     const searchRef = useRef(null);
     const navigate = useNavigate();

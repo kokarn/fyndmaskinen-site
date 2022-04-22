@@ -1,5 +1,6 @@
 import {
-    useState, useMemo,
+    useState,
+    useMemo,
 } from 'react';
 import {
     Routes,
@@ -16,6 +17,12 @@ import {
     // Menu,
     // MenuItem,
 } from '@mui/material';
+import {
+    ThemeProvider,
+    createTheme,
+} from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import LoginButton from './components/login-button';
 
@@ -33,6 +40,7 @@ const App = () => {
     const [
         totalItems, setTotalItems,
     ] = useState('?');
+    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
     const updateData = () => {
         fetch(
@@ -64,101 +72,119 @@ const App = () => {
         updateData();
     }, []);
 
+    const theme = useMemo(
+        () => {
+            return createTheme({
+                palette: {
+                    mode: prefersDarkMode ?
+                        'dark' :
+                        'light',
+                },
+            });
+        },
+        [prefersDarkMode],
+    );
+
     return (
-        <Box
-            sx = {{
-                flexGrow: 1,
-                minHeight: '100vh',
-            }}
+        <ThemeProvider
+            theme = {theme}
         >
-            <AppBar
-                position = 'static'
+            <CssBaseline />
+            <Box
+                sx = {{
+                    flexGrow: 1,
+                    minHeight: '100vh',
+                }}
             >
-                <Toolbar>
-                    <Typography
-                        color = {'inherit'}
-                        sx = {{
-                            flexGrow: 1,
-                            justifyContent: 'start',
-                        }}
-                        variant = {'h5'}
-                    >
-                        <Link
-                            to = '/'
-                        >
-                            { 'Fyndmaskinen' }
-                        </Link>
-                    </Typography>
-                    {/* <Button
-                        component = { Link }
-                        sx = { {
-                            color: '#fff',
-                            flexGrow: 1,
-                            justifyContent: 'start',
-                        } }
-                        to = '/deals'
-                    >
-                        { 'Deals' }
-                    </Button> */}
-                    {/* <Button
-                        color = { 'inherit' }
-                    >
-                        <Link to="/book2">
-                            { 'Book' }
-                        </Link>
-                    </Button> */}
-                    {/* <Button
-                        color = { 'inherit' }
-                    >
-                        <Link to="/live">
-                            { 'Live' }
-                        </Link>
-                    </Button> */}
-                    <Typography
-                        align = {'right'}
-                        color = {'inherit'}
-                        sx = {{
-                            marginRight: '10px',
-                        }}
-                    >
-                        { `${ new Intl.NumberFormat('sv-SE').format(totalItems) } objekt` }
-                    </Typography>
-                    <LoginButton />
-                </Toolbar>
-            </AppBar>
-            <Routes>
-                <Route
-                    element = {<Main />}
-                    path = '/'
-                />
-                <Route
-                    element = {<Deals />}
-                    path = '/deals'
-                />
-                <Route
-                    element = {<Search />}
-                    path = '/search/:searchString'
-                />
-                <Route
-                    element = {<Search />}
-                    path = '/search/'
-                />
-                <Route
-                    element = {<Profile />}
-                    path = '/profile'
-                />
-                {/* <Route
-                    path="/book2"
+                <AppBar
+                    position = 'static'
                 >
-                    <Book />
-                </Route>
-                <Route
-                    path="/live"
-                    component={Live}
-                />
-                */}
-            </Routes>
-        </Box>
+                    <Toolbar>
+                        <Typography
+                            // color = {'inherit'}
+                            sx = {{
+                                flexGrow: 1,
+                                justifyContent: 'start',
+                            }}
+                            variant = {'h5'}
+                        >
+                            <Link
+                                to = '/'
+                            >
+                                { 'Fyndmaskinen' }
+                            </Link>
+                        </Typography>
+                        {/* <Button
+                            component = { Link }
+                            sx = { {
+                                color: '#fff',
+                                flexGrow: 1,
+                                justifyContent: 'start',
+                            } }
+                            to = '/deals'
+                        >
+                            { 'Deals' }
+                        </Button> */}
+                        {/* <Button
+                            color = { 'inherit' }
+                        >
+                            <Link to="/book2">
+                                { 'Book' }
+                            </Link>
+                        </Button> */}
+                        {/* <Button
+                            color = { 'inherit' }
+                        >
+                            <Link to="/live">
+                                { 'Live' }
+                            </Link>
+                        </Button> */}
+                        <Typography
+                            align = {'right'}
+                            // color = {'inherit'}
+                            sx = {{
+                                marginRight: '10px',
+                            }}
+                        >
+                            { `${ new Intl.NumberFormat('sv-SE').format(totalItems) } objekt` }
+                        </Typography>
+                        <LoginButton />
+                    </Toolbar>
+                </AppBar>
+                <Routes>
+                    <Route
+                        element = {<Main />}
+                        path = '/'
+                    />
+                    <Route
+                        element = {<Deals />}
+                        path = '/deals'
+                    />
+                    <Route
+                        element = {<Search />}
+                        path = '/search/:searchString'
+                    />
+                    <Route
+                        element = {<Search />}
+                        path = '/search/'
+                    />
+                    <Route
+                        element = {<Profile />}
+                        path = '/profile'
+                    />
+                    {/* <Route
+                        path="/book2"
+                    >
+                        <Book />
+                    </Route>
+                    <Route
+                        path="/live"
+                        component={Live}
+                    />
+                    */}
+                </Routes>
+            </Box>
+        </ThemeProvider>
     );
 };
 
