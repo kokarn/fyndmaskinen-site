@@ -15,6 +15,7 @@ import GavelIcon from '@mui/icons-material/Gavel';
 import {
     useInView,
 } from 'react-intersection-observer';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const ITEM_TRANSITION_STAGGER = 25;
 const MAX_ITEM_LIST = 42;
@@ -29,6 +30,7 @@ const SearchTable = ({
         pageSize,
         setPageSize,
     ] = useState(MAX_ITEM_LIST);
+    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
     const errorImage = 'https://fyndmaskinen.se/images/no-image.jpg';
 
@@ -68,7 +70,9 @@ const SearchTable = ({
                     alt = 'Tradera'
                     // src = {`${process.env.PUBLIC_URL}/images/icons/tradera-100x100.png`}
                     style = {{
-                        backgroundImage: `url(${process.env.PUBLIC_URL}/images/icons/tradera-40x40.png)`,
+                        backgroundImage: `url(${process.env.PUBLIC_URL}/images/icons/tradera-40x40${prefersDarkMode ?
+                            '-white' :
+                            ''}.png)`,
                         backgroundPosition: 'center',
                         backgroundSize: 'contain',
                         height: '20px',
