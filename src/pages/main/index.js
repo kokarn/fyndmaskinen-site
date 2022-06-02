@@ -44,14 +44,17 @@ const Main = () => {
                         xs = {12}
                     >
                         <TextField
+                            autoFocus
                             fullWidth
                             id = 'standard-name'
                             inputProps = {{
+                                tabIndex: 0,
                                 type: 'search',
                             }}
                             inputRef = {searchRef}
                             label = {'Sök'}
                             margin = 'normal'
+                            // tabIndex = {0}
                             variant = 'standard'
                         />
                     </Grid>
