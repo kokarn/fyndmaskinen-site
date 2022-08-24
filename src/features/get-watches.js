@@ -34,6 +34,8 @@ const getWatches = ({
         })
         .catch((fetchError) => {
             console.error(fetchError);
+
+            return [];
         });
 };
 
