@@ -144,7 +144,7 @@ const Profile = () => {
         <Box
             m = {2}
             sx = {{
-                minHeight: '100vh',
+                minHeight: '10vh',
             }}
         >
             <Grid
