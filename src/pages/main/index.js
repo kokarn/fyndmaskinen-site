@@ -7,15 +7,14 @@ import {
     Button,
     Grid,
     TextField,
-    FormGroup,
-    FormControlLabel,
-    Checkbox,
 } from '@mui/material';
 import {
     Link,
     // useParams,
     useNavigate,
 } from 'react-router-dom';
+
+import SourcesGroup from '../../components/sources-group';
 
 const Main = () => {
     const searchRef = useRef(null);
@@ -58,45 +57,7 @@ const Main = () => {
                             variant = 'standard'
                         />
                     </Grid>
-                    <Grid
-                        item
-                        md = {12}
-                        xs = {12}
-                    >
-                        <FormGroup
-                            row
-                        >
-                            <FormControlLabel
-                                control = {<Checkbox
-                                    defaultChecked
-                                />}
-                                disabled
-                                label = {'Mindre auktionshus'}
-                            />
-                            {/* <FormControlLabel
-                                control = {<Checkbox />}
-                                disabled
-                                label = 'Blocket'
-                            />
-                            <FormControlLabel
-                                control = {<Checkbox />}
-                                disabled
-                                label = 'Marketplace'
-                            /> */}
-                            <FormControlLabel
-                                control = {<Checkbox
-                                    defaultChecked
-                                />}
-                                disabled
-                                label = 'Tradera'
-                            />
-                            {/* <FormControlLabel
-                                control = {<Checkbox />}
-                                disabled
-                                label = 'Auctionnet'
-                            /> */}
-                        </FormGroup>
-                    </Grid>
+                    <SourcesGroup />
                     <Grid
                         item
                         md = {12}

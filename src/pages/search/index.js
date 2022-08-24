@@ -8,9 +8,6 @@ import {
     Grid,
     Typography,
     TextField,
-    FormGroup,
-    FormControlLabel,
-    Checkbox,
 } from '@mui/material';
 // import shuffle from 'just-shuffle';
 import {
@@ -22,8 +19,10 @@ import {
 } from 'react-query';
 
 import SearchTable from '../../components/search-table';
+import SourcesGroup from '../../components/sources-group';
 import doSearch from '../../features/search';
 import useDebounce from '../../hooks/useDebounce';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 const SEARCH_DELAY = 200;
 
@@ -43,6 +42,10 @@ const Search = () => {
 
     const searchRef = useRef(null);
     const debouncedSearchPhrase = useDebounce(searchPhrase, SEARCH_DELAY);
+    const [sources] = useStateWithLocalStorage('sources', {
+        auction2000: true,
+        tradera: true,
+    });
 
     const {
         isFetching,
@@ -50,6 +53,9 @@ const Search = () => {
     } = useQuery([
         'search',
         debouncedSearchPhrase,
+        Object.keys(sources).filter((sourceKey) => {
+            return sources[ sourceKey ];
+        }),
     ], doSearch, {
         placeholderData: [],
         refetchInterval: 600000,
@@ -63,6 +69,10 @@ const Search = () => {
 
         return true;
     };
+
+    useEffect(() => {
+        console.log(sources);
+    }, [sources]);
 
     useEffect(() => {
         navigate(`/search/${debouncedSearchPhrase}`);
@@ -121,45 +131,7 @@ const Search = () => {
                             />
                         </form>
                     </Grid>
-                    <Grid
-                        item
-                        md = {12}
-                        xs = {12}
-                    >
-                        <FormGroup
-                            row
-                        >
-                            <FormControlLabel
-                                control = {<Checkbox
-                                    defaultChecked
-                                />}
-                                disabled
-                                label = {'Mindre auktionshus'}
-                            />
-                            {/* <FormControlLabel
-                                control = {<Checkbox />}
-                                disabled
-                                label = 'Blocket'
-                            />
-                            <FormControlLabel
-                                control = {<Checkbox />}
-                                disabled
-                                label = 'Marketplace'
-                            /> */}
-                            <FormControlLabel
-                                control = {<Checkbox
-                                    defaultChecked
-                                />}
-                                disabled
-                                label = 'Tradera'
-                            />
-                            {/* <FormControlLabel
-                                control = {<Checkbox />}
-                                disabled
-                                label = 'Auctionnet'
-                            /> */}
-                        </FormGroup>
-                    </Grid>
+                    <SourcesGroup />
                     {(isFetching || searchPending) && searchPhrase.length > 0 && (
                         <Grid
                             item

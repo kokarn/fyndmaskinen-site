@@ -4,7 +4,7 @@ const doSearch = ({
     const searchPhrase = queryKey[ 1 ];
 
     let query = `{
-        findItems( match: "${ searchPhrase }" ) {
+        findItems( match: "${ searchPhrase }", sources: "${queryKey[ 2 ]}" ) {
             title
             url
             currentPrice
@@ -25,7 +25,7 @@ const doSearch = ({
         }`;
     }
 
-    console.log(`Searching for "${searchPhrase}"`);
+    console.log(`Searching for "${searchPhrase}" in ${queryKey[ 2 ]}`);
 
     return fetch(
         `${ window.API_HOSTNAME }/graphql`,
