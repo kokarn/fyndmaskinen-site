@@ -1,99 +1,102 @@
 {
-    "name": "fyndmaskinen-site",
-    "version": "1.0.0",
-    "description": "",
-    "main": "server.js",
-    "scripts": {
-        "build": "react-scripts build",
-        "eject": "react-scripts eject",
-        "pretest": "eslint src/**/*.js --fix",
-        "dev": "HTTPS=true react-scripts start",
-        "test": "react-scripts test"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "@auth0/auth0-react": "^1.9.0",
-        "@emotion/react": "^11.8.2",
-        "@emotion/styled": "^11.8.1",
-        "@ericblade/quagga2": "^1.6.0",
-        "@mui/icons-material": "^5.5.1",
-        "@mui/lab": "^5.0.0-alpha.77",
-        "@mui/material": "^5.5.3",
-        "just-shuffle": "^4.0.1",
-        "react": "^18.0.0",
-        "react-countdown-now": "^2.1.0",
-        "react-dom": "^18.0.0",
-        "react-intersection-observer": "^8.34.0",
-        "react-query": "^3.34.19",
-        "react-router-dom": "^6.2.2",
-        "react-scripts": "^5.0.0",
-        "web-vitals": "^2.1.4",
-        "workbox-background-sync": "^6.5.3",
-        "workbox-broadcast-update": "^6.5.3",
-        "workbox-cacheable-response": "^6.5.3",
-        "workbox-core": "^6.5.3",
-        "workbox-expiration": "^6.5.3",
-        "workbox-google-analytics": "^6.5.3",
-        "workbox-navigation-preload": "^6.5.3",
-        "workbox-precaching": "^6.5.3",
-        "workbox-range-requests": "^6.5.3",
-        "workbox-routing": "^6.5.3",
-        "workbox-strategies": "^6.5.3",
-        "workbox-streams": "^6.5.3"
-    },
-    "devDependencies": {
-        "dotenv": "^16.0.0",
-        "eslint": "^8.12.0",
-        "eslint-config-kokarn": "^5.0.0"
-    },
-    "browserslist": [
-        ">0.2%",
-        "not dead",
-        "not ie <= 11",
-        "not op_mini all"
+  "name": "fyndmaskinen-site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "build": "react-scripts build",
+    "eject": "react-scripts eject",
+    "pretest": "eslint src/**/*.js --fix",
+    "dev": "HTTPS=true react-scripts start",
+    "test": "react-scripts test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@auth0/auth0-react": "^1.9.0",
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "@ericblade/quagga2": "^1.6.0",
+    "@mui/icons-material": "^5.5.1",
+    "@mui/lab": "^5.0.0-alpha.77",
+    "@mui/material": "^5.5.3",
+    "just-shuffle": "^4.0.1",
+    "react": "^18.0.0",
+    "react-countdown-now": "^2.1.0",
+    "react-dom": "^18.0.0",
+    "react-intersection-observer": "^8.34.0",
+    "react-query": "^3.34.19",
+    "react-router-dom": "^6.2.2",
+    "react-scripts": "^5.0.0",
+    "web-vitals": "^2.1.4",
+    "workbox-background-sync": "^6.5.3",
+    "workbox-broadcast-update": "^6.5.3",
+    "workbox-cacheable-response": "^6.5.3",
+    "workbox-core": "^6.5.3",
+    "workbox-expiration": "^6.5.3",
+    "workbox-google-analytics": "^6.5.3",
+    "workbox-navigation-preload": "^6.5.3",
+    "workbox-precaching": "^6.5.3",
+    "workbox-range-requests": "^6.5.3",
+    "workbox-routing": "^6.5.3",
+    "workbox-strategies": "^6.5.3",
+    "workbox-streams": "^6.5.3"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.0",
+    "eslint": "^8.12.0",
+    "eslint-config-kokarn": "^5.0.0"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "eslintConfig": {
+    "ignorePatterns": [
+      "node_modules/**/*.js",
+      "src/App.test.js",
+      "src/service-worker.js",
+      "src/countown-renderer.js",
+      "src/Live.js",
+      "src/LiveAuction.js",
+      "src/LiveItem.js"
     ],
-    "eslintConfig": {
-        "ignorePatterns": [
-            "node_modules/**/*.js",
-            "src/App.test.js",
-            "src/service-worker.js",
-            "src/countown-renderer.js",
-            "src/Live.js",
-            "src/LiveAuction.js",
-            "src/LiveItem.js"
-        ],
-        "extends": [
-            "kokarn/react",
-            "plugin:react/jsx-runtime"
-        ],
-        "rules": {
-            "react/jsx-closing-bracket-location": [
-                1,
-                "line-aligned"
-            ],
-            "react/jsx-no-bind": [
-                1,
-                {
-                    "ignoreDOMComponents": true
-                }
-            ],
-            "no-unused-vars": [
-                1
-            ],
-            "comma-dangle": [
-                1
-            ],
-            "arrow-body-style": [
-                1
-            ],
-            "id-blacklist": [
-                1
-            ],
-            "no-process-env": [
-                1
-            ]
+    "extends": [
+      "kokarn/react",
+      "plugin:react/jsx-runtime"
+    ],
+    "rules": {
+      "react/jsx-closing-bracket-location": [
+        1,
+        "line-aligned"
+      ],
+      "react/jsx-no-bind": [
+        1,
+        {
+          "ignoreDOMComponents": true
         }
+      ],
+      "no-unused-vars": [
+        1
+      ],
+      "comma-dangle": [
+        1
+      ],
+      "arrow-body-style": [
+        1
+      ],
+      "id-blacklist": [
+        1
+      ],
+      "no-process-env": [
+        1
+      ]
     }
+  },
+  "engines": {
+    "node": "^18.7.0"
+  }
 }
