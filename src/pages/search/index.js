@@ -42,7 +42,10 @@ const Search = () => {
 
     const searchRef = useRef(null);
     const debouncedSearchPhrase = useDebounce(searchPhrase, SEARCH_DELAY);
-    const [sources] = useStateWithLocalStorage('sources', {
+    const [
+        sources,
+        setSources,
+    ] = useStateWithLocalStorage('sources', {
         auction2000: true,
         tradera: true,
     });
@@ -70,9 +73,11 @@ const Search = () => {
         return true;
     };
 
-    useEffect(() => {
-        console.log(sources);
-    }, [sources]);
+    const handleGroupChange = (newSources) => {
+        setSources(newSources);
+
+        return true;
+    };
 
     useEffect(() => {
         navigate(`/search/${debouncedSearchPhrase}`);
@@ -131,7 +136,9 @@ const Search = () => {
                             />
                         </form>
                     </Grid>
-                    <SourcesGroup />
+                    <SourcesGroup
+                        onChange = {handleGroupChange}
+                    />
                     {(isFetching || searchPending) && searchPhrase.length > 0 && (
                         <Grid
                             item

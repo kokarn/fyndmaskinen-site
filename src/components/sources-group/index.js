@@ -12,7 +12,7 @@ const sourceLabels = {
     tradera: 'Tradera',
 };
 
-const SourcesGroup = () => {
+const SourcesGroup = (props) => {
     const [
         allowedSources,
         setAllowedSources,
@@ -25,10 +25,16 @@ const SourcesGroup = () => {
     );
 
     const handleCheckboxChange = (event) => {
-        setAllowedSources({
+        const newSources = {
             ...allowedSources,
             [ event.target.name ]: event.target.checked,
-        });
+        };
+
+        setAllowedSources(newSources);
+
+        if (props.onChange) {
+            props.onChange(newSources);
+        }
     };
 
     return (
@@ -54,6 +60,14 @@ const SourcesGroup = () => {
             </FormGroup>
         </Grid>
     );
+};
+
+SourcesGroup.propTypes = {
+    onChange: 'func',
+};
+
+SourcesGroup.defaultProps = {
+    onChange: false,
 };
 
 export default SourcesGroup;
