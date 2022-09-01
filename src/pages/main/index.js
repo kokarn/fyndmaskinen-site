@@ -22,7 +22,7 @@ const Main = () => {
 
     return (
         <Box
-            m = {2}
+            m = {30}
         >
             <form
                 autoComplete = 'off'
@@ -35,7 +35,10 @@ const Main = () => {
                 <Grid
                     alignItems = 'center'
                     container
-                    spacing = {2}
+                    spacing = {4}
+                    sx = {{
+                        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                    }}
                 >
                     <Grid
                         item
