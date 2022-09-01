@@ -14,7 +14,7 @@ import {
     // ListItemIcon,
     IconButton,
     Box,
-    Grid,
+    // Grid,
     Typography,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -26,6 +26,7 @@ import {
 import {
     Link,
 } from 'react-router-dom';
+import Grid from '@mui/material/Unstable_Grid2';
 
 import removeWatch from '../../features/remove-watch';
 import getWatches from '../../features/get-watches';
@@ -153,7 +154,6 @@ const Profile = () => {
                 // alignItems = { 'flex-end' }
             >
                 <Grid
-                    item
                     md = {12}
                     xs = {12}
                 >
@@ -162,7 +162,6 @@ const Profile = () => {
                     />
                 </Grid>
                 <Grid
-                    item
                     md = {12}
                     xs = {12}
                 >

@@ -5,7 +5,7 @@ import {
 import {
     Box,
     Button,
-    Grid,
+    // Grid,
     TextField,
 } from '@mui/material';
 import {
@@ -13,8 +13,10 @@ import {
     // useParams,
     useNavigate,
 } from 'react-router-dom';
+import Grid from '@mui/material/Unstable_Grid2';
 
 import SourcesGroup from '../../components/sources-group';
+
 
 const Main = () => {
     const searchRef = useRef(null);
@@ -41,7 +43,6 @@ const Main = () => {
                     }}
                 >
                     <Grid
-                        item
                         md = {12}
                         xs = {12}
                     >
@@ -62,7 +63,6 @@ const Main = () => {
                     </Grid>
                     <SourcesGroup />
                     <Grid
-                        item
                         md = {12}
                         xs = {12}
                     >

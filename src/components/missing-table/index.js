@@ -6,7 +6,8 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+// import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Unstable_Grid2';
 import Countdown from 'react-countdown-now';
 
 import countdownRenderer from '../../countown-renderer.js';
@@ -24,7 +25,6 @@ const MissingTable = ({
 
     return (
         <Grid
-            item
             key = {'matching'}
         >
             <Typography

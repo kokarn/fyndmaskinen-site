@@ -1,9 +1,10 @@
 import {
-    Grid,
+    // Grid,
     FormGroup,
     FormControlLabel,
     Checkbox,
 } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
@@ -39,7 +40,6 @@ const SourcesGroup = (props) => {
 
     return (
         <Grid
-            item
             md = {12}
             xs = {12}
         >

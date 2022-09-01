@@ -5,7 +5,7 @@ import {
 } from 'react';
 import {
     Box,
-    Grid,
+    // Grid,
     Typography,
     TextField,
 } from '@mui/material';
@@ -17,6 +17,7 @@ import {
 import {
     useQuery,
 } from 'react-query';
+import Grid from '@mui/material/Unstable_Grid2';
 
 import SearchTable from '../../components/search-table';
 import SourcesGroup from '../../components/sources-group';
@@ -97,7 +98,6 @@ const Search = () => {
                     // alignItems = { 'flex-end' }
                 >
                     {/* <Grid
-                        item
                         md = {12}
                         xs = {12}
                     >
@@ -109,7 +109,6 @@ const Search = () => {
                         </Typography>
                     </Grid> */}
                     <Grid
-                        item
                         md = {12}
                         xs = {12}
                     >
@@ -141,7 +140,6 @@ const Search = () => {
                     />
                     {(isFetching || searchPending) && searchPhrase.length > 0 && (
                         <Grid
-                            item
                             md = {12}
                             xs = {12}
                         >
@@ -150,7 +148,6 @@ const Search = () => {
                     )}
                     {searchPhrase.length > 0 && !isFetching && !searchPending && (
                         <Grid
-                            item
                             md = {12}
                             xs = {12}
                         >
@@ -163,7 +160,6 @@ const Search = () => {
                         </Grid>
                     )}
                     <Grid
-                        item
                         md = {12}
                         xs = {12}
                     >
