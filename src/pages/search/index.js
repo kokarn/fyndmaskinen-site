@@ -95,6 +95,9 @@ const Search = () => {
                 <Grid
                     container
                     spacing = {2}
+                    sx = {{
+                        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                    }}
                     // alignItems = { 'flex-end' }
                 >
                     {/* <Grid
