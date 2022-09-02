@@ -1,6 +1,7 @@
 import {
-    // useState,
+    useState,
     useRef,
+    useEffect,
 } from 'react';
 import {
     Box,
@@ -17,14 +18,55 @@ import Grid from '@mui/material/Unstable_Grid2';
 
 import SourcesGroup from '../../components/sources-group';
 
+const maxWidth = 768;
 
 const Main = () => {
     const searchRef = useRef(null);
     const navigate = useNavigate();
 
+    const [ 
+        mQuery,
+        setMQuery,
+    ] = useState({
+        matches: window.innerWidth > maxWidth,
+    });
+
+    const [
+        wrapperProps,
+        setWrapperProps,
+    ] = useState({
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        maxWidth: `${maxWidth}px`,
+    });
+
+    useEffect(() => {
+        if (mQuery.matches) {
+            setWrapperProps({
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                maxWidth: `${maxWidth}px`,
+            });
+        } else {
+            setWrapperProps({
+                maxWidth: `${maxWidth}px`,
+            });
+        }
+    }, [mQuery.matches]);
+
+    useEffect(() => {
+        let mediaQuery = window.matchMedia('(min-width: 768px)');
+
+        mediaQuery.addEventListener('change', setMQuery);
+
+        return () => mediaQuery.removeEventListener('change', setMQuery);
+    }, []);
+
     return (
         <Box
-            m = {30}
+            mx = {2}
+            my = {10}
+            sx = {wrapperProps}
         >
             <form
                 autoComplete = 'off'
