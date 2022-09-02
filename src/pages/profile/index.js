@@ -152,6 +152,9 @@ const Profile = () => {
                 container
                 spacing = {2}
                 // alignItems = { 'flex-end' }
+                sx = {{
+                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                }}
             >
                 <Grid
                     md = {12}
