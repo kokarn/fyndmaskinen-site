@@ -150,7 +150,7 @@ const Profile = () => {
         >
             <Grid
                 container
-                spacing = {2}
+                spacing = {4}
                 // alignItems = { 'flex-end' }
                 sx = {{
                     backgroundColor: 'rgba(0, 0, 0, 0.6)',

@@ -94,7 +94,7 @@ const Search = () => {
             >
                 <Grid
                     container
-                    spacing = {2}
+                    spacing = {4}
                     sx = {{
                         backgroundColor: 'rgba(0, 0, 0, 0.6)',
                     }}
