@@ -18,7 +18,7 @@ import {
 window.API_HOSTNAME = 'https://d2cmhnbxvwhy7s.cloudfront.net';
 
 if (window.location.origin.includes('localhost')) {
-    window.API_HOSTNAME = 'https://localhost:4080';
+    window.API_HOSTNAME = 'http://localhost:4080';
 }
 
 const queryClient = new QueryClient();
