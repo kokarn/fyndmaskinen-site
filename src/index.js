@@ -29,7 +29,7 @@ root.render((
         <Auth0Provider
             clientId = 'pGEsN4mWTCZiRbKxXR5pPqu6y5IXxuhQ'
             domain = 'https://fyndmaskinen.eu.auth0.com'
-            redirectUri = {window.location.origin}
+            redirectUri = {`${window.location.origin}/profile`}
         >
             <QueryClientProvider
                 client = {queryClient}
