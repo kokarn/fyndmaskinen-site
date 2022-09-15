@@ -61,6 +61,7 @@ const SearchTable = ({
 
         let tileIcon = (
             <GavelIcon
+            // prefersDarkMode ?
                 fontSize = 'small'
             />
         );
@@ -114,6 +115,7 @@ const SearchTable = ({
                             <CardContent>
                                 <Typography
                                     // component = 'div'
+                                    color = 'text.secondary'
                                     gutterBottom
                                     sx = {{
                                         height: '32px',
@@ -125,7 +127,7 @@ const SearchTable = ({
                                     { tile.title }
                                 </Typography>
                                 <Typography
-                                    // color = 'text.secondary'
+                                    color = 'text.secondary'
                                     sx = {{
                                         alignItems: 'center',
                                         display: 'flex',

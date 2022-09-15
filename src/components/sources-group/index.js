@@ -48,10 +48,14 @@ const SourcesGroup = (props) => {
             >
                 {Object.keys(allowedSources).map((allowedSourceKey) => {
                     return (<FormControlLabel
+                        // color = 'primary'
                         control = {<Checkbox
                             checked = {allowedSources[ allowedSourceKey ]}
                             name = {allowedSourceKey}
                             onChange = {handleCheckboxChange}
+                            sx = {{
+                                color: '#fff',
+                            }}
                         />}
                         key = {allowedSourceKey}
                         label = {sourceLabels[ allowedSourceKey ]}

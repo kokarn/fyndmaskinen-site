@@ -81,6 +81,14 @@ const AddWatch = () => {
                 inputRef = {searchRef}
                 label = {'Lägg till bevakning...'}
                 margin = 'normal'
+                sx = {{
+                    '& .MuiInput-underline:after': {
+                        borderBottomColor: '#fff',
+                    },
+                    '& .MuiInput-underline:before': {
+                        borderBottomColor: '#fff',
+                    },
+                }}
                 variant = 'standard'
             />
             {/* <FormGroup>

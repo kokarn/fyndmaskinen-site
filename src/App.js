@@ -75,10 +75,27 @@ const App = () => {
     const theme = useMemo(
         () => {
             return createTheme({
+                components: {
+                    MuiFormLabel: {
+                        styleOverrides: {
+                            root: {
+                                color: '#fff',
+                            },
+                        },
+                    },
+                },
                 palette: {
-                    mode: prefersDarkMode ?
-                        'dark' :
-                        'light',
+                    light: '#fff',
+                    mode: 'light',
+                    text: {
+                        primary: '#fff'
+                    },
+                    // mode: prefersDarkMode ?
+                    //     'dark' :
+                    //     'light',
+                    // secondary: {
+                    //     main: '#fff',
+                    // },
                 },
             });
         },
@@ -141,7 +158,6 @@ const App = () => {
                         </Button> */}
                         <Typography
                             align = {'right'}
-                            // color = {'inherit'}
                             sx = {{
                                 marginRight: '10px',
                             }}

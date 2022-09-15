@@ -193,6 +193,9 @@ const Profile = () => {
                                                     mutation.mutate(watch.match);
                                                     event.preventDefault();
                                                 }}
+                                                sx = {{
+                                                    color: 'white',
+                                                }}
                                             />
                                         </IconButton>
                                     }

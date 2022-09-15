@@ -8,6 +8,7 @@ import {
     Button,
     // Grid,
     TextField,
+    Typography,
 } from '@mui/material';
 import {
     Link,
@@ -90,6 +91,7 @@ const Main = () => {
                     >
                         <TextField
                             autoFocus
+                            // color = 'light'
                             fullWidth
                             id = 'standard-name'
                             inputProps = {{
@@ -100,6 +102,14 @@ const Main = () => {
                             label = {'Sök'}
                             margin = 'normal'
                             // tabIndex = {0}
+                            sx = {{
+                                '& .MuiInput-underline:after': {
+                                    borderBottomColor: '#fff',
+                                },
+                                '& .MuiInput-underline:before': {
+                                    borderBottomColor: '#fff',
+                                },
+                            }}
                             variant = 'standard'
                         />
                     </Grid>
@@ -108,7 +118,15 @@ const Main = () => {
                         md = {12}
                         xs = {12}
                     >
-                        {'Populära sökningar: '}
+                        <Typography
+                            color = 'light'
+                            variant = 'inherit'
+                            variantMapping = {{
+                                inherit: 'span',
+                            }}
+                        >
+                            {'Populära sökningar: '}
+                        </Typography>
                         <Button
                             variant = 'text'
                         >

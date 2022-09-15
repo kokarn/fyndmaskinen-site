@@ -40,7 +40,7 @@ const LoginButton = () => {
             )}
             {!isAuthenticated && !isLoading && (
                 <Button
-                    // color = 'inherit'
+                    color = 'inherit'
                     onClick = {() => {
                         return loginWithRedirect();
                     }}
@@ -51,6 +51,7 @@ const LoginButton = () => {
             )}
             {isLoading && (
                 <LoadingButton
+                    color = 'inherit'
                     loading
                     variant = 'text'
                 >

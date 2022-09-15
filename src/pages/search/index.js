@@ -133,6 +133,14 @@ const Search = () => {
                                 label = {'Sök'}
                                 margin = 'normal'
                                 onChange = {handleFilterChange}
+                                sx = {{
+                                    '& .MuiInput-underline:after': {
+                                        borderBottomColor: '#fff',
+                                    },
+                                    '& .MuiInput-underline:before': {
+                                        borderBottomColor: '#fff',
+                                    },
+                                }}
                                 value = {searchPhrase}
                                 variant = 'standard'
                             />
@@ -146,7 +154,13 @@ const Search = () => {
                             md = {12}
                             xs = {12}
                         >
-                            {`Söker efter ${searchPhrase}...`}
+                            <Typography
+                                align = {'left'}
+                                color = 'light'
+                                variant = {'h6'}
+                            >
+                                {`Söker efter ${searchPhrase}...`}
+                            </Typography>
                         </Grid>
                     )}
                     {searchPhrase.length > 0 && !isFetching && !searchPending && (
@@ -156,6 +170,7 @@ const Search = () => {
                         >
                             <Typography
                                 align = {'left'}
+                                color = 'light'
                                 variant = {'h6'}
                             >
                                 { `Hittade ${ searchResult.length } objekt för sökningen ${ searchPhrase }` }
