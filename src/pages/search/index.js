@@ -163,21 +163,16 @@ const Search = () => {
                         </Grid>
                     )}
                     <Grid
-                        md = {12}
-                        xs = {12}
+                        columns = {{
+                            md: 12,
+                            xs: 4,
+                        }}
+                        container
+                        spacing = {2}
                     >
-                        <Grid
-                            columns = {{
-                                md: 12,
-                                xs: 4,
-                            }}
-                            container
-                            spacing = {2}
-                        >
-                            <SearchTable
-                                displayItems = {searchResult}
-                            />
-                        </Grid>
+                        <SearchTable
+                            displayItems = {searchResult}
+                        />
                     </Grid>
                 </Grid>
             </Box>
