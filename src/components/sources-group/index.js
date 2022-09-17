@@ -10,7 +10,14 @@ import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 const sourceLabels = {
     auction2000: 'Mindre auktionshus',
+    auctionet: 'Auctionet',
     tradera: 'Tradera',
+};
+
+const defaultSources = {
+    auction2000: true,
+    auctionet: true,
+    tradera: true,
 };
 
 const SourcesGroup = (props) => {
@@ -19,11 +26,14 @@ const SourcesGroup = (props) => {
         setAllowedSources,
     ] = useStateWithLocalStorage(
         'sources',
-        {
-            auction2000: true,
-            tradera: true,
-        },
+        defaultSources,
     );
+    
+    for (const source in defaultSources) {
+        if (typeof allowedSources[ source ] === 'undefined') {
+            allowedSources[ source ] = defaultSources[ source ];
+        }
+    }
 
     const handleCheckboxChange = (event) => {
         const newSources = {

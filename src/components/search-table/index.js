@@ -17,6 +17,7 @@ import {
 } from 'react-intersection-observer';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Grid from '@mui/material/Unstable_Grid2';
+import AuctionetIcon from '../auctionet-icon';
 
 const ITEM_TRANSITION_STAGGER = 25;
 const MAX_ITEM_LIST = 42;
@@ -84,6 +85,8 @@ const SearchTable = ({
                     }}
                 />
             );
+        } else if (tile.type === 'auctionet') {
+            tileIcon = <AuctionetIcon />;
         }
 
         return (
