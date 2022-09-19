@@ -22,6 +22,13 @@ const defaultSources = {
     tradera: true,
 };
 
+const sourceOrder = [
+    'auctionet',
+    'blocket',
+    'auction2000',
+    'tradera',
+];
+
 const SourcesGroup = (props) => {
     const [
         allowedSources,
@@ -58,19 +65,19 @@ const SourcesGroup = (props) => {
             <FormGroup
                 row
             >
-                {Object.keys(allowedSources).map((allowedSourceKey) => {
+                {sourceOrder.map((sourceKey) => {
                     return (<FormControlLabel
                         // color = 'primary'
                         control = {<Checkbox
-                            checked = {allowedSources[ allowedSourceKey ]}
-                            name = {allowedSourceKey}
+                            checked = {allowedSources[ sourceKey ]}
+                            name = {sourceKey}
                             onChange = {handleCheckboxChange}
                             sx = {{
                                 color: '#fff',
                             }}
                         />}
-                        key = {allowedSourceKey}
-                        label = {sourceLabels[ allowedSourceKey ]}
+                        key = {sourceKey}
+                        label = {sourceLabels[ sourceKey ]}
                     />);
                 })}
             </FormGroup>
