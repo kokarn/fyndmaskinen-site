@@ -49,6 +49,7 @@ const Search = () => {
     ] = useStateWithLocalStorage('sources', {
         auction2000: true,
         auctionet: true,
+        blocket: true,
         tradera: true,
     });
 

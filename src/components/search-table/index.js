@@ -87,6 +87,21 @@ const SearchTable = ({
             );
         } else if (tile.type === 'auctionet') {
             tileIcon = <AuctionetIcon />;
+        } else if (tile.type === 'blocket') {
+            tileIcon = (
+                <div
+                    alt = 'Blocket'
+                    style = {{
+                        backgroundImage: `url(${process.env.PUBLIC_URL}/images/icons/blocket.png)`,
+                        backgroundPosition: 'center',
+                        backgroundSize: 'contain',
+                        height: '20px',
+                        // maxWidth: '7px',
+                        // transform: 'scale(4)',
+                        width: '20px',
+                    }}
+                />
+            );
         }
 
         return (

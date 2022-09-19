@@ -11,12 +11,14 @@ import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 const sourceLabels = {
     auction2000: 'Mindre auktionshus',
     auctionet: 'Auctionet',
+    blocket: 'Blocket',
     tradera: 'Tradera',
 };
 
 const defaultSources = {
     auction2000: true,
     auctionet: true,
+    blocket: true,
     tradera: true,
 };
 
