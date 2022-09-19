@@ -100,7 +100,12 @@ const SearchTable = ({
                 }}
             >
                 <Grid
+                    columns = {{
+                        md: 12,
+                        xs: 4,
+                    }}
                     md = {2}
+                    spacing = {2}
                     xs = {2}
                 >
                     <Card

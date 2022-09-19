@@ -89,6 +89,9 @@ const Search = () => {
     return (
         <div
             className = 'App'
+            style = {{
+                backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            }}
         >
             <Box
                 m = {2}
@@ -96,22 +99,7 @@ const Search = () => {
                 <Grid
                     container
                     spacing = {4}
-                    sx = {{
-                        backgroundColor: 'rgba(0, 0, 0, 0.6)',
-                    }}
-                    // alignItems = { 'flex-end' }
                 >
-                    {/* <Grid
-                        md = {12}
-                        xs = {12}
-                    >
-                        <Typography
-                            component = 'h1'
-                            variant = 'h4'
-                        >
-                            {'Sök efter just dina fynd'}
-                        </Typography>
-                    </Grid> */}
                     <Grid
                         md = {12}
                         xs = {12}
@@ -178,18 +166,18 @@ const Search = () => {
                             </Typography>
                         </Grid>
                     )}
-                    <Grid
-                        columns = {{
-                            md: 12,
-                            xs: 4,
-                        }}
-                        container
-                        spacing = {2}
-                    >
-                        <SearchTable
-                            displayItems = {searchResult}
-                        />
-                    </Grid>
+                </Grid>
+                <Grid
+                    columns = {{
+                        md: 12,
+                        xs: 4,
+                    }}
+                    container
+                    spacing = {2}
+                >
+                    <SearchTable
+                        displayItems = {searchResult}
+                    />
                 </Grid>
             </Box>
         </div>
