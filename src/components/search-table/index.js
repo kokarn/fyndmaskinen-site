@@ -50,7 +50,7 @@ const SearchTable = ({
     }, [inView]);
 
     const tiles = displayItems.map((tile, index) => {
-        let currentPrice = `${tile.currentPrice}:-`;
+        let currentPrice = `${tile.currentPrice}`;
 
         if (tile.currentPrice === -1) {
             currentPrice = 'Förhandsvisning';
@@ -143,7 +143,11 @@ const SearchTable = ({
                                     }}
                                     variant = 'body2'
                                 >
-                                    { currentPrice }
+                                    { new Intl.NumberFormat('sv-SE', {
+                                        currency: 'SEK',
+                                        minimumFractionDigits: 0,
+                                        style: 'currency',
+                                    }).format(currentPrice) }
                                     {tileIcon}
                                 </Typography>
                             </CardContent>
