@@ -5,6 +5,7 @@ import {
     Checkbox,
 } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
+import PropTypes from 'prop-types';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
@@ -86,11 +87,12 @@ const SourcesGroup = (props) => {
 };
 
 SourcesGroup.propTypes = {
-    onChange: 'func',
+    onChange: PropTypes.func,
 };
 
 SourcesGroup.defaultProps = {
-    onChange: false,
+    // eslint-disable-next-line no-empty-function
+    onChange: () => {},
 };
 
 export default SourcesGroup;
