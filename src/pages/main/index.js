@@ -20,6 +20,30 @@ import Grid from '@mui/material/Unstable_Grid2';
 import SourcesGroup from '../../components/sources-group';
 
 const maxWidth = 768;
+const numberOfPopularSearches = 3;
+
+const popularSearches = [
+    'lamino',
+    'poul henningsen',
+    'string',
+    'bordslampa',
+    'fotogenlampa',
+    'höganäs',
+];
+
+const getRandomItemsFromArray = (array, count) => {
+    const result = [];
+    const arrayCopy = [...array];
+
+    for (let i = 0; i < count; i = i + 1) {
+        const randomIndex = Math.floor(Math.random() * arrayCopy.length);
+
+        result.push(arrayCopy[ randomIndex ]);
+        arrayCopy.splice(randomIndex, 1);
+    }
+
+    return result;
+};
 
 const Main = () => {
     const searchRef = useRef(null);
@@ -127,33 +151,20 @@ const Main = () => {
                         >
                             {'Populära sökningar: '}
                         </Typography>
-                        <Button
-                            variant = 'text'
-                        >
-                            <Link
-                                to = '/search/string'
-                            >
-                                {'string'}
-                            </Link>
-                        </Button>
-                        <Button
-                            variant = 'text'
-                        >
-                            <Link
-                                to = '/search/lego'
-                            >
-                                {'lego'}
-                            </Link>
-                        </Button>
-                        <Button
-                            variant = 'text'
-                        >
-                            <Link
-                                to = '/search/guld'
-                            >
-                                {'guld'}
-                            </Link>
-                        </Button>
+                        {getRandomItemsFromArray(popularSearches, numberOfPopularSearches).map((search, index) => {
+                            return (
+                                <Button
+                                    key = {`popular-search-${search}`}
+                                    variant = 'text'
+                                >
+                                    <Link
+                                        to = {`/search/${search}`}
+                                    >
+                                        {search}
+                                    </Link>
+                                </Button>
+                            );
+                        })}
                     </Grid>
                 </Grid>
             </form>
