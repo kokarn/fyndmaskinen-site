@@ -187,12 +187,12 @@ const Profile = () => {
                                         <IconButton
                                             aria-label = 'delete'
                                             edge = 'end'
+                                            onClick = {(event) => {
+                                                mutation.mutate(watch.match);
+                                                event.preventDefault();
+                                            }}
                                         >
                                             <DeleteIcon
-                                                onClick = {(event) => {
-                                                    mutation.mutate(watch.match);
-                                                    event.preventDefault();
-                                                }}
                                                 sx = {{
                                                     color: 'white',
                                                 }}
