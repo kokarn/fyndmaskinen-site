@@ -151,6 +151,7 @@ const SearchTable = ({
                                 </Typography>
                                 <Typography
                                     color = 'text.secondary'
+                                    component = 'span'
                                     sx = {{
                                         alignItems: 'center',
                                         display: 'flex',
