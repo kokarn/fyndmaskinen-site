@@ -133,7 +133,7 @@ const SearchTable = ({
                                 alt = {tile.title}
                                 component = 'img'
                                 height = {200}
-                                image = {`https://images.weserv.nl/?url=${ tile.imageUrl }&w=200&h=200&fit=contain&trim=10&errorredirect=${ errorImage }`}
+                                image = {`https://images.weserv.nl/?url=${ tile.imageUrl }&w=400&h=400&fit=contain&trim=10&errorredirect=${ errorImage }`}
                             />
                             <CardContent>
                                 <Typography
