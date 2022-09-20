@@ -147,6 +147,7 @@ const Search = () => {
                             <Typography
                                 align = {'left'}
                                 color = 'light'
+                                marginBottom = {4}
                                 variant = {'h6'}
                             >
                                 {`Söker efter ${searchPhrase}...`}
@@ -161,6 +162,7 @@ const Search = () => {
                             <Typography
                                 align = {'left'}
                                 color = 'light'
+                                marginBottom = {4}
                                 variant = {'h6'}
                             >
                                 { `Hittade ${ searchResult.length } objekt för sökningen ${ searchPhrase }` }
