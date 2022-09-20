@@ -119,7 +119,6 @@ const SearchTable = ({
                         md: 12,
                         xs: 4,
                     }}
-                    marginBottom = {4}
                     md = {2}
                     spacing = {2}
                     xs = {2}

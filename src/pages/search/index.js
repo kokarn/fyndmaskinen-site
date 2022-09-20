@@ -92,6 +92,7 @@ const Search = () => {
             className = 'App'
             style = {{
                 backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                paddingBottom: '32px',
             }}
         >
             <Box
@@ -177,6 +178,9 @@ const Search = () => {
                     }}
                     container
                     spacing = {2}
+                    sx = {{
+                        marginBottom: '10px'
+                    }}
                 >
                     <SearchTable
                         displayItems = {searchResult}
