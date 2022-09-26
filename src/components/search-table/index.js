@@ -132,7 +132,7 @@ const SearchTable = ({
                             <CardMedia
                                 alt = {tile.title}
                                 component = 'img'
-                                height = {200}
+                                height = {'100%'}
                                 image = {`https://images.weserv.nl/?url=${ tile.imageUrl }&w=400&h=400&fit=contain&trim=10&errorredirect=${ errorImage }`}
                             />
                             <CardContent>
