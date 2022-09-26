@@ -116,9 +116,11 @@ const SearchTable = ({
             >
                 <Grid
                     columns = {{
-                        md: 12,
+                        lg: 12,
+                        md: 8,
                         xs: 4,
                     }}
+                    lg = {4}
                     md = {2}
                     spacing = {2}
                     xs = {2}
