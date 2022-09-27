@@ -26,6 +26,7 @@ import useDebounce from '../../hooks/useDebounce';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 const SEARCH_DELAY = 200;
+const MAX_ITEMS = 500;
 
 const Search = () => {
     const {
@@ -166,7 +167,10 @@ const Search = () => {
                                 marginBottom = {4}
                                 variant = {'h6'}
                             >
-                                { `Hittade ${ searchResult.length } objekt för sökningen ${ searchPhrase }` }
+                                { `Hittade ${ searchResult.length === MAX_ITEMS ? 
+                                    'mer än '
+                                    : 
+                                    '' } ${ searchResult.length } objekt för sökningen ${ searchPhrase }` }
                             </Typography>
                         </Grid>
                     )}
