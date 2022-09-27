@@ -88,7 +88,7 @@ const App = () => {
                     light: '#fff',
                     mode: 'light',
                     text: {
-                        primary: '#fff'
+                        primary: '#fff',
                     },
                     // mode: prefersDarkMode ?
                     //     'dark' :
@@ -162,9 +162,9 @@ const App = () => {
                                 marginRight: '10px',
                             }}
                         >
-                            { `${ totalItems > 0 ? 
-                                new Intl.NumberFormat('sv-SE').format(totalItems) : 
-                                '?' 
+                            { `${ totalItems > 0 ?
+                                new Intl.NumberFormat('sv-SE').format(totalItems) :
+                                '?'
                             } objekt` }
                         </Typography>
                         <LoginButton />

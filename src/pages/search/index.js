@@ -184,7 +184,7 @@ const Search = () => {
                     container
                     spacing = {2}
                     sx = {{
-                        marginBottom: '10px'
+                        marginBottom: '10px',
                     }}
                 >
                     <SearchTable

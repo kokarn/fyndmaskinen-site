@@ -38,7 +38,7 @@ const SourcesGroup = (props) => {
         'sources',
         defaultSources,
     );
-    
+
     for (const source in defaultSources) {
         if (typeof allowedSources[ source ] === 'undefined') {
             allowedSources[ source ] = defaultSources[ source ];

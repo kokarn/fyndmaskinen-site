@@ -49,7 +49,7 @@ const Main = () => {
     const searchRef = useRef(null);
     const navigate = useNavigate();
 
-    const [ 
+    const [
         mQuery,
         setMQuery,
     ] = useState({
@@ -80,11 +80,13 @@ const Main = () => {
     }, [mQuery.matches]);
 
     useEffect(() => {
-        let mediaQuery = window.matchMedia('(min-width: 768px)');
+        const mediaQuery = window.matchMedia('(min-width: 768px)');
 
         mediaQuery.addEventListener('change', setMQuery);
 
-        return () => mediaQuery.removeEventListener('change', setMQuery);
+        return () => {
+            return mediaQuery.removeEventListener('change', setMQuery);
+        };
     }, []);
 
     return (
@@ -151,7 +153,7 @@ const Main = () => {
                         >
                             {'Populära sökningar: '}
                         </Typography>
-                        {getRandomItemsFromArray(popularSearches, numberOfPopularSearches).map((search, index) => {
+                        {getRandomItemsFromArray(popularSearches, numberOfPopularSearches).map((search) => {
                             return (
                                 <Button
                                     key = {`popular-search-${search}`}
