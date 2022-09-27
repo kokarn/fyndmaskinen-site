@@ -177,8 +177,9 @@ const Search = () => {
                 </Grid>
                 <Grid
                     columns = {{
-                        md: 12,
-                        xs: 4,
+                        sm: 6,
+                        xl: 12,
+                        xs: 3,
                     }}
                     container
                     spacing = {2}

@@ -115,15 +115,10 @@ const SearchTable = ({
                 }}
             >
                 <Grid
-                    columns = {{
-                        lg: 12,
-                        md: 8,
-                        xs: 4,
-                    }}
-                    lg = {4}
-                    md = {2}
+                    lg = {1}
+                    md = {1}
                     spacing = {2}
-                    xs = {2}
+                    xs = {1}
                 >
                     <Card
                         key = {tile.imageUrl}
