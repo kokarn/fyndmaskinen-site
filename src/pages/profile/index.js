@@ -168,6 +168,16 @@ const Profile = () => {
                     md = {12}
                     xs = {12}
                 >
+                    <a
+                        href = 'https://billing.stripe.com/p/login/bIY14V4oKdcnfp6bII'
+                    >
+                        {'Köp fler bevakningar'}
+                    </a>
+                </Grid>
+                <Grid
+                    md = {12}
+                    xs = {12}
+                >
                     <Typography
                         // color = {'inherit'}
                         variant = {'h5'}
