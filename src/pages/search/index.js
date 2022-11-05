@@ -8,6 +8,7 @@ import {
     // Grid,
     Typography,
     TextField,
+    Button,
 } from '@mui/material';
 // import shuffle from 'just-shuffle';
 import {
@@ -18,6 +19,9 @@ import {
     useQuery,
 } from 'react-query';
 import Grid from '@mui/material/Unstable_Grid2';
+import {
+    useAuth0,
+} from '@auth0/auth0-react';
 
 import SearchTable from '../../components/search-table';
 import SourcesGroup from '../../components/sources-group';
@@ -41,6 +45,12 @@ const Search = () => {
         searchPending,
         setSearchPending,
     ] = useState(false);
+    const {
+        loginWithRedirect,
+        user,
+        isAuthenticated,
+        isLoading,
+    } = useAuth0();
 
     const searchRef = useRef(null);
     const debouncedSearchPhrase = useDebounce(searchPhrase, SEARCH_DELAY);
@@ -158,8 +168,8 @@ const Search = () => {
                     )}
                     {searchPhrase.length > 0 && !isFetching && !searchPending && (
                         <Grid
-                            md = {12}
-                            xs = {12}
+                            md = {6}
+                            xs = {6}
                         >
                             <Typography
                                 align = {'left'}
@@ -167,11 +177,42 @@ const Search = () => {
                                 marginBottom = {4}
                                 variant = {'h6'}
                             >
-                                { `Hittade ${ searchResult.length === MAX_ITEMS ? 
+                                { `Hittade ${ searchResult.length === MAX_ITEMS ?
                                     'mer än '
-                                    : 
+                                    :
                                     '' } ${ searchResult.length } objekt för sökningen ${ searchPhrase }` }
                             </Typography>
+                        </Grid>
+                    )}
+                    {searchPhrase.length > 0 && !isFetching && !searchPending && (
+                        <Grid
+                            // container
+                            // justifyContent = 'flex-end'
+                            md = {6}
+                            xs = {6}
+                        >
+                            {!isAuthenticated && !isLoading && (
+                                <Button
+                                    color = 'inherit'
+                                    onClick = {() => {
+                                        return loginWithRedirect();
+                                    }}
+                                    variant = 'text'
+                                >
+                                    { 'Logga in för att spara en bevakning på den här sökningen' }
+                                </Button>
+                            )}
+                            {isAuthenticated && !isLoading && (
+                                <Button
+                                    color = 'inherit'
+                                    // onClick = {() => {
+                                    //     return loginWithRedirect();
+                                    // }}
+                                    variant = 'text'
+                                >
+                                    { 'Spara bevakningen' }
+                                </Button>
+                            )}
                         </Grid>
                     )}
                 </Grid>
