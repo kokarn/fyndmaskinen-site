@@ -46,7 +46,7 @@ const Profile = () => {
         setAccessToken,
     ] = useState('');
     const opts = {
-        audience: 'https://fyndmaskinen.kokarn.com',
+        audience: 'https://fyndmaskinen.se',
         scope: 'read:users email read:current_user',
     };
 

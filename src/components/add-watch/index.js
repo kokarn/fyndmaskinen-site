@@ -28,7 +28,7 @@ const AddWatch = () => {
     const searchRef = useRef(null);
 
     const opts = {
-        audience: 'https://fyndmaskinen.kokarn.com',
+        audience: 'https://fyndmaskinen.se',
         scope: 'read:users email read:current_user',
     };
 
