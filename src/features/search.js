@@ -1,7 +1,7 @@
 const doSearch = ({
     queryKey,
 }) => {
-    const searchPhrase = queryKey[ 1 ];
+    const searchPhrase = queryKey[ 1 ].replace(/[^A-Za-z0-9ÅÄÖåäö .]/giu, '');
 
     let query = `{
         findItems( match: "${ searchPhrase }", sources: "${queryKey[ 2 ]}" ) {
