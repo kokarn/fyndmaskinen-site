@@ -197,9 +197,9 @@ const Search = () => {
                                     onClick = {() => {
                                         return loginWithRedirect();
                                     }}
-                                    variant = 'text'
+                                    variant = 'outlined'
                                 >
-                                    { 'Logga in för att spara en bevakning på den här sökningen' }
+                                    { 'Logga in för att skapa bevakning' }
                                 </Button>
                             )}
                             {isAuthenticated && !isLoading && (
