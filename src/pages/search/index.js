@@ -220,7 +220,7 @@ const Search = () => {
                     columns = {{
                         sm: 6,
                         xl: 12,
-                        xs: 3,
+                        xs: 2,
                     }}
                     container
                     spacing = {2}
