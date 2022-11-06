@@ -6,7 +6,7 @@ import {
     useAuth0,
 } from '@auth0/auth0-react';
 import {
-    // Checkbox,
+    Button,
     List,
     ListItem,
     ListItemButton,
@@ -168,21 +168,25 @@ const Profile = () => {
                     md = {6}
                     xs = {6}
                 >
-                    <a
+                    <Button
+                        color = 'inherit'
                         href = 'https://buy.stripe.com/9AQ01k56V4Zv3rWeUU'
+                        variant = 'outlined'
                     >
                         {'Köp fler bevakningar'}
-                    </a>
+                    </Button>
                 </Grid>
                 <Grid
                     md = {6}
                     xs = {6}
                 >
-                    <a
+                    <Button
+                        color = 'inherit'
                         href = 'https://billing.stripe.com/p/login/bIY14V4oKdcnfp6bII'
+                        variant = 'outlined'
                     >
                         {'Hantera betalningar'}
-                    </a>
+                    </Button>
                 </Grid>
                 <Grid
                     md = {12}

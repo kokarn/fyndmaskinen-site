@@ -169,12 +169,12 @@ const Search = () => {
                     {searchPhrase.length > 0 && !isFetching && !searchPending && (
                         <Grid
                             md = {6}
-                            xs = {6}
+                            xs = {12}
                         >
                             <Typography
                                 align = {'left'}
                                 color = 'light'
-                                marginBottom = {4}
+                                // marginBottom = {4}
                                 variant = {'h6'}
                             >
                                 { `Hittade ${ searchResult.length === MAX_ITEMS ?
@@ -189,7 +189,7 @@ const Search = () => {
                             // container
                             // justifyContent = 'flex-end'
                             md = {6}
-                            xs = {6}
+                            xs = {12}
                         >
                             {!isAuthenticated && !isLoading && (
                                 <Button
@@ -208,9 +208,9 @@ const Search = () => {
                                     // onClick = {() => {
                                     //     return loginWithRedirect();
                                     // }}
-                                    variant = 'text'
+                                    variant = 'outlined'
                                 >
-                                    { 'Spara bevakningen' }
+                                    { 'Spara sökningen' }
                                 </Button>
                             )}
                         </Grid>
