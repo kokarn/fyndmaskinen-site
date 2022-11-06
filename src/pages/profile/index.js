@@ -165,13 +165,23 @@ const Profile = () => {
                     />
                 </Grid>
                 <Grid
-                    md = {12}
-                    xs = {12}
+                    md = {6}
+                    xs = {6}
+                >
+                    <a
+                        href = 'https://buy.stripe.com/9AQ01k56V4Zv3rWeUU'
+                    >
+                        {'Köp fler bevakningar'}
+                    </a>
+                </Grid>
+                <Grid
+                    md = {6}
+                    xs = {6}
                 >
                     <a
                         href = 'https://billing.stripe.com/p/login/bIY14V4oKdcnfp6bII'
                     >
-                        {'Köp fler bevakningar'}
+                        {'Hantera betalningar'}
                     </a>
                 </Grid>
                 <Grid
