@@ -61,7 +61,7 @@ class LiveItem extends Component {
                 >
                     <CardMedia
                         className = { this.props.classes.liveCardMedia }
-                        image = { `https://wsrv.nl/?url=${ this.props.img }&w=${ imageSize }&h=${ imageSize }&t=letterbox&bg=black` }
+                        image = { `https://wsrv.nl/?url=${ this.props.img }&w=${ imageSize }&h=${ imageSize }&t=letterbox&bg=black&output=webp` }
                         title = { this.props.title }
                     />
                     <CardContent>
