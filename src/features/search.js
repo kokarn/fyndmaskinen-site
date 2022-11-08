@@ -26,28 +26,33 @@ const doSearch = ({
     }
 
     console.log(`Searching for "${searchPhrase}" in ${queryKey[ 2 ]}`);
+    try {
+        return fetch(
+            `${ window.API_HOSTNAME }/graphql`,
+            {
+                body: JSON.stringify({
+                    query: query,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+            }
+        )
+            .then((response) => {
+                return response.json();
+            })
+            .then((response) => {
+                return response.data.findItems || response.data.getRandomItems;
+            })
+            .catch((fetchError) => {
+                console.error(fetchError);
+            });
+    } catch (someError) {
+        console.error(someError);
+    }
 
-    return fetch(
-        `${ window.API_HOSTNAME }/graphql`,
-        {
-            body: JSON.stringify({
-                query: query,
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-        }
-    )
-        .then((response) => {
-            return response.json();
-        })
-        .then((response) => {
-            return response.data.findItems || response.data.getRandomItems;
-        })
-        .catch((fetchError) => {
-            console.error(fetchError);
-        });
+    return false;
 };
 
 export default doSearch;

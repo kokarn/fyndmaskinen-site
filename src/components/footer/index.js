@@ -13,29 +13,33 @@ const StickyFooter = () => {
     ] = useState('?');
 
     const updateData = () => {
-        fetch(
-            `${ window.API_HOSTNAME }/graphql`,
-            {
-                body: JSON.stringify({
-                    query: `{
-                        getItemCount
-                    }`,
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                method: 'POST',
-            }
-        )
-            .then((response) => {
-                return response.json();
-            })
-            .then((response) => {
-                setTotalItems(response.data.getItemCount);
-            })
-            .catch((fetchError) => {
-                console.error(fetchError);
-            });
+        try {
+            fetch(
+                `${ window.API_HOSTNAME }/graphql`,
+                {
+                    body: JSON.stringify({
+                        query: `{
+                            getItemCount
+                        }`,
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    method: 'POST',
+                }
+            )
+                .then((response) => {
+                    return response.json();
+                })
+                .then((response) => {
+                    setTotalItems(response.data.getItemCount);
+                });
+        } catch (error) {
+            console.error(error);
+        }
+        // .catch((fetchError) => {
+        //     console.error(fetchError);
+        // });
     };
 
     useMemo(() => {

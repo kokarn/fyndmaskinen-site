@@ -44,12 +44,12 @@ const SearchTable = ({
     });
 
     useEffect(() => {
-        if (inView && displayItems.length > pageSize) {
+        if (inView && displayItems?.length > pageSize) {
             setPageSize(pageSize + MAX_ITEM_LIST);
         }
     }, [inView]);
 
-    const tiles = displayItems.map((tile, index) => {
+    const tiles = displayItems?.map((tile, index) => {
         let currentPrice = `${tile.currentPrice}`;
 
         if (tile.currentPrice === -1) {
@@ -171,7 +171,7 @@ const SearchTable = ({
         );
     });
 
-    tiles.push(<span
+    tiles?.push(<span
         key = 'ref-link'
         ref = {ref}
     />);
