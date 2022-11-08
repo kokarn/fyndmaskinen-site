@@ -152,39 +152,31 @@ const Search = () => {
                     <SourcesGroup
                         onChange = {handleGroupChange}
                     />
-                    {(isFetching || searchPending) && searchPhrase.length > 0 && (
-                        <Grid
-                            md = {12}
-                            xs = {12}
+                    <Grid
+                        md = {6}
+                        xs = {12}
+                    >
+                        <Typography
+                            align = {'left'}
+                            color = 'light'
+                            // marginBottom = {4}
+                            variant = {'h6'}
                         >
-                            <Typography
-                                align = {'left'}
-                                color = 'light'
-                                marginBottom = {4}
-                                variant = {'h6'}
-                            >
-                                {`Söker efter ${searchPhrase}...`}
-                            </Typography>
-                        </Grid>
-                    )}
-                    {searchPhrase.length > 0 && !isFetching && !searchPending && (
-                        <Grid
-                            md = {6}
-                            xs = {12}
-                        >
-                            <Typography
-                                align = {'left'}
-                                color = 'light'
-                                // marginBottom = {4}
-                                variant = {'h6'}
-                            >
-                                { `Hittade ${ searchResult.length === MAX_ITEMS ?
-                                    'mer än '
-                                    :
-                                    '' } ${ searchResult.length } objekt för sökningen ${ searchPhrase }` }
-                            </Typography>
-                        </Grid>
-                    )}
+                            {(isFetching || searchPending) && searchPhrase.length > 0 && (
+                                <span>
+                                    {`Söker efter ${searchPhrase}...`}
+                                </span>
+                            )}
+                            {searchPhrase.length > 0 && !isFetching && !searchPending && (
+                                <span>
+                                    { `Hittade ${ searchResult?.length === MAX_ITEMS ?
+                                        'mer än '
+                                        :
+                                        '' } ${ searchResult?.length } objekt för sökningen ${ searchPhrase }` }
+                                </span>
+                            )}
+                        </Typography>
+                    </Grid>
                     {searchPhrase.length > 0 && !isFetching && !searchPending && (
                         <Grid
                             // container
