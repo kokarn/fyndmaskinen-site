@@ -13,10 +13,13 @@ import {
     useMutation,
     useQueryClient,
 } from 'react-query';
+import PropTypes from 'prop-types';
 
 import addWatch from '../../features/add-watch';
 
-const AddWatch = () => {
+const AddWatch = ({
+    disabled,
+}) => {
     const {
         user,
         getAccessTokenSilently,
@@ -73,6 +76,7 @@ const AddWatch = () => {
             }}
         >
             <TextField
+                disabled = {disabled}
                 fullWidth
                 id = 'standard-name'
                 inputProps = {{
@@ -109,6 +113,10 @@ const AddWatch = () => {
         </FormGroup> */}
         </form>
     );
+};
+
+AddWatch.propTypes = {
+    disabled: PropTypes.bool.isRequired,
 };
 
 export default AddWatch;

@@ -30,6 +30,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 
 import removeWatch from '../../features/remove-watch';
 import getWatches from '../../features/get-watches';
+import getWatchLimit from '../../features/get-watch-limit';
 
 import AddWatch from '../../components/add-watch';
 import LogoutButton from '../../components/logout-button';
@@ -115,6 +116,23 @@ const Profile = () => {
         }
     );
 
+    const {
+        // isFetching,
+        data: watchLimit,
+    } = useQuery(
+        [
+            'watchLimit',
+            accessToken,
+        ],
+        getWatchLimit,
+        {
+            placeholderData: [],
+            refetchInterval: 600000,
+            // refetchOnMount: false,
+            refetchOnWindowFocus: false,
+        }
+    );
+
     // if (error) {
     //     if (error.error === 'login_required') {
     //         return (
@@ -162,6 +180,7 @@ const Profile = () => {
                     xs = {12}
                 >
                     <AddWatch
+                        disabled = {watches.length >= watchLimit}
                         key = 'add-match'
                     />
                 </Grid>
@@ -173,7 +192,7 @@ const Profile = () => {
                         // color = {'inherit'}
                         variant = {'h5'}
                     >
-                        { 'Aktiva bevakningar' }
+                        { `Aktiva bevakningar ${watches.length}/${watchLimit}` }
                     </Typography>
                     <List
                         key = 'my-monitors'
