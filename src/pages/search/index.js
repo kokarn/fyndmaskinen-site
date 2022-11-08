@@ -103,6 +103,7 @@ const Search = () => {
             className = 'App'
             style = {{
                 backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                flex: '1 0 auto',
                 paddingBottom: '32px',
             }}
         >

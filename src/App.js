@@ -1,5 +1,4 @@
 import {
-    useState,
     useMemo,
 } from 'react';
 import {
@@ -25,6 +24,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import LoginButton from './components/login-button';
+import StickyFooter from './components/footer';
 
 import Main from './pages/main';
 import Search from './pages/search';
@@ -37,40 +37,7 @@ import './App.css';
 
 // eslint-disable-next-line
 const App = () => {
-    const [
-        totalItems, setTotalItems,
-    ] = useState('?');
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-
-    const updateData = () => {
-        fetch(
-            `${ window.API_HOSTNAME }/graphql`,
-            {
-                body: JSON.stringify({
-                    query: `{
-                        getItemCount
-                    }`,
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                method: 'POST',
-            }
-        )
-            .then((response) => {
-                return response.json();
-            })
-            .then((response) => {
-                setTotalItems(response.data.getItemCount);
-            })
-            .catch((fetchError) => {
-                console.error(fetchError);
-            });
-    };
-
-    useMemo(() => {
-        updateData();
-    }, []);
 
     const theme = useMemo(
         () => {
@@ -109,7 +76,8 @@ const App = () => {
             <CssBaseline />
             <Box
                 sx = {{
-                    flexGrow: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
                     minHeight: '100vh',
                 }}
             >
@@ -156,17 +124,6 @@ const App = () => {
                                 { 'Live' }
                             </Link>
                         </Button> */}
-                        <Typography
-                            align = {'right'}
-                            sx = {{
-                                marginRight: '10px',
-                            }}
-                        >
-                            { `${ totalItems > 0 ?
-                                new Intl.NumberFormat('sv-SE').format(totalItems) :
-                                '?'
-                            } objekt` }
-                        </Typography>
                         <LoginButton />
                     </Toolbar>
                 </AppBar>
@@ -202,6 +159,7 @@ const App = () => {
                     />
                     */}
                 </Routes>
+                <StickyFooter />
             </Box>
         </ThemeProvider>
     );

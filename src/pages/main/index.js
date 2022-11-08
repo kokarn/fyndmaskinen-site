@@ -60,6 +60,7 @@ const Main = () => {
         wrapperProps,
         setWrapperProps,
     ] = useState({
+        flex: '1 0 auto',
         marginLeft: 'auto',
         marginRight: 'auto',
         maxWidth: `${maxWidth}px`,
@@ -68,12 +69,14 @@ const Main = () => {
     useEffect(() => {
         if (mQuery.matches) {
             setWrapperProps({
+                flex: '1 0 auto',
                 marginLeft: 'auto',
                 marginRight: 'auto',
                 maxWidth: `${maxWidth}px`,
             });
         } else {
             setWrapperProps({
+                flex: '1 0 auto',
                 maxWidth: `${maxWidth}px`,
             });
         }

@@ -145,6 +145,7 @@ const Profile = () => {
         <Box
             m = {2}
             sx = {{
+                flex: '1 0 auto',
                 minHeight: '10vh',
             }}
         >
