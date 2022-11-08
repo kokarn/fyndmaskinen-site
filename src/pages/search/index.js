@@ -181,8 +181,9 @@ const Search = () => {
                         <Grid
                             // container
                             // justifyContent = 'flex-end'
-                            md = {6}
-                            xs = {12}
+                            md = {'6'}
+                            mdOffset = 'auto'
+                            xs = {'6'}
                         >
                             {!isAuthenticated && !isLoading && (
                                 <Button
