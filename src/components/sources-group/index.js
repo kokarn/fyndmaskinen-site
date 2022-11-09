@@ -1,11 +1,11 @@
 import {
-    // Grid,
-    FormGroup,
-    FormControlLabel,
-    Checkbox,
+    Chip,
 } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import PropTypes from 'prop-types';
+import DoneIcon from '@mui/icons-material/Done';
+import ClearIcon from '@mui/icons-material/Clear';
+import FaceIcon from '@mui/icons-material/Face';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
@@ -58,30 +58,53 @@ const SourcesGroup = (props) => {
         }
     };
 
+    const handleChipClick = (sourceClicked) => {
+        const newSources = {
+            ...allowedSources,
+            [ sourceClicked ]: !allowedSources[ sourceClicked ],
+        };
+
+        setAllowedSources(newSources);
+
+        if (props.onChange) {
+            props.onChange(newSources);
+        }
+    };
+
     return (
         <Grid
+            container
             md = {12}
+            spacing = {2}
             xs = {12}
         >
-            <FormGroup
-                row
-            >
-                {sourceOrder.map((sourceKey) => {
-                    return (<FormControlLabel
-                        // color = 'primary'
-                        control = {<Checkbox
-                            checked = {allowedSources[ sourceKey ]}
-                            name = {sourceKey}
-                            onChange = {handleCheckboxChange}
-                            sx = {{
-                                color: '#fff',
-                            }}
-                        />}
+            {sourceOrder.map((sourceKey) => {
+                return (
+                    <Grid
                         key = {sourceKey}
-                        label = {sourceLabels[ sourceKey ]}
-                    />);
-                })}
-            </FormGroup>
+                        xs = {'auto'}
+                    >
+                        <Chip
+                            deleteIcon = {allowedSources[ sourceKey ] ?
+                                <DoneIcon /> :
+                                <ClearIcon />
+                            }
+                            icon = {<FaceIcon />}
+                            label = {sourceLabels[ sourceKey ]}
+                            onClick = {() => {
+                                handleChipClick(sourceKey);
+                            }}
+                            onDelete = {() => {
+                                handleChipClick(sourceKey);
+                            }}
+                            variant = {allowedSources[ sourceKey ] ?
+                                'default' :
+                                'outlined'
+                            }
+                        />
+                    </Grid>
+                );
+            })}
         </Grid>
     );
 };
