@@ -16,9 +16,13 @@ import {
 } from '@auth0/auth0-react';
 
 window.API_HOSTNAME = 'https://d2cmhnbxvwhy7s.cloudfront.net';
+window.PORTAL_URL = 'https://billing.stripe.com/p/login/test_9AQcNLbeM8CSbnO000';
+window.PURCHASE_URL = 'https://buy.stripe.com/test_eVa6qh3384vMgJWbII';
 
 if (window.location.origin.includes('localhost')) {
     window.API_HOSTNAME = 'http://localhost:4080';
+    window.PORTAL_URL = 'https://billing.stripe.com/p/login/test_9AQcNLbeM8CSbnO000';
+    window.PURCHASE_URL = 'https://buy.stripe.com/test_14k2a19rw3rIeBO001';
 }
 
 const queryClient = new QueryClient();

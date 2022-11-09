@@ -251,7 +251,7 @@ const Profile = () => {
                 >
                     <Button
                         color = 'inherit'
-                        href = 'https://buy.stripe.com/9AQ01k56V4Zv3rWeUU'
+                        href = {`${window.PURCHASE_URL}?prefilled_email=${user?.email}`}
                         variant = 'outlined'
                     >
                         {'Köp fler bevakningar'}
@@ -263,7 +263,7 @@ const Profile = () => {
                 >
                     <Button
                         color = 'inherit'
-                        href = 'https://billing.stripe.com/p/login/bIY14V4oKdcnfp6bII'
+                        href = {window.PORTAL_URL}
                         variant = 'outlined'
                     >
                         {'Hantera betalningar'}
