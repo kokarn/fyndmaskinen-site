@@ -3,8 +3,6 @@ import {
 } from '@mui/material';
 
 const AuctionetIcon = (props) => {
-    console.log(props);
-
     return (
         <SvgIcon
             {...props}
