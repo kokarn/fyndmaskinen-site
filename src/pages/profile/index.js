@@ -16,6 +16,7 @@ import {
     Box,
     // Grid,
     Typography,
+    Skeleton,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
@@ -126,7 +127,7 @@ const Profile = () => {
         ],
         getWatchLimit,
         {
-            placeholderData: [],
+            placeholderData: 0,
             refetchInterval: 600000,
             // refetchOnMount: false,
             refetchOnWindowFocus: false,
@@ -192,7 +193,20 @@ const Profile = () => {
                         // color = {'inherit'}
                         variant = {'h5'}
                     >
-                        { `Aktiva bevakningar ${watches.length}/${watchLimit}` }
+                        {'Aktiva bevakningar '}
+                        {(!watches.length || !watchLimit) ?
+                            <Skeleton
+                                sx = {{
+                                    display: 'inline-block',
+                                    fontSize: '1rem',
+                                }}
+                                variant = 'h5'
+                                width = {40}
+                            /> :
+                            <span>
+                                {`${watches.length}/${watchLimit}`}
+                            </span>
+                        }
                     </Typography>
                     <List
                         key = 'my-monitors'
