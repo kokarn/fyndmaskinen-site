@@ -210,7 +210,7 @@ const Search = () => {
                 <Grid
                     columns = {{
                         sm: 4,
-                        xl: 12,
+                        xl: 6,
                         xs: 2,
                     }}
                     container
