@@ -4,6 +4,9 @@ const Auction2000Icon = () => {
     return (
         <GavelIcon
             fontSize = 'small'
+            sx = {{
+                marginLeft: '4px',
+            }}
         />
     );
 };

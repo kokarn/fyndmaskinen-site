@@ -7,6 +7,7 @@ const BlocketIcon = () => {
                 backgroundPosition: 'center',
                 backgroundSize: 'contain',
                 height: '20px',
+                marginLeft: '4px',
                 // maxWidth: '7px',
                 // transform: 'scale(4)',
                 width: '20px',
