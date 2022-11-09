@@ -209,7 +209,7 @@ const Search = () => {
                 </Grid>
                 <Grid
                     columns = {{
-                        sm: 6,
+                        sm: 4,
                         xl: 12,
                         xs: 2,
                     }}
