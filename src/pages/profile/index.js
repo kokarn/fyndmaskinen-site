@@ -172,9 +172,6 @@ const Profile = () => {
                 container
                 spacing = {4}
                 // alignItems = { 'flex-end' }
-                sx = {{
-                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
-                }}
             >
                 <Grid
                     md = {12}
@@ -190,7 +187,6 @@ const Profile = () => {
                     xs = {12}
                 >
                     <Typography
-                        // color = {'inherit'}
                         variant = {'h5'}
                     >
                         {'Aktiva bevakningar '}
@@ -226,11 +222,7 @@ const Profile = () => {
                                                 event.preventDefault();
                                             }}
                                         >
-                                            <DeleteIcon
-                                                sx = {{
-                                                    color: 'white',
-                                                }}
-                                            />
+                                            <DeleteIcon />
                                         </IconButton>
                                     }
                                     to = {`/search/${watch.match}`}
@@ -264,7 +256,6 @@ const Profile = () => {
                     xs = {6}
                 >
                     <Button
-                        color = 'inherit'
                         href = {`${window.PURCHASE_URL}?prefilled_email=${user?.email}`}
                         variant = 'outlined'
                     >
@@ -276,7 +267,6 @@ const Profile = () => {
                     xs = {6}
                 >
                     <Button
-                        color = 'inherit'
                         href = {window.PORTAL_URL}
                         variant = 'outlined'
                     >

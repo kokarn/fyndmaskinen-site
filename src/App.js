@@ -1,7 +1,4 @@
 import {
-    useMemo,
-} from 'react';
-import {
     Routes,
     Route,
     Link,
@@ -16,12 +13,7 @@ import {
     // Menu,
     // MenuItem,
 } from '@mui/material';
-import {
-    ThemeProvider,
-    createTheme,
-} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import useMediaQuery from '@mui/material/useMediaQuery';
 
 import LoginButton from './components/login-button';
 import StickyFooter from './components/footer';
@@ -33,46 +25,10 @@ import Profile from './pages/profile';
 // import Live from './Live';
 // import Book from './pages/book2.jsx';
 
-import './App.css';
-
 // eslint-disable-next-line
 const App = () => {
-    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-
-    const theme = useMemo(
-        () => {
-            return createTheme({
-                components: {
-                    MuiFormLabel: {
-                        styleOverrides: {
-                            root: {
-                                color: '#fff',
-                            },
-                        },
-                    },
-                },
-                palette: {
-                    light: '#fff',
-                    mode: 'light',
-                    text: {
-                        primary: '#fff',
-                    },
-                    // mode: prefersDarkMode ?
-                    //     'dark' :
-                    //     'light',
-                    // secondary: {
-                    //     main: '#fff',
-                    // },
-                },
-            });
-        },
-        [prefersDarkMode],
-    );
-
     return (
-        <ThemeProvider
-            theme = {theme}
-        >
+        <div>
             <CssBaseline />
             <Box
                 sx = {{
@@ -86,7 +42,6 @@ const App = () => {
                 >
                     <Toolbar>
                         <Typography
-                            // color = {'inherit'}
                             sx = {{
                                 flexGrow: 1,
                                 justifyContent: 'start',
@@ -94,6 +49,11 @@ const App = () => {
                             variant = {'h5'}
                         >
                             <Link
+                            // eslint-disable-next-line react/forbid-component-props
+                                style = {{
+                                    color: 'inherit',
+                                    textDecoration: 'none',
+                                }}
                                 to = '/'
                             >
                                 { 'Fyndmaskinen' }
@@ -110,16 +70,12 @@ const App = () => {
                         >
                             { 'Deals' }
                         </Button> */}
-                        {/* <Button
-                            color = { 'inherit' }
-                        >
+                        {/* <Button>
                             <Link to="/book2">
                                 { 'Book' }
                             </Link>
                         </Button> */}
-                        {/* <Button
-                            color = { 'inherit' }
-                        >
+                        {/* <Button>
                             <Link to="/live">
                                 { 'Live' }
                             </Link>
@@ -161,7 +117,7 @@ const App = () => {
                 </Routes>
                 <StickyFooter />
             </Box>
-        </ThemeProvider>
+        </div>
     );
 };
 

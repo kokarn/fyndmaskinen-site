@@ -102,7 +102,6 @@ const Search = () => {
         <div
             className = 'App'
             style = {{
-                backgroundColor: 'rgba(0, 0, 0, 0.6)',
                 flex: '1 0 auto',
                 paddingBottom: '32px',
             }}
@@ -187,7 +186,6 @@ const Search = () => {
                         >
                             {!isAuthenticated && !isLoading && (
                                 <Button
-                                    color = 'inherit'
                                     onClick = {() => {
                                         return loginWithRedirect();
                                     }}
@@ -198,7 +196,6 @@ const Search = () => {
                             )}
                             {isAuthenticated && !isLoading && (
                                 <Button
-                                    color = 'inherit'
                                     // onClick = {() => {
                                     //     return loginWithRedirect();
                                     // }}

@@ -110,9 +110,6 @@ const Main = () => {
                     alignItems = 'center'
                     container
                     spacing = {4}
-                    sx = {{
-                        backgroundColor: 'rgba(0, 0, 0, 0.6)',
-                    }}
                 >
                     <Grid
                         md = {12}
@@ -160,6 +157,7 @@ const Main = () => {
                             return (
                                 <Button
                                     key = {`popular-search-${search}`}
+                                    size = 'small'
                                     variant = 'text'
                                 >
                                     <Link

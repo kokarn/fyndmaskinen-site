@@ -61,8 +61,10 @@ const StickyFooter = () => {
             >
                 <Typography
                     align = 'center'
-                    color = 'inherit'
-                    variant = 'body2'
+                    sx = {{
+                        color: '#fff',
+                    }}
+                    variant = 'body1'
                 >
                     { `Fynda bland ${ totalItems > 0 ?
                         new Intl.NumberFormat('sv-SE').format(totalItems) :
