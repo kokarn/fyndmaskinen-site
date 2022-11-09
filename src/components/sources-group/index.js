@@ -5,7 +5,11 @@ import Grid from '@mui/material/Unstable_Grid2';
 import PropTypes from 'prop-types';
 import DoneIcon from '@mui/icons-material/Done';
 import ClearIcon from '@mui/icons-material/Clear';
-import FaceIcon from '@mui/icons-material/Face';
+
+import Auction2000Icon from '../auction2000-icon';
+import AuctionetIcon from '../auctionet-icon';
+import BlocketIcon from '../blocket-icon';
+import TraderIcon from '../tradera-icon';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
@@ -24,11 +28,18 @@ const defaultSources = {
 };
 
 const sourceOrder = [
+    'auction2000',
     'auctionet',
     'blocket',
-    'auction2000',
     'tradera',
 ];
+
+const iconMap = {
+    auction2000: <Auction2000Icon />,
+    auctionet: <AuctionetIcon />,
+    blocket: <BlocketIcon />,
+    tradera: <TraderIcon />,
+};
 
 const SourcesGroup = (props) => {
     const [
@@ -89,7 +100,7 @@ const SourcesGroup = (props) => {
                                 <DoneIcon /> :
                                 <ClearIcon />
                             }
-                            icon = {<FaceIcon />}
+                            icon = {iconMap[ sourceKey ]}
                             label = {sourceLabels[ sourceKey ]}
                             onClick = {() => {
                                 handleChipClick(sourceKey);

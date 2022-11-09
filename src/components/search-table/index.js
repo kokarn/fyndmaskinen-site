@@ -11,13 +11,17 @@ import {
     CardActionArea,
     Grow,
 } from '@mui/material';
-import GavelIcon from '@mui/icons-material/Gavel';
+
 import {
     useInView,
 } from 'react-intersection-observer';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Grid from '@mui/material/Unstable_Grid2';
+
+import Auction2000Icon from '../auction2000-icon';
 import AuctionetIcon from '../auctionet-icon';
+import BlocketIcon from '../blocket-icon';
+import TraderIcon from '../tradera-icon';
 
 const ITEM_TRANSITION_STAGGER = 25;
 const MAX_ITEM_LIST = 42;
@@ -60,48 +64,14 @@ const SearchTable = ({
             return false;
         }
 
-        let tileIcon = (
-            <GavelIcon
-            // prefersDarkMode ?
-                fontSize = 'small'
-            />
-        );
+        let tileIcon = <Auction2000Icon />;
 
         if (tile.type === 'tradera') {
-            tileIcon = (
-                <div
-                    alt = 'Tradera'
-                    // src = {`${process.env.PUBLIC_URL}/images/icons/tradera-100x100.png`}
-                    style = {{
-                        backgroundImage: `url(${process.env.PUBLIC_URL}/images/icons/tradera-40x40${prefersDarkMode ?
-                            '-white' :
-                            ''}.png)`,
-                        backgroundPosition: 'center',
-                        backgroundSize: 'contain',
-                        height: '20px',
-                        // maxWidth: '7px',
-                        // transform: 'scale(4)',
-                        width: '20px',
-                    }}
-                />
-            );
+            tileIcon = <TraderIcon />;
         } else if (tile.type === 'auctionet') {
             tileIcon = <AuctionetIcon />;
         } else if (tile.type === 'blocket') {
-            tileIcon = (
-                <div
-                    alt = 'Blocket'
-                    style = {{
-                        backgroundImage: `url(${process.env.PUBLIC_URL}/images/icons/blocket.png)`,
-                        backgroundPosition: 'center',
-                        backgroundSize: 'contain',
-                        height: '20px',
-                        // maxWidth: '7px',
-                        // transform: 'scale(4)',
-                        width: '20px',
-                    }}
-                />
-            );
+            tileIcon = <BlocketIcon />;
         }
 
         return (
