@@ -173,13 +173,25 @@ const Profile = () => {
                     />
                 </Grid>
                 <Grid
-                    md = {12}
-                    xs = {12}
+                    md = {10}
+                    xs = {10}
                 >
                     <Typography
                         variant = {'h5'}
                     >
                         {'Aktiva bevakningar '}
+                    </Typography>
+                </Grid>
+                <Grid
+                    md = {2}
+                    xs = {2}
+                >
+                    <Typography
+                        sx = {{
+                            textAlign: 'right',
+                        }}
+                        variant = {'h5'}
+                    >
                         {(!watches.length || !watchLimit) ?
                             <Skeleton
                                 sx = {{
@@ -194,6 +206,11 @@ const Profile = () => {
                             </span>
                         }
                     </Typography>
+                </Grid>
+                <Grid
+                    md = {12}
+                    xs = {12}
+                >
                     {watches.map((watch) => {
                         return (
                             <WatchListItem
