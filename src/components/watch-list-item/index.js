@@ -9,13 +9,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import PropTypes from 'prop-types';
 
 const WatchListItem = ({
-    key,
     onDelete,
     watchString,
 }) => {
     return (
         <div
-            key = {key}
             style = {{
                 // backgroundColor: 'rgba(0, 0, 0, 0.6)',
                 // color: '#fff',
@@ -43,7 +41,6 @@ const WatchListItem = ({
 };
 
 WatchListItem.propTypes = {
-    key: PropTypes.string.isRequired,
     onDelete: PropTypes.func.isRequired,
     watchString: PropTypes.string.isRequired,
 };
