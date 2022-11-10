@@ -7,26 +7,15 @@ import {
 } from '@auth0/auth0-react';
 import {
     Button,
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemText,
-    // ListItemIcon,
-    IconButton,
     Box,
-    // Grid,
     Typography,
     Skeleton,
 } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
 import {
     useQuery,
     useMutation,
     useQueryClient,
 } from 'react-query';
-import {
-    Link,
-} from 'react-router-dom';
 import Grid from '@mui/material/Unstable_Grid2';
 
 import removeWatch from '../../features/remove-watch';
@@ -35,6 +24,7 @@ import getWatchLimit from '../../features/get-watch-limit';
 
 import AddWatch from '../../components/add-watch';
 import LogoutButton from '../../components/logout-button';
+import WatchListItem from '../../components/watch-list-item';
 
 const Profile = () => {
     const {
@@ -204,52 +194,17 @@ const Profile = () => {
                             </span>
                         }
                     </Typography>
-                    <List
-                        key = 'my-monitors'
-                    >
-                        {watches.map((watch) => {
-                            return (
-                                <ListItem
-                                    component = {Link}
-                                    disableGutters
-                                    key = {`watch-${user?.name}-${watch.match}`}
-                                    secondaryAction = {
-                                        <IconButton
-                                            aria-label = 'delete'
-                                            edge = 'end'
-                                            onClick = {(event) => {
-                                                mutation.mutate(watch.match);
-                                                event.preventDefault();
-                                            }}
-                                        >
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    }
-                                    to = {`/search/${watch.match}`}
-                                >
-                                    <ListItemButton
-                                        disableGutters
-                                        // onClick = {handleToggle(value)}
-                                    >
-                                        {/* <ListItemIcon>
-                                            <Checkbox
-                                                // checked = {checked.indexOf(value) !== -1}
-                                                checked
-                                                disableRipple
-                                                edge = 'start'
-                                                // inputProps = {{ 'aria-labelledby': labelId }}
-                                                tabIndex = {-1}
-                                            />
-                                        </ListItemIcon> */}
-                                        <ListItemText
-                                            primary = {watch.match}
-                                            // secondary = {'XXX objekt'}
-                                        />
-                                    </ListItemButton>
-                                </ListItem>
-                            );
-                        })}
-                    </List>
+                    {watches.map((watch) => {
+                        return (
+                            <WatchListItem
+                                key = {`watch-${user?.name}-${watch.match}`}
+                                onDelete = {() => {
+                                    mutation.mutate(watch.match);
+                                }}
+                                watchString = {watch.match}
+                            />
+                        );
+                    })}
                 </Grid>
                 <Grid
                     md = {6}
