@@ -85,7 +85,7 @@ const SourcesGroup = (props) => {
     return (
         <Grid
             container
-            disableEqualOverflow
+            // disableEqualOverflow
             md = {12}
             spacing = {2}
             xs = {12}
