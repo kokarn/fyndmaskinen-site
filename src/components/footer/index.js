@@ -2,15 +2,19 @@ import {
     useState,
     useMemo,
 } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import {
+    Box,
+    Typography,
+    Container,
+    Skeleton,
+} from '@mui/material';
+
 // import Link from '@mui/material/Link';
 
 const StickyFooter = () => {
     const [
         totalItems, setTotalItems,
-    ] = useState('?');
+    ] = useState(0);
 
     const updateData = () => {
         try {
@@ -66,10 +70,20 @@ const StickyFooter = () => {
                     }}
                     variant = 'body1'
                 >
-                    { `Fynda bland ${ totalItems > 0 ?
-                        new Intl.NumberFormat('sv-SE').format(totalItems) :
-                        '?'
-                    } objekt` }
+                    { 'Fynda bland '}
+                    { totalItems > 0 && (
+                        new Intl.NumberFormat('sv-SE').format(totalItems)
+                    )}
+                    {!totalItems && (
+                        <Skeleton
+                            sx = {{
+                                display: 'inline-block',
+                                fontSize: '1rem',
+                            }}
+                            width = {60}
+                        />
+                    )}
+                    {' objekt'}
                 </Typography>
             </Container>
         </Box>
