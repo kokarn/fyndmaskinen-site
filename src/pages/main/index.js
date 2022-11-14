@@ -16,6 +16,9 @@ import {
     useNavigate,
 } from 'react-router-dom';
 import Grid from '@mui/material/Unstable_Grid2';
+import {
+    Helmet,
+} from 'react-helmet';
 
 import SourcesGroup from '../../components/sources-group';
 
@@ -100,6 +103,11 @@ const Main = () => {
             my = {10}
             sx = {wrapperProps}
         >
+            <Helmet>
+                <title>
+                    {'Fyndmaskinen'}
+                </title>
+            </Helmet>
             <form
                 autoComplete = 'off'
                 noValidate
