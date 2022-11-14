@@ -29,6 +29,8 @@ const popularSearches = [
     'bordslampa',
     'fotogenlampa',
     'höganäs',
+    'ittala',
+    'iphone',
 ];
 
 const getRandomItemsFromArray = (array, count) => {
