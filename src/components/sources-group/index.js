@@ -84,37 +84,36 @@ const SourcesGroup = (props) => {
 
     return (
         <Grid
-            container
-            // disableEqualOverflow
             md = {12}
             spacing = {2}
+            sx = {{
+                display: 'flex',
+                flexFlow: 'wrap',
+                gap: '10px',
+            }}
             xs = {12}
         >
             {sourceOrder.map((sourceKey) => {
                 return (
-                    <Grid
+                    <Chip
+                        deleteIcon = {allowedSources[ sourceKey ] ?
+                            <DoneIcon /> :
+                            <ClearIcon />
+                        }
+                        icon = {iconMap[ sourceKey ]}
                         key = {sourceKey}
-                        xs = {'auto'}
-                    >
-                        <Chip
-                            deleteIcon = {allowedSources[ sourceKey ] ?
-                                <DoneIcon /> :
-                                <ClearIcon />
-                            }
-                            icon = {iconMap[ sourceKey ]}
-                            label = {sourceLabels[ sourceKey ]}
-                            onClick = {() => {
-                                handleChipClick(sourceKey);
-                            }}
-                            onDelete = {() => {
-                                handleChipClick(sourceKey);
-                            }}
-                            variant = {allowedSources[ sourceKey ] ?
-                                'default' :
-                                'outlined'
-                            }
-                        />
-                    </Grid>
+                        label = {sourceLabels[ sourceKey ]}
+                        onClick = {() => {
+                            handleChipClick(sourceKey);
+                        }}
+                        onDelete = {() => {
+                            handleChipClick(sourceKey);
+                        }}
+                        variant = {allowedSources[ sourceKey ] ?
+                            'default' :
+                            'outlined'
+                        }
+                    />
                 );
             })}
         </Grid>
