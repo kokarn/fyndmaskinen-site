@@ -1,5 +1,3 @@
-import ReactGA from 'react-ga';
-
 const doSearch = ({
     queryKey,
 }) => {
@@ -28,9 +26,10 @@ const doSearch = ({
     }
 
     console.log(`Searching for "${searchPhrase}" in ${queryKey[ 2 ]}`);
-    ReactGA.event({
-        action: searchPhrase,
-        category: 'Search',
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        event: 'view_search_results',
+        value: searchPhrase,
     });
 
     try {

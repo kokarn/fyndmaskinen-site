@@ -16,7 +16,6 @@ import {
     useNavigate,
 } from 'react-router-dom';
 import Grid from '@mui/material/Unstable_Grid2';
-import ReactGA from 'react-ga';
 
 import SourcesGroup from '../../components/sources-group';
 
@@ -106,9 +105,10 @@ const Main = () => {
                 noValidate
                 onSubmit = {(event) => {
                     event.preventDefault();
-                    ReactGA.event({
-                        action: searchRef.current.value,
-                        category: 'Search',
+                    window.dataLayer = window.dataLayer || [];
+                    window.dataLayer.push({
+                        event: 'view_search_results',
+                        value: searchRef.current.value,
                     });
                     navigate(`/search/${searchRef.current.value}`);
                 }}
