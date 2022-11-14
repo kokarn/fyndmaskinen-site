@@ -56,19 +56,6 @@ const SourcesGroup = (props) => {
         }
     }
 
-    const handleCheckboxChange = (event) => {
-        const newSources = {
-            ...allowedSources,
-            [ event.target.name ]: event.target.checked,
-        };
-
-        setAllowedSources(newSources);
-
-        if (props.onChange) {
-            props.onChange(newSources);
-        }
-    };
-
     const handleChipClick = (sourceClicked) => {
         const newSources = {
             ...allowedSources,

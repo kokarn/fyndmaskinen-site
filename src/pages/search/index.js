@@ -50,7 +50,7 @@ const Search = () => {
     ] = useState(false);
     const {
         loginWithRedirect,
-        user,
+        // user,
         isAuthenticated,
         isLoading,
     } = useAuth0();

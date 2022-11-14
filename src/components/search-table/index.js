@@ -15,7 +15,6 @@ import {
 import {
     useInView,
 } from 'react-intersection-observer';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import Grid from '@mui/material/Unstable_Grid2';
 
 import Auction2000Icon from '../auction2000-icon';
@@ -29,14 +28,10 @@ const MAX_ITEM_LIST = 42;
 const SearchTable = ({
     displayItems,
 }) => {
-    // if (searchItems.length <= 0) {
-    //     return null;
-    // }
     const [
         pageSize,
         setPageSize,
     ] = useState(MAX_ITEM_LIST);
-    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
     const errorImage = 'https://fyndmaskinen.se/images/no-image.jpg';
 
