@@ -17,6 +17,9 @@ import {
     useQueryClient,
 } from 'react-query';
 import Grid from '@mui/material/Unstable_Grid2';
+import {
+    Helmet,
+} from 'react-helmet';
 
 import removeWatch from '../../features/remove-watch';
 import getWatches from '../../features/get-watches';
@@ -158,6 +161,11 @@ const Profile = () => {
                 minHeight: '10vh',
             }}
         >
+            <Helmet>
+                <title>
+                    {'Profil'}
+                </title>
+            </Helmet>
             <Grid
                 container
                 spacing = {4}
