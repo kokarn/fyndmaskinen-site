@@ -1,3 +1,5 @@
+import ReactGA from 'react-ga';
+
 const doSearch = ({
     queryKey,
 }) => {
@@ -26,6 +28,11 @@ const doSearch = ({
     }
 
     console.log(`Searching for "${searchPhrase}" in ${queryKey[ 2 ]}`);
+    ReactGA.event({
+        action: searchPhrase,
+        category: 'Search',
+    });
+
     try {
         return fetch(
             `${ window.API_HOSTNAME }/graphql`,

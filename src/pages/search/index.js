@@ -22,6 +22,9 @@ import Grid from '@mui/material/Unstable_Grid2';
 import {
     useAuth0,
 } from '@auth0/auth0-react';
+import {
+    Helmet,
+} from 'react-helmet';
 
 import SearchTable from '../../components/search-table';
 import SourcesGroup from '../../components/sources-group';
@@ -106,6 +109,11 @@ const Search = () => {
                 paddingBottom: '32px',
             }}
         >
+            <Helmet>
+                <title>
+                    {searchPhrase}
+                </title>
+            </Helmet>
             <Box
                 m = {2}
             >

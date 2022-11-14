@@ -14,6 +14,7 @@ import {
 import {
     Auth0Provider,
 } from '@auth0/auth0-react';
+import ReactGA from 'react-ga';
 
 window.API_HOSTNAME = 'https://d2cmhnbxvwhy7s.cloudfront.net';
 window.PORTAL_URL = 'https://billing.stripe.com/p/login/bIY14V4oKdcnfp6bII';
@@ -27,6 +28,8 @@ if (window.location.origin.includes('localhost')) {
 
 const queryClient = new QueryClient();
 const root = ReactDOMClient.createRoot(document.getElementById('root'));
+
+ReactGA.initialize('G-QLB5FB58PH');
 
 root.render((
     <React.StrictMode>
