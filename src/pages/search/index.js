@@ -64,6 +64,7 @@ const Search = () => {
         auction2000: true,
         auctionet: true,
         blocket: true,
+        bukowskis: true,
         tradera: true,
     });
 

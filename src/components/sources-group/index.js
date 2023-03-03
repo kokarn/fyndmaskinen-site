@@ -9,6 +9,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import Auction2000Icon from '../auction2000-icon';
 import AuctionetIcon from '../auctionet-icon';
 import BlocketIcon from '../blocket-icon';
+import BukowskisIcon from '../bukowskis-icon';
 import TraderIcon from '../tradera-icon';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
@@ -17,6 +18,7 @@ const sourceLabels = {
     auction2000: 'Mindre auktionshus',
     auctionet: 'Auctionet',
     blocket: 'Blocket',
+    bukowskis: 'Bukowskis',
     tradera: 'Tradera',
 };
 
@@ -24,6 +26,7 @@ const defaultSources = {
     auction2000: true,
     auctionet: true,
     blocket: true,
+    bukowskis: true,
     tradera: true,
 };
 
@@ -31,6 +34,7 @@ const sourceOrder = [
     'auction2000',
     'auctionet',
     'blocket',
+    'bukowskis',
     'tradera',
 ];
 
@@ -38,6 +42,7 @@ const iconMap = {
     auction2000: <Auction2000Icon />,
     auctionet: <AuctionetIcon />,
     blocket: <BlocketIcon />,
+    bukowskis: <BukowskisIcon />,
     tradera: <TraderIcon />,
 };
 

@@ -20,6 +20,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Auction2000Icon from '../auction2000-icon';
 import AuctionetIcon from '../auctionet-icon';
 import BlocketIcon from '../blocket-icon';
+import BukowskisIcon from '../bukowskis-icon';
 import TraderIcon from '../tradera-icon';
 
 const ITEM_TRANSITION_STAGGER = 25;
@@ -67,6 +68,8 @@ const SearchTable = ({
             tileIcon = <AuctionetIcon />;
         } else if (tile.type === 'blocket') {
             tileIcon = <BlocketIcon />;
+        } else if (tile.type === 'bukowskis') {
+            tileIcon = <BukowskisIcon />;
         }
 
         return (
