@@ -208,6 +208,7 @@ const Search = () => {
                                     // onClick = {() => {
                                     //     return loginWithRedirect();
                                     // }}
+                                    href = '/profile'
                                     variant = 'outlined'
                                 >
                                     { 'Spara sökningen' }
