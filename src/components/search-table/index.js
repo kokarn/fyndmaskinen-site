@@ -17,11 +17,7 @@ import {
 } from 'react-intersection-observer';
 import Grid from '@mui/material/Unstable_Grid2';
 
-import Auction2000Icon from '../auction2000-icon';
-import AuctionetIcon from '../auctionet-icon';
-import BlocketIcon from '../blocket-icon';
-import BukowskisIcon from '../bukowskis-icon';
-import TraderIcon from '../tradera-icon';
+import sources from '../../sources';
 
 const ITEM_TRANSITION_STAGGER = 25;
 const MAX_ITEM_LIST = 42;
@@ -58,18 +54,6 @@ const SearchTable = ({
 
         if (index >= pageSize) {
             return false;
-        }
-
-        let tileIcon = <Auction2000Icon />;
-
-        if (tile.type === 'tradera') {
-            tileIcon = <TraderIcon />;
-        } else if (tile.type === 'auctionet') {
-            tileIcon = <AuctionetIcon />;
-        } else if (tile.type === 'blocket') {
-            tileIcon = <BlocketIcon />;
-        } else if (tile.type === 'bukowskis') {
-            tileIcon = <BukowskisIcon />;
         }
 
         return (
@@ -128,7 +112,7 @@ const SearchTable = ({
                                         minimumFractionDigits: 0,
                                         style: 'currency',
                                     }).format(currentPrice) }
-                                    {tileIcon}
+                                    {sources.find((source) => source.id === tile.type).icon}
                                 </Typography>
                             </CardContent>
                         </CardActionArea>

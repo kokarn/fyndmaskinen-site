@@ -31,6 +31,7 @@ import SourcesGroup from '../../components/sources-group';
 import doSearch from '../../features/search';
 import useDebounce from '../../hooks/useDebounce';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+import allSources from '../../sources';
 
 const SEARCH_DELAY = 200;
 const MAX_ITEMS = 500;
@@ -60,13 +61,16 @@ const Search = () => {
     const [
         sources,
         setSources,
-    ] = useStateWithLocalStorage('sources', {
-        auction2000: true,
-        auctionet: true,
-        blocket: true,
-        bukowskis: true,
-        tradera: true,
-    });
+    ] = useStateWithLocalStorage(
+        'sources',
+        Object.fromEntries(allSources
+            .map((source) => {
+                return [
+                    source.id,
+                    source.defaultEnabled,
+                ];
+            }))
+    );
 
     const {
         isFetching,

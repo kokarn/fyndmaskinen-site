@@ -6,45 +6,9 @@ import PropTypes from 'prop-types';
 import DoneIcon from '@mui/icons-material/Done';
 import ClearIcon from '@mui/icons-material/Clear';
 
-import Auction2000Icon from '../auction2000-icon';
-import AuctionetIcon from '../auctionet-icon';
-import BlocketIcon from '../blocket-icon';
-import BukowskisIcon from '../bukowskis-icon';
-import TraderIcon from '../tradera-icon';
+import sources from '../../sources';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
-
-const sourceLabels = {
-    auction2000: 'Mindre auktionshus',
-    auctionet: 'Auctionet',
-    blocket: 'Blocket',
-    bukowskis: 'Bukowskis',
-    tradera: 'Tradera',
-};
-
-const defaultSources = {
-    auction2000: true,
-    auctionet: true,
-    blocket: true,
-    bukowskis: true,
-    tradera: true,
-};
-
-const sourceOrder = [
-    'auction2000',
-    'auctionet',
-    'blocket',
-    'bukowskis',
-    'tradera',
-];
-
-const iconMap = {
-    auction2000: <Auction2000Icon />,
-    auctionet: <AuctionetIcon />,
-    blocket: <BlocketIcon />,
-    bukowskis: <BukowskisIcon />,
-    tradera: <TraderIcon />,
-};
 
 const SourcesGroup = (props) => {
     const [
@@ -52,14 +16,14 @@ const SourcesGroup = (props) => {
         setAllowedSources,
     ] = useStateWithLocalStorage(
         'sources',
-        defaultSources,
+        Object.fromEntries(sources
+            .map((source) => {
+                return [
+                    source.id,
+                    source.defaultEnabled,
+                ];
+            }))
     );
-
-    for (const source in defaultSources) {
-        if (typeof allowedSources[ source ] === 'undefined') {
-            allowedSources[ source ] = defaultSources[ source ];
-        }
-    }
 
     const handleChipClick = (sourceClicked) => {
         const newSources = {
@@ -85,23 +49,23 @@ const SourcesGroup = (props) => {
             }}
             xs = {12}
         >
-            {sourceOrder.map((sourceKey) => {
+            {sources.map((source) => {
                 return (
                     <Chip
-                        deleteIcon = {allowedSources[ sourceKey ] ?
+                        deleteIcon = {allowedSources[ source.id ] ?
                             <DoneIcon /> :
                             <ClearIcon />
                         }
-                        icon = {iconMap[ sourceKey ]}
-                        key = {sourceKey}
-                        label = {sourceLabels[ sourceKey ]}
+                        icon = {source.icon}
+                        key = {source.id}
+                        label = {source.label}
                         onClick = {() => {
-                            handleChipClick(sourceKey);
+                            handleChipClick(source.id);
                         }}
                         onDelete = {() => {
-                            handleChipClick(sourceKey);
+                            handleChipClick(source.id);
                         }}
-                        variant = {allowedSources[ sourceKey ] ?
+                        variant = {allowedSources[ source.id ] ?
                             'default' :
                             'outlined'
                         }

@@ -95,22 +95,6 @@ const AddWatch = ({
                 }}
                 variant = 'standard'
             />
-            {/* <FormGroup>
-            <FormControlLabel
-                control={<Checkbox defaultChecked />}
-                label="Auctions"
-            />
-            <FormControlLabel
-                disabled
-                control={<Checkbox />}
-                label="Blocket"
-            />
-            <FormControlLabel
-                disabled
-                control={<Checkbox />}
-                label="Marketplace"
-            />
-        </FormGroup> */}
         </form>
     );
 };
