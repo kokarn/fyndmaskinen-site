@@ -3,6 +3,7 @@ import AuctionetIcon from './components/auctionet-icon';
 import BlocketIcon from './components/blocket-icon';
 import BukowskisIcon from './components/bukowskis-icon';
 import TraderIcon from './components/tradera-icon';
+import UppsalaAuktionskammareIcon from './components/uppsala-auktionskammare-icon';
 
 const sources = [
     {
@@ -34,6 +35,12 @@ const sources = [
         icon: <TraderIcon />,
         id: 'tradera',
         label: 'Tradera',
+    },
+    {
+        defaultEnabled: true,
+        icon: <UppsalaAuktionskammareIcon />,
+        id: 'uppsala-auktionskammare',
+        label: 'Uppsala Auktionskammare',
     },
 ];
 
