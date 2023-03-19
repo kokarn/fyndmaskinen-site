@@ -54,7 +54,7 @@ const StickyFooter = () => {
         <Box
             component = 'footer'
             sx = {{
-                backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                backgroundColor: '#26828B',
                 flexShrink: 0,
                 paddingBottom: '1em',
                 paddingTop: '1em',
@@ -67,6 +67,10 @@ const StickyFooter = () => {
                     align = 'center'
                     sx = {{
                         color: '#fff',
+                        
+                        fontFamily: 'Urbanis',
+                        fontSize: 18,
+                        fontWeight: 500,
                     }}
                     variant = 'body1'
                 >

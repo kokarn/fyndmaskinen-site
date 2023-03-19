@@ -28,17 +28,25 @@ import Profile from './pages/profile';
 // eslint-disable-next-line
 const App = () => {
     return (
-        <div>
-            <CssBaseline />
+        <>
+          <CssBaseline/>
             <Box
                 sx = {{
                     display: 'flex',
                     flexDirection: 'column',
-                    minHeight: '100vh',
+                     height: '100vh',
+                    backgroundImage: 
+                    "url('https://i.imgur.com/Su8gIK4.jpeg')",
+                    backgroundRepeat: 'non-replaceat',
+                    backgroundSize: 'contain',
+                    
                 }}
             >
                 <AppBar
                     position = 'static'
+                    sx = {{
+                        backgroundColor: '#FFFFFF',
+                    }}
                 >
                     <Toolbar>
                         <Typography
@@ -53,6 +61,9 @@ const App = () => {
                                 style = {{
                                     color: 'inherit',
                                     textDecoration: 'none',
+                                    color:'#000000',
+                                    paddingLeft: 25,
+                                    fontWeight: 600,
                                 }}
                                 to = '/'
                             >
@@ -115,9 +126,9 @@ const App = () => {
                     />
                     */}
                 </Routes>
-                <StickyFooter />
+                <StickyFooter/>
             </Box>
-        </div>
+        </>
     );
 };
 

@@ -19,6 +19,7 @@ const LogoutButton = () => {
                 });
             }}
             sx = {{
+                backgroundColor: 'red',
                 bottom: (theme) => {
                     return theme.spacing(2);
                 },

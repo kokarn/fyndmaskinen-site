@@ -7,7 +7,6 @@ import DoneIcon from '@mui/icons-material/Done';
 import ClearIcon from '@mui/icons-material/Clear';
 
 import sources from '../../sources';
-
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 const SourcesGroup = (props) => {
@@ -45,6 +44,7 @@ const SourcesGroup = (props) => {
             sx = {{
                 display: 'flex',
                 flexFlow: 'wrap',
+                justifyContent: 'center',
                 gap: '10px',
             }}
             xs = {12}
@@ -52,9 +52,17 @@ const SourcesGroup = (props) => {
             {sources.map((source) => {
                 return (
                     <Chip
+                    style={{
+                        backgroundColor: '#FFFFFF',
+                        marginTop: 30,
+                        paddingRight: 5,
+                        borderRadius: 8,
+                        color:'#000000DE'
+                        
+                    }}
                         deleteIcon = {allowedSources[ source.id ] ?
-                            <DoneIcon /> :
-                            <ClearIcon />
+                            <DoneIcon sx={{color: "#FFFFFF", backgroundColor: '#39B4BF', borderRadius: 1,  }}/> :
+                            <ClearIcon sx={{ color: "white",backgroundColor: '#39B4BF',borderRadius: 1, }}/>
                         }
                         icon = {source.icon}
                         key = {source.id}

@@ -11,6 +11,7 @@ import {
 import {
     LoadingButton,
 } from '@mui/lab';
+import LoginIcon from '@mui/icons-material/Login';
 
 const LoginButton = () => {
     const {
@@ -40,13 +41,18 @@ const LoginButton = () => {
             )}
             {!isAuthenticated && !isLoading && (
                 <Button
-                    color = 'inherit'
+                    
                     onClick = {() => {
                         return loginWithRedirect();
                     }}
-                    variant = 'text'
+                    variant = 'contained'
+                    sx = {{
+                        backgroundColor: '#26828B',
+                        gap: 1,
+                        
+                    }}
                 >
-                    {'Logga in'}
+                 <span sx = {{borderRadius: 1}}><LoginIcon/></span>  <span>{'Logga in'}</span> 
                 </Button>
             )}
             {isLoading && (
