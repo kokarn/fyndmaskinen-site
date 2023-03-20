@@ -31,41 +31,39 @@ const App = () => {
         <>
             <CssBaseline />
             <Box
-                sx={{
+                sx = {{
+                    backgroundImage: "url('https://i.imgur.com/Su8gIK4.jpeg')",
+                    backgroundRepeat: 'non-replaceat',
+                    backgroundSize: 'contain',
                     display: 'flex',
                     flexDirection: 'column',
                     height: '100vh',
-                    backgroundImage:
-                        "url('https://i.imgur.com/Su8gIK4.jpeg')",
-                    backgroundRepeat: 'non-replaceat',
-                    backgroundSize: 'contain',
 
                 }}
             >
                 <AppBar
-                    position='static'
-                    sx={{
+                    position = 'static'
+                    sx = {{
                         backgroundColor: '#FFFFFF',
                     }}
                 >
                     <Toolbar>
                         <Typography
-                            sx={{
+                            sx = {{
                                 flexGrow: 1,
                                 justifyContent: 'start',
                             }}
-                            variant={'h5'}
+                            variant = {'h5'}
                         >
                             <Link
                                 // eslint-disable-next-line react/forbid-component-props
-                                style={{
-                                    color: 'inherit',
-                                    textDecoration: 'none',
+                                style = {{
                                     color: '#000000',
-                                    paddingLeft: 25,
                                     fontWeight: 600,
+                                    paddingLeft: 25,
+                                    textDecoration: 'none',
                                 }}
-                                to='/'
+                                to = '/'
                             >
                                 {'Fyndmaskinen'}
                             </Link>
@@ -96,24 +94,24 @@ const App = () => {
                 </AppBar>
                 <Routes>
                     <Route
-                        element={<Main />}
-                        path='/'
+                        element = {<Main />}
+                        path = '/'
                     />
                     <Route
-                        element={<Deals />}
-                        path='/deals'
+                        element = {<Deals />}
+                        path = '/deals'
                     />
                     <Route
-                        element={<Search />}
-                        path='/search/:searchString'
+                        element = {<Search />}
+                        path = '/search/:searchString'
                     />
                     <Route
-                        element={<Search />}
-                        path='/search/'
+                        element = {<Search />}
+                        path = '/search/'
                     />
                     <Route
-                        element={<Profile />}
-                        path='/profile'
+                        element = {<Profile />}
+                        path = '/profile'
                     />
                     {/* <Route
                         path="/book2"

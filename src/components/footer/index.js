@@ -52,8 +52,8 @@ const StickyFooter = () => {
 
     return (
         <Box
-            component='footer'
-            sx={{
+            component = 'footer'
+            sx = {{
                 backgroundColor: '#26828B',
                 flexShrink: 0,
                 paddingBottom: '1em',
@@ -61,18 +61,18 @@ const StickyFooter = () => {
             }}
         >
             <Container
-                maxWidth='sm'
+                maxWidth = 'sm'
             >
                 <Typography
-                    align='center'
-                    sx={{
+                    align = 'center'
+                    sx = {{
                         color: '#fff',
 
                         fontFamily: 'Urbanis',
                         fontSize: 18,
                         fontWeight: 500,
                     }}
-                    variant='body1'
+                    variant = 'body1'
                 >
                     {'Fynda bland '}
                     {totalItems > 0 && (
@@ -80,11 +80,11 @@ const StickyFooter = () => {
                     )}
                     {!totalItems && (
                         <Skeleton
-                            sx={{
+                            sx = {{
                                 display: 'inline-block',
                                 fontSize: '1rem',
                             }}
-                            width={60}
+                            width = {60}
                         />
                     )}
                     {' objekt'}
