@@ -28,35 +28,46 @@ import Profile from './pages/profile';
 // eslint-disable-next-line
 const App = () => {
     return (
-        <div>
+        <>
             <CssBaseline />
             <Box
-                sx = {{
+                sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    minHeight: '100vh',
+                    height: '100vh',
+                    backgroundImage:
+                        "url('https://i.imgur.com/Su8gIK4.jpeg')",
+                    backgroundRepeat: 'non-replaceat',
+                    backgroundSize: 'contain',
+
                 }}
             >
                 <AppBar
-                    position = 'static'
+                    position='static'
+                    sx={{
+                        backgroundColor: '#FFFFFF',
+                    }}
                 >
                     <Toolbar>
                         <Typography
-                            sx = {{
+                            sx={{
                                 flexGrow: 1,
                                 justifyContent: 'start',
                             }}
-                            variant = {'h5'}
+                            variant={'h5'}
                         >
                             <Link
-                            // eslint-disable-next-line react/forbid-component-props
-                                style = {{
+                                // eslint-disable-next-line react/forbid-component-props
+                                style={{
                                     color: 'inherit',
                                     textDecoration: 'none',
+                                    color: '#000000',
+                                    paddingLeft: 25,
+                                    fontWeight: 600,
                                 }}
-                                to = '/'
+                                to='/'
                             >
-                                { 'Fyndmaskinen' }
+                                {'Fyndmaskinen'}
                             </Link>
                         </Typography>
                         {/* <Button
@@ -85,24 +96,24 @@ const App = () => {
                 </AppBar>
                 <Routes>
                     <Route
-                        element = {<Main />}
-                        path = '/'
+                        element={<Main />}
+                        path='/'
                     />
                     <Route
-                        element = {<Deals />}
-                        path = '/deals'
+                        element={<Deals />}
+                        path='/deals'
                     />
                     <Route
-                        element = {<Search />}
-                        path = '/search/:searchString'
+                        element={<Search />}
+                        path='/search/:searchString'
                     />
                     <Route
-                        element = {<Search />}
-                        path = '/search/'
+                        element={<Search />}
+                        path='/search/'
                     />
                     <Route
-                        element = {<Profile />}
-                        path = '/profile'
+                        element={<Profile />}
+                        path='/profile'
                     />
                     {/* <Route
                         path="/book2"
@@ -117,7 +128,7 @@ const App = () => {
                 </Routes>
                 <StickyFooter />
             </Box>
-        </div>
+        </>
     );
 };
 

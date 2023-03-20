@@ -12,13 +12,14 @@ const LogoutButton = () => {
 
     return (
         <Fab
-            align = 'right'
-            onClick = {() => {
+            align='right'
+            onClick={() => {
                 return logout({
                     returnTo: window.location.origin,
                 });
             }}
-            sx = {{
+            sx={{
+                backgroundColor: 'red',
                 bottom: (theme) => {
                     return theme.spacing(2);
                 },
@@ -27,7 +28,7 @@ const LogoutButton = () => {
                     return theme.spacing(2);
                 },
             }}
-            variant = 'extended'
+            variant='extended'
         >
             {'Logga ut'}
         </Fab>

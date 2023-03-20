@@ -21,20 +21,21 @@ import {
 } from 'react-helmet';
 
 import SourcesGroup from '../../components/sources-group';
+import SearchIcon from '@mui/icons-material/Search';
 
-const maxWidth = 768;
-const numberOfPopularSearches = 3;
+const maxWidth = 1200;
+// const numberOfPopularSearches = 3;
 
-const popularSearches = [
-    'lamino',
-    'poul henningsen',
-    'string',
-    'bordslampa',
-    'fotogenlampa',
-    'höganäs',
-    'ittala',
-    'iphone',
-];
+// const popularSearches = [
+//     'lamino',
+//     'poul henningsen',
+//     'string',
+//     'bordslampa',
+//     'fotogenlampa',
+//     'höganäs',
+//     'ittala',
+//     'iphone',
+// ];
 
 const getRandomItemsFromArray = (array, count) => {
     const result = [];
@@ -43,7 +44,7 @@ const getRandomItemsFromArray = (array, count) => {
     for (let i = 0; i < count; i = i + 1) {
         const randomIndex = Math.floor(Math.random() * arrayCopy.length);
 
-        result.push(arrayCopy[ randomIndex ]);
+        result.push(arrayCopy[randomIndex]);
         arrayCopy.splice(randomIndex, 1);
     }
 
@@ -99,9 +100,9 @@ const Main = () => {
 
     return (
         <Box
-            mx = {2}
-            my = {10}
-            sx = {wrapperProps}
+            mx={2}
+            my={10}
+            sx={wrapperProps}
         >
             <Helmet>
                 <title>
@@ -109,9 +110,9 @@ const Main = () => {
                 </title>
             </Helmet>
             <form
-                autoComplete = 'off'
+                autoComplete='off'
                 noValidate
-                onSubmit = {(event) => {
+                onSubmit={(event) => {
                     event.preventDefault();
                     window.dataLayer = window.dataLayer || [];
                     window.dataLayer.push({
@@ -122,44 +123,85 @@ const Main = () => {
                 }}
             >
                 <Grid
-                    alignItems = 'center'
+                    alignItems='center'
                     container
-                    spacing = {4}
+                    spacing={4}
                 >
                     <Grid
-                        md = {12}
-                        xs = {12}
+                        md={12}
+                        xs={12}
                     >
                         <TextField
                             autoFocus
                             // color = 'light'
                             fullWidth
-                            id = 'standard-name'
-                            inputProps = {{
+                            id='outlined-basic'
+                            inputProps={{
                                 tabIndex: 0,
                                 type: 'search',
                             }}
-                            inputRef = {searchRef}
-                            label = {'Sök'}
-                            margin = 'normal'
+                            inputRef={searchRef}
+                            placeholder={'LAMINO'}
+                            margin='normal'
                             // tabIndex = {0}
-                            sx = {{
-                                '& .MuiInput-underline:after': {
-                                    borderBottomColor: '#fff',
-                                },
-                                '& .MuiInput-underline:before': {
-                                    borderBottomColor: '#fff',
-                                },
+                            sx={{
+                                backgroundColor: '#FFFFFF',
+                                borderRadius: 3,
+
                             }}
-                            variant = 'standard'
+                            variant='outlined'
                         />
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                gap: 2,
+                                color: '#FFFFFF'
+                            }}
+                        >
+                            <Typography>
+                                {' Populära sökningar: Bordslampa'}
+                            </Typography>
+                            <Typography>
+                                {' Ittala '}
+                            </Typography>
+                            <Typography>
+                                {'Iphone'}
+                            </Typography>
+                        </Box>
+
+                    </Grid>
+                    <Grid
+                        sx={{
+                            display: 'flex',
+                            marginLeft: 45,
+
+                        }}
+                    >
+                        <Button
+                            variant=""
+                            sx={{
+                                backgroundColor: '#F4C50A',
+                                borderRadius: 1,
+                                width: 210,
+                                height: 45,
+                                color: '#FFFFFF',
+                                display: 'flex',
+                                alignItems: 'center',
+
+                            }}
+                        >
+                            <span style={{ margintop: 4, size: 3 }}><SearchIcon /></span>
+                            <h2 style={{ marginLeft: 5 }}>SOK</h2>
+
+                        </Button>
                     </Grid>
                     <SourcesGroup />
+
                     <Grid
-                        md = {12}
-                        xs = {12}
+                        md={12}
+                        xs={12}
                     >
-                        <Typography
+                        {/* <Typography
                             color = 'light'
                             variant = 'inherit'
                             variantMapping = {{
@@ -167,8 +209,8 @@ const Main = () => {
                             }}
                         >
                             {'Populära sökningar: '}
-                        </Typography>
-                        {getRandomItemsFromArray(popularSearches, numberOfPopularSearches).map((search) => {
+                        </Typography> */}
+                        {/* {getRandomItemsFromArray(popularSearches, numberOfPopularSearches).map((search) => {
                             return (
                                 <Button
                                     key = {`popular-search-${search}`}
@@ -182,10 +224,28 @@ const Main = () => {
                                     </Link>
                                 </Button>
                             );
-                        })}
+                        })} */}
                     </Grid>
                 </Grid>
             </form>
+            {/* <Typography>
+              paractice
+            </Typography> */}
+            {/* <Button 
+            color = 'primary'
+            >
+              primary
+            </Button>  */}
+            {/* <Button
+               color = 'secondary'
+             > 
+             secondary
+             </Button>
+            <Button 
+              color = 'inherit'
+            >
+            inherit
+            </Button> */}
         </Box>
     );
 };
