@@ -70,7 +70,7 @@ const Search = () => {
                     source.id,
                     source.defaultEnabled,
                 ];
-            }))
+            })),
     );
 
     const {
@@ -80,7 +80,7 @@ const Search = () => {
         'search',
         debouncedSearchPhrase,
         Object.keys(sources).filter((sourceKey) => {
-            return sources[sourceKey];
+            return sources[ sourceKey ];
         }),
     ], doSearch, {
         placeholderData: [],
@@ -110,11 +110,11 @@ const Search = () => {
     return (
         <div
 
-            style={{
+            style = {{
+                backgroundColor: 'white',
                 flex: '1 0 auto',
                 paddingBottom: '32px',
-                backgroundColor: 'white',
-                width: '100%'
+                width: '100%',
             }}
         >
 
@@ -124,98 +124,109 @@ const Search = () => {
                 </title>
             </Helmet>
             <Box
-                m={2}
-                sx={{
-                    backgroundImage:
-                        "url('https://i.imgur.com/Su8gIK4.jpeg')",
-                    backgroundRepeat: "no-repeat",
+                m = {2}
+                sx = {{
+                    backgroundImage: "url('https://i.imgur.com/Su8gIK4.jpeg')",
+                    backgroundRepeat: 'no-repeat',
                     backgroundSize: 'cover',
-                    width: '100vw',
                     height: '9%',
-
-
+                    width: '100vw',
                 }}
             >
                 <Grid
-                    alignItems='center'
+                    alignItems = 'center'
                     container
 
                 >
                     <Grid
-                        md={12}
-                        xs={12}
+                        md = {12}
+                        xs = {12}
                     >
                         <form
-                            autoComplete='off'
+                            autoComplete = 'off'
                             noValidate
-                            onSubmit={(event) => {
+                            onSubmit = {(event) => {
                                 event.preventDefault();
                                 searchRef.current.blur();
                             }}
                         >
                             <TextField
 
-                                id='outlined-basic'
-                                inputProps={{
+                                id = 'outlined-basic'
+                                inputProps = {{
                                     type: 'search',
                                 }}
-                                inputRef={searchRef}
-                                placeholder={'LAMINO'}
-                                margin='normal'
-                                onChange={handleFilterChange}
-                                sx={{
+                                inputRef = {searchRef}
+                                margin = 'normal'
+                                onChange = {handleFilterChange}
+                                placeholder = {'LAMINO'}
+                                sx = {{
                                     backgroundColor: '#FFFFFF',
                                     borderRadius: 3,
-                                    width: 1200,
                                     marginLeft: 8,
                                     marginTop: 10,
+                                    width: 1200,
                                 }}
-                                value={searchPhrase}
-                                variant='outlined'
+                                value = {searchPhrase}
+                                variant = 'outlined'
 
                             />
                             <Box
-                                variant=""
-                                sx={{
-                                    position: 'absolute',
-                                    top: 170,
-                                    right: 80,
+                                sx = {{
+                                    alignItems: 'center',
                                     backgroundColor: '#F4C50A',
                                     borderRadius: 1,
-                                    width: 120,
-                                    height: 36,
                                     color: '#FFFFFF',
                                     display: 'flex',
-                                    alignItems: 'center',
+                                    height: 36,
+                                    position: 'absolute',
+                                    right: 80,
+                                    top: 170,
+                                    width: 120,
 
                                 }}
+                                variant = ''
                             >
-                                <span style={{ margintop: 19, size: 3, paddingLeft: 25 }}><SearchIcon /></span>
-                                <h3 style={{ marginLeft: 5, paddingLeft: 4 }}>SOK</h3>
+                                <span
+                                    style = {{
+                                        margintop: 19,
+                                        paddingLeft: 25,
+                                        size: 3,
+                                    }}
+                                ><SearchIcon />
+                                </span>
+                                <h3
+                                    style = {{
+                                        marginLeft: 5,
+                                        paddingLeft: 4,
+                                    }}
+                                >
+                                    {'Sök'}
+                                </h3>
 
                             </Box>
                         </form>
 
                     </Grid>
                     <SourcesGroup
-                        onChange={handleGroupChange}
+                        onChange = {handleGroupChange}
                     />
                     <Grid
-                        md={6}
-                        xs={12}
-                        sx={{
+                        md = {6}
+                        sx = {{
                             marginTop: 20,
                             paddingLeft: 10,
                         }}
+                        xs = {12}
                     >
                         <Typography
-                            align={'left'}
-                            color='light'
-                            // marginBottom = {4}
-                            variant={'h6'}
-                            sx={{
+                            align = {'left'}
+                            color = 'light'
+                            sx = {{
                                 fontWeight: 700,
                             }}
+                            // marginBottom = {4}
+                            variant = {'h6'}
                         >
                             {(isFetching || searchPending) && searchPhrase.length > 0 && (
                                 <span>
@@ -235,28 +246,28 @@ const Search = () => {
                     {searchPhrase.length > 0 && !isFetching && !searchPending && (
                         <Grid
                             container
-                            justifyContent='flex-end'
-                            md={'6'}
-                            mdOffset='auto'
-                            xs={'6'}
-                            sx={{
+                            justifyContent = 'flex-end'
+                            md = {'6'}
+                            mdOffset = 'auto'
+                            sx = {{
                                 marginTop: 20,
                                 paddingRight: 10,
 
                             }}
+                            xs = {'6'}
                         >
                             {!isAuthenticated && !isLoading && (
                                 <Button
-                                    onClick={() => {
+                                    onClick = {() => {
                                         return loginWithRedirect();
                                     }}
-                                    variant='outline'
-                                    sx={{
+                                    sx = {{
                                         backgroundColor: 'wh#F5F5F5',
-                                        color: '#000000',
                                         border: 1,
                                         borderColor: '#26828B',
+                                        color: '#000000',
                                     }}
+                                    variant = 'outline'
                                 >
                                     {'Logga in för att skapa bevakning'}
                                 </Button>
@@ -266,8 +277,8 @@ const Search = () => {
                                     // onClick = {() => {
                                     //     return loginWithRedirect();
                                     // }}
-                                    href='/profile'
-                                    variant='outlined'
+                                    href = '/profile'
+                                    variant = 'outlined'
                                 >
                                     {'Spara sökningen'}
                                 </Button>
@@ -276,23 +287,23 @@ const Search = () => {
                     )}
                 </Grid>
                 <Grid
-                    columns={{
+                    columns = {{
                         sm: 5,
                         xl: 6,
                         xs: 2,
                     }}
                     container
-                    justifyContent='center'
-                    spacing={2}
-                    sx={{
-                        marginTop: 4,
+                    justifyContent = 'center'
+                    spacing = {2}
+                    sx = {{
                         marginBottom: '10px',
+                        marginTop: 4,
                         paddingLeft: 10,
                         paddingRight: 10,
                     }}
                 >
                     <SearchTable
-                        displayItems={searchResult}
+                        displayItems = {searchResult}
                     />
                 </Grid>
             </Box>

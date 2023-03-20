@@ -21,13 +21,13 @@ const SourcesGroup = (props) => {
                     source.id,
                     source.defaultEnabled,
                 ];
-            }))
+            })),
     );
 
     const handleChipClick = (sourceClicked) => {
         const newSources = {
             ...allowedSources,
-            [sourceClicked]: !allowedSources[sourceClicked],
+            [ sourceClicked ]: !allowedSources[ sourceClicked ],
         };
 
         setAllowedSources(newSources);
@@ -39,41 +39,54 @@ const SourcesGroup = (props) => {
 
     return (
         <Grid
-            md={12}
-            spacing={2}
-            sx={{
+            md = {12}
+            spacing = {2}
+            sx = {{
                 display: 'flex',
                 flexFlow: 'wrap',
-                justifyContent: 'center',
                 gap: '10px',
+                justifyContent: 'center',
             }}
-            xs={12}
+            xs = {12}
         >
             {sources.map((source) => {
                 return (
                     <Chip
-                        style={{
+                        deleteIcon = {allowedSources[ source.id ] ?
+                            <DoneIcon
+                                sx = {{
+                                    backgroundColor: '#39B4BF',
+                                    borderRadius: 1,
+                                    color: '#FFFFFF',
+                                }}
+                            /> :
+                            <ClearIcon
+                                sx = {{
+                                    backgroundColor: '#39B4BF',
+                                    borderRadius: 1,
+                                    color: 'white',
+                                }}
+                            />
+                        }
+                        icon = {source.icon}
+                        key = {source.id}
+                        label = {source.label}
+                        onClick = {() => {
+                            handleChipClick(source.id);
+                        }}
+                        onDelete = {() => {
+                            handleChipClick(source.id);
+                        }}
+                        // eslint-disable-next-line react/forbid-component-props
+                        style = {{
                             backgroundColor: '#FFFFFF',
+                            borderRadius: 8,
+                            color: '#000000DE',
                             marginTop: 30,
                             paddingRight: 5,
-                            borderRadius: 8,
-                            color: '#000000DE'
 
                         }}
-                        deleteIcon={allowedSources[source.id] ?
-                            <DoneIcon sx={{ color: "#FFFFFF", backgroundColor: '#39B4BF', borderRadius: 1, }} /> :
-                            <ClearIcon sx={{ color: "white", backgroundColor: '#39B4BF', borderRadius: 1, }} />
-                        }
-                        icon={source.icon}
-                        key={source.id}
-                        label={source.label}
-                        onClick={() => {
-                            handleChipClick(source.id);
-                        }}
-                        onDelete={() => {
-                            handleChipClick(source.id);
-                        }}
-                        variant={allowedSources[source.id] ?
+                        variant = {allowedSources[ source.id ] ?
                             'default' :
                             'outlined'
                         }
