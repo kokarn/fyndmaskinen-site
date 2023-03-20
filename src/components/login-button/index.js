@@ -26,39 +26,39 @@ const LoginButton = () => {
             {!isLoading && isAuthenticated && (
                 <div>
                     <Link
-                        to = '/profile'
+                        to='/profile'
                     >
                         <Avatar
-                            alt = {user.name}
-                            imgProps = {{
+                            alt={user.name}
+                            imgProps={{
                                 referrerPolicy: 'no-referrer',
                             }}
-                            src = {user.picture}
-                            variant = {'rounded'}
+                            src={user.picture}
+                            variant={'rounded'}
                         />
                     </Link>
                 </div>
             )}
             {!isAuthenticated && !isLoading && (
                 <Button
-                    
-                    onClick = {() => {
+
+                    onClick={() => {
                         return loginWithRedirect();
                     }}
-                    variant = 'contained'
-                    sx = {{
+                    variant='contained'
+                    sx={{
                         backgroundColor: '#26828B',
                         gap: 1,
-                        
+
                     }}
                 >
-                 <span sx = {{borderRadius: 1}}><LoginIcon/></span>  <span>{'Logga in'}</span> 
+                    <span sx={{ borderRadius: 1 }}><LoginIcon /></span>  <span>{'Logga in'}</span>
                 </Button>
             )}
             {isLoading && (
                 <LoadingButton
                     loading
-                    variant = 'text'
+                    variant='text'
                 >
                     {'Submit'}
                 </LoadingButton>
