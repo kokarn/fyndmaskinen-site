@@ -4,10 +4,7 @@ import {
     useEffect,
 } from 'react';
 import {
-    Box,
-    // Grid,
     Typography,
-    TextField,
     Button,
 } from '@mui/material';
 // import shuffle from 'just-shuffle';
@@ -32,7 +29,7 @@ import doSearch from '../../features/search';
 import useDebounce from '../../hooks/useDebounce';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import allSources from '../../sources';
-import SearchIcon from '@mui/icons-material/Search';
+import SearchField from '../../components/search-field';
 
 const SEARCH_DELAY = 200;
 const MAX_ITEMS = 500;
@@ -107,209 +104,140 @@ const Search = () => {
         setSearchPending(false);
     }, [debouncedSearchPhrase]);
 
-    return (
-        <div
-
-            style = {{
-                backgroundColor: 'white',
-                flex: '1 0 auto',
-                paddingBottom: '32px',
-                width: '100%',
+    return [
+        <Helmet
+            key = {'helmet'}
+        >
+            <title>
+                {searchPhrase}
+            </title>
+        </Helmet>,
+        <form
+            autoComplete = 'off'
+            key = 'search-form'
+            noValidate
+            onSubmit = {(event) => {
+                event.preventDefault();
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    event: 'view_search_results',
+                    value: searchRef.current.value,
+                });
+                navigate(`/search/${searchRef.current.value}`);
             }}
         >
-
-            <Helmet>
-                <title>
-                    {searchPhrase}
-                </title>
-            </Helmet>
-            <Box
-                m = {2}
-                sx = {{
-                    backgroundImage: "url('https://i.imgur.com/Su8gIK4.jpeg')",
-                    backgroundRepeat: 'no-repeat',
-                    backgroundSize: 'cover',
-                    height: '9%',
-                    width: '100vw',
-                }}
+            <Grid
+                alignItems = 'center'
+                container
+                key = {'search'}
             >
                 <Grid
-                    alignItems = 'center'
-                    container
-
+                    md = {12}
+                    xs = {12}
                 >
-                    <Grid
-                        md = {12}
-                        xs = {12}
-                    >
-                        <form
-                            autoComplete = 'off'
-                            noValidate
-                            onSubmit = {(event) => {
-                                event.preventDefault();
-                                searchRef.current.blur();
-                            }}
-                        >
-                            <TextField
-
-                                id = 'outlined-basic'
-                                inputProps = {{
-                                    type: 'search',
-                                }}
-                                inputRef = {searchRef}
-                                margin = 'normal'
-                                onChange = {handleFilterChange}
-                                placeholder = {'LAMINO'}
-                                sx = {{
-                                    backgroundColor: '#FFFFFF',
-                                    borderRadius: 3,
-                                    marginLeft: 8,
-                                    marginTop: 10,
-                                    width: 1200,
-                                }}
-                                value = {searchPhrase}
-                                variant = 'outlined'
-
-                            />
-                            <Box
-                                sx = {{
-                                    alignItems: 'center',
-                                    backgroundColor: '#F4C50A',
-                                    borderRadius: 1,
-                                    color: '#FFFFFF',
-                                    display: 'flex',
-                                    height: 36,
-                                    position: 'absolute',
-                                    right: 80,
-                                    top: 170,
-                                    width: 120,
-
-                                }}
-                                variant = ''
-                            >
-                                <span
-                                    style = {{
-                                        margintop: 19,
-                                        paddingLeft: 25,
-                                        size: 3,
-                                    }}
-                                ><SearchIcon />
-                                </span>
-                                <h3
-                                    style = {{
-                                        marginLeft: 5,
-                                        paddingLeft: 4,
-                                    }}
-                                >
-                                    {'Sök'}
-                                </h3>
-
-                            </Box>
-                        </form>
-
-                    </Grid>
-                    <SourcesGroup
-                        onChange = {handleGroupChange}
+                    <SearchField
+                        onChange = {handleFilterChange}
+                        searchRef = {searchRef}
+                        value = {searchPhrase}
                     />
-                    <Grid
-                        md = {6}
-                        sx = {{
-                            marginTop: 20,
-                            paddingLeft: 10,
-                        }}
-                        xs = {12}
-                    >
-                        <Typography
-                            align = {'left'}
-                            color = 'light'
-                            sx = {{
-                                fontWeight: 700,
-                            }}
-                            // marginBottom = {4}
-                            variant = {'h6'}
-                        >
-                            {(isFetching || searchPending) && searchPhrase.length > 0 && (
-                                <span>
-                                    {`Söker efter ${searchPhrase}...`}
-                                </span>
-                            )}
-                            {searchPhrase.length > 0 && !isFetching && !searchPending && (
-                                <span>
-                                    {`Hittade ${searchResult?.length === MAX_ITEMS ?
-                                        'mer än '
-                                        :
-                                        ''} ${searchResult?.length} objekt för sökningen ${searchPhrase}`}
-                                </span>
-                            )}
-                        </Typography>
-                    </Grid>
-                    {searchPhrase.length > 0 && !isFetching && !searchPending && (
-                        <Grid
-                            container
-                            justifyContent = 'flex-end'
-                            md = {'6'}
-                            mdOffset = 'auto'
-                            sx = {{
-                                marginTop: 20,
-                                paddingRight: 10,
-
-                            }}
-                            xs = {'6'}
-                        >
-                            {!isAuthenticated && !isLoading && (
-                                <Button
-                                    onClick = {() => {
-                                        return loginWithRedirect();
-                                    }}
-                                    sx = {{
-                                        backgroundColor: 'wh#F5F5F5',
-                                        border: 1,
-                                        borderColor: '#26828B',
-                                        color: '#000000',
-                                    }}
-                                    variant = 'outline'
-                                >
-                                    {'Logga in för att skapa bevakning'}
-                                </Button>
-                            )}
-                            {isAuthenticated && !isLoading && (
-                                <Button
-                                    // onClick = {() => {
-                                    //     return loginWithRedirect();
-                                    // }}
-                                    href = '/profile'
-                                    variant = 'outlined'
-                                >
-                                    {'Spara sökningen'}
-                                </Button>
-                            )}
-                        </Grid>
-                    )}
                 </Grid>
+                <SourcesGroup
+                    onChange = {handleGroupChange}
+                />
                 <Grid
-                    columns = {{
-                        sm: 5,
-                        xl: 6,
-                        xs: 2,
-                    }}
-                    container
-                    justifyContent = 'center'
-                    spacing = {2}
+                    md = {6}
                     sx = {{
-                        marginBottom: '10px',
                         marginTop: 4,
-                        paddingLeft: 10,
-                        paddingRight: 10,
                     }}
+                    xs = {12}
                 >
-                    <SearchTable
-                        displayItems = {searchResult}
-                    />
+                    <Typography
+                        align = {'left'}
+                        color = '#fff'
+                        sx = {{
+                            fontWeight: 700,
+                            textShadow: '0 0 4px black',
+                        }}
+                        // marginBottom = {4}
+                        variant = {'h6'}
+                    >
+                        {(isFetching || searchPending) && searchPhrase.length > 0 && (
+                            <span>
+                                {`Söker efter ${searchPhrase}...`}
+                            </span>
+                        )}
+                        {searchPhrase.length > 0 && !isFetching && !searchPending && (
+                            <span>
+                                {`Hittade ${searchResult?.length === MAX_ITEMS ?
+                                    'mer än '
+                                    :
+                                    ''} ${searchResult?.length} objekt för sökningen ${searchPhrase}`}
+                            </span>
+                        )}
+                    </Typography>
                 </Grid>
-            </Box>
-
-        </div>
-    );
+                {searchPhrase.length > 0 && !isFetching && !searchPending && (
+                    <Grid
+                        container
+                        justifyContent = 'flex-end'
+                        md = {'6'}
+                        mdOffset = 'auto'
+                        sx = {{
+                            marginTop: 4,
+                        }}
+                        xs = {'6'}
+                    >
+                        {!isAuthenticated && !isLoading && (
+                            <Button
+                                onClick = {() => {
+                                    return loginWithRedirect();
+                                }}
+                                sx = {{
+                                    backgroundColor: 'wh#F5F5F5',
+                                    border: 1,
+                                    borderColor: '#26828B',
+                                    color: '#000000',
+                                }}
+                                variant = 'outline'
+                            >
+                                {'Logga in för att skapa bevakning'}
+                            </Button>
+                        )}
+                        {isAuthenticated && !isLoading && (
+                            <Button
+                                // onClick = {() => {
+                                //     return loginWithRedirect();
+                                // }}
+                                href = '/profile'
+                                variant = 'outlined'
+                            >
+                                {'Spara sökningen'}
+                            </Button>
+                        )}
+                    </Grid>
+                )}
+            </Grid>
+        </form>,
+        <Grid
+            columns = {{
+                sm: 5,
+                xl: 6,
+                xs: 2,
+            }}
+            container
+            justifyContent = 'center'
+            key = {'search-result'}
+            spacing = {2}
+            sx = {{
+                marginBottom: '10px',
+                marginTop: 4,
+            }}
+        >
+            <SearchTable
+                displayItems = {searchResult}
+            />
+        </Grid>,
+    ];
 };
 
 export default Search;

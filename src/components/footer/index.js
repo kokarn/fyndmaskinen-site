@@ -30,7 +30,7 @@ const StickyFooter = () => {
                         'Content-Type': 'application/json',
                     },
                     method: 'POST',
-                }
+                },
             )
                 .then((response) => {
                     return response.json();
@@ -67,10 +67,8 @@ const StickyFooter = () => {
                     align = 'center'
                     sx = {{
                         color: '#fff',
-
-                        fontFamily: 'Urbanis',
-                        fontSize: 18,
-                        fontWeight: 500,
+                        fontSize: 14,
+                        fontWeight: 300,
                     }}
                     variant = 'body1'
                 >

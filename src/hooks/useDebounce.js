@@ -29,7 +29,7 @@ export default function useDebounce (value, delay) {
         [
             value,
             delay,
-        ] // Only re-call effect if value or delay changes
+        ], // Only re-call effect if value or delay changes
     );
 
     return debouncedValue;

@@ -43,13 +43,13 @@ const doSearch = ({
                     'Content-Type': 'application/json',
                 },
                 method: 'POST',
-            }
+            },
         )
             .then((response) => {
                 return response.json();
             })
             .then((response) => {
-                return response.data.findItems || response.data.getRandomItems;
+                return response?.data.findItems || response.data.getRandomItems;
             })
             .catch((fetchError) => {
                 console.error(fetchError);

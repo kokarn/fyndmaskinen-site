@@ -45,7 +45,7 @@ const SourcesGroup = (props) => {
                 display: 'flex',
                 flexFlow: 'wrap',
                 gap: '10px',
-                justifyContent: 'center',
+                // justifyContent: 'center',
             }}
             xs = {12}
         >
@@ -55,16 +55,14 @@ const SourcesGroup = (props) => {
                         deleteIcon = {allowedSources[ source.id ] ?
                             <DoneIcon
                                 sx = {{
-                                    backgroundColor: '#39B4BF',
-                                    borderRadius: 1,
-                                    color: '#FFFFFF',
+                                    color: '#fff',
+                                    fill: '#39b4bf',
                                 }}
                             /> :
                             <ClearIcon
                                 sx = {{
-                                    backgroundColor: '#39B4BF',
-                                    borderRadius: 1,
-                                    color: 'white',
+                                    color: '#fff',
+                                    fill: '#ccc',
                                 }}
                             />
                         }
@@ -80,16 +78,15 @@ const SourcesGroup = (props) => {
                         // eslint-disable-next-line react/forbid-component-props
                         style = {{
                             backgroundColor: '#FFFFFF',
-                            borderRadius: 8,
+                            borderRadius: 0,
                             color: '#000000DE',
-                            marginTop: 30,
-                            paddingRight: 5,
+                            padding: '10px 0px',
 
                         }}
-                        variant = {allowedSources[ source.id ] ?
-                            'default' :
-                            'outlined'
-                        }
+                        // variant = {allowedSources[ source.id ] ?
+                        //     'default' :
+                        //     'outlined'
+                        // }
                     />
                 );
             })}

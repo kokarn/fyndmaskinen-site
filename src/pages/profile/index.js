@@ -107,7 +107,7 @@ const Profile = () => {
             refetchInterval: 600000,
             // refetchOnMount: false,
             refetchOnWindowFocus: false,
-        }
+        },
     );
 
     const {
@@ -124,7 +124,7 @@ const Profile = () => {
             refetchInterval: 600000,
             // refetchOnMount: false,
             refetchOnWindowFocus: false,
-        }
+        },
     );
 
     // if (error) {

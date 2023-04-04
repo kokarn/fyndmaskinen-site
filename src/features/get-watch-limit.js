@@ -21,7 +21,7 @@ const getWatchLimit = ({
                 'Content-Type': 'application/json',
             },
             method: 'POST',
-        }
+        },
     )
         .then((response) => {
             return response.json();

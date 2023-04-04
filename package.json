@@ -84,6 +84,12 @@
         1,
         "line-aligned"
       ],
+      "react/jsx-closing-tag-location": [
+        1
+      ],
+      "react/jsx-sort-props": [
+        1
+      ],
       "react/jsx-no-bind": [
         1,
         {

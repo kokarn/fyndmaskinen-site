@@ -41,19 +41,20 @@ const LoginButton = () => {
             )}
             {!isAuthenticated && !isLoading && (
                 <Button
-
                     onClick = {() => {
                         return loginWithRedirect();
                     }}
                     sx = {{
+                        '&:hover': {
+                            backgroundColor: '#F4C50A',
+                        },
                         backgroundColor: '#26828B',
                         gap: 1,
                     }}
                     variant = 'contained'
                 >
-                    <span>
-                        <LoginIcon />
-                    </span>  <span>{'Logga in'}</span>
+                    <LoginIcon />
+                    {'Logga in'}
                 </Button>
             )}
             {isLoading && (
