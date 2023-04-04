@@ -16,7 +16,6 @@ const SearchField = ({
         <Box>
             <TextField
                 autoFocus
-                classes = 'search-field'
                 defaultValue = {value}
                 fullWidth
                 id = 'outlined-basic'
