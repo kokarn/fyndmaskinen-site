@@ -22,9 +22,18 @@ const WatchListItem = ({
             }}
         >
             <Link
+                // eslint-disable-next-line react/forbid-component-props
+                style = {{
+                    color: '#fff',
+                    textShadow: '0 0 4px black',
+                }}
                 to = {`/search/${watchString}`}
             >
                 <Typography
+                    sx = {{
+                        color: '#fff',
+                        textShadow: '0 0 4px black',
+                    }}
                     variant = 'h6'
                 >
                     {watchString}

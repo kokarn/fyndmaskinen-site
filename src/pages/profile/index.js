@@ -181,18 +181,22 @@ const Profile = () => {
                     />
                 </Grid>
                 <Grid
-                    md = {10}
-                    xs = {10}
+                    md = {9}
+                    xs = {9}
                 >
                     <Typography
+                        sx = {{
+                            color: '#fff',
+                            textShadow: '0 0 4px black',
+                        }}
                         variant = {'h5'}
                     >
                         {'Aktiva bevakningar '}
                     </Typography>
                 </Grid>
                 <Grid
-                    md = {2}
-                    xs = {2}
+                    md = {3}
+                    xs = {3}
                 >
                     <Typography
                         sx = {{
@@ -236,19 +240,23 @@ const Profile = () => {
                     xs = {6}
                 >
                     <Button
+                        color = 'secondary'
                         href = {`${window.PURCHASE_URL}?prefilled_email=${user?.email}`}
-                        variant = 'outlined'
+                        variant = 'contained'
                     >
                         {'Köp fler bevakningar'}
                     </Button>
                 </Grid>
                 <Grid
+                    display = {'flex'}
+                    justifyContent = {'flex-end'}
                     md = {6}
                     xs = {6}
                 >
                     <Button
+                        color = 'secondary'
                         href = {window.PORTAL_URL}
-                        variant = 'outlined'
+                        variant = 'contained'
                     >
                         {'Hantera betalningar'}
                     </Button>

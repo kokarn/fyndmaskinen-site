@@ -32,13 +32,24 @@ import Deals from './pages/deals';
 import Profile from './pages/profile';
 
 const theme = createTheme({
-    overrides: {
+    components: {
         MuiButton: {
-            root: {
-                '&:hover': {
-                    backgroundColor: '#f4c50a',
+            styleOverrides: {
+                contained: {
+                    '&:hover': {
+                        backgroundColor: '#f8d54a',
+                    },
                 },
             },
+        },
+    },
+    palette: {
+        action: {
+            hover: '#fff',
+        },
+        secondary: {
+            contrastText: '#fff',
+            main: '#f4c50a',
         },
     },
     shape: {
@@ -59,7 +70,6 @@ const theme = createTheme({
             '"Segoe UI Symbol"',
         ].join(','),
     },
-
 });
 
 const maxWidth = 1200;

@@ -52,17 +52,16 @@ const SearchField = ({
                 xs = {4}
             >
                 <Button
+                    color = 'secondary'
                     sx = {{
                         alignItems: 'center',
-                        backgroundColor: '#F4C50A',
-                        color: '#FFFFFF',
                         display: 'flex',
                         height: 56,
                         marginLeft: 1,
                         marginTop: 2,
                         width: '100%',
                     }}
-                    variant = ''
+                    variant = 'contained'
                 >
                     <SearchIcon />
                     <h2

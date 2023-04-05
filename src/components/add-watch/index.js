@@ -86,14 +86,10 @@ const AddWatch = ({
                 label = {'Lägg till bevakning...'}
                 margin = 'normal'
                 sx = {{
-                    '& .MuiInput-underline:after': {
-                        borderBottomColor: '#fff',
-                    },
-                    '& .MuiInput-underline:before': {
-                        borderBottomColor: '#fff',
-                    },
+                    backgroundColor: '#FFFFFF',
+                    paddingRight: 0,
                 }}
-                variant = 'standard'
+                variant = 'outlined'
             />
         </form>
     );
