@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import {
-    Box,
+    Grid,
     Button,
     TextField,
 } from '@mui/material';
@@ -13,59 +13,70 @@ const SearchField = ({
     value,
 }) => {
     return (
-        <Box>
-            <TextField
-                autoFocus
-                defaultValue = {value}
-                fullWidth
-                id = 'outlined-basic'
-                inputProps = {{
-                    tabIndex: 0,
-                    type: 'search',
-                }}
-                InputProps = {{
-                    endAdornment: (
-                        <InputAdornment
-                            position = 'end'
-                        >
-                            <Button
-                                sx = {{
-                                    alignItems: 'center',
-                                    backgroundColor: '#F4C50A',
-                                    color: '#FFFFFF',
-                                    display: 'flex',
-                                    height: 45,
-                                    padding: '0 40px',
-                                }}
-                                variant = ''
-                            >
-                                <SearchIcon />
-                                <h2
-                                    style = {{
-                                        marginLeft: 5,
-                                    }}
-                                >
-                                    {'SÖK'}
-                                </h2>
+        <Grid
+            container
+        >
+            <Grid
+                key = 'search-field'
+                md = {10}
+                xs = {8}
+            >
+                <TextField
+                    autoFocus
+                    defaultValue = {value}
+                    fullWidth
+                    id = 'outlined-basic'
+                    inputProps = {{
+                        tabIndex: 0,
+                        type: 'search',
+                    }}
+                    InputProps = {{
+                        sx: {
+                            padding: '0px 6px',
+                        },
+                    }}
+                    inputRef = {searchRef}
+                    margin = 'normal'
+                    onChange = {onChange}
+                    placeholder = {'Lamino'}
+                    // tabIndex = {0}
+                    sx = {{
+                        backgroundColor: '#FFFFFF',
+                        paddingRight: 0,
+                    }}
+                    variant = 'outlined'
+                />
+            </Grid>
+            <Grid
+                key = 'search-button'
+                md = {2}
+                xs = {4}
+            >
+                <Button
+                    sx = {{
+                        alignItems: 'center',
+                        backgroundColor: '#F4C50A',
+                        color: '#FFFFFF',
+                        display: 'flex',
+                        height: 56,
+                        marginLeft: 1,
+                        marginTop: 2,
+                        width: '100%',
+                    }}
+                    variant = ''
+                >
+                    <SearchIcon />
+                    <h2
+                        style = {{
+                            marginLeft: 5,
+                        }}
+                    >
+                        {'SÖK'}
+                    </h2>
 
-                            </Button>
-                        </InputAdornment>),
-                    sx: {
-                        padding: '0px 6px',
-                    },
-                }}
-                inputRef = {searchRef}
-                margin = 'normal'
-                onChange = {onChange}
-                placeholder = {'Lamino'}
-                // tabIndex = {0}
-                sx = {{
-                    backgroundColor: '#FFFFFF',
-                    paddingRight: 0,
-                }}
-                variant = 'outlined'
-            />
-        </Box>
+                </Button>
+            </Grid>
+        </Grid>
     );
 };
 
