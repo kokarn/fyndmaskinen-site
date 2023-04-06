@@ -2,6 +2,7 @@ import {
     Link,
 } from 'react-router-dom';
 import {
+    Box,
     IconButton,
     Typography,
 } from '@mui/material';
@@ -13,10 +14,15 @@ const WatchListItem = ({
     watchString,
 }) => {
     return (
-        <div
-            style = {{
-                // backgroundColor: 'rgba(0, 0, 0, 0.6)',
-                // color: '#fff',
+        <Box
+            sx = {{
+                '&:hover a': {
+                    textUnderlineOffset: '4px',
+                },
+                a: {
+                    textUnderlineOffset: '2px',
+                    transition: 'all 0.1s ease-in-out',
+                },
                 display: 'flex',
                 justifyContent: 'space-between',
             }}
@@ -45,7 +51,7 @@ const WatchListItem = ({
             >
                 <DeleteIcon />
             </IconButton>
-        </div>
+        </Box>
     );
 };
 

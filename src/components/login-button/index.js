@@ -45,9 +45,6 @@ const LoginButton = () => {
                         return loginWithRedirect();
                     }}
                     sx = {{
-                        '&:hover': {
-                            backgroundColor: '#F4C50A',
-                        },
                         backgroundColor: '#26828B',
                         gap: 1,
                     }}
