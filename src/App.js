@@ -129,7 +129,7 @@ const App = () => {
             <Box
                 sx = {{
                     backgroundAttachment: 'fixed',
-                    backgroundImage: "url('https://i.imgur.com/Su8gIK4.jpeg')",
+                    backgroundImage: `url(${process.env.PUBLIC_URL}/images/background-4.jpg)`,
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: 'cover',
                     display: 'flex',
