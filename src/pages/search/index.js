@@ -99,6 +99,16 @@ const Search = () => {
         return true;
     };
 
+    const onSubmit = (event) => {
+        event.preventDefault();
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: 'view_search_results',
+            value: searchRef.current.value,
+        });
+        navigate(`/search/${searchRef.current.value}`);
+    };
+
     useEffect(() => {
         navigate(`/search/${debouncedSearchPhrase}`);
         setSearchPending(false);
@@ -116,15 +126,7 @@ const Search = () => {
             autoComplete = 'off'
             key = 'search-form'
             noValidate
-            onSubmit = {(event) => {
-                event.preventDefault();
-                window.dataLayer = window.dataLayer || [];
-                window.dataLayer.push({
-                    event: 'view_search_results',
-                    value: searchRef.current.value,
-                });
-                navigate(`/search/${searchRef.current.value}`);
-            }}
+            onSubmit = {onSubmit}
         >
             <Grid
                 alignItems = 'center'
@@ -137,6 +139,7 @@ const Search = () => {
                 >
                     <SearchField
                         onChange = {handleFilterChange}
+                        onSubmit = {onSubmit}
                         searchRef = {searchRef}
                         value = {searchPhrase}
                     />

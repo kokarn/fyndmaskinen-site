@@ -8,6 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 const SearchField = ({
     onChange,
+    onSubmit,
     searchRef,
     value,
 }) => {
@@ -55,6 +56,7 @@ const SearchField = ({
             >
                 <Button
                     color = 'secondary'
+                    onClick = {onSubmit}
                     sx = {{
                         alignItems: 'center',
                         display: 'flex',
@@ -84,11 +86,15 @@ SearchField.defaultProps = {
     onChange: () => {
         // do nothing
     },
+    onSubmit: () => {
+        // do nothing
+    },
     value: '',
 };
 
 SearchField.propTypes = {
     onChange: PropTypes.func,
+    onSubmit: PropTypes.func,
     searchRef: PropTypes.oneOfType([
         // Either a function
         PropTypes.func,

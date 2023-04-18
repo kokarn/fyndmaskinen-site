@@ -47,6 +47,17 @@ const Main = () => {
     const searchRef = useRef(null);
     const navigate = useNavigate();
 
+    const handleSubmit = (event) => {
+        console.log('got submit');
+        event.preventDefault();
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: 'view_search_results',
+            value: searchRef.current.value,
+        });
+        navigate(`/search/${searchRef.current.value}`);
+    };
+
     return [
         <Helmet
             key = 'helmet'
@@ -60,15 +71,7 @@ const Main = () => {
             className = 'landing-page-search-form'
             key = 'search-form'
             noValidate
-            onSubmit = {(event) => {
-                event.preventDefault();
-                window.dataLayer = window.dataLayer || [];
-                window.dataLayer.push({
-                    event: 'view_search_results',
-                    value: searchRef.current.value,
-                });
-                navigate(`/search/${searchRef.current.value}`);
-            }}
+            onSubmit = {handleSubmit}
         >
             <Grid
                 alignItems = 'center'
@@ -80,6 +83,7 @@ const Main = () => {
                     xs = {12}
                 >
                     <SearchField
+                        onSubmit = {handleSubmit}
                         searchRef = {searchRef}
                     />
                 </Grid>
