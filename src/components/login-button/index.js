@@ -45,7 +45,6 @@ const LoginButton = () => {
                         return loginWithRedirect();
                     }}
                     sx = {{
-                        backgroundColor: '#26828B',
                         gap: 1,
                     }}
                     variant = 'contained'

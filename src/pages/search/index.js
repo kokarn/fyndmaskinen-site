@@ -195,13 +195,7 @@ const Search = () => {
                                 onClick = {() => {
                                     return loginWithRedirect();
                                 }}
-                                sx = {{
-                                    backgroundColor: 'wh#F5F5F5',
-                                    border: 1,
-                                    borderColor: '#26828B',
-                                    color: '#000000',
-                                }}
-                                variant = 'outline'
+                                variant = 'contained'
                             >
                                 {'Logga in för att skapa bevakning'}
                             </Button>
@@ -212,7 +206,7 @@ const Search = () => {
                                 //     return loginWithRedirect();
                                 // }}
                                 href = '/profile'
-                                variant = 'outlined'
+                                variant = 'contained'
                             >
                                 {'Spara sökningen'}
                             </Button>
