@@ -16,6 +16,7 @@ const SearchField = ({
             container
         >
             <Grid
+                item
                 key = 'search-field'
                 md = {10}
                 xs = {8}
@@ -47,6 +48,7 @@ const SearchField = ({
                 />
             </Grid>
             <Grid
+                item
                 key = 'search-button'
                 md = {2}
                 xs = {4}
