@@ -204,7 +204,10 @@ const Profile = () => {
                         }}
                         variant = {'h5'}
                     >
-                        {(!watches.length || !watchLimit) ?
+                        {(watchLimit) ?
+                            <span>
+                                {`${watches.length}/${watchLimit}`}
+                            </span> :
                             <Skeleton
                                 sx = {{
                                     display: 'inline-block',
@@ -212,10 +215,7 @@ const Profile = () => {
                                 }}
                                 variant = 'h5'
                                 width = {40}
-                            /> :
-                            <span>
-                                {`${watches.length}/${watchLimit}`}
-                            </span>
+                            />
                         }
                     </Typography>
                 </Grid>
