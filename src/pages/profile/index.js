@@ -261,8 +261,17 @@ const Profile = () => {
                         {'Hantera betalningar'}
                     </Button>
                 </Grid>
+                <Grid
+                    display = {'flex'}
+                    justifyContent = {'end'}
+                    md = {2}
+                    mdOffset = {10}
+                    xs = {2}
+                    xsOffset = {10}
+                >
+                    <LogoutButton />
+                </Grid>
             </Grid>
-            <LogoutButton />
         </Box>
     );
 };

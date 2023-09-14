@@ -2,7 +2,7 @@ import {
     useAuth0,
 } from '@auth0/auth0-react';
 import {
-    Fab,
+    Button,
 } from '@mui/material';
 
 const LogoutButton = () => {
@@ -11,27 +11,18 @@ const LogoutButton = () => {
     } = useAuth0();
 
     return (
-        <Fab
+        <Button
             align = 'right'
+            color = 'error'
             onClick = {() => {
                 return logout({
                     returnTo: window.location.origin,
                 });
             }}
-            sx = {{
-                backgroundColor: 'red',
-                bottom: (theme) => {
-                    return theme.spacing(2);
-                },
-                position: 'fixed',
-                right: (theme) => {
-                    return theme.spacing(2);
-                },
-            }}
-            variant = 'extended'
+            variant = 'contained'
         >
             {'Logga ut'}
-        </Fab>
+        </Button>
     );
 };
 
