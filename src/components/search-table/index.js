@@ -45,6 +45,13 @@ const SearchTable = ({
         }
     }, [inView]);
 
+    const cardMediaStyle = {
+        '@media (min-width:600px)': {
+            height: '227px', // Responsive height for medium and larger screens
+        },
+        height: '182px', // Set your desired height here
+    };
+
     const tiles = displayItems?.map((tile, index) => {
         let currentPrice = `${tile.currentPrice}`;
 
@@ -82,6 +89,7 @@ const SearchTable = ({
                                 alt = {tile.title}
                                 component = 'img'
                                 image = {`https://wsrv.nl/?url=${ tile.imageUrl }&w=400&h=400&fit=contain&trim=10&errorredirect=${ errorImage }&output=webp`}
+                                sx = {cardMediaStyle}
                             />
                             <CardContent>
                                 <Typography
