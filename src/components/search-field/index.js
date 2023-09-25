@@ -14,6 +14,11 @@ const SearchField = ({
 }) => {
     return (
         <Grid
+            columnSpacing = {{
+                md: 2,
+                sm: 2,
+                xs: 1,
+            }}
             container
         >
             <Grid
@@ -61,7 +66,6 @@ const SearchField = ({
                         alignItems: 'center',
                         display: 'flex',
                         height: 56,
-                        marginLeft: 1,
                         marginTop: 2,
                         width: '100%',
                     }}
