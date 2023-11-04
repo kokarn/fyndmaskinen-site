@@ -61,8 +61,15 @@ const WatchListItem = ({
 };
 
 WatchListItem.propTypes = {
-    onDelete: PropTypes.func.isRequired,
+    onDelete: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.bool,
+    ]),
     watchString: PropTypes.string.isRequired,
+};
+
+WatchListItem.defaultProps = {
+    onDelete: false,
 };
 
 export default WatchListItem;
