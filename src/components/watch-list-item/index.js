@@ -45,12 +45,17 @@ const WatchListItem = ({
                     {watchString}
                 </Typography>
             </Link>
-            <IconButton
-                aria-label = 'delete'
-                onClick = {onDelete}
-            >
-                <DeleteIcon />
-            </IconButton>
+            {
+                (onDelete) ?
+                    <IconButton
+                        aria-label = 'delete'
+                        onClick = {onDelete}
+                    >
+                        <DeleteIcon />
+                    </IconButton>
+                    :
+                    ''
+            }
         </Box>
     );
 };

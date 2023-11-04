@@ -30,6 +30,7 @@ import Main from './pages/main';
 import Search from './pages/search';
 import Deals from './pages/deals';
 import Profile from './pages/profile';
+import Admin from './pages/admin';
 
 const theme = createTheme({
     components: {
@@ -220,6 +221,10 @@ const App = () => {
                         <Route
                             element = {<Profile />}
                             path = '/profile'
+                        />
+                        <Route
+                            element = {<Admin />}
+                            path = '/admin'
                         />
                         {/* <Route
                             path="/book2"
