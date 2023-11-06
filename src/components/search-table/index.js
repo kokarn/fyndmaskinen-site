@@ -53,6 +53,10 @@ const SearchTable = ({
     };
 
     const tiles = displayItems?.map((tile, index) => {
+        if (!tile) {
+            return false;
+        }
+
         let currentPrice = `${tile.currentPrice}`;
 
         if (tile.currentPrice === -1) {
