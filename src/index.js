@@ -15,14 +15,14 @@ import {
     Auth0Provider,
 } from '@auth0/auth0-react';
 
-window.API_HOSTNAME = 'https://d2cmhnbxvwhy7s.cloudfront.net';
+window.API_HOSTNAME = 'https://api.fyndmaskinen.se';
 window.PORTAL_URL = 'https://billing.stripe.com/p/login/bIY14V4oKdcnfp6bII';
 window.PURCHASE_URL = 'https://buy.stripe.com/9AQ01k56V4Zv3rWeUU';
 
 if (window.location.origin.includes('localhost')) {
-    // window.API_HOSTNAME = 'http://localhost:4080';
-    window.PORTAL_URL = 'https://billing.stripe.com/p/login/test_9AQcNLbeM8CSbnO000';
-    window.PURCHASE_URL = 'https://buy.stripe.com/test_7sIdSJ338d2i9hu28a';
+    window.API_HOSTNAME = 'http://192.168.1.218:4080';
+//     window.PORTAL_URL = 'https://billing.stripe.com/p/login/test_9AQcNLbeM8CSbnO000';
+//     window.PURCHASE_URL = 'https://buy.stripe.com/test_7sIdSJ338d2i9hu28a';
 }
 
 const queryClient = new QueryClient();
