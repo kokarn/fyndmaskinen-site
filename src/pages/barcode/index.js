@@ -1,7 +1,6 @@
 import {
     useCallback,
     useEffect,
-    useMemo,
     useRef,
     useState,
 } from 'react';
@@ -9,6 +8,10 @@ import {
     Alert,
     Box,
     Button,
+    Card,
+    CardActionArea,
+    CardContent,
+    CardMedia,
     CircularProgress,
     FormControl,
     InputLabel,
@@ -22,9 +25,45 @@ import {
 } from 'react-query';
 
 import BarcodeScanner from '../../components/barcode-scanner';
-import SearchTable from '../../components/search-table';
-import doSearch from '../../features/search';
-import sources from '../../sources';
+
+const normalizeBokborsenResults = (payload) => {
+    const rawItems = payload?.items || payload?.results || payload?.data || payload;
+    const normalizedItems = Array.isArray(rawItems)
+        ? rawItems
+        : [];
+
+    return normalizedItems.map((item, index) => {
+        return {
+            author: item?.author || '',
+            id: item?.id || item?.isbn || item?.url || `${index}`,
+            imageUrl: item?.imageUrl || item?.image || item?.thumbnail || '',
+            isbn: item?.isbn || item?.ISBN || '',
+            price: item?.price || item?.currentPrice || '',
+            title: item?.title || item?.name || 'Okänd titel',
+            url: item?.url || item?.link || '',
+        };
+    });
+};
+
+const fetchBokborsenByIsbn = async ({
+    queryKey,
+}) => {
+    const isbn = queryKey[ 1 ];
+
+    if (!isbn) {
+        return [];
+    }
+
+    const response = await fetch(`${window.API_HOSTNAME}/bokborsen/${encodeURIComponent(isbn)}`);
+
+    if (!response.ok) {
+        throw new Error(`Kunde inte hämta Bokbörsen-resultat (${response.status}).`);
+    }
+
+    const payload = await response.json();
+
+    return normalizeBokborsenResults(payload);
+};
 
 const Barcode = () => {
     const scannerRef = useRef(null);
@@ -50,20 +89,15 @@ const Barcode = () => {
         setSelectedCamera,
     ] = useState('');
 
-    const enabledSources = useMemo(() => {
-        return sources.map((source) => {
-            return source.id;
-        });
-    }, []);
-
     const {
-        data: searchResult,
+        data: bokborsenResults,
+        error,
         isFetching,
+        isError,
     } = useQuery([
-        'search',
+        'bokborsen',
         detectedCode,
-        enabledSources,
-    ], doSearch, {
+    ], fetchBokborsenByIsbn, {
         enabled: detectedCode.length > 0,
         placeholderData: [],
         refetchOnMount: false,
@@ -167,7 +201,7 @@ const Barcode = () => {
                 }}
                 variant = 'body1'
             >
-                {'Skanna en EAN/UPC-kod så söker vi automatiskt i Fyndmaskinens API.'}
+                {'Skanna ISBN så söker vi automatiskt i Bokbörsen via /bokborsen/:isbn.'}
             </Typography>
 
             <Grid
@@ -318,36 +352,97 @@ const Barcode = () => {
                         }}
                         variant = 'body1'
                     >
-                        {'Söker efter skannad kod...'}
+                        {'Söker i Bokbörsen...'}
                     </Typography>
                 </Box>
             )}
 
-            {!isFetching && detectedCode && searchResult?.length === 0 && (
+            {isError && (
                 <Alert
-                    severity = 'info'
+                    severity = 'error'
                 >
-                    {'Inga objekt hittades för den skannade streckkoden.'}
+                    {error.message}
                 </Alert>
             )}
 
-            {!isFetching && searchResult?.length > 0 && (
+            {!isFetching && !isError && detectedCode && bokborsenResults?.length === 0 && (
+                <Alert
+                    severity = 'info'
+                >
+                    {'Inga böcker hittades för det skannade ISBN-numret.'}
+                </Alert>
+            )}
+
+            {!isFetching && !isError && bokborsenResults?.length > 0 && (
                 <Grid
-                    columns = {{
-                        sm: 5,
-                        xl: 6,
-                        xs: 2,
-                    }}
                     container
-                    justifyContent = 'center'
                     spacing = {2}
                     sx = {{
                         marginTop: 3,
                     }}
                 >
-                    <SearchTable
-                        displayItems = {searchResult}
-                    />
+                    {bokborsenResults.map((book) => {
+                        return (
+                            <Grid
+                                key = {book.id}
+                                md = {4}
+                                sm = {6}
+                                xs = {12}
+                            >
+                                <Card>
+                                    <CardActionArea
+                                        href = {book.url}
+                                        rel = 'noopener noreferrer'
+                                        target = '_blank'
+                                    >
+                                        {book.imageUrl && (
+                                            <CardMedia
+                                                alt = {book.title}
+                                                component = 'img'
+                                                height = '220'
+                                                image = {book.imageUrl}
+                                            />
+                                        )}
+                                        <CardContent>
+                                            <Typography
+                                                gutterBottom
+                                                variant = 'h6'
+                                            >
+                                                {book.title}
+                                            </Typography>
+                                            {book.author && (
+                                                <Typography
+                                                    color = 'text.secondary'
+                                                    variant = 'body2'
+                                                >
+                                                    {`Författare: ${book.author}`}
+                                                </Typography>
+                                            )}
+                                            {book.isbn && (
+                                                <Typography
+                                                    color = 'text.secondary'
+                                                    variant = 'body2'
+                                                >
+                                                    {`ISBN: ${book.isbn}`}
+                                                </Typography>
+                                            )}
+                                            {book.price && (
+                                                <Typography
+                                                    sx = {{
+                                                        fontWeight: 700,
+                                                        marginTop: 1,
+                                                    }}
+                                                    variant = 'body1'
+                                                >
+                                                    {book.price}
+                                                </Typography>
+                                            )}
+                                        </CardContent>
+                                    </CardActionArea>
+                                </Card>
+                            </Grid>
+                        );
+                    })}
                 </Grid>
             )}
         </Box>

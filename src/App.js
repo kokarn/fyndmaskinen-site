@@ -194,18 +194,6 @@ const App = () => {
                                 { 'Live' }
                             </Link>
                         </Button> */}
-                        <Link
-                            // eslint-disable-next-line react/forbid-component-props
-                            style = {{
-                                color: '#000000',
-                                fontWeight: 600,
-                                marginRight: 16,
-                                textDecoration: 'none',
-                            }}
-                            to = '/barcode'
-                        >
-                            {'Skanna streckkod'}
-                        </Link>
                         <LoginButton />
                     </Toolbar>
                 </AppBar>
