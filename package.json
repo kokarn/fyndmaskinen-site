@@ -24,6 +24,8 @@
     "@mui/icons-material": "^5.5.1",
     "@mui/lab": "^5.0.0-alpha.77",
     "@mui/material": "^5.5.3",
+    "@zxing/browser": "^0.1.5",
+    "html5-qrcode": "^2.3.8",
     "just-shuffle": "^4.0.1",
     "prop-types": "^15.8.1",
     "react": "^18.0.0",
@@ -75,11 +77,11 @@
       "plugin:react/jsx-runtime"
     ],
     "parserOptions": {
-        "ecmaVersion": 2021,
-        "ecmaFeatures": {
-          "jsx": true
-        }
-      },
+      "ecmaVersion": 2021,
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
     "rules": {
       "react/jsx-closing-bracket-location": [
         1,

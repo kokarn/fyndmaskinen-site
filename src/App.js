@@ -32,6 +32,9 @@ import Deals from './pages/deals';
 import Profile from './pages/profile';
 import Admin from './pages/admin';
 import Barcode from './pages/barcode';
+import BarcodeQuagga from './pages/barcode/quagga';
+import BarcodeZXing from './pages/barcode/zxing';
+import BarcodeHtml5Qrcode from './pages/barcode/html5-qrcode';
 
 const theme = createTheme({
     components: {
@@ -230,6 +233,18 @@ const App = () => {
                         <Route
                             element = {<Barcode />}
                             path = '/barcode'
+                        />
+                        <Route
+                            element = {<BarcodeQuagga />}
+                            path = '/barcode/quagga'
+                        />
+                        <Route
+                            element = {<BarcodeZXing />}
+                            path = '/barcode/zxing'
+                        />
+                        <Route
+                            element = {<BarcodeHtml5Qrcode />}
+                            path = '/barcode/html5-qrcode'
                         />
                         {/* <Route
                             path="/book2"
