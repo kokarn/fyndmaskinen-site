@@ -31,6 +31,7 @@ import Search from './pages/search';
 import Deals from './pages/deals';
 import Profile from './pages/profile';
 import Admin from './pages/admin';
+import Barcode from './pages/barcode';
 
 const theme = createTheme({
     components: {
@@ -193,6 +194,18 @@ const App = () => {
                                 { 'Live' }
                             </Link>
                         </Button> */}
+                        <Link
+                            // eslint-disable-next-line react/forbid-component-props
+                            style = {{
+                                color: '#000000',
+                                fontWeight: 600,
+                                marginRight: 16,
+                                textDecoration: 'none',
+                            }}
+                            to = '/barcode'
+                        >
+                            {'Skanna streckkod'}
+                        </Link>
                         <LoginButton />
                     </Toolbar>
                 </AppBar>
@@ -225,6 +238,10 @@ const App = () => {
                         <Route
                             element = {<Admin />}
                             path = '/admin'
+                        />
+                        <Route
+                            element = {<Barcode />}
+                            path = '/barcode'
                         />
                         {/* <Route
                             path="/book2"
