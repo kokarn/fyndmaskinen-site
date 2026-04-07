@@ -15,19 +15,32 @@ import {
     Html5Qrcode,
     Html5QrcodeSupportedFormats,
 } from 'html5-qrcode';
+import {
+    useLocation,
+} from 'react-router-dom';
 
 import {
     BarcodeVariantLinks,
+    clearInputValue,
+} from './components';
+import {
     BokborsenResults,
     CameraSelector,
     ImageDecodeInput,
+} from './ui';
+import {
     useBokborsenResults,
     useVideoDevices,
 } from './shared';
 
+const noop = () => {
+    // do nothing
+};
+
 const scannerRegionId = 'html5-qrcode-region';
 
 const Html5QrcodePage = () => {
+    const location = useLocation();
     const scannerRef = useRef(null);
     const [
         scanning,
@@ -41,6 +54,10 @@ const Html5QrcodePage = () => {
         detectedCode,
         setDetectedCode,
     ] = useState('');
+    const [
+        selectedTestFile,
+        setSelectedTestFile,
+    ] = useState(null);
     const {
         cameraError,
         cameras,
@@ -57,13 +74,13 @@ const Html5QrcodePage = () => {
 
     const scannerConfig = useMemo(() => {
         return {
-            fps: 10,
             formatsToSupport: [
                 Html5QrcodeSupportedFormats.EAN_13,
                 Html5QrcodeSupportedFormats.EAN_8,
                 Html5QrcodeSupportedFormats.UPC_A,
                 Html5QrcodeSupportedFormats.UPC_E,
             ],
+            fps: 10,
         };
     }, []);
 
@@ -82,7 +99,7 @@ const Html5QrcodePage = () => {
 
     useEffect(() => {
         if (!scanning || !scannerRef.current) {
-            return undefined;
+            return noop;
         }
 
         let ignore = false;
@@ -104,6 +121,7 @@ const Html5QrcodePage = () => {
                     if (ignore || !decodedText) {
                         return;
                     }
+
                     setDetectedCode(decodedText);
                     setScanning(false);
                 });
@@ -150,25 +168,42 @@ const Html5QrcodePage = () => {
         setSelectedCamera(event.target.value);
     }, [setSelectedCamera]);
 
-    const handleImageUpload = useCallback(async (event) => {
-        const scanner = scannerRef.current;
-        const file = event.target.files?.[ 0 ];
+    const handleImageUpload = useCallback((event) => {
+        const nextFile = event.target.files?.[ 0 ];
 
-        if (!scanner || !file) {
+        if (!nextFile) {
             return;
         }
 
-        try {
-            const decoded = await scanner.scanFile(file, false);
-            setDetectedCode(decoded);
-            setScanError('');
-        } catch (decodeError) {
-            setScanError('Ingen streckkod hittades i bilden.');
-            console.error(decodeError);
-        } finally {
-            event.target.value = '';
-        }
+        setSelectedTestFile(nextFile);
+        setDetectedCode('');
+        setScanError('');
+        clearInputValue(event.target);
     }, []);
+
+    useEffect(() => {
+        const decodeImage = async () => {
+            const scanner = scannerRef.current;
+
+            if (!scanner || !selectedTestFile) {
+                return;
+            }
+
+            try {
+                const decoded = await scanner.scanFile(selectedTestFile, false);
+
+                setDetectedCode(decoded);
+                setScanError('');
+            } catch (decodeError) {
+                setScanError('Ingen streckkod hittades i bilden.');
+                console.error(decodeError);
+            }
+
+            setSelectedTestFile(null);
+        };
+
+        decodeImage();
+    }, [selectedTestFile]);
 
     return (
         <Box
@@ -200,7 +235,7 @@ const Html5QrcodePage = () => {
             </Typography>
 
             <BarcodeVariantLinks
-                activePath = '/barcode/html5-qrcode'
+                activePath = {location.pathname}
             />
 
             <Box
@@ -255,7 +290,9 @@ const Html5QrcodePage = () => {
                     padding: 1,
                 }}
             >
-                <div id = {scannerRegionId} />
+                <div
+                    id = {scannerRegionId}
+                />
             </Box>
 
             {(cameraError || scanError) && (

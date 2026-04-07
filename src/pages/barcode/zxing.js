@@ -25,9 +25,14 @@ import {
 
 import {
     BarcodeVariantLinks,
+    clearInputValue,
+} from './components';
+import {
     BokborsenResults,
     CameraSelector,
     ImageDecodeInput,
+} from './ui';
+import {
     useBokborsenResults,
     useVideoDevices,
 } from './shared';
@@ -50,6 +55,10 @@ const ZXingBarcodePage = () => {
         localError,
         setLocalError,
     ] = useState('');
+    const [
+        selectedTestFile,
+        setSelectedTestFile,
+    ] = useState(null);
     const {
         cameraError,
         cameras,
@@ -66,6 +75,7 @@ const ZXingBarcodePage = () => {
 
     const hints = useMemo(() => {
         const newHints = new Map();
+
         newHints.set(DecodeHintType.POSSIBLE_FORMATS, [
             BarcodeFormat.EAN_13,
             BarcodeFormat.EAN_8,
@@ -98,7 +108,7 @@ const ZXingBarcodePage = () => {
             }
 
             const controls = await readerRef.current.decodeFromVideoDevice(
-                selectedCamera || undefined,
+                selectedCamera || '',
                 videoRef.current,
                 (result, decodeError) => {
                     if (result?.getText) {
@@ -116,11 +126,15 @@ const ZXingBarcodePage = () => {
             );
 
             controlsRef.current = controls;
-        } catch (error) {
-            setLocalError(error.message || 'Kunde inte starta ZXing-scannern.');
+        } catch (startError) {
+            setLocalError(startError.message || 'Kunde inte starta ZXing-scannern.');
             setScanning(false);
         }
-    }, [hints, selectedCamera, stopScanning]);
+    }, [
+        hints,
+        selectedCamera,
+        stopScanning,
+    ]);
 
     const handleScanToggle = useCallback(() => {
         if (scanning) {
@@ -130,41 +144,61 @@ const ZXingBarcodePage = () => {
         }
 
         startScanning();
-    }, [scanning, startScanning, stopScanning]);
+    }, [
+        scanning,
+        startScanning,
+        stopScanning,
+    ]);
 
     const handleCameraChange = useCallback((event) => {
         setSelectedCamera(event.target.value);
     }, [setSelectedCamera]);
 
-    const handleImageDecode = useCallback(async (event) => {
-        const file = event.target.files?.[ 0 ];
+    const handleImageDecode = useCallback((event) => {
+        const nextFile = event.target.files?.[ 0 ];
 
-        if (!file) {
+        if (!nextFile) {
             return;
         }
 
+        setSelectedTestFile(nextFile);
         setLocalError('');
         setDetectedCode('');
+        clearInputValue(event.target);
+    }, []);
 
-        try {
-            const imageUrl = URL.createObjectURL(file);
-            const reader = readerRef.current || new BrowserMultiFormatReader(hints);
-            readerRef.current = reader;
-            const result = await reader.decodeFromImageUrl(imageUrl);
+    useEffect(() => {
+        const decodeImage = async () => {
+            if (!selectedTestFile) {
+                return;
+            }
+
+            const imageUrl = URL.createObjectURL(selectedTestFile);
+
+            try {
+                const reader = readerRef.current || new BrowserMultiFormatReader(hints);
+
+                readerRef.current = reader;
+                const result = await reader.decodeFromImageUrl(imageUrl);
+
+                if (result?.getText) {
+                    setDetectedCode(result.getText());
+                } else {
+                    setLocalError('Ingen kod hittades i bilden.');
+                }
+            } catch (decodeImageError) {
+                setLocalError(decodeImageError.message || 'ZXing kunde inte tolka testbilden.');
+            }
 
             URL.revokeObjectURL(imageUrl);
+            setSelectedTestFile(null);
+        };
 
-            if (result?.getText) {
-                setDetectedCode(result.getText());
-            } else {
-                setLocalError('Ingen kod hittades i bilden.');
-            }
-        } catch (error) {
-            setLocalError(error.message || 'ZXing kunde inte tolka testbilden.');
-        } finally {
-            event.target.value = '';
-        }
-    }, [hints]);
+        decodeImage();
+    }, [
+        hints,
+        selectedTestFile,
+    ]);
 
     useEffect(() => {
         return () => {

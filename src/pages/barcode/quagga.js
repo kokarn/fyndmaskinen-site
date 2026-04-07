@@ -1,5 +1,6 @@
 import {
     useCallback,
+    useMemo,
     useRef,
     useState,
 } from 'react';
@@ -16,9 +17,13 @@ import {
 import BarcodeScanner from '../../components/barcode-scanner';
 import {
     BarcodeVariantLinks,
+} from './components';
+import {
     BokborsenResults,
     CameraSelector,
     ImageDecodeInput,
+} from './ui';
+import {
     useBokborsenResults,
     useVideoDevices,
 } from './shared';
@@ -68,7 +73,10 @@ const QuaggaBarcodePage = () => {
         }
 
         startScanning();
-    }, [scanning, startScanning]);
+    }, [
+        scanning,
+        startScanning,
+    ]);
 
     const handleDetected = useCallback((code) => {
         if (!code || code === lastDetectedRef.current) {
@@ -86,6 +94,15 @@ const QuaggaBarcodePage = () => {
 
     const handleImageDecode = useCallback(() => {
         setLocalError('Quagga-varianten stödjer livekamera här. Testa bild via ZXing/Html5Qrcode.');
+    }, []);
+
+    const scannerDecoders = useMemo(() => {
+        return [
+            'ean_reader',
+            'ean_8_reader',
+            'upc_reader',
+            'upc_e_reader',
+        ];
     }, []);
 
     return (
@@ -204,12 +221,7 @@ const QuaggaBarcodePage = () => {
                     {scanning && (
                         <BarcodeScanner
                             cameraId = {selectedCamera}
-                            decoders = {[
-                                'ean_reader',
-                                'ean_8_reader',
-                                'upc_reader',
-                                'upc_e_reader',
-                            ]}
+                            decoders = {scannerDecoders}
                             facingMode = 'environment'
                             onDetected = {handleDetected}
                             scannerRef = {scannerRef}
