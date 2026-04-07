@@ -21,7 +21,7 @@ import {
     useQuery,
 } from 'react-query';
 
-import Scanner from '../../components/Scanner';
+import BarcodeScanner from '../../components/barcode-scanner';
 import SearchTable from '../../components/search-table';
 import doSearch from '../../features/search';
 import sources from '../../sources';
@@ -51,7 +51,9 @@ const Barcode = () => {
     ] = useState('');
 
     const enabledSources = useMemo(() => {
-        return sources.map((source) => source.id);
+        return sources.map((source) => {
+            return source.id;
+        });
     }, []);
 
     const {
@@ -125,11 +127,25 @@ const Barcode = () => {
         setScanning(true);
     };
 
+    const handleScanToggle = useCallback(() => {
+        if (scanning) {
+            setScanning(false);
+
+            return;
+        }
+
+        startScanning();
+    }, [scanning]);
+
+    const handleCameraChange = useCallback((event) => {
+        setSelectedCamera(event.target.value);
+    }, []);
+
     return (
         <Box
             sx = {{
-                marginTop: 4,
                 marginBottom: 6,
+                marginTop: 4,
             }}
         >
             <Typography
@@ -164,18 +180,12 @@ const Barcode = () => {
             >
                 <Grid>
                     <Button
-                        onClick = {() => {
-                            if (scanning) {
-                                setScanning(false);
-
-                                return;
-                            }
-
-                            startScanning();
-                        }}
+                        onClick = {handleScanToggle}
                         variant = 'contained'
                     >
-                        {scanning ? 'Stoppa skanning' : 'Starta skanning'}
+                        {scanning
+                            ? 'Stoppa skanning'
+                            : 'Starta skanning'}
                     </Button>
                 </Grid>
                 {detectedCode && (
@@ -204,16 +214,16 @@ const Barcode = () => {
                         maxWidth: 380,
                     }}
                 >
-                    <InputLabel id = 'barcode-camera-select-label'>
+                    <InputLabel
+                        id = 'barcode-camera-select-label'
+                    >
                         {'Kamera'}
                     </InputLabel>
                     <Select
                         id = 'barcode-camera-select'
                         label = 'Kamera'
                         labelId = 'barcode-camera-select-label'
-                        onChange = {(event) => {
-                            setSelectedCamera(event.target.value);
-                        }}
+                        onChange = {handleCameraChange}
                         value = {selectedCamera}
                     >
                         {cameras.map((camera, index) => {
@@ -261,7 +271,7 @@ const Barcode = () => {
                         width = '640'
                     />
                     {scanning && (
-                        <Scanner
+                        <BarcodeScanner
                             cameraId = {selectedCamera}
                             decoders = {[
                                 'ean_reader',
@@ -314,7 +324,9 @@ const Barcode = () => {
             )}
 
             {!isFetching && detectedCode && searchResult?.length === 0 && (
-                <Alert severity = 'info'>
+                <Alert
+                    severity = 'info'
+                >
                     {'Inga objekt hittades för den skannade streckkoden.'}
                 </Alert>
             )}
