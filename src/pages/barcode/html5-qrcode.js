@@ -9,7 +9,6 @@ import {
     Alert,
     Box,
     Button,
-    Typography,
 } from '@mui/material';
 import {
     Html5Qrcode,

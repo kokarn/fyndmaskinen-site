@@ -47,10 +47,10 @@ const CameraSelector = ({
                 onClick = {handleOpen}
                 size = 'small'
                 sx = {{
-                    backgroundColor: 'rgba(255, 255, 255, 0.85)',
                     '&:hover': {
                         backgroundColor: 'rgba(255, 255, 255, 1)',
                     },
+                    backgroundColor: 'rgba(255, 255, 255, 0.85)',
                 }}
             >
                 <CameraswitchIcon

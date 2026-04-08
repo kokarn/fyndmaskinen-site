@@ -32,7 +32,6 @@ import Search from './pages/search';
 import Deals from './pages/deals';
 import Profile from './pages/profile';
 import Admin from './pages/admin';
-import Barcode from './pages/barcode';
 import BarcodeQuagga from './pages/barcode/quagga';
 import BarcodeZXing from './pages/barcode/zxing';
 import BarcodeHtml5Qrcode from './pages/barcode/html5-qrcode';
