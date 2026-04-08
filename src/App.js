@@ -25,6 +25,7 @@ import {
 
 import LoginButton from './components/login-button';
 import StickyFooter from './components/footer';
+import ApiToggle from './components/api-toggle';
 
 import Main from './pages/main';
 import Search from './pages/search';
@@ -231,7 +232,7 @@ const App = () => {
                             path = '/admin'
                         />
                         <Route
-                            element = {<Barcode />}
+                            element = {<BarcodeHtml5Qrcode />}
                             path = '/barcode'
                         />
                         <Route
@@ -259,6 +260,7 @@ const App = () => {
                     </Routes>
                 </Box>
                 <StickyFooter />
+                <ApiToggle />
             </Box>
         </ThemeProvider>
     );

@@ -49,7 +49,7 @@ const doSearch = ({
                 return response.json();
             })
             .then((response) => {
-                return response?.data.findItems || response.data.getRandomItems;
+                return response?.data?.findItems ?? response?.data?.getRandomItems ?? [];
             })
             .catch((fetchError) => {
                 console.error(fetchError);

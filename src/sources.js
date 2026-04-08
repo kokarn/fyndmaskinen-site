@@ -10,6 +10,10 @@ const sources = [
         defaultEnabled: true,
         icon: <Auction2000Icon />,
         id: 'auction2000',
+        ids: [
+            'auction2000',
+            'auktionse',
+        ],
         label: 'Mindre auktionshus',
     },
     {

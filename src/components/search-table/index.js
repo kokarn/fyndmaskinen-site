@@ -124,7 +124,11 @@ const SearchTable = ({
                                         minimumFractionDigits: 0,
                                         style: 'currency',
                                     }).format(currentPrice) }
-                                    {sources.find((source) => source.id === tile.type).icon}
+                                    {sources.find((source) => {
+                                        return source.ids
+                                            ? source.ids.includes(tile.type)
+                                            : source.id === tile.type;
+                                    })?.icon}
                                 </Typography>
                             </CardContent>
                         </CardActionArea>

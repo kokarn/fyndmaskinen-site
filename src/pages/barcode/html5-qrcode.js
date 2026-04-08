@@ -205,6 +205,17 @@ const Html5QrcodePage = () => {
         decodeImage();
     }, [selectedTestFile]);
 
+    const [
+        showVariants,
+        setShowVariants,
+    ] = useState(false);
+
+    const handleToggleVariants = useCallback(() => {
+        setShowVariants((prev) => {
+            return !prev;
+        });
+    }, []);
+
     return (
         <Box
             sx = {{
@@ -216,27 +227,31 @@ const Html5QrcodePage = () => {
                 color = '#fff'
                 sx = {{
                     fontWeight: 700,
+                    marginBottom: 2,
                     textShadow: '0 0 4px black',
                 }}
                 variant = 'h4'
             >
-                {'Scanner-lab: Html5Qrcode'}
-            </Typography>
-            <Typography
-                color = '#fff'
-                sx = {{
-                    marginBottom: 3,
-                    marginTop: 1,
-                    textShadow: '0 0 4px black',
-                }}
-                variant = 'body1'
-            >
-                {'Skanna ISBN med Html5Qrcode och slå upp mot /bokborsen/:isbn.'}
+                {'Skanna ISBN'}
             </Typography>
 
-            <BarcodeVariantLinks
-                activePath = {location.pathname}
-            />
+            <Button
+                onClick = {handleToggleVariants}
+                size = 'small'
+                sx = {{
+                    marginBottom: 1,
+                }}
+                variant = 'text'
+            >
+                {showVariants
+                    ? 'Dölj andra skanners'
+                    : 'Andra skanners'}
+            </Button>
+            {showVariants && (
+                <BarcodeVariantLinks
+                    activePath = {location.pathname}
+                />
+            )}
 
             <Box
                 sx = {{

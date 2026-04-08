@@ -78,7 +78,12 @@ const Search = () => {
         debouncedSearchPhrase,
         Object.keys(sources).filter((sourceKey) => {
             return sources[ sourceKey ];
-        }),
+        })
+            .flatMap((sourceKey) => {
+                const source = allSources.find((s) => s.id === sourceKey);
+
+                return source?.ids || [ sourceKey ];
+            }),
     ], doSearch, {
         placeholderData: [],
         refetchInterval: 600000,

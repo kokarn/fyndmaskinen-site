@@ -26,9 +26,15 @@ export const barcodeVariants = [
 
 export const normalizeBokborsenResults = (payload) => {
     const rawItems = payload?.items || payload?.results || payload?.data || payload;
-    const normalizedItems = Array.isArray(rawItems)
-        ? rawItems
-        : [];
+    let normalizedItems;
+
+    if (Array.isArray(rawItems)) {
+        normalizedItems = rawItems;
+    } else if (rawItems && typeof rawItems === 'object') {
+        normalizedItems = [ rawItems ];
+    } else {
+        normalizedItems = [];
+    }
 
     return normalizedItems.map((item, index) => {
         return {
@@ -36,7 +42,8 @@ export const normalizeBokborsenResults = (payload) => {
             id: item?.id || item?.isbn || item?.url || `${index}`,
             imageUrl: item?.imageUrl || item?.image || item?.thumbnail || '',
             isbn: item?.isbn || item?.ISBN || '',
-            price: item?.price || item?.currentPrice || '',
+            price: item?.price || item?.priceLow || item?.currentPrice || '',
+            priceHigh: item?.priceHigh || '',
             title: item?.title || item?.name || 'Okänd titel',
             url: item?.url || item?.link || '',
         };
