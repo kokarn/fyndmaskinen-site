@@ -38,10 +38,14 @@ const noop = () => {
 };
 
 const scannerRegionId = 'html5-qrcode-region';
+const SAME_CODE_COOLDOWN_MS = 3000;
+const NEW_CODE_COOLDOWN_MS = 500;
 
 const Html5QrcodePage = () => {
     const location = useLocation();
     const scannerRef = useRef(null);
+    const lastDetectedRef = useRef('');
+    const lastDetectedTimeRef = useRef(0);
     const [
         scanning,
         setScanning,
@@ -122,8 +126,19 @@ const Html5QrcodePage = () => {
                         return;
                     }
 
+                    const now = Date.now();
+                    const isSameCode = decodedText === lastDetectedRef.current;
+                    const cooldownMs = isSameCode
+                        ? SAME_CODE_COOLDOWN_MS
+                        : NEW_CODE_COOLDOWN_MS;
+
+                    if (now - lastDetectedTimeRef.current < cooldownMs) {
+                        return;
+                    }
+
+                    lastDetectedRef.current = decodedText;
+                    lastDetectedTimeRef.current = now;
                     setDetectedCode(decodedText);
-                    setScanning(false);
                 });
             } catch (startError) {
                 if (!ignore) {
@@ -219,34 +234,52 @@ const Html5QrcodePage = () => {
     return (
         <Box
             sx = {{
-                marginBottom: 6,
-                marginTop: 4,
+                marginBottom: 4,
+                marginTop: 2,
             }}
         >
-            <Typography
-                color = '#fff'
+            <Box
                 sx = {{
-                    fontWeight: 700,
-                    marginBottom: 2,
-                    textShadow: '0 0 4px black',
-                }}
-                variant = 'h4'
-            >
-                {'Skanna ISBN'}
-            </Typography>
-
-            <Button
-                onClick = {handleToggleVariants}
-                size = 'small'
-                sx = {{
+                    alignItems: 'center',
+                    display: 'flex',
+                    gap: 1,
                     marginBottom: 1,
                 }}
-                variant = 'text'
             >
-                {showVariants
-                    ? 'Dölj andra skanners'
-                    : 'Andra skanners'}
-            </Button>
+                <Button
+                    color = {scanning
+                        ? 'error'
+                        : 'primary'}
+                    onClick = {handleToggleScanning}
+                    size = 'small'
+                    variant = 'contained'
+                >
+                    {scanning
+                        ? 'Stoppa'
+                        : 'Skanna'}
+                </Button>
+                <ImageDecodeInput
+                    onChange = {handleImageUpload}
+                />
+                <CameraSelector
+                    cameras = {cameras}
+                    onChange = {handleCameraChange}
+                    selectedCamera = {selectedCamera}
+                />
+                <Button
+                    onClick = {handleToggleVariants}
+                    size = 'small'
+                    sx = {{
+                        marginLeft: 'auto',
+                        minWidth: 0,
+                    }}
+                    variant = 'text'
+                >
+                    {showVariants
+                        ? 'Dölj'
+                        : '...'}
+                </Button>
+            </Box>
             {showVariants && (
                 <BarcodeVariantLinks
                     activePath = {location.pathname}
@@ -255,54 +288,11 @@ const Html5QrcodePage = () => {
 
             <Box
                 sx = {{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: 1,
-                    marginBottom: 2,
-                }}
-            >
-                <Button
-                    onClick = {handleToggleScanning}
-                    variant = 'contained'
-                >
-                    {scanning
-                        ? 'Stoppa skanning'
-                        : 'Starta skanning'}
-                </Button>
-                <ImageDecodeInput
-                    onChange = {handleImageUpload}
-                />
-            </Box>
-
-            {detectedCode && (
-                <Typography
-                    color = '#fff'
-                    sx = {{
-                        fontWeight: 600,
-                        marginBottom: 2,
-                        textShadow: '0 0 4px black',
-                    }}
-                    variant = 'body1'
-                >
-                    {`Skannad kod: ${detectedCode}`}
-                </Typography>
-            )}
-
-            <CameraSelector
-                cameras = {cameras}
-                onChange = {handleCameraChange}
-                selectedCamera = {selectedCamera}
-            />
-
-            <Box
-                sx = {{
                     backgroundColor: '#fff',
-                    borderRadius: 2,
-                    marginBottom: 2,
+                    borderRadius: 1,
+                    marginBottom: 1,
                     maxWidth: 640,
-                    minHeight: 240,
                     overflow: 'hidden',
-                    padding: 1,
                 }}
             >
                 <div
