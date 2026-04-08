@@ -12,7 +12,7 @@ const ImageDecodeInput = ({
             component = 'label'
             variant = 'outlined'
         >
-            {'Testa med bild'}
+            {'Välj'}
             <input
                 accept = 'image/*'
                 hidden
