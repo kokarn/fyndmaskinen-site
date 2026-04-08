@@ -291,6 +291,7 @@ const Html5QrcodePage = () => {
                     backgroundColor: '#fff',
                     borderRadius: 1,
                     marginBottom: 1,
+                    maxHeight: 200,
                     maxWidth: 640,
                     overflow: 'hidden',
                 }}

@@ -118,7 +118,15 @@ export const useVideoDevices = () => {
 
                 setCameras(videoDevices);
                 setSelectedCamera((currentDeviceId) => {
-                    return currentDeviceId || videoDevices[ 0 ]?.deviceId || '';
+                    if (currentDeviceId) {
+                        return currentDeviceId;
+                    }
+
+                    const backCamera = videoDevices.find((device) => {
+                        return /back|rear|environment/iu.test(device.label);
+                    });
+
+                    return backCamera?.deviceId || videoDevices[ videoDevices.length - 1 ]?.deviceId || '';
                 });
             } catch (error) {
                 setCameraError('Kunde inte läsa tillgängliga kameror.');
