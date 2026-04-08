@@ -1,0 +1,147 @@
+import {
+    useEffect,
+    useState,
+} from 'react';
+import {
+    useQuery,
+} from 'react-query';
+
+export const barcodeVariants = [
+    {
+        id: 'quagga',
+        label: 'Quagga',
+        path: '/barcode/quagga',
+    },
+    {
+        id: 'zxing',
+        label: 'ZXing',
+        path: '/barcode/zxing',
+    },
+    {
+        id: 'html5-qrcode',
+        label: 'Html5Qrcode',
+        path: '/barcode/html5-qrcode',
+    },
+];
+
+export const normalizeBokborsenResults = (payload) => {
+    const rawItems = payload?.items || payload?.results || payload?.data || payload;
+    const normalizedItems = Array.isArray(rawItems)
+        ? rawItems
+        : [];
+
+    return normalizedItems.map((item, index) => {
+        return {
+            author: item?.author || '',
+            id: item?.id || item?.isbn || item?.url || `${index}`,
+            imageUrl: item?.imageUrl || item?.image || item?.thumbnail || '',
+            isbn: item?.isbn || item?.ISBN || '',
+            price: item?.price || item?.currentPrice || '',
+            title: item?.title || item?.name || 'Okänd titel',
+            url: item?.url || item?.link || '',
+        };
+    });
+};
+
+const fetchBokborsenByIsbn = async ({
+    queryKey,
+}) => {
+    const isbn = queryKey[ 1 ];
+
+    if (!isbn) {
+        return [];
+    }
+
+    const response = await fetch(`${window.API_HOSTNAME}/bokborsen/${encodeURIComponent(isbn)}`);
+
+    if (!response.ok) {
+        throw new Error(`Kunde inte hämta Bokbörsen-resultat (${response.status}).`);
+    }
+
+    const payload = await response.json();
+
+    return normalizeBokborsenResults(payload);
+};
+
+export const useBokborsenResults = (detectedCode) => {
+    return useQuery([
+        'bokborsen',
+        detectedCode,
+    ], fetchBokborsenByIsbn, {
+        enabled: detectedCode.length > 0,
+        placeholderData: [],
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+    });
+};
+
+export const useVideoDevices = () => {
+    const [
+        cameraError,
+        setCameraError,
+    ] = useState('');
+    const [
+        cameras,
+        setCameras,
+    ] = useState([]);
+    const [
+        selectedCamera,
+        setSelectedCamera,
+    ] = useState('');
+
+    useEffect(() => {
+        let isMounted = true;
+
+        const loadCameras = async () => {
+            if (!navigator?.mediaDevices?.enumerateDevices) {
+                setCameraError('Din enhet stödjer inte kameraåtkomst i webbläsaren.');
+
+                return;
+            }
+
+            try {
+                const mediaDevices = await navigator.mediaDevices.enumerateDevices();
+                const videoDevices = mediaDevices.filter((device) => {
+                    return device.kind === 'videoinput';
+                });
+
+                if (!isMounted) {
+                    return;
+                }
+
+                setCameras(videoDevices);
+                setSelectedCamera((currentDeviceId) => {
+                    return currentDeviceId || videoDevices[ 0 ]?.deviceId || '';
+                });
+            } catch (error) {
+                setCameraError('Kunde inte läsa tillgängliga kameror.');
+                console.error(error);
+            }
+        };
+
+        loadCameras();
+
+        return () => {
+            isMounted = false;
+        };
+    }, []);
+
+    return {
+        cameraError,
+        cameras,
+        selectedCamera,
+        setSelectedCamera,
+    };
+};
+
+export const clearInputValue = (inputElement) => {
+    if (!inputElement) {
+        return;
+    }
+
+    try {
+        inputElement.value = '';
+    } catch (error) {
+        console.error(error);
+    }
+};
