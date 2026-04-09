@@ -5,6 +5,7 @@ const BukowskisIcon = () => {
             style = {{
                 backgroundImage: `url(${process.env.PUBLIC_URL}/images/icons/bukowskis.png)`,
                 backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
                 backgroundSize: 'contain',
                 height: '20px',
                 marginLeft: '4px',

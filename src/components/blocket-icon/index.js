@@ -5,6 +5,7 @@ const BlocketIcon = () => {
             style = {{
                 backgroundImage: `url(${process.env.PUBLIC_URL}/images/icons/blocket.png)`,
                 backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
                 backgroundSize: 'contain',
                 height: '20px',
                 marginLeft: '4px',
