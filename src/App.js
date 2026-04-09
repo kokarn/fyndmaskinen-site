@@ -30,6 +30,7 @@ import ApiToggle from './components/api-toggle';
 import Main from './pages/main';
 import Search from './pages/search';
 import Deals from './pages/deals';
+import IsbnDeals from './pages/isbn-deals';
 import Profile from './pages/profile';
 import Admin from './pages/admin';
 import BarcodeQuagga from './pages/barcode/quagga';
@@ -213,6 +214,10 @@ const App = () => {
                         <Route
                             element = {<Deals />}
                             path = '/deals'
+                        />
+                        <Route
+                            element = {<IsbnDeals />}
+                            path = '/deals/isbn'
                         />
                         <Route
                             element = {<Search />}

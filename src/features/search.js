@@ -15,7 +15,7 @@ const doSearch = ({
 
     if (searchPhrase === '') {
         query = `{
-            getRandomItems {
+            getRandomItems( sources: "${queryKey[ 2 ]}" ) {
                 title
                 url
                 currentPrice
