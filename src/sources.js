@@ -13,6 +13,7 @@ const sources = [
         ids: [
             'auction2000',
             'auktionse',
+            'skeleton',
         ],
         label: 'Mindre auktionshus',
     },
