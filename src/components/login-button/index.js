@@ -4,6 +4,8 @@ import {
 import {
     Avatar,
     Button,
+    IconButton,
+    Tooltip,
 } from '@mui/material';
 import {
     Link,
@@ -12,6 +14,9 @@ import {
     LoadingButton,
 } from '@mui/lab';
 import LoginIcon from '@mui/icons-material/Login';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+
+const ADMIN_EMAIL = 'kokarn@gmail.com';
 
 const LoginButton = () => {
     const {
@@ -21,10 +26,31 @@ const LoginButton = () => {
         isLoading,
     } = useAuth0();
 
+    const isAdmin = isAuthenticated && user?.email === ADMIN_EMAIL;
+
     return (
         <div>
             {!isLoading && isAuthenticated && (
-                <div>
+                <div
+                    style = {{
+                        alignItems: 'center',
+                        display: 'flex',
+                        gap: 8,
+                    }}
+                >
+                    {isAdmin && (
+                        <Tooltip
+                            title = 'Admin'
+                        >
+                            <IconButton
+                                component = {Link}
+                                size = 'small'
+                                to = '/admin'
+                            >
+                                <AdminPanelSettingsIcon />
+                            </IconButton>
+                        </Tooltip>
+                    )}
                     <Link
                         to = '/profile'
                     >
