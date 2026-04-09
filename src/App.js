@@ -33,6 +33,7 @@ import Deals from './pages/deals';
 import IsbnDeals from './pages/isbn-deals';
 import Profile from './pages/profile';
 import Admin from './pages/admin';
+import AdminWatches from './pages/admin/watches';
 import BarcodeQuagga from './pages/barcode/quagga';
 import BarcodeZXing from './pages/barcode/zxing';
 import BarcodeHtml5Qrcode from './pages/barcode/html5-qrcode';
@@ -234,6 +235,10 @@ const App = () => {
                         <Route
                             element = {<Admin />}
                             path = '/admin'
+                        />
+                        <Route
+                            element = {<AdminWatches />}
+                            path = '/admin/watches'
                         />
                         <Route
                             element = {<BarcodeHtml5Qrcode />}
