@@ -14,6 +14,9 @@ import {
 import {
     Auth0Provider,
 } from '@auth0/auth0-react';
+import {
+    NotificationProvider,
+} from './components/notification';
 
 window.API_HOSTNAME = 'https://api.fyndmaskinen.se';
 window.PORTAL_URL = 'https://billing.stripe.com/p/login/bIY14V4oKdcnfp6bII';
@@ -25,7 +28,34 @@ if (window.location.origin.includes('localhost') && localStorage.getItem('apiTog
 //     window.PURCHASE_URL = 'https://buy.stripe.com/test_7sIdSJ338d2i9hu28a';
 }
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: {
+        mutations: {
+            onError: (error) => {
+                const event = new CustomEvent('app-notification', {
+                    detail: {
+                        message: error?.message || 'Något gick fel',
+                        severity: 'error',
+                    },
+                });
+
+                window.dispatchEvent(event);
+            },
+        },
+        queries: {
+            onError: (error) => {
+                const event = new CustomEvent('app-notification', {
+                    detail: {
+                        message: error?.message || 'Något gick fel',
+                        severity: 'error',
+                    },
+                });
+
+                window.dispatchEvent(event);
+            },
+        },
+    },
+});
 const root = ReactDOMClient.createRoot(document.getElementById('root'));
 
 root.render((
@@ -35,13 +65,15 @@ root.render((
             domain = 'https://fyndmaskinen.eu.auth0.com'
             redirectUri = {`${window.location.origin}/profile`}
         >
-            <QueryClientProvider
-                client = {queryClient}
-            >
-                <Router>
-                    <App />
-                </Router>
-            </QueryClientProvider>
+            <NotificationProvider>
+                <QueryClientProvider
+                    client = {queryClient}
+                >
+                    <Router>
+                        <App />
+                    </Router>
+                </QueryClientProvider>
+            </NotificationProvider>
         </Auth0Provider>
     </React.StrictMode>
 ));
