@@ -1,4 +1,7 @@
 import {
+    useCallback,
+} from 'react';
+import {
     useAuth0,
 } from '@auth0/auth0-react';
 import {
@@ -27,6 +30,10 @@ const LoginButton = () => {
     } = useAuth0();
 
     const isAdmin = isAuthenticated && user?.email === ADMIN_EMAIL;
+
+    const handleLogin = useCallback(() => {
+        return loginWithRedirect();
+    }, [ loginWithRedirect ]);
 
     return (
         <div>
@@ -67,9 +74,7 @@ const LoginButton = () => {
             )}
             {!isAuthenticated && !isLoading && (
                 <Button
-                    onClick = {() => {
-                        return loginWithRedirect();
-                    }}
+                    onClick = {handleLogin}
                     sx = {{
                         gap: 1,
                     }}

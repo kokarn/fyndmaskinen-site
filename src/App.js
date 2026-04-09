@@ -38,6 +38,9 @@ import BarcodeQuagga from './pages/barcode/quagga';
 import BarcodeZXing from './pages/barcode/zxing';
 import BarcodeHtml5Qrcode from './pages/barcode/html5-qrcode';
 
+// eslint-disable-next-line no-process-env, no-undef
+const PUBLIC_URL = process.env.PUBLIC_URL;
+
 const theme = createTheme({
     components: {
         MuiButton: {
@@ -143,7 +146,7 @@ const App = () => {
             <Box
                 sx = {{
                     backgroundAttachment: 'fixed',
-                    backgroundImage: `url(${process.env.PUBLIC_URL}/images/background-4.jpg)`,
+                    backgroundImage: `url(${PUBLIC_URL}/images/background-4.jpg)`,
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: 'cover',
                     display: 'flex',

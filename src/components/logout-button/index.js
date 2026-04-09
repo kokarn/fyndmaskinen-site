@@ -1,4 +1,7 @@
 import {
+    useCallback,
+} from 'react';
+import {
     useAuth0,
 } from '@auth0/auth0-react';
 import {
@@ -10,15 +13,17 @@ const LogoutButton = () => {
         logout,
     } = useAuth0();
 
+    const handleLogout = useCallback(() => {
+        return logout({
+            returnTo: window.location.origin,
+        });
+    }, [ logout ]);
+
     return (
         <Button
             align = 'right'
             color = 'error'
-            onClick = {() => {
-                return logout({
-                    returnTo: window.location.origin,
-                });
-            }}
+            onClick = {handleLogout}
             variant = 'contained'
         >
             {'Logga ut'}

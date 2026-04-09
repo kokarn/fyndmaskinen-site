@@ -43,9 +43,12 @@ const Deals = () => {
         const tabs = [];
 
         for (const identifier in deals) {
+            const matching = deals[ identifier ].matching.length;
+            const missing = deals[ identifier ].missing.length;
+
             tabs.push(<Tab
                 key = {identifier}
-                label = {`${ identifier } ${ deals[ identifier ].matching.length } / ${ deals[ identifier ].missing.length }`}
+                label = {`${ identifier } ${ matching } / ${ missing }`}
                 value = {identifier}
             />);
         }

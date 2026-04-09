@@ -1,9 +1,12 @@
+// eslint-disable-next-line no-process-env, no-undef
+const PUBLIC_URL = process.env.PUBLIC_URL;
+
 const UppsalaAuktionskammareIcon = () => {
     return (
         <div
             alt = 'Uppsala Auktionskammare'
             style = {{
-                backgroundImage: `url(${process.env.PUBLIC_URL}/images/icons/uppsala-auktionskammare.png)`,
+                backgroundImage: `url(${PUBLIC_URL}/images/icons/uppsala-auktionskammare.png)`,
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'contain',

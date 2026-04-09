@@ -1,9 +1,12 @@
+// eslint-disable-next-line no-process-env, no-undef
+const PUBLIC_URL = process.env.PUBLIC_URL;
+
 const BlocketIcon = () => {
     return (
         <div
             alt = 'Blocket'
             style = {{
-                backgroundImage: `url(${process.env.PUBLIC_URL}/images/icons/blocket.png)`,
+                backgroundImage: `url(${PUBLIC_URL}/images/icons/blocket.png)`,
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'contain',

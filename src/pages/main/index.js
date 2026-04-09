@@ -1,4 +1,5 @@
 import {
+    useCallback,
     useRef,
 } from 'react';
 import {
@@ -47,7 +48,7 @@ const Main = () => {
     const searchRef = useRef(null);
     const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = useCallback((event) => {
         console.log('got submit');
         event.preventDefault();
         window.dataLayer = window.dataLayer || [];
@@ -56,7 +57,7 @@ const Main = () => {
             value: searchRef.current.value,
         });
         navigate(`/search/${searchRef.current.value}`);
-    };
+    }, [ navigate ]);
 
     return [
         <Helmet

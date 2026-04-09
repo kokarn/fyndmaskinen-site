@@ -1,7 +1,8 @@
 import {
-    useState,
-    useRef,
+    useCallback,
     useEffect,
+    useRef,
+    useState,
 } from 'react';
 import {
     Typography,
@@ -80,7 +81,9 @@ const Search = () => {
             return sources[ sourceKey ];
         })
             .flatMap((sourceKey) => {
-                const source = allSources.find((s) => s.id === sourceKey);
+                const source = allSources.find((s) => {
+                    return s.id === sourceKey;
+                });
 
                 return source?.ids || [ sourceKey ];
             }),
@@ -91,20 +94,20 @@ const Search = () => {
         refetchOnWindowFocus: false,
     });
 
-    const handleFilterChange = (event) => {
+    const handleFilterChange = useCallback((event) => {
         setSearchPhrase(event.target.value);
         setSearchPending(true);
 
         return true;
-    };
+    }, []);
 
-    const handleGroupChange = (newSources) => {
+    const handleGroupChange = useCallback((newSources) => {
         setSources(newSources);
 
         return true;
-    };
+    }, [ setSources ]);
 
-    const onSubmit = (event) => {
+    const onSubmit = useCallback((event) => {
         event.preventDefault();
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
@@ -112,7 +115,11 @@ const Search = () => {
             value: searchRef.current.value,
         });
         navigate(`/search/${searchRef.current.value}`);
-    };
+    }, [ navigate ]);
+
+    const handleLogin = useCallback(() => {
+        return loginWithRedirect();
+    }, [ loginWithRedirect ]);
 
     useEffect(() => {
         navigate(`/search/${debouncedSearchPhrase}`);
@@ -197,9 +204,7 @@ const Search = () => {
                     >
                         {!isAuthenticated && !isLoading && (
                             <Button
-                                onClick = {() => {
-                                    return loginWithRedirect();
-                                }}
+                                onClick = {handleLogin}
                                 variant = 'contained'
                             >
                                 {'Logga in för att skapa bevakning'}

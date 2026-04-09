@@ -37,6 +37,10 @@ const CameraSelector = ({
         setAnchorEl(null);
     }, [onChange]);
 
+    const handleMenuItemClick = useCallback((event) => {
+        handleSelect(event.currentTarget.dataset.deviceId);
+    }, [ handleSelect ]);
+
     if (cameras.length <= 1) {
         return null;
     }
@@ -65,10 +69,9 @@ const CameraSelector = ({
                 {cameras.map((camera, index) => {
                     return (
                         <MenuItem
+                            data-device-id = {camera.deviceId}
                             key = {camera.deviceId}
-                            onClick = {() => {
-                                return handleSelect(camera.deviceId);
-                            }}
+                            onClick = {handleMenuItemClick}
                             selected = {camera.deviceId === selectedCamera}
                         >
                             {camera.label || `Kamera ${index + 1}`}

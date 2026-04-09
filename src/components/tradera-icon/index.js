@@ -1,9 +1,11 @@
+// eslint-disable-next-line no-process-env, no-undef
+const PUBLIC_URL = process.env.PUBLIC_URL;
+
 const TraderIcon = () => {
     return (<div
         alt = 'Tradera'
-        // src = {`${process.env.PUBLIC_URL}/images/icons/tradera-100x100.png`}
         style = {{
-            backgroundImage: `url(${process.env.PUBLIC_URL}/images/icons/tradera-40x40.png)`,
+            backgroundImage: `url(${PUBLIC_URL}/images/icons/tradera-40x40.png)`,
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'contain',

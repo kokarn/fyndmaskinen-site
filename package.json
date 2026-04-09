@@ -4,12 +4,12 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "portless fyndmaskinen react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "pretest": "eslint src/**/*.js --fix",
+    "pretest": "eslint src/**/*.js --fix --max-warnings 0",
     "postbuild": "node ./scripts/postbuild.js",
-    "dev": "react-scripts start",
+    "dev": "portless fyndmaskinen react-scripts start",
     "test": "react-scripts test",
     "analyze": "npm run build -- --stats && npx webpack-bundle-analyzer ./build/bundle-stats.json"
   },
@@ -25,6 +25,7 @@
     "@mui/lab": "^5.0.0-alpha.77",
     "@mui/material": "^5.5.3",
     "@zxing/browser": "^0.1.5",
+    "@zxing/library": "^0.21.3",
     "html5-qrcode": "^2.3.8",
     "just-shuffle": "^4.0.1",
     "prop-types": "^15.8.1",
@@ -54,6 +55,7 @@
     "dotenv": "^16.0.0",
     "eslint": "^8.12.0",
     "eslint-config-kokarn": "^5.0.0",
+    "portless": "^0.10.1",
     "webpack-cli": "^4.10.0"
   },
   "browserslist": [

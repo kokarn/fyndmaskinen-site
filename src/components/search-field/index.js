@@ -28,6 +28,11 @@ const SearchField = ({
                 xs = {8}
             >
                 <TextField
+                    InputProps = {{
+                        sx: {
+                            padding: '0px 6px',
+                        },
+                    }}
                     autoFocus
                     defaultValue = {value}
                     fullWidth
@@ -36,16 +41,10 @@ const SearchField = ({
                         tabIndex: 0,
                         type: 'search',
                     }}
-                    InputProps = {{
-                        sx: {
-                            padding: '0px 6px',
-                        },
-                    }}
                     inputRef = {searchRef}
                     margin = 'normal'
                     onChange = {onChange}
                     placeholder = {'Lamino'}
-                    // tabIndex = {0}
                     sx = {{
                         backgroundColor: '#FFFFFF',
                         paddingRight: 0,

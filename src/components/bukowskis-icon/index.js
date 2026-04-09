@@ -1,9 +1,12 @@
+// eslint-disable-next-line no-process-env, no-undef
+const PUBLIC_URL = process.env.PUBLIC_URL;
+
 const BukowskisIcon = () => {
     return (
         <div
             alt = 'Bukowskis'
             style = {{
-                backgroundImage: `url(${process.env.PUBLIC_URL}/images/icons/bukowskis.png)`,
+                backgroundImage: `url(${PUBLIC_URL}/images/icons/bukowskis.png)`,
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'contain',

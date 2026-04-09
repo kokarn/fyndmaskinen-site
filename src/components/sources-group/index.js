@@ -1,3 +1,7 @@
+/* eslint-disable react/no-multi-comp */
+import {
+    useCallback,
+} from 'react';
 import {
     Chip,
 } from '@mui/material';
@@ -8,6 +12,61 @@ import ClearIcon from '@mui/icons-material/Clear';
 
 import sources from '../../sources';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+
+const chipStyle = {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 0,
+    color: '#000000DE',
+    padding: '10px 0px',
+};
+
+const SourceChipItem = ({
+    icon,
+    isActive,
+    label,
+    onToggle,
+    sourceId,
+}) => {
+    const handleToggle = useCallback(() => {
+        onToggle(sourceId);
+    }, [
+        onToggle,
+        sourceId,
+    ]);
+
+    return (
+        <Chip
+            deleteIcon = {isActive ?
+                <DoneIcon
+                    sx = {{
+                        color: '#fff',
+                        fill: '#39b4bf',
+                    }}
+                /> :
+                <ClearIcon
+                    sx = {{
+                        color: '#fff',
+                        fill: '#ccc',
+                    }}
+                />
+            }
+            icon = {icon}
+            label = {label}
+            onClick = {handleToggle}
+            onDelete = {handleToggle}
+            // eslint-disable-next-line react/forbid-component-props
+            style = {chipStyle}
+        />
+    );
+};
+
+SourceChipItem.propTypes = {
+    icon: PropTypes.node.isRequired,
+    isActive: PropTypes.bool.isRequired,
+    label: PropTypes.string.isRequired,
+    onToggle: PropTypes.func.isRequired,
+    sourceId: PropTypes.string.isRequired,
+};
 
 const SourcesGroup = (props) => {
     const [
@@ -24,18 +83,23 @@ const SourcesGroup = (props) => {
             })),
     );
 
-    const handleChipClick = (sourceClicked) => {
-        const newSources = {
-            ...allowedSources,
-            [ sourceClicked ]: !allowedSources[ sourceClicked ],
-        };
+    const handleChipClick = useCallback((sourceClicked) => {
+        setAllowedSources((previous) => {
+            const newSources = {
+                ...previous,
+                [ sourceClicked ]: !previous[ sourceClicked ],
+            };
 
-        setAllowedSources(newSources);
+            if (props.onChange) {
+                props.onChange(newSources);
+            }
 
-        if (props.onChange) {
-            props.onChange(newSources);
-        }
-    };
+            return newSources;
+        });
+    }, [
+        props,
+        setAllowedSources,
+    ]);
 
     return (
         <Grid
@@ -45,48 +109,18 @@ const SourcesGroup = (props) => {
                 display: 'flex',
                 flexFlow: 'wrap',
                 gap: '10px',
-                // justifyContent: 'center',
             }}
             xs = {12}
         >
             {sources.map((source) => {
                 return (
-                    <Chip
-                        deleteIcon = {allowedSources[ source.id ] ?
-                            <DoneIcon
-                                sx = {{
-                                    color: '#fff',
-                                    fill: '#39b4bf',
-                                }}
-                            /> :
-                            <ClearIcon
-                                sx = {{
-                                    color: '#fff',
-                                    fill: '#ccc',
-                                }}
-                            />
-                        }
+                    <SourceChipItem
                         icon = {source.icon}
+                        isActive = {Boolean(allowedSources[ source.id ])}
                         key = {source.id}
                         label = {source.label}
-                        onClick = {() => {
-                            handleChipClick(source.id);
-                        }}
-                        onDelete = {() => {
-                            handleChipClick(source.id);
-                        }}
-                        // eslint-disable-next-line react/forbid-component-props
-                        style = {{
-                            backgroundColor: '#FFFFFF',
-                            borderRadius: 0,
-                            color: '#000000DE',
-                            padding: '10px 0px',
-
-                        }}
-                        // variant = {allowedSources[ source.id ] ?
-                        //     'default' :
-                        //     'outlined'
-                        // }
+                        onToggle = {handleChipClick}
+                        sourceId = {source.id}
                     />
                 );
             })}

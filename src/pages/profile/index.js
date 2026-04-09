@@ -1,4 +1,6 @@
+/* eslint-disable react/no-multi-comp */
 import {
+    useCallback,
     useEffect,
     useState,
 } from 'react';
@@ -20,6 +22,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import {
     Helmet,
 } from 'react-helmet';
+import PropTypes from 'prop-types';
 
 import removeWatch from '../../features/remove-watch';
 import getWatches from '../../features/get-watches';
@@ -28,6 +31,37 @@ import getWatchLimit from '../../features/get-watch-limit';
 import AddWatch from '../../components/add-watch';
 import LogoutButton from '../../components/logout-button';
 import WatchListItem from '../../components/watch-list-item';
+
+const WatchRow = ({
+    match,
+    onDelete,
+    userName,
+}) => {
+    const handleDelete = useCallback(() => {
+        onDelete(match);
+    }, [
+        match,
+        onDelete,
+    ]);
+
+    return (
+        <WatchListItem
+            key = {`watch-${userName}-${match}`}
+            onDelete = {handleDelete}
+            watchString = {match}
+        />
+    );
+};
+
+WatchRow.propTypes = {
+    match: PropTypes.string.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    userName: PropTypes.string,
+};
+
+WatchRow.defaultProps = {
+    userName: '',
+};
 
 const Profile = () => {
     const {
@@ -127,6 +161,10 @@ const Profile = () => {
         },
     );
 
+    const handleWatchDelete = useCallback((match) => {
+        mutation.mutate(match);
+    }, [ mutation ]);
+
     // if (error) {
     //     if (error.error === 'login_required') {
     //         return (
@@ -225,12 +263,11 @@ const Profile = () => {
                 >
                     {watches.map((watch) => {
                         return (
-                            <WatchListItem
+                            <WatchRow
                                 key = {`watch-${user?.name}-${watch.match}`}
-                                onDelete = {() => {
-                                    mutation.mutate(watch.match);
-                                }}
-                                watchString = {watch.match}
+                                match = {watch.match}
+                                onDelete = {handleWatchDelete}
+                                userName = {user?.name}
                             />
                         );
                     })}

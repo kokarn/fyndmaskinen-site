@@ -77,12 +77,12 @@ const parseIsbn = (text) => {
     return null;
 };
 
-const getBokborsenPrices = (data) => {
-    if (!data || data.length === 0) {
+const getBokborsenPrices = (books) => {
+    if (!books || books.length === 0) {
         return null;
     }
 
-    const prices = data
+    const prices = books
         .map((book) => {
             return Number(book.price) || 0;
         })
@@ -94,7 +94,7 @@ const getBokborsenPrices = (data) => {
         return null;
     }
 
-    const highPrices = data
+    const highPrices = books
         .map((book) => {
             return Number(book.priceHigh || book.price) || 0;
         })
@@ -127,7 +127,7 @@ const BokborsenCell = ({
     }, [ shouldLookup ]);
 
     const {
-        data,
+        data: results,
         isError,
         isFetching,
     } = useQuery([
@@ -154,11 +154,11 @@ const BokborsenCell = ({
     });
 
     useEffect(() => {
-        if (!isFetching && enabled && data) {
-            onResult(isbn, data);
+        if (!isFetching && enabled && results) {
+            onResult(isbn, results);
         }
     }, [
-        data,
+        results,
         enabled,
         isbn,
         isFetching,
@@ -226,7 +226,7 @@ const BokborsenCell = ({
         );
     }
 
-    if (!data || data.length === 0) {
+    if (!results || results.length === 0) {
         return (
             <TableCell
                 align = 'right'
@@ -241,7 +241,7 @@ const BokborsenCell = ({
         );
     }
 
-    const prices = getBokborsenPrices(data);
+    const prices = getBokborsenPrices(results);
 
     if (!prices) {
         return (
@@ -263,7 +263,7 @@ const BokborsenCell = ({
             align = 'right'
         >
             <Tooltip
-                title = {data.map((book) => {
+                title = {results.map((book) => {
                     return book.title;
                 }).join(', ')}
             >
@@ -344,8 +344,8 @@ const IsbnDeals = () => {
             });
     }, [ searchResults ]);
 
-    const handleBokborsenResult = useCallback((isbn, data) => {
-        const prices = getBokborsenPrices(data);
+    const handleBokborsenResult = useCallback((isbn, books) => {
+        const prices = getBokborsenPrices(books);
 
         setBokborsenPrices((previous) => {
             return {
