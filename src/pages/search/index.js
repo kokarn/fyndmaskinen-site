@@ -7,6 +7,8 @@ import {
 import {
     Typography,
     Button,
+    MenuItem,
+    TextField,
 } from '@mui/material';
 // import shuffle from 'just-shuffle';
 import {
@@ -57,6 +59,16 @@ const Search = () => {
 
     const searchRef = useRef(null);
     const debouncedSearchPhrase = useDebounce(searchPhrase, SEARCH_DELAY);
+    const searchParameters = new URLSearchParams(window.location.search);
+    const [
+        maxPrice,
+        setMaxPrice,
+    ] = useState(searchParameters.get('maxPrice') || '');
+    const [
+        sort,
+        setSort,
+    ] = useState(searchParameters.get('sort') || 'relevance');
+    const debouncedMaxPrice = useDebounce(maxPrice, SEARCH_DELAY);
     const [
         sources,
         setSources,
@@ -87,6 +99,8 @@ const Search = () => {
 
                 return source?.ids || [ sourceKey ];
             }),
+        debouncedMaxPrice,
+        sort,
     ], doSearch, {
         placeholderData: [],
         refetchInterval: 600000,
@@ -107,6 +121,14 @@ const Search = () => {
         return true;
     }, [ setSources ]);
 
+    const handleMaxPriceChange = useCallback((event) => {
+        setMaxPrice(event.target.value.replace(/[^0-9]/gu, ''));
+    }, []);
+
+    const handleSortChange = useCallback((event) => {
+        setSort(event.target.value);
+    }, []);
+
     const onSubmit = useCallback((event) => {
         event.preventDefault();
         window.dataLayer = window.dataLayer || [];
@@ -122,9 +144,24 @@ const Search = () => {
     }, [ loginWithRedirect ]);
 
     useEffect(() => {
-        navigate(`/search/${debouncedSearchPhrase}`);
+        const parameters = new URLSearchParams();
+
+        if (debouncedMaxPrice) {
+            parameters.set('maxPrice', debouncedMaxPrice);
+        }
+        if (sort !== 'relevance') {
+            parameters.set('sort', sort);
+        }
+
+        const queryString = parameters.toString();
+
+        navigate(`/search/${debouncedSearchPhrase}${queryString
+            ? `?${queryString}`
+            : ''}`);
         setSearchPending(false);
-    }, [debouncedSearchPhrase]);
+    }, [
+        debouncedMaxPrice, debouncedSearchPhrase, navigate, sort,
+    ]);
 
     return [
         <Helmet
@@ -159,6 +196,62 @@ const Search = () => {
                 <SourcesGroup
                     onChange = {handleGroupChange}
                 />
+                <Grid
+                    md = {3}
+                    sx = {{
+                        marginTop: 2,
+                        paddingRight: 1,
+                    }}
+                    xs = {6}
+                >
+                    <TextField
+                        fullWidth
+                        inputProps = {{
+                            min: 0,
+                        }}
+                        label = 'Maxpris'
+                        onChange = {handleMaxPriceChange}
+                        placeholder = 'kr'
+                        size = 'small'
+                        type = 'number'
+                        value = {maxPrice}
+                        variant = 'filled'
+                    />
+                </Grid>
+                <Grid
+                    md = {3}
+                    sx = {{
+                        marginTop: 2,
+                        paddingLeft: 1,
+                    }}
+                    xs = {6}
+                >
+                    <TextField
+                        fullWidth
+                        label = 'Sortera'
+                        onChange = {handleSortChange}
+                        select
+                        size = 'small'
+                        value = {sort}
+                        variant = 'filled'
+                    >
+                        <MenuItem
+                            value = 'relevance'
+                        >
+                            {'Relevans'}
+                        </MenuItem>
+                        <MenuItem
+                            value = 'price_asc'
+                        >
+                            {'Lägsta pris'}
+                        </MenuItem>
+                        <MenuItem
+                            value = 'price_desc'
+                        >
+                            {'Högsta pris'}
+                        </MenuItem>
+                    </TextField>
+                </Grid>
                 <Grid
                     md = {6}
                     sx = {{

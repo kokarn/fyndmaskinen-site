@@ -1,10 +1,15 @@
-const doSearch = ({
-    queryKey,
-}) => {
-    const searchPhrase = queryKey[ 1 ].replace(/[^A-Za-z0-9ÅÄÖåäö .]/giu, '');
+export const buildSearchQuery = (searchPhrase, sources, filters) => {
+    const {
+        maxPrice,
+        sort,
+    } = filters;
+    const numericMaxPrice = Number(maxPrice);
+    const maxPriceArgument = maxPrice !== '' && Number.isFinite(numericMaxPrice) && numericMaxPrice >= 0
+        ? `, maxPrice: ${numericMaxPrice}`
+        : '';
 
-    let query = `{
-        findItems( match: "${ searchPhrase }", sources: "${queryKey[ 2 ]}" ) {
+    return `{
+        findItems( match: "${ searchPhrase }", sources: "${sources}"${maxPriceArgument}, sort: "${sort}" ) {
             title
             url
             currentPrice
@@ -12,10 +17,24 @@ const doSearch = ({
             type
         }
     }`;
+};
+
+const doSearch = ({
+    queryKey,
+}) => {
+    const searchPhrase = queryKey[ 1 ].replace(/[^A-Za-z0-9ÅÄÖåäö .]/giu, '');
+    const sources = queryKey[ 2 ];
+    const maxPrice = queryKey[ 3 ];
+    const sort = queryKey[ 4 ] || 'relevance';
+
+    let query = buildSearchQuery(searchPhrase, sources, {
+        maxPrice,
+        sort,
+    });
 
     if (searchPhrase === '') {
         query = `{
-            getRandomItems( sources: "${queryKey[ 2 ]}" ) {
+            getRandomItems( sources: "${sources}" ) {
                 title
                 url
                 currentPrice
@@ -25,7 +44,7 @@ const doSearch = ({
         }`;
     }
 
-    console.log(`Searching for "${searchPhrase}" in ${queryKey[ 2 ]}`);
+    console.log(`Searching for "${searchPhrase}" in ${sources}`);
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
         event: 'view_search_results',
