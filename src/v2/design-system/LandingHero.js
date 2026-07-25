@@ -49,7 +49,7 @@ const LandingHero = ({
                     }}
                 >
                     <Typography
-                        color = 'text.secondary'
+                        color = 'secondary.main'
                         fontSize = '0.78rem'
                         fontWeight = {850}
                         letterSpacing = '0.09em'
@@ -64,7 +64,7 @@ const LandingHero = ({
                         {'Hitta det du letar efter.'}
                     </Typography>
                     <Typography
-                        color = 'text.secondary'
+                        color = 'secondary.main'
                         fontSize = {{
                             sm: '1.15rem',
                             xs: '1rem',
