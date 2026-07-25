@@ -27,6 +27,17 @@ CI=true npx react-scripts test --watchAll=false
 npm run build
 ```
 
+### Design-system requirement
+
+All new UI work must be implemented as part of a reusable design system, not as page-specific one-off styling.
+
+- Keep design tokens (color, typography, spacing, radius, shadows, breakpoints) in the V2 theme.
+- Build shared primitives and patterns for search fields, buttons, filter controls, source selectors, cards, page containers, and navigation.
+- Pages compose those components; they must not duplicate visual style objects or introduce arbitrary colors and spacing.
+- Extend an existing design-system component or token before creating a page-local variant.
+- Keep the V2 system isolated from the classic interface until the new design replaces it.
+- Add tests for shared behavior and verify reusable components at desktop and mobile widths.
+
 ### Key caveats
 - **Backend API:** When running on `localhost`, `src/index.js` sets `window.API_HOSTNAME` to `http://192.168.1.218:4080` (a local network address). This API is not available in cloud environments. The app will load and be interactive, but search results and data will not populate. This is expected.
 - **Auth0:** Authentication requires the external Auth0 tenant (`fyndmaskinen.eu.auth0.com`). Login flows will redirect externally but may not work without proper Auth0 configuration for the current origin.
