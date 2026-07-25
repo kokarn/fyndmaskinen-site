@@ -1,10 +1,6 @@
 import PropTypes from 'prop-types';
 import {
-    Link,
-} from 'react-router-dom';
-import {
     Box,
-    Button,
     Stack,
 } from '@mui/material';
 
@@ -40,33 +36,6 @@ const AppShell = ({
                         }}
                     >
                         <Brand />
-                        <Stack
-                            alignItems = 'center'
-                            direction = 'row'
-                            spacing = {1}
-                        >
-                            <Button
-                                component = {Link}
-                                sx = {{
-                                    display: {
-                                        sm: 'inline-flex',
-                                        xs: 'none',
-                                    },
-                                }}
-                                to = '/profile'
-                                variant = 'text'
-                            >
-                                {'Bevakningar'}
-                            </Button>
-                            <Button
-                                component = {Link}
-                                size = 'small'
-                                to = '/profile'
-                                variant = 'contained'
-                            >
-                                {'Logga in'}
-                            </Button>
-                        </Stack>
                     </Stack>
                 </PageContainer>
             </Box>

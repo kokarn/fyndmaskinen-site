@@ -38,6 +38,7 @@ import BarcodeQuagga from './pages/barcode/quagga';
 import BarcodeZXing from './pages/barcode/zxing';
 import BarcodeHtml5Qrcode from './pages/barcode/html5-qrcode';
 import V2Provider from './v2/V2Provider';
+import V2DesignSystem from './v2/pages/DesignSystem';
 import V2Home from './v2/pages/Home';
 import V2SearchResults from './v2/pages/SearchResults';
 
@@ -148,6 +149,10 @@ const App = () => {
                     <Route
                         element = {<V2Home />}
                         path = '/v2'
+                    />
+                    <Route
+                        element = {<V2DesignSystem />}
+                        path = '/v2/design-system'
                     />
                     <Route
                         element = {<V2SearchResults />}
