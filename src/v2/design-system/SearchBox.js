@@ -35,21 +35,7 @@ const SearchBox = ({
             onSubmit = {handleSubmit}
             spacing = {1.5}
             sx = {{
-                backgroundColor: {
-                    sm: 'transparent',
-                    xs: 'background.paper',
-                },
-                borderRadius: {
-                    xs: 3,
-                },
-                boxShadow: {
-                    sm: 'none',
-                    xs: '0 8px 24px rgba(18, 58, 51, 0.10)',
-                },
-                padding: {
-                    sm: 0,
-                    xs: 1,
-                },
+                width: '100%',
             }}
         >
             <TextField
