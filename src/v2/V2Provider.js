@@ -10,7 +10,9 @@ const V2Provider = ({
     children,
 }) => {
     return (
-        <ThemeProvider theme = {theme}>
+        <ThemeProvider
+            theme = {theme}
+        >
             <CssBaseline />
             {children}
         </ThemeProvider>
