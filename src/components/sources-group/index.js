@@ -12,13 +12,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 
 import sources from '../../sources';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
-
-const chipStyle = {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 0,
-    color: '#000000DE',
-    padding: '10px 0px',
-};
+import getSourceChipStyle from './source-chip-style';
 
 const SourceChipItem = ({
     icon,
@@ -55,7 +49,7 @@ const SourceChipItem = ({
             onClick = {handleToggle}
             onDelete = {handleToggle}
             // eslint-disable-next-line react/forbid-component-props
-            style = {chipStyle}
+            style = {getSourceChipStyle(isActive)}
         />
     );
 };

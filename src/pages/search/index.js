@@ -33,6 +33,7 @@ import useDebounce from '../../hooks/useDebounce';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import allSources from '../../sources';
 import SearchField from '../../components/search-field';
+import filterFieldStyle from './filter-field-style';
 
 const SEARCH_DELAY = 200;
 const MAX_ITEMS = 500;
@@ -213,6 +214,7 @@ const Search = () => {
                         onChange = {handleMaxPriceChange}
                         placeholder = 'kr'
                         size = 'small'
+                        sx = {filterFieldStyle}
                         type = 'number'
                         value = {maxPrice}
                         variant = 'filled'
@@ -232,6 +234,7 @@ const Search = () => {
                         onChange = {handleSortChange}
                         select
                         size = 'small'
+                        sx = {filterFieldStyle}
                         value = {sort}
                         variant = 'filled'
                     >
