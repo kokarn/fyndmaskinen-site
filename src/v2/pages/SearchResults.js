@@ -129,7 +129,10 @@ const SearchResults = () => {
             <Box
                 sx = {{
                     backgroundColor: '#E4EFE9',
-                    paddingY: 3,
+                    paddingY: {
+                        sm: 3,
+                        xs: 2,
+                    },
                 }}
             >
                 <PageContainer>
@@ -142,7 +145,10 @@ const SearchResults = () => {
             <PageContainer
                 sx = {{
                     paddingBottom: 8,
-                    paddingTop: 5,
+                    paddingTop: {
+                        sm: 5,
+                        xs: 3,
+                    },
                 }}
             >
                 <Stack
@@ -171,6 +177,7 @@ const SearchResults = () => {
                         </Typography>
                     </Box>
                     <Button
+                        fullWidth
                         onClick = {handleDrawerOpen}
                         startIcon = {<FilterListIcon />}
                         sx = {{
@@ -185,8 +192,14 @@ const SearchResults = () => {
                 </Stack>
                 <Grid
                     container
-                    marginTop = {3}
-                    spacing = {3}
+                    marginTop = {{
+                        sm: 3,
+                        xs: 1,
+                    }}
+                    spacing = {{
+                        md: 3,
+                        xs: 2,
+                    }}
                 >
                     <Grid
                         item
@@ -237,7 +250,10 @@ const SearchResults = () => {
                         {!isFetching && (
                             <Grid
                                 container
-                                spacing = {2.5}
+                                spacing = {{
+                                    sm: 2.5,
+                                    xs: 1.5,
+                                }}
                             >
                                 {searchResult.map((item) => {
                                     return (

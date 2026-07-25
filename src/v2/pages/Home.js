@@ -41,11 +41,11 @@ const Home = () => {
                     backgroundImage: 'radial-gradient(circle at 90% 0%, rgba(255,255,255,.45), transparent 28%)',
                     paddingBottom: {
                         md: 9,
-                        xs: 6,
+                        xs: 4.5,
                     },
                     paddingTop: {
                         md: 8,
-                        xs: 5,
+                        xs: 3.5,
                     },
                 }}
             >
@@ -56,7 +56,10 @@ const Home = () => {
                 >
                     <Stack
                         alignItems = 'center'
-                        spacing = {3}
+                        spacing = {{
+                            sm: 3,
+                            xs: 2,
+                        }}
                         textAlign = 'center'
                     >
                         <Typography
@@ -69,6 +72,7 @@ const Home = () => {
                                 letterSpacing: '0.06em',
                                 paddingX: 2,
                                 paddingY: 0.8,
+                                whiteSpace: 'nowrap',
                             }}
                         >
                             {'ALLA MARKNADSPLATSER. EN SÖKNING.'}
@@ -82,7 +86,10 @@ const Home = () => {
                         </Typography>
                         <Typography
                             color = 'text.secondary'
-                            fontSize = '1.1rem'
+                            fontSize = {{
+                                sm: '1.1rem',
+                                xs: '1rem',
+                            }}
                         >
                             {'Sök samtidigt på Blocket, Tradera, Auctionet och fler.'}
                         </Typography>
@@ -103,7 +110,10 @@ const Home = () => {
             <PageContainer
                 sx = {{
                     paddingBottom: 9,
-                    paddingTop: 5,
+                    paddingTop: {
+                        sm: 5,
+                        xs: 3.5,
+                    },
                 }}
             >
                 <Typography
@@ -118,7 +128,7 @@ const Home = () => {
                 <Stack
                     direction = 'row'
                     flexWrap = 'wrap'
-                    gap = {1.5}
+                    gap = {1}
                     justifyContent = 'center'
                     marginTop = {2}
                 >
@@ -133,7 +143,10 @@ const Home = () => {
                     })}
                 </Stack>
                 <Stack
-                    marginTop = {8}
+                    marginTop = {{
+                        sm: 8,
+                        xs: 5,
+                    }}
                     spacing = {1}
                     textAlign = 'center'
                 >

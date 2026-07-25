@@ -34,7 +34,10 @@ const AppShell = ({
                         alignItems = 'center'
                         direction = 'row'
                         justifyContent = 'space-between'
-                        minHeight = {72}
+                        minHeight = {{
+                            sm: 72,
+                            xs: 60,
+                        }}
                     >
                         <Brand />
                         <Stack
@@ -57,6 +60,7 @@ const AppShell = ({
                             </Button>
                             <Button
                                 component = {Link}
+                                size = 'small'
                                 to = '/profile'
                                 variant = 'contained'
                             >

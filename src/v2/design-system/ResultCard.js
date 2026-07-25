@@ -52,7 +52,10 @@ const ResultCard = ({
                     ].join('&')}
                     sx = {{
                         backgroundColor: '#E9E1D4',
-                        height: 210,
+                        height: {
+                            sm: 210,
+                            xs: 180,
+                        },
                         objectFit: 'contain',
                     }}
                 />

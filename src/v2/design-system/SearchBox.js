@@ -34,6 +34,23 @@ const SearchBox = ({
             }}
             onSubmit = {handleSubmit}
             spacing = {1.5}
+            sx = {{
+                backgroundColor: {
+                    sm: 'transparent',
+                    xs: 'background.paper',
+                },
+                borderRadius: {
+                    xs: 3,
+                },
+                boxShadow: {
+                    sm: 'none',
+                    xs: '0 8px 24px rgba(18, 58, 51, 0.10)',
+                },
+                padding: {
+                    sm: 0,
+                    xs: 1,
+                },
+            }}
         >
             <TextField
                 autoFocus
@@ -54,7 +71,10 @@ const SearchBox = ({
                 }}
                 sx = {{
                     '& .MuiOutlinedInput-root': {
-                        minHeight: 64,
+                        minHeight: {
+                            sm: 64,
+                            xs: 54,
+                        },
                     },
                 }}
             />
@@ -63,6 +83,9 @@ const SearchBox = ({
                 size = 'large'
                 sx = {{
                     flexShrink: 0,
+                    minHeight: {
+                        xs: 52,
+                    },
                     minWidth: {
                         sm: 190,
                     },

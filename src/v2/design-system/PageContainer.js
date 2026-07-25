@@ -14,7 +14,8 @@ const PageContainer = ({
                 maxWidth: 1324,
                 paddingX: {
                     md: 4,
-                    xs: 2,
+                    sm: 3,
+                    xs: 2.25,
                 },
                 ...sx,
             }}

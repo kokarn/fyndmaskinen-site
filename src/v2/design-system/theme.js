@@ -73,13 +73,13 @@ const theme = createTheme({
         ].join(','),
         h1: {
             fontFamily: 'Georgia, "Times New Roman", serif',
-            fontSize: 'clamp(2.25rem, 5vw, 3.5rem)',
+            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
             fontWeight: 700,
             letterSpacing: '-0.03em',
             lineHeight: 1.08,
         },
         h2: {
-            fontSize: 'clamp(1.6rem, 3vw, 2rem)',
+            fontSize: 'clamp(1.45rem, 3vw, 2rem)',
             fontWeight: 800,
             letterSpacing: '-0.02em',
         },

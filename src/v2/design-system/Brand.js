@@ -38,7 +38,10 @@ const Brand = () => {
                 />
             </Box>
             <Typography
-                fontSize = '1.45rem'
+                fontSize = {{
+                    sm: '1.45rem',
+                    xs: '1.2rem',
+                }}
                 fontWeight = {850}
                 letterSpacing = '-0.03em'
             >
