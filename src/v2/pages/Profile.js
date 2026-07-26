@@ -103,6 +103,12 @@ const Profile = () => {
     }, [
         addMutation, newWatch,
     ]);
+    const handleNewWatchChange = useCallback((event) => {
+        setNewWatch(event.target.value);
+    }, []);
+    const handleWatchDelete = useCallback((event) => {
+        removeMutation.mutate(event.currentTarget.dataset.match);
+    }, [ removeMutation ]);
     const handleLogout = useCallback(() => {
         return logout({
             returnTo: window.location.origin,
@@ -138,9 +144,7 @@ const Profile = () => {
                                     disabled = {atLimit}
                                     fullWidth
                                     label = 'Ny bevakning'
-                                    onChange = {(event) => {
-                                        return setNewWatch(event.target.value);
-                                    }}
+                                    onChange = {handleNewWatchChange}
                                     placeholder = 'Till exempel: stringhylla'
                                     value = {newWatch}
                                 />
@@ -233,9 +237,8 @@ const Profile = () => {
                                     <Button
                                         aria-label = {`Ta bort bevakningen ${watch.match}`}
                                         color = 'secondary'
-                                        onClick = {() => {
-                                            return removeMutation.mutate(watch.match);
-                                        }}
+                                        data-match = {watch.match}
+                                        onClick = {handleWatchDelete}
                                         startIcon = {<DeleteOutlineIcon />}
                                         variant = 'text'
                                     >
