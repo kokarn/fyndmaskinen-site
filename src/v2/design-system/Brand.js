@@ -6,7 +6,6 @@ import {
     Stack,
     Typography,
 } from '@mui/material';
-import DoneIcon from '@mui/icons-material/Done';
 
 const Brand = () => {
     return (
@@ -24,21 +23,17 @@ const Brand = () => {
             to = '/v2'
         >
             <Box
+                alt = ''
+                aria-hidden = 'true'
+                component = 'img'
+                src = '/logo192.png'
                 sx = {{
-                    alignItems: 'center',
-                    backgroundColor: 'primary.main',
-                    borderRadius: '50%',
-                    color: 'primary.contrastText',
-                    display: 'flex',
+                    flexShrink: 0,
                     height: 32,
-                    justifyContent: 'center',
+                    objectFit: 'contain',
                     width: 32,
                 }}
-            >
-                <DoneIcon
-                    fontSize = 'small'
-                />
-            </Box>
+            />
             <Typography
                 display = {{
                     sm: 'block',

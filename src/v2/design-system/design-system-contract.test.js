@@ -113,6 +113,8 @@ describe('V2 design-system contract', () => {
         expect(accountSource).toContain("xs: 'none'");
         expect(accountSource).toContain("aria-label = 'Bevakningar'");
         expect(brandSource).toContain("xs: 'none'");
+        expect(brandSource).toContain("src = '/logo192.png'");
+        expect(brandSource).not.toContain('DoneIcon');
     });
 
     it('showcases every reusable design-system component', () => {
