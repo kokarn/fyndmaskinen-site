@@ -33,6 +33,17 @@ const shadows = {
     card: `0 5px 18px ${alpha(colors.ink, 0.08)}`,
 };
 
+const density = {
+    resultCard: {
+        contentPadding: 1.5,
+        imageHeight: {
+            sm: 150,
+            xs: 124,
+        },
+        titleMinHeight: 42,
+    },
+};
+
 const theme = createTheme({
     components: {
         MuiButton: {
@@ -115,6 +126,7 @@ const theme = createTheme({
 export {
     borders,
     colors,
+    density,
     shadows,
     sourceColors,
 };

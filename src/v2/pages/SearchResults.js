@@ -251,8 +251,8 @@ const SearchResults = () => {
                             <Grid
                                 container
                                 spacing = {{
-                                    sm: 2.5,
-                                    xs: 1.5,
+                                    sm: 1.5,
+                                    xs: 1,
                                 }}
                             >
                                 {searchResult.map((item) => {
@@ -260,9 +260,9 @@ const SearchResults = () => {
                                         <Grid
                                             item
                                             key = {item.url}
-                                            lg = {4}
-                                            sm = {6}
-                                            xs = {12}
+                                            lg = {3}
+                                            sm = {4}
+                                            xs = {6}
                                         >
                                             <ResultCard
                                                 item = {item}

@@ -39,6 +39,16 @@ describe('V2 design-system contract', () => {
         expect(offenders).toEqual([]);
     });
 
+    it('defines compact listing density in the design system', () => {
+        const themeSource = fs.readFileSync(themePath, 'utf8');
+        const cardSource = fs.readFileSync(path.resolve(__dirname, 'ResultCard.js'), 'utf8');
+        const resultsSource = fs.readFileSync(path.join(v2Root, 'pages', 'SearchResults.js'), 'utf8');
+
+        expect(themeSource).toContain('resultCard:');
+        expect(cardSource).toContain('resultCard.imageHeight');
+        expect(resultsSource).toContain('lg = {3}');
+    });
+
     it('showcases every reusable design-system component', () => {
         const showcase = fs.readFileSync(path.join(v2Root, 'pages', 'DesignSystem.js'), 'utf8');
         const components = fs.readdirSync(path.resolve(__dirname))

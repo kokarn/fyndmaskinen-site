@@ -10,6 +10,13 @@ import {
 
 import sources from '../../sources';
 import SourceMark from './SourceMark';
+import {
+    density,
+} from './theme';
+
+const {
+    resultCard,
+} = density;
 
 const ResultCard = ({
     item,
@@ -50,19 +57,25 @@ const ResultCard = ({
                     ].join('&')}
                     sx = {{
                         backgroundColor: 'surface.image',
-                        height: {
-                            sm: 210,
-                            xs: 180,
-                        },
+                        height: resultCard.imageHeight,
                         objectFit: 'contain',
                     }}
                 />
-                <CardContent>
+                <CardContent
+                    sx = {{
+                        '&:last-child': {
+                            paddingBottom: resultCard.contentPadding,
+                        },
+                        padding: resultCard.contentPadding,
+                    }}
+                >
                     <Typography
                         fontWeight = {750}
                         sx = {{
                             display: '-webkit-box',
-                            minHeight: 48,
+                            fontSize: '0.9rem',
+                            lineHeight: 1.35,
+                            minHeight: resultCard.titleMinHeight,
                             overflow: 'hidden',
                             WebkitBoxOrient: 'vertical',
                             WebkitLineClamp: 2,
@@ -74,10 +87,10 @@ const ResultCard = ({
                         alignItems = 'center'
                         direction = 'row'
                         justifyContent = 'space-between'
-                        marginTop = {2}
+                        marginTop = {1}
                     >
                         <Typography
-                            fontSize = '1.1rem'
+                            fontSize = '1rem'
                             fontWeight = {850}
                         >
                             {price}
