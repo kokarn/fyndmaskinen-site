@@ -27,6 +27,7 @@ import DesignSwatch from '../design-system/DesignSwatch';
 import FeatureLinkCard from '../design-system/FeatureLinkCard';
 import FilterDrawer from '../design-system/FilterDrawer';
 import FilterPanel from '../design-system/FilterPanel';
+import LandingCoverage from '../design-system/LandingCoverage';
 import LandingHero from '../design-system/LandingHero';
 import PageContainer from '../design-system/PageContainer';
 import ResultCard from '../design-system/ResultCard';
@@ -410,6 +411,10 @@ const DesignSystem = () => {
                             <Brand />
                             <LandingHero
                                 onSearch = {handleSearch}
+                            />
+                            <LandingCoverage
+                                auctionHouseCount = {138}
+                                sources = {sources}
                             />
                         </Stack>
                     </DesignSection>

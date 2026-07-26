@@ -5,9 +5,11 @@ import {
     useNavigate,
 } from 'react-router-dom';
 import {
-    Stack,
-    Typography,
+    Box,
 } from '@mui/material';
+import {
+    useQuery,
+} from 'react-query';
 import {
     Helmet,
 } from 'react-helmet';
@@ -15,9 +17,9 @@ import {
 import sources from '../../sources';
 import AppShell from '../design-system/AppShell';
 import FilterDrawer from '../design-system/FilterDrawer';
+import LandingCoverage from '../design-system/LandingCoverage';
 import LandingHero from '../design-system/LandingHero';
 import PageContainer from '../design-system/PageContainer';
-import SourceMark from '../design-system/SourceMark';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import {
     createV2SearchPath,
@@ -76,6 +78,25 @@ const Home = () => {
         sources,
         sourceState,
     };
+    const {
+        data: auctionHouseCount = 0,
+    } = useQuery('getAuctionHouseCount', async () => {
+        const response = await fetch(`${window.API_HOSTNAME}/graphql`, {
+            body: JSON.stringify({
+                query: '{ getAuctionHouseCount }',
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+        });
+        const payload = await response.json();
+
+        return payload?.data?.getAuctionHouseCount || 0;
+    }, {
+        refetchOnWindowFocus: false,
+        staleTime: Infinity,
+    });
 
     return (
         <AppShell>
@@ -87,65 +108,26 @@ const Home = () => {
             <LandingHero
                 onSearch = {handleSearch}
             />
-            <PageContainer
-                sx = {{
-                    paddingBottom: {
-                        sm: 8,
-                        xs: 5,
-                    },
-                    paddingTop: {
-                        sm: 5,
-                        xs: 4,
-                    },
-                }}
-            >
-                <Stack
-                    alignItems = 'center'
-                    spacing = {2}
+            <PageContainer>
+                <Box
+                    sx = {{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        paddingY: {
+                            sm: 3,
+                            xs: 2.5,
+                        },
+                    }}
                 >
-                    <Typography
-                        color = 'text.secondary'
-                        fontSize = '0.75rem'
-                        fontWeight = {850}
-                        letterSpacing = '0.07em'
-                        textAlign = 'center'
-                    >
-                        {'SÖKER HOS'}
-                    </Typography>
                     <FilterDrawer
                         filterProps = {filterProps}
                         label = 'Välj filter'
                     />
-                    <Stack
-                        direction = 'row'
-                        flexWrap = 'wrap'
-                        gap = {1}
-                        justifyContent = 'center'
-                    >
-                        {sources.map((source) => {
-                            return (
-                                <SourceMark
-                                    key = {source.id}
-                                    label = {source.label}
-                                    sourceId = {source.id}
-                                />
-                            );
-                        })}
-                    </Stack>
-                    <Typography
-                        color = 'text.secondary'
-                        fontSize = '0.9rem'
-                        marginTop = {{
-                            sm: 3,
-                            xs: 2,
-                        }}
-                        maxWidth = {560}
-                        textAlign = 'center'
-                    >
-                        {'Fyndmaskinen samlar resultaten på ett ställe. När du hittar något öppnas '
-                            + 'originalannonsen hos marknadsplatsen.'}
-                    </Typography>
-                </Stack>
+                </Box>
+                <LandingCoverage
+                    auctionHouseCount = {auctionHouseCount}
+                    sources = {sources}
+                />
             </PageContainer>
         </AppShell>
     );
