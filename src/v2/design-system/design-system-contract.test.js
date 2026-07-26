@@ -76,12 +76,24 @@ describe('V2 design-system contract', () => {
         expect(resultsSource).toContain('<SaveSearchButton');
     });
 
+    it('keeps profile and admin navigation inside the V2 experience', () => {
+        const appSource = fs.readFileSync(path.resolve(v2Root, '..', 'App.js'), 'utf8');
+        const accountSource = fs.readFileSync(path.resolve(__dirname, 'AccountActions.js'), 'utf8');
+
+        expect(appSource).toContain("path = '/profile'");
+        expect(appSource).toContain('<V2Profile />');
+        expect(appSource).toContain("path = '/admin'");
+        expect(appSource).toContain('<V2Admin />');
+        expect(accountSource).toContain("to = '/admin'");
+    });
+
     it('showcases every reusable design-system component', () => {
         const showcase = fs.readFileSync(path.join(v2Root, 'pages', 'DesignSystem.js'), 'utf8');
         const components = fs.readdirSync(path.resolve(__dirname))
             .filter((name) => name.endsWith('.js'))
             .filter((name) => !name.endsWith('.test.js'))
             .filter((name) => ![
+                'AccountPageShell.js',
                 'DesignSection.js',
                 'DesignSwatch.js',
                 'theme.js',

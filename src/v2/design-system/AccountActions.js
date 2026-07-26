@@ -11,10 +11,13 @@ import {
     Stack,
 } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
     Link,
 } from 'react-router-dom';
+
+const ADMIN_EMAIL = 'kokarn@gmail.com';
 
 const AccountActions = () => {
     const {
@@ -54,6 +57,16 @@ const AccountActions = () => {
             direction = 'row'
             spacing = {1}
         >
+            {user?.email === ADMIN_EMAIL && (
+                <Button
+                    component = {Link}
+                    startIcon = {<AdminPanelSettingsIcon />}
+                    to = '/admin'
+                    variant = 'text'
+                >
+                    {'Admin'}
+                </Button>
+            )}
             <Button
                 component = {Link}
                 startIcon = {<VisibilityIcon />}

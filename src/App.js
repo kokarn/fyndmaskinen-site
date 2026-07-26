@@ -41,6 +41,9 @@ import V2Provider from './v2/V2Provider';
 import V2DesignSystem from './v2/pages/DesignSystem';
 import V2Home from './v2/pages/Home';
 import V2SearchResults from './v2/pages/SearchResults';
+import V2Profile from './v2/pages/Profile';
+import V2Admin from './v2/pages/Admin';
+import V2AdminWatches from './v2/pages/AdminWatches';
 
 // eslint-disable-next-line no-process-env, no-undef
 const PUBLIC_URL = process.env.PUBLIC_URL;
@@ -142,7 +145,16 @@ const App = () => {
         };
     }, []);
 
-    if (window.location.pathname.startsWith('/v2')) {
+    const v2Paths = [
+        '/v2',
+        '/profile',
+        '/admin',
+    ];
+    const usesV2 = v2Paths.some((path) => {
+        return window.location.pathname.startsWith(path);
+    });
+
+    if (usesV2) {
         return (
             <V2Provider>
                 <Routes>
@@ -157,6 +169,18 @@ const App = () => {
                     <Route
                         element = {<V2SearchResults />}
                         path = '/v2/search/:searchString'
+                    />
+                    <Route
+                        element = {<V2Profile />}
+                        path = '/profile'
+                    />
+                    <Route
+                        element = {<V2Admin />}
+                        path = '/admin'
+                    />
+                    <Route
+                        element = {<V2AdminWatches />}
+                        path = '/admin/watches'
                     />
                 </Routes>
             </V2Provider>
