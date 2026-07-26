@@ -18,6 +18,7 @@ import {
 
 import sources from '../../sources';
 import AppShell from '../design-system/AppShell';
+import AccountActions from '../design-system/AccountActions';
 import Brand from '../design-system/Brand';
 import DesignSection from '../design-system/DesignSection';
 import DesignSwatch from '../design-system/DesignSwatch';
@@ -27,6 +28,7 @@ import PageContainer from '../design-system/PageContainer';
 import ResultCard from '../design-system/ResultCard';
 import SearchBox from '../design-system/SearchBox';
 import SearchLoading from '../design-system/SearchLoading';
+import SaveSearchButton from '../design-system/SaveSearchButton';
 import SourceMark from '../design-system/SourceMark';
 import {
     colors,
@@ -275,6 +277,20 @@ const DesignSystem = () => {
                                     {'Textknapp'}
                                 </Button>
                             </Stack>
+                        </Stack>
+                    </DesignSection>
+                    <DesignSection
+                        description = 'Riktiga Auth0- och bevakningsåtgärder, inte dekorativa kontroller.'
+                        title = 'Konto och bevakningar'
+                    >
+                        <Stack
+                            alignItems = 'flex-start'
+                            spacing = {2}
+                        >
+                            <AccountActions />
+                            <SaveSearchButton
+                                searchPhrase = 'designklassiker'
+                            />
                         </Stack>
                     </DesignSection>
                     <DesignSection

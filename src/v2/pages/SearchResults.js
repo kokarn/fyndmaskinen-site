@@ -33,6 +33,7 @@ import PageContainer from '../design-system/PageContainer';
 import ResultCard from '../design-system/ResultCard';
 import SearchBox from '../design-system/SearchBox';
 import SearchLoading from '../design-system/SearchLoading';
+import SaveSearchButton from '../design-system/SaveSearchButton';
 import {
     createV2SearchPath,
     getDefaultSourceState,
@@ -178,19 +179,30 @@ const SearchResults = () => {
                             {`Resultat från ${enabledSourceIds.length} marknadsplatser`}
                         </Typography>
                     </Box>
-                    <Button
-                        fullWidth
-                        onClick = {handleDrawerOpen}
-                        startIcon = {<FilterListIcon />}
-                        sx = {{
-                            display: {
-                                md: 'none',
-                            },
+                    <Stack
+                        direction = {{
+                            sm: 'row',
+                            xs: 'column',
                         }}
-                        variant = 'outlined'
+                        spacing = {1}
                     >
-                        {'Filter'}
-                    </Button>
+                        <SaveSearchButton
+                            searchPhrase = {searchPhrase}
+                        />
+                        <Button
+                            fullWidth
+                            onClick = {handleDrawerOpen}
+                            startIcon = {<FilterListIcon />}
+                            sx = {{
+                                display: {
+                                    md: 'none',
+                                },
+                            }}
+                            variant = 'outlined'
+                        >
+                            {'Filter'}
+                        </Button>
+                    </Stack>
                 </Stack>
                 <Grid
                     container

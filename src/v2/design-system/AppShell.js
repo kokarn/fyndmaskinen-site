@@ -5,6 +5,7 @@ import {
 } from '@mui/material';
 
 import Brand from './Brand';
+import AccountActions from './AccountActions';
 import PageContainer from './PageContainer';
 
 const AppShell = ({
@@ -36,6 +37,7 @@ const AppShell = ({
                         }}
                     >
                         <Brand />
+                        <AccountActions />
                     </Stack>
                 </PageContainer>
             </Box>

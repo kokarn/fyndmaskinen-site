@@ -68,6 +68,14 @@ describe('V2 design-system contract', () => {
         expect(cardSource).toContain("justifyContent: 'space-between'");
     });
 
+    it('exposes real account and saved-search actions in V2', () => {
+        const shellSource = fs.readFileSync(path.resolve(__dirname, 'AppShell.js'), 'utf8');
+        const resultsSource = fs.readFileSync(path.join(v2Root, 'pages', 'SearchResults.js'), 'utf8');
+
+        expect(shellSource).toContain('<AccountActions />');
+        expect(resultsSource).toContain('<SaveSearchButton');
+    });
+
     it('showcases every reusable design-system component', () => {
         const showcase = fs.readFileSync(path.join(v2Root, 'pages', 'DesignSystem.js'), 'utf8');
         const components = fs.readdirSync(path.resolve(__dirname))
