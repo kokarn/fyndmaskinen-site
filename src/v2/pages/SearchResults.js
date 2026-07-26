@@ -1,6 +1,5 @@
 import {
     useCallback,
-    useState,
 } from 'react';
 import {
     useNavigate,
@@ -11,14 +10,12 @@ import {
 } from 'react-query';
 import {
     Box,
-    Button,
     Chip,
-    Drawer,
     Grid,
     Stack,
     Typography,
 } from '@mui/material';
-import FilterListIcon from '@mui/icons-material/FilterList';
+
 import {
     Helmet,
 } from 'react-helmet';
@@ -29,6 +26,7 @@ import useDebounce from '../../hooks/useDebounce';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import AppShell from '../design-system/AppShell';
 import FilterPanel from '../design-system/FilterPanel';
+import FilterDrawer from '../design-system/FilterDrawer';
 import PageContainer from '../design-system/PageContainer';
 import ResultCard from '../design-system/ResultCard';
 import SearchBox from '../design-system/SearchBox';
@@ -55,15 +53,12 @@ const SearchResults = () => {
     const [
         maxPrice,
         setMaxPrice,
-    ] = useState('');
+    ] = useStateWithLocalStorage('v2-max-price', '');
     const [
         sort,
         setSort,
-    ] = useState('relevance');
-    const [
-        drawerOpen,
-        setDrawerOpen,
-    ] = useState(false);
+    ] = useStateWithLocalStorage('v2-sort', 'relevance');
+
     const debouncedMaxPrice = useDebounce(maxPrice, SEARCH_DELAY);
     const enabledSourceIds = getEnabledSourceIds(sourceState, sources);
     const {
@@ -103,12 +98,7 @@ const SearchResults = () => {
         setMaxPrice('');
         setSort('relevance');
     }, [ setSourceState ]);
-    const handleDrawerOpen = useCallback(() => {
-        setDrawerOpen(true);
-    }, []);
-    const handleDrawerClose = useCallback(() => {
-        setDrawerOpen(false);
-    }, []);
+
     const filterProps = {
         maxPrice,
         onMaxPriceChange: handleMaxPriceChange,
@@ -180,28 +170,35 @@ const SearchResults = () => {
                         </Typography>
                     </Box>
                     <Stack
-                        direction = {{
-                            sm: 'row',
-                            xs: 'column',
-                        }}
+                        direction = 'row'
                         spacing = {1}
+                        sx = {{
+                            width: {
+                                sm: 'auto',
+                                xs: '100%',
+                            },
+                        }}
                     >
-                        <SaveSearchButton
-                            searchPhrase = {searchPhrase}
-                        />
-                        <Button
-                            fullWidth
-                            onClick = {handleDrawerOpen}
-                            startIcon = {<FilterListIcon />}
+                        <Box
                             sx = {{
+                                flex: 1,
+                            }}
+                        >
+                            <SaveSearchButton
+                                fullWidth
+                                searchPhrase = {searchPhrase}
+                            />
+                        </Box>
+                        <FilterDrawer
+                            buttonSx = {{
                                 display: {
                                     md: 'none',
                                 },
+                                flex: 1,
                             }}
-                            variant = 'outlined'
-                        >
-                            {'Filter'}
-                        </Button>
+                            filterProps = {filterProps}
+                            fullWidth
+                        />
                     </Stack>
                 </Stack>
                 <Grid
@@ -284,22 +281,7 @@ const SearchResults = () => {
                     </Grid>
                 </Grid>
             </PageContainer>
-            <Drawer
-                anchor = 'bottom'
-                onClose = {handleDrawerClose}
-                open = {drawerOpen}
-            >
-                <Box
-                    sx = {{
-                        padding: 2,
-                    }}
-                >
-                    <FilterPanel
-                        {...filterProps}
-                        onApply = {handleDrawerClose}
-                    />
-                </Box>
-            </Drawer>
+
         </AppShell>
     );
 };

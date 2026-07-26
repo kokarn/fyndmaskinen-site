@@ -25,6 +25,7 @@ import DealTable from '../design-system/DealTable';
 import DesignSection from '../design-system/DesignSection';
 import DesignSwatch from '../design-system/DesignSwatch';
 import FeatureLinkCard from '../design-system/FeatureLinkCard';
+import FilterDrawer from '../design-system/FilterDrawer';
 import FilterPanel from '../design-system/FilterPanel';
 import LandingHero from '../design-system/LandingHero';
 import PageContainer from '../design-system/PageContainer';
@@ -432,6 +433,25 @@ const DesignSystem = () => {
                                 sourceState = {sourceState}
                                 sources = {sources}
                             />
+                            <Box
+                                sx = {{
+                                    marginTop: 2,
+                                }}
+                            >
+                                <FilterDrawer
+                                    filterProps = {{
+                                        maxPrice,
+                                        onMaxPriceChange: handleMaxPriceChange,
+                                        onReset: handleReset,
+                                        onSortChange: handleSortChange,
+                                        onSourceChange: handleSourceChange,
+                                        sort,
+                                        sources,
+                                        sourceState,
+                                    }}
+                                    label = 'Öppna filterpanel'
+                                />
+                            </Box>
                         </Box>
                     </DesignSection>
                     <DesignSection

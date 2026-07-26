@@ -110,11 +110,21 @@ describe('V2 design-system contract', () => {
 
         expect(shellSource).toContain("overflowX: 'hidden'");
         expect(shellSource).toContain('minWidth: 0');
-        expect(accountSource).toContain("xs: 'none'");
         expect(accountSource).toContain("aria-label = 'Bevakningar'");
+        expect(accountSource).toContain("aria-label = 'Admin'");
         expect(brandSource).toContain("xs: 'none'");
         expect(brandSource).toContain("src = '/logo192.png'");
         expect(brandSource).not.toContain('DoneIcon');
+    });
+
+    it('keeps mobile result actions together and exposes filters on the landing page', () => {
+        const homeSource = fs.readFileSync(path.join(v2Root, 'pages', 'Home.js'), 'utf8');
+        const resultsSource = fs.readFileSync(path.join(v2Root, 'pages', 'SearchResults.js'), 'utf8');
+
+        expect(homeSource).toContain('<FilterDrawer');
+        expect(resultsSource).toContain("direction = 'row'");
+        expect(resultsSource).toContain('flex: 1');
+        expect(resultsSource).toContain('<FilterDrawer');
     });
 
     it('showcases every reusable design-system component', () => {

@@ -62,20 +62,36 @@ const AccountActions = () => {
             }}
         >
             {user?.email === ADMIN_EMAIL && (
-                <Button
-                    component = {Link}
-                    startIcon = {<AdminPanelSettingsIcon />}
-                    sx = {{
-                        display: {
-                            sm: 'inline-flex',
-                            xs: 'none',
-                        },
-                    }}
-                    to = '/admin'
-                    variant = 'text'
-                >
-                    {'Admin'}
-                </Button>
+                <>
+                    <Button
+                        component = {Link}
+                        startIcon = {<AdminPanelSettingsIcon />}
+                        sx = {{
+                            display: {
+                                sm: 'inline-flex',
+                                xs: 'none',
+                            },
+                        }}
+                        to = '/admin'
+                        variant = 'text'
+                    >
+                        {'Admin'}
+                    </Button>
+                    <IconButton
+                        aria-label = 'Admin'
+                        color = 'secondary'
+                        component = {Link}
+                        sx = {{
+                            display: {
+                                sm: 'none',
+                                xs: 'inline-flex',
+                            },
+                        }}
+                        to = '/admin'
+                    >
+                        <AdminPanelSettingsIcon />
+                    </IconButton>
+                </>
             )}
             <Button
                 component = {Link}

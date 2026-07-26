@@ -25,6 +25,7 @@ const AUTH_OPTIONS = {
 };
 
 const SaveSearchButton = ({
+    fullWidth,
     searchPhrase,
 }) => {
     const {
@@ -69,6 +70,7 @@ const SaveSearchButton = ({
     return (
         <Button
             disabled = {mutation.isLoading}
+            fullWidth = {fullWidth}
             onClick = {handleSave}
             startIcon = {<BookmarkAddIcon />}
             variant = 'outlined'
@@ -81,7 +83,12 @@ const SaveSearchButton = ({
 };
 
 SaveSearchButton.propTypes = {
+    fullWidth: PropTypes.bool,
     searchPhrase: PropTypes.string.isRequired,
+};
+
+SaveSearchButton.defaultProps = {
+    fullWidth: false,
 };
 
 export default SaveSearchButton;
