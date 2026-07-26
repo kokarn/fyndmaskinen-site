@@ -107,10 +107,13 @@ describe('V2 design-system contract', () => {
         const adminSource = fs.readFileSync(path.join(v2Root, 'pages', 'Admin.js'), 'utf8');
         const featureCardSource = fs.readFileSync(path.resolve(__dirname, 'FeatureLinkCard.js'), 'utf8');
 
-        expect(adminSource).toContain('item\n                                key = {link.to}');
-        expect(adminSource).toContain('item\n                                    key = {item.type}');
+        expect(adminSource).toContain("display: 'grid'");
+        expect(adminSource).toContain("gridTemplateColumns: {");
+        expect(adminSource).not.toContain('<Grid');
         expect(adminSource).toContain('data: itemCounts = []');
         expect(adminSource).toContain('isError');
+        expect(adminSource).toContain('AUTH_OPTIONS');
+        expect(adminSource).toContain('authorizationParams');
         expect(featureCardSource).toContain("xs: 'row'");
     });
 

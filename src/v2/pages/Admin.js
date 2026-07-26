@@ -12,7 +12,7 @@ import {
     Stack,
     Typography,
 } from '@mui/material';
-import Grid from '@mui/material/Grid';
+
 import {
     useQuery,
 } from 'react-query';
@@ -27,6 +27,10 @@ import SourceMark from '../design-system/SourceMark';
 import StatisticCard from '../design-system/StatisticCard';
 
 const STALE_TIME = 300000;
+const AUTH_OPTIONS = {
+    audience: 'https://fyndmaskinen.se',
+    scope: 'read:users email read:current_user',
+};
 const adminLinks = [
     {
         description: 'Jämför auktionspriser med Bokbörsen.',
@@ -100,8 +104,7 @@ const Admin = () => {
 
     useEffect(() => {
         getAccessTokenSilently({
-            audience: 'https://fyndmaskinen.se',
-            scope: 'read:users email read:current_user',
+            authorizationParams: AUTH_OPTIONS,
         })
             .then(setAccessToken)
             .catch(console.error);
@@ -133,17 +136,21 @@ const Admin = () => {
             <Stack
                 spacing = {5}
             >
-                <Grid
-                    container
-                    spacing = {2}
+                <Box
+                    sx = {{
+                        display: 'grid',
+                        gap: 2,
+                        gridTemplateColumns: {
+                            md: 'repeat(3, minmax(0, 1fr))',
+                            xs: 'minmax(0, 1fr)',
+                        },
+                        width: '100%',
+                    }}
                 >
                     {adminLinks.map((link) => {
                         return (
-                            <Grid
-                                item
+                            <Box
                                 key = {link.to}
-                                md = {4}
-                                xs = {12}
                             >
                                 <FeatureLinkCard
                                     description = {link.description}
@@ -151,10 +158,10 @@ const Admin = () => {
                                     label = {link.label}
                                     to = {link.to}
                                 />
-                            </Grid>
+                            </Box>
                         );
                     })}
-                </Grid>
+                </Box>
                 <Box>
                     <Typography
                         sx = {{
@@ -179,20 +186,24 @@ const Admin = () => {
                             {itemCountsError?.message || 'Kunde inte hämta databasstatistik.'}
                         </Alert>
                     )}
-                    <Grid
-                        container
-                        spacing = {1.5}
+                    <Box
+                        sx = {{
+                            display: 'grid',
+                            gap: 1.5,
+                            gridTemplateColumns: {
+                                lg: 'repeat(4, minmax(0, 1fr))',
+                                sm: 'repeat(2, minmax(0, 1fr))',
+                                xs: 'minmax(0, 1fr)',
+                            },
+                            width: '100%',
+                        }}
                     >
                         {sortedCounts.map((item) => {
                             const source = getSourceForType(item.type);
 
                             return (
-                                <Grid
-                                    item
+                                <Box
                                     key = {item.type}
-                                    lg = {3}
-                                    sm = {6}
-                                    xs = {12}
                                 >
                                     <StatisticCard
                                         label = {source?.label || item.type}
@@ -207,10 +218,10 @@ const Admin = () => {
                                             : null}
                                         value = {new Intl.NumberFormat('sv-SE').format(item.count)}
                                     />
-                                </Grid>
+                                </Box>
                             );
                         })}
-                    </Grid>
+                    </Box>
                 </Box>
             </Stack>
         </AccountPageShell>
