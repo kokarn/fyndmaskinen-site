@@ -49,6 +49,15 @@ describe('V2 design-system contract', () => {
         expect(resultsSource).toContain('lg = {3}');
     });
 
+    it('uses a mobile list and a shared loading indicator', () => {
+        const cardSource = fs.readFileSync(path.resolve(__dirname, 'ResultCard.js'), 'utf8');
+        const resultsSource = fs.readFileSync(path.join(v2Root, 'pages', 'SearchResults.js'), 'utf8');
+
+        expect(cardSource).toContain("xs: 'row'");
+        expect(resultsSource).toContain('xs = {12}');
+        expect(resultsSource).toContain('<SearchLoading />');
+    });
+
     it('showcases every reusable design-system component', () => {
         const showcase = fs.readFileSync(path.join(v2Root, 'pages', 'DesignSystem.js'), 'utf8');
         const components = fs.readdirSync(path.resolve(__dirname))

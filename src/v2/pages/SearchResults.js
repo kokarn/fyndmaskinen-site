@@ -13,7 +13,6 @@ import {
     Box,
     Button,
     Chip,
-    CircularProgress,
     Drawer,
     Grid,
     Stack,
@@ -33,6 +32,7 @@ import FilterPanel from '../design-system/FilterPanel';
 import PageContainer from '../design-system/PageContainer';
 import ResultCard from '../design-system/ResultCard';
 import SearchBox from '../design-system/SearchBox';
+import SearchLoading from '../design-system/SearchLoading';
 import {
     createV2SearchPath,
     getDefaultSourceState,
@@ -240,12 +240,7 @@ const SearchResults = () => {
                             )}
                         </Stack>
                         {isFetching && (
-                            <Stack
-                                alignItems = 'center'
-                                padding = {8}
-                            >
-                                <CircularProgress />
-                            </Stack>
+                            <SearchLoading />
                         )}
                         {!isFetching && (
                             <Grid
@@ -262,7 +257,7 @@ const SearchResults = () => {
                                             key = {item.url}
                                             lg = {3}
                                             sm = {4}
-                                            xs = {6}
+                                            xs = {12}
                                         >
                                             <ResultCard
                                                 item = {item}

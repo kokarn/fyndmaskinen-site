@@ -44,6 +44,11 @@ const ResultCard = ({
             <CardActionArea
                 href = {item.url}
                 sx = {{
+                    display: 'flex',
+                    flexDirection: {
+                        sm: 'column',
+                        xs: 'row',
+                    },
                     height: '100%',
                 }}
             >
@@ -59,6 +64,10 @@ const ResultCard = ({
                         backgroundColor: 'surface.image',
                         height: resultCard.imageHeight,
                         objectFit: 'contain',
+                        width: {
+                            sm: '100%',
+                            xs: 128,
+                        },
                     }}
                 />
                 <CardContent
@@ -67,7 +76,8 @@ const ResultCard = ({
                             paddingBottom: resultCard.contentPadding,
                         },
                         padding: resultCard.contentPadding,
-                    }}
+                        width: '100%',
+                        }}
                 >
                     <Typography
                         fontWeight = {750}

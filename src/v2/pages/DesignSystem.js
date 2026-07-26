@@ -26,6 +26,7 @@ import LandingHero from '../design-system/LandingHero';
 import PageContainer from '../design-system/PageContainer';
 import ResultCard from '../design-system/ResultCard';
 import SearchBox from '../design-system/SearchBox';
+import SearchLoading from '../design-system/SearchLoading';
 import SourceMark from '../design-system/SourceMark';
 import {
     colors,
@@ -327,6 +328,12 @@ const DesignSystem = () => {
                                 sources = {sources}
                             />
                         </Box>
+                    </DesignSection>
+                    <DesignSection
+                        description = 'Visas medan en sökning eller filterändring hämtar nya resultat.'
+                        title = 'Laddning'
+                    >
+                        <SearchLoading />
                     </DesignSection>
                     <DesignSection
                         description = 'Kortet visar endast funktioner som finns: annons, pris och marknadsplats.'
