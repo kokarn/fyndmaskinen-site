@@ -82,7 +82,11 @@ const DesignSystem = () => {
             };
         });
     }, []);
-    const handleApply = useCallback(() => {}, []);
+    const handleApply = useCallback(() => {
+        setSearchedFor((previous) => {
+            return previous;
+        });
+    }, []);
     const handleReset = useCallback(() => {
         setMaxPrice('');
         setSort('relevance');
