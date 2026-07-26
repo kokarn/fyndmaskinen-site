@@ -21,6 +21,7 @@ import sources from '../../sources';
 import AppShell from '../design-system/AppShell';
 import AccountActions from '../design-system/AccountActions';
 import Brand from '../design-system/Brand';
+import DealTable from '../design-system/DealTable';
 import DesignSection from '../design-system/DesignSection';
 import DesignSwatch from '../design-system/DesignSwatch';
 import FeatureLinkCard from '../design-system/FeatureLinkCard';
@@ -46,6 +47,7 @@ const sampleItem = {
     type: 'tradera',
     url: '#result-card',
 };
+const SAMPLE_COUNTDOWN_MS = 3_600_000; // eslint-disable-line no-magic-numbers
 
 const DesignSystem = () => {
     const [
@@ -355,6 +357,24 @@ const DesignSystem = () => {
                                 ]}
                             />
                         </Stack>
+                    </DesignSection>
+                    <DesignSection
+                        description = 'Tabeller för matchande fynd och annonser utan säker värdering.'
+                        title = 'Fyndtabell'
+                    >
+                        <DealTable
+                            items = {[
+                                {
+                                    bid: 250,
+                                    matcher: 'exempel',
+                                    startTime: Date.now() + SAMPLE_COUNTDOWN_MS,
+                                    title: 'Exempel på matchande auktionsfynd',
+                                    url: 'https://fyndmaskinen.se/deals',
+                                    value: 900,
+                                },
+                            ]}
+                            type = 'matching'
+                        />
                     </DesignSection>
                     <DesignSection
                         description = 'Marknadsplatser representeras konsekvent i landning, filter och resultatkort.'

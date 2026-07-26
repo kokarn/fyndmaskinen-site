@@ -45,6 +45,7 @@ import V2Profile from './v2/pages/Profile';
 import V2Admin from './v2/pages/Admin';
 import V2AdminWatches from './v2/pages/AdminWatches';
 import V2Barcode from './v2/pages/Barcode';
+import V2Deals from './v2/pages/Deals';
 import V2IsbnDeals from './v2/pages/IsbnDeals';
 
 // eslint-disable-next-line no-process-env, no-undef
@@ -152,7 +153,7 @@ const App = () => {
         '/profile',
         '/admin',
         '/barcode',
-        '/deals/isbn',
+        '/deals',
     ];
     const usesV2 = v2Paths.some((path) => {
         return window.location.pathname.startsWith(path);
@@ -189,6 +190,10 @@ const App = () => {
                     <Route
                         element = {<V2IsbnDeals />}
                         path = '/deals/isbn'
+                    />
+                    <Route
+                        element = {<V2Deals />}
+                        path = '/deals'
                     />
                     <Route
                         element = {<V2Barcode />}

@@ -93,6 +93,8 @@ describe('V2 design-system contract', () => {
 
         expect(appSource).toContain("path = '/deals/isbn'");
         expect(appSource).toContain('<V2IsbnDeals />');
+        expect(appSource).toContain("path = '/deals'");
+        expect(appSource).toContain('<V2Deals />');
         expect(appSource).toContain("path = '/barcode'");
         expect(appSource).toContain('<V2Barcode />');
         expect(appSource).toContain("path = '/barcode/quagga'");
