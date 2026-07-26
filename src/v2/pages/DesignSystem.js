@@ -92,7 +92,7 @@ const DesignSystem = () => {
             </Helmet>
             <Box
                 sx = {{
-                    backgroundColor: 'secondary.light',
+                    backgroundColor: 'surface.hero',
                     borderBottom: '1px solid',
                     borderColor: 'border.subtle',
                     paddingY: {

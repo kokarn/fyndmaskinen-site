@@ -30,6 +30,15 @@ describe('V2 design-system contract', () => {
         expect(offenders).toEqual([]);
     });
 
+    it('uses explicit surface tokens instead of derived palette shades', () => {
+        const offenders = collectJavaScriptFiles(v2Root)
+            .filter((filePath) => filePath !== themePath)
+            .filter((filePath) => fs.readFileSync(filePath, 'utf8').includes('secondary.light'))
+            .map((filePath) => path.relative(v2Root, filePath));
+
+        expect(offenders).toEqual([]);
+    });
+
     it('showcases every reusable design-system component', () => {
         const showcase = fs.readFileSync(path.join(v2Root, 'pages', 'DesignSystem.js'), 'utf8');
         const components = fs.readdirSync(path.resolve(__dirname))

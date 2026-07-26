@@ -74,10 +74,10 @@ const theme = createTheme({
         },
         secondary: {
             contrastText: colors.paper,
-            light: colors.hero,
             main: colors.ink,
         },
         surface: {
+            hero: colors.hero,
             image: colors.imagePlaceholder,
         },
         text: {

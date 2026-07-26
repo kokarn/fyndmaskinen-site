@@ -14,7 +14,7 @@ const LandingHero = ({
     return (
         <Box
             sx = {{
-                backgroundColor: 'secondary.light',
+                backgroundColor: 'surface.hero',
                 borderBottom: '1px solid',
                 borderColor: 'border.subtle',
                 paddingBottom: {
