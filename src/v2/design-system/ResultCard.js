@@ -75,6 +75,9 @@ const ResultCard = ({
                         '&:last-child': {
                             paddingBottom: resultCard.contentPadding,
                         },
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
                         padding: resultCard.contentPadding,
                         width: '100%',
                     }}

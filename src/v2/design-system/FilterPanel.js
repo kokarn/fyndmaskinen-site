@@ -16,6 +16,7 @@ import {
 
 const FilterPanel = ({
     maxPrice,
+    onApply,
     onMaxPriceChange,
     onReset,
     onSortChange,
@@ -126,6 +127,15 @@ const FilterPanel = ({
                         </MenuItem>
                     </Select>
                 </FormControl>
+                {onApply && (
+                    <Button
+                        fullWidth
+                        onClick = {onApply}
+                        variant = 'contained'
+                    >
+                        {'Visa resultat'}
+                    </Button>
+                )}
             </Stack>
         </Paper>
     );
@@ -133,6 +143,7 @@ const FilterPanel = ({
 
 FilterPanel.propTypes = {
     maxPrice: PropTypes.string.isRequired,
+    onApply: PropTypes.func,
     onMaxPriceChange: PropTypes.func.isRequired,
     onReset: PropTypes.func.isRequired,
     onSortChange: PropTypes.func.isRequired,
@@ -144,6 +155,10 @@ FilterPanel.propTypes = {
     })).isRequired,
     // eslint-disable-next-line react/sort-prop-types
     sourceState: PropTypes.objectOf(PropTypes.bool).isRequired,
+};
+
+FilterPanel.defaultProps = {
+    onApply: null,
 };
 
 export default FilterPanel;

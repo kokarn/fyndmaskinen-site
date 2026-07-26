@@ -75,7 +75,7 @@ const SearchResults = () => {
         debouncedMaxPrice,
         sort,
     ], doSearch, {
-        placeholderData: [],
+        keepPreviousData: true,
         refetchOnWindowFocus: false,
     });
     const handleSearch = useCallback((value) => {
@@ -168,7 +168,9 @@ const SearchResults = () => {
                             component = 'h1'
                             variant = 'h2'
                         >
-                            {`${searchResult.length} fynd för “${searchPhrase}”`}
+                            {isFetching
+                                ? 'Söker efter fynd…'
+                                : `${searchResult.length} fynd för “${searchPhrase}”`}
                         </Typography>
                         <Typography
                             color = 'text.secondary'
@@ -282,6 +284,7 @@ const SearchResults = () => {
                 >
                     <FilterPanel
                         {...filterProps}
+                        onApply = {handleDrawerClose}
                     />
                 </Box>
             </Drawer>

@@ -82,6 +82,7 @@ const DesignSystem = () => {
             };
         });
     }, []);
+    const handleApply = useCallback(() => {}, []);
     const handleReset = useCallback(() => {
         setMaxPrice('');
         setSort('relevance');
@@ -319,6 +320,7 @@ const DesignSystem = () => {
                         >
                             <FilterPanel
                                 maxPrice = {maxPrice}
+                                onApply = {handleApply}
                                 onMaxPriceChange = {handleMaxPriceChange}
                                 onReset = {handleReset}
                                 onSortChange = {handleSortChange}
