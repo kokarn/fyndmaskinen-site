@@ -26,7 +26,7 @@ const Brand = () => {
                     alignItems: 'center',
                     backgroundColor: 'primary.main',
                     borderRadius: '50%',
-                    color: '#FFFFFF',
+                    color: 'primary.contrastText',
                     display: 'flex',
                     height: 32,
                     justifyContent: 'center',

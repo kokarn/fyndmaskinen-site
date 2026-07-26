@@ -15,7 +15,7 @@ import {
 import {
     useInView,
 } from 'react-intersection-observer';
-import Grid from '@mui/material/Unstable_Grid2';
+import Grid from '@mui/material/Grid';
 
 import sources from '../../sources';
 

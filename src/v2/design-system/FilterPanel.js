@@ -29,7 +29,7 @@ const FilterPanel = ({
             elevation = {0}
             sx = {{
                 border: '1px solid',
-                borderColor: 'rgba(18, 58, 51, 0.1)',
+                borderColor: 'border.strong',
                 borderRadius: 2,
                 padding: 3,
             }}

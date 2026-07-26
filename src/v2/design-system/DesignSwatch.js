@@ -16,7 +16,8 @@ const DesignSwatch = ({
             <Box
                 sx = {{
                     backgroundColor: color,
-                    border: '1px solid rgba(18, 58, 51, 0.12)',
+                    border: '1px solid',
+                    borderColor: 'border.strong',
                     borderRadius: 2,
                     height: 72,
                 }}

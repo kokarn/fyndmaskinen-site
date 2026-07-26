@@ -1,4 +1,5 @@
 import {
+    alpha,
     createTheme,
 } from '@mui/material/styles';
 
@@ -7,9 +8,29 @@ const colors = {
     background: '#FAF7F0',
     border: '#C9D8D2',
     hero: '#E4EFE9',
+    imagePlaceholder: '#E9E1D4',
     ink: '#123A33',
     muted: '#637872',
     paper: '#FFFFFF',
+};
+
+const sourceColors = {
+    auction2000: '#8B6330',
+    auctionet: '#2E8A6C',
+    blocket: '#3568D4',
+    bukowskis: '#765082',
+    fallback: '#58716B',
+    tradera: colors.accent,
+    'uppsala-auktionskammare': '#8B6330',
+};
+
+const borders = {
+    strong: alpha(colors.ink, 0.12),
+    subtle: alpha(colors.ink, 0.08),
+};
+
+const shadows = {
+    card: `0 5px 18px ${alpha(colors.ink, 0.08)}`,
 };
 
 const theme = createTheme({
@@ -28,7 +49,7 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     borderRadius: 16,
-                    boxShadow: '0 5px 18px rgba(18, 58, 51, 0.08)',
+                    boxShadow: shadows.card,
                 },
             },
         },
@@ -46,13 +67,18 @@ const theme = createTheme({
             default: colors.background,
             paper: colors.paper,
         },
+        border: borders,
         primary: {
-            contrastText: '#FFFFFF',
+            contrastText: colors.paper,
             main: colors.accent,
         },
         secondary: {
-            contrastText: '#FFFFFF',
+            contrastText: colors.paper,
+            light: colors.hero,
             main: colors.ink,
+        },
+        surface: {
+            image: colors.imagePlaceholder,
         },
         text: {
             primary: colors.ink,
@@ -87,6 +113,9 @@ const theme = createTheme({
 });
 
 export {
+    borders,
     colors,
+    shadows,
+    sourceColors,
 };
 export default theme;

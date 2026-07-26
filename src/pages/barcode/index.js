@@ -5,7 +5,7 @@ import {
     CardContent,
     Typography,
 } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
+import Grid from '@mui/material/Grid';
 import {
     Link as RouterLink,
 } from 'react-router-dom';

@@ -49,7 +49,7 @@ const ResultCard = ({
                         'errorredirect=https://fyndmaskinen.se/images/no-image.jpg&output=webp',
                     ].join('&')}
                     sx = {{
-                        backgroundColor: '#E9E1D4',
+                        backgroundColor: 'surface.image',
                         height: {
                             sm: 210,
                             xs: 180,

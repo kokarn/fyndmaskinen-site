@@ -43,7 +43,7 @@ describe('V2 search state', () => {
             },
         ];
 
-        expect(getEnabledSourceIds(undefined, availableSources)).toEqual([
+        expect(getEnabledSourceIds(null, availableSources)).toEqual([
             'auctionet',
             'tradera',
         ]);

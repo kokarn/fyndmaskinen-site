@@ -18,8 +18,11 @@ import {
 
 import sources from '../../sources';
 import AppShell from '../design-system/AppShell';
+import Brand from '../design-system/Brand';
 import DesignSection from '../design-system/DesignSection';
 import DesignSwatch from '../design-system/DesignSwatch';
+import FilterPanel from '../design-system/FilterPanel';
+import LandingHero from '../design-system/LandingHero';
 import PageContainer from '../design-system/PageContainer';
 import ResultCard from '../design-system/ResultCard';
 import SearchBox from '../design-system/SearchBox';
@@ -41,8 +44,43 @@ const DesignSystem = () => {
         searchedFor,
         setSearchedFor,
     ] = useState('');
+    const [
+        maxPrice,
+        setMaxPrice,
+    ] = useState('2000');
+    const [
+        sort,
+        setSort,
+    ] = useState('relevance');
+    const [
+        sourceState,
+        setSourceState,
+    ] = useState(() => {
+        return Object.fromEntries(sources.map((source) => [ source.id, true ]));
+    });
     const handleSearch = useCallback((value) => {
         setSearchedFor(value);
+    }, []);
+    const handleMaxPriceChange = useCallback((event) => {
+        setMaxPrice(event.target.value);
+    }, []);
+    const handleSortChange = useCallback((event) => {
+        setSort(event.target.value);
+    }, []);
+    const handleSourceChange = useCallback((event) => {
+        const sourceId = event.target.value;
+
+        setSourceState((previous) => {
+            return {
+                ...previous,
+                [ sourceId ]: !previous[ sourceId ],
+            };
+        });
+    }, []);
+    const handleReset = useCallback(() => {
+        setMaxPrice('');
+        setSort('relevance');
+        setSourceState(Object.fromEntries(sources.map((source) => [ source.id, true ])));
     }, []);
 
     return (
@@ -55,7 +93,8 @@ const DesignSystem = () => {
             <Box
                 sx = {{
                     backgroundColor: 'secondary.light',
-                    borderBottom: '1px solid rgba(18, 58, 51, 0.08)',
+                    borderBottom: '1px solid',
+                    borderColor: 'border.subtle',
                     paddingY: {
                         sm: 7,
                         xs: 5,
@@ -157,7 +196,8 @@ const DesignSystem = () => {
                         <Paper
                             elevation = {0}
                             sx = {{
-                                border: '1px solid rgba(18, 58, 51, 0.1)',
+                                border: '1px solid',
+                                borderColor: 'border.strong',
                                 padding: {
                                     sm: 4,
                                     xs: 3,
@@ -245,6 +285,40 @@ const DesignSystem = () => {
                                 label = 'Max 2 000 kr'
                             />
                         </Stack>
+                    </DesignSection>
+                    <DesignSection
+                        description = 'Produktens faktiska varumärke och landningshero. Ändringar här slår igenom i V2.'
+                        title = 'Varumärke och landningshero'
+                    >
+                        <Stack
+                            spacing = {3}
+                        >
+                            <Brand />
+                            <LandingHero
+                                onSearch = {handleSearch}
+                            />
+                        </Stack>
+                    </DesignSection>
+                    <DesignSection
+                        description = 'Samma filterpanel används på desktop och i mobilens drawer.'
+                        title = 'Filter'
+                    >
+                        <Box
+                            sx = {{
+                                maxWidth: 360,
+                            }}
+                        >
+                            <FilterPanel
+                                maxPrice = {maxPrice}
+                                onMaxPriceChange = {handleMaxPriceChange}
+                                onReset = {handleReset}
+                                onSortChange = {handleSortChange}
+                                onSourceChange = {handleSourceChange}
+                                sort = {sort}
+                                sources = {sources}
+                                sourceState = {sourceState}
+                            />
+                        </Box>
                     </DesignSection>
                     <DesignSection
                         description = 'Kortet visar endast funktioner som finns: annons, pris och marknadsplats.'

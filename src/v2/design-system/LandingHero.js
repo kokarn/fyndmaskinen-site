@@ -16,7 +16,7 @@ const LandingHero = ({
             sx = {{
                 backgroundColor: 'secondary.light',
                 borderBottom: '1px solid',
-                borderColor: 'rgba(18, 58, 51, 0.08)',
+                borderColor: 'border.subtle',
                 paddingBottom: {
                     md: 10,
                     sm: 8,

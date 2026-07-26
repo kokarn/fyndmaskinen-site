@@ -18,7 +18,7 @@ import {
     useMutation,
     useQueryClient,
 } from 'react-query';
-import Grid from '@mui/material/Unstable_Grid2';
+import Grid from '@mui/material/Grid';
 import {
     Helmet,
 } from 'react-helmet';

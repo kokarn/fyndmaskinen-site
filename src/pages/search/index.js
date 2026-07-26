@@ -18,7 +18,7 @@ import {
 import {
     useQuery,
 } from 'react-query';
-import Grid from '@mui/material/Unstable_Grid2';
+import Grid from '@mui/material/Grid';
 import {
     useAuth0,
 } from '@auth0/auth0-react';

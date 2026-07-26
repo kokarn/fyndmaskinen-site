@@ -128,7 +128,7 @@ const SearchResults = () => {
             </Helmet>
             <Box
                 sx = {{
-                    backgroundColor: '#E4EFE9',
+                    backgroundColor: 'secondary.light',
                     paddingY: {
                         sm: 3,
                         xs: 2,

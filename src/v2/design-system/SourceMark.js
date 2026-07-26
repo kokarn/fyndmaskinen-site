@@ -3,22 +3,20 @@ import {
     Avatar,
     Chip,
 } from '@mui/material';
+import {
+    alpha,
+} from '@mui/material/styles';
 
-const sourceColors = {
-    auction2000: '#8B6330',
-    auctionet: '#2E8A6C',
-    blocket: '#3568D4',
-    bukowskis: '#765082',
-    tradera: '#F05A3C',
-    'uppsala-auktionskammare': '#8B6330',
-};
+import {
+    sourceColors,
+} from './theme';
 
 const SourceMark = ({
     compact,
     label,
     sourceId,
 }) => {
-    const color = sourceColors[ sourceId ] || '#58716B';
+    const color = sourceColors[ sourceId ] || sourceColors.fallback;
 
     return (
         <Chip
@@ -28,7 +26,7 @@ const SourceMark = ({
                     <Avatar
                         sx = {{
                             '&.MuiAvatar-root': {
-                                backgroundColor: `${color}18`,
+                                backgroundColor: alpha(color, 0.1),
                                 color: color,
                                 fontWeight: 900,
                             },
@@ -42,9 +40,9 @@ const SourceMark = ({
             sx = {{
                 backgroundColor: compact
                     ? color
-                    : '#FFFFFF',
+                    : 'background.paper',
                 color: compact
-                    ? '#FFFFFF'
+                    ? 'primary.contrastText'
                     : 'text.primary',
                 fontWeight: 750,
             }}
