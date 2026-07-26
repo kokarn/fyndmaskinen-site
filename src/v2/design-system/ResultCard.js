@@ -77,7 +77,7 @@ const ResultCard = ({
                         },
                         padding: resultCard.contentPadding,
                         width: '100%',
-                        }}
+                    }}
                 >
                     <Typography
                         fontWeight = {750}
