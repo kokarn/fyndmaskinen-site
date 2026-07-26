@@ -1,5 +1,6 @@
 import {
     buildSearchQuery,
+    normalizeSearchItems,
 } from './search';
 
 /* eslint-env jest */
@@ -13,6 +14,19 @@ test('adds max price and ascending sort to a search query', () => {
 
     expect(query).toContain('maxPrice: 1000');
     expect(query).toContain('sort: "price_asc"');
+});
+
+test('removes empty search records before rendering cards', () => {
+    const item = {
+        title: 'Stol',
+        url: 'https://example.com/stol',
+    };
+
+    expect(normalizeSearchItems([
+        item,
+        null,
+        {},
+    ])).toEqual([item]);
 });
 
 test('omits an invalid max price and defaults to relevance', () => {

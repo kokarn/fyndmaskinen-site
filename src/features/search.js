@@ -19,6 +19,14 @@ export const buildSearchQuery = (searchPhrase, sources, filters) => {
     }`;
 };
 
+export const normalizeSearchItems = (items) => {
+    return Array.isArray(items)
+        ? items.filter((item) => {
+            return Boolean(item?.url && item?.title);
+        })
+        : [];
+};
+
 const doSearch = ({
     queryKey,
 }) => {
@@ -68,10 +76,12 @@ const doSearch = ({
                 return response.json();
             })
             .then((response) => {
-                return response?.data?.findItems ?? response?.data?.getRandomItems ?? [];
+                return normalizeSearchItems(response?.data?.findItems ?? response?.data?.getRandomItems);
             })
             .catch((fetchError) => {
                 console.error(fetchError);
+
+                return [];
             });
     } catch (someError) {
         console.error(someError);
