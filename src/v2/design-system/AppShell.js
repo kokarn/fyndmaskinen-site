@@ -16,6 +16,7 @@ const AppShell = ({
             sx = {{
                 backgroundColor: 'background.default',
                 minHeight: '100svh',
+                overflowX: 'hidden',
             }}
         >
             <Box
@@ -34,6 +35,10 @@ const AppShell = ({
                         minHeight = {{
                             sm: 72,
                             xs: 60,
+                        }}
+                        sx = {{
+                            gap: 1,
+                            minWidth: 0,
                         }}
                     >
                         <Brand />

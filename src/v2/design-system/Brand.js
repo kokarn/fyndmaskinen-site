@@ -17,6 +17,8 @@ const Brand = () => {
             direction = 'row'
             spacing = {1.5}
             sx = {{
+                flexShrink: 1,
+                minWidth: 0,
                 textDecoration: 'none',
             }}
             to = '/v2'
@@ -38,6 +40,10 @@ const Brand = () => {
                 />
             </Box>
             <Typography
+                display = {{
+                    sm: 'block',
+                    xs: 'none',
+                }}
                 fontSize = {{
                     sm: '1.45rem',
                     xs: '1.2rem',

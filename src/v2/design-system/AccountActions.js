@@ -8,6 +8,7 @@ import {
     Avatar,
     Button,
     CircularProgress,
+    IconButton,
     Stack,
 } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
@@ -56,11 +57,20 @@ const AccountActions = () => {
             alignItems = 'center'
             direction = 'row'
             spacing = {1}
+            sx = {{
+                flexShrink: 0,
+            }}
         >
             {user?.email === ADMIN_EMAIL && (
                 <Button
                     component = {Link}
                     startIcon = {<AdminPanelSettingsIcon />}
+                    sx = {{
+                        display: {
+                            sm: 'inline-flex',
+                            xs: 'none',
+                        },
+                    }}
                     to = '/admin'
                     variant = 'text'
                 >
@@ -70,11 +80,31 @@ const AccountActions = () => {
             <Button
                 component = {Link}
                 startIcon = {<VisibilityIcon />}
+                sx = {{
+                    display: {
+                        sm: 'inline-flex',
+                        xs: 'none',
+                    },
+                }}
                 to = '/profile'
                 variant = 'text'
             >
                 {'Bevakningar'}
             </Button>
+            <IconButton
+                aria-label = 'Bevakningar'
+                color = 'secondary'
+                component = {Link}
+                sx = {{
+                    display: {
+                        sm: 'none',
+                        xs: 'inline-flex',
+                    },
+                }}
+                to = '/profile'
+            >
+                <VisibilityIcon />
+            </IconButton>
             <Avatar
                 alt = {user?.name || 'Profil'}
                 component = {Link}

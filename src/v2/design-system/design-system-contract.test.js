@@ -103,6 +103,18 @@ describe('V2 design-system contract', () => {
         expect(adminSource).toContain('<StatisticCard');
     });
 
+    it('keeps the shared header within narrow mobile viewports', () => {
+        const shellSource = fs.readFileSync(path.resolve(__dirname, 'AppShell.js'), 'utf8');
+        const accountSource = fs.readFileSync(path.resolve(__dirname, 'AccountActions.js'), 'utf8');
+        const brandSource = fs.readFileSync(path.resolve(__dirname, 'Brand.js'), 'utf8');
+
+        expect(shellSource).toContain("overflowX: 'hidden'");
+        expect(shellSource).toContain('minWidth: 0');
+        expect(accountSource).toContain("xs: 'none'");
+        expect(accountSource).toContain("aria-label = 'Bevakningar'");
+        expect(brandSource).toContain("xs: 'none'");
+    });
+
     it('showcases every reusable design-system component', () => {
         const showcase = fs.readFileSync(path.join(v2Root, 'pages', 'DesignSystem.js'), 'utf8');
         const components = fs.readdirSync(path.resolve(__dirname))
