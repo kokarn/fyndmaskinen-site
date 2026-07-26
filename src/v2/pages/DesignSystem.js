@@ -56,7 +56,11 @@ const DesignSystem = () => {
         sourceState,
         setSourceState,
     ] = useState(() => {
-        return Object.fromEntries(sources.map((source) => [ source.id, true ]));
+        return Object.fromEntries(sources.map((source) => {
+            return [
+                source.id, true,
+            ];
+        }));
     });
     const handleSearch = useCallback((value) => {
         setSearchedFor(value);
@@ -80,7 +84,11 @@ const DesignSystem = () => {
     const handleReset = useCallback(() => {
         setMaxPrice('');
         setSort('relevance');
-        setSourceState(Object.fromEntries(sources.map((source) => [ source.id, true ])));
+        setSourceState(Object.fromEntries(sources.map((source) => {
+            return [
+                source.id, true,
+            ];
+        })));
     }, []);
 
     return (
@@ -315,8 +323,8 @@ const DesignSystem = () => {
                                 onSortChange = {handleSortChange}
                                 onSourceChange = {handleSourceChange}
                                 sort = {sort}
-                                sources = {sources}
                                 sourceState = {sourceState}
+                                sources = {sources}
                             />
                         </Box>
                     </DesignSection>

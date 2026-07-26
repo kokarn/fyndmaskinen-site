@@ -11,6 +11,8 @@ import {
     sourceColors,
 } from './theme';
 
+const SOURCE_TINT_OPACITY = 0.1;
+
 const SourceMark = ({
     compact,
     label,
@@ -26,7 +28,7 @@ const SourceMark = ({
                     <Avatar
                         sx = {{
                             '&.MuiAvatar-root': {
-                                backgroundColor: alpha(color, 0.1),
+                                backgroundColor: alpha(color, SOURCE_TINT_OPACITY),
                                 color: color,
                                 fontWeight: 900,
                             },

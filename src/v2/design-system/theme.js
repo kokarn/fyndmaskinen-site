@@ -3,6 +3,8 @@ import {
     createTheme,
 } from '@mui/material/styles';
 
+/* eslint-disable no-magic-numbers */
+
 const colors = {
     accent: '#F05A3C',
     background: '#FAF7F0',
