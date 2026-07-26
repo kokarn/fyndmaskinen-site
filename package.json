@@ -31,9 +31,9 @@
     "html5-qrcode": "^2.3.8",
     "just-shuffle": "^4.0.1",
     "prop-types": "^15.8.1",
-    "react": "^19.2.8",
+    "react": "^18.3.1",
     "react-countdown-now": "^2.1.0",
-    "react-dom": "^19.2.8",
+    "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",
     "react-intersection-observer": "^10.1.0",
     "react-query": "^3.34.19",
@@ -55,10 +55,12 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/react": "^19.2.17",
     "dotenv": "^17.4.2",
     "eslint": "^8.12.0",
     "eslint-config-kokarn": "^5.0.0",
     "portless": "^0.13.0",
+    "typescript": "^4.9.5",
     "webpack-cli": "^4.10.0"
   },
   "browserslist": [
