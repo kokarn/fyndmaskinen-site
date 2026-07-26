@@ -16,12 +16,10 @@ import {
     TextField,
     Typography,
 } from '@mui/material';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+
 import LogoutIcon from '@mui/icons-material/Logout';
 import SearchIcon from '@mui/icons-material/Search';
-import {
-    Link,
-} from 'react-router-dom';
+
 import {
     useMutation,
     useQuery,
@@ -33,6 +31,7 @@ import getWatches from '../../features/get-watches';
 import getWatchLimit from '../../features/get-watch-limit';
 import removeWatch from '../../features/remove-watch';
 import AccountPageShell from '../design-system/AccountPageShell';
+import WatchItemCard from '../design-system/WatchItemCard';
 
 const AUTH_OPTIONS = {
     audience: 'https://fyndmaskinen.se',
@@ -106,8 +105,8 @@ const Profile = () => {
     const handleNewWatchChange = useCallback((event) => {
         setNewWatch(event.target.value);
     }, []);
-    const handleWatchDelete = useCallback((event) => {
-        removeMutation.mutate(event.currentTarget.dataset.match);
+    const handleWatchDelete = useCallback((match) => {
+        removeMutation.mutate(match);
     }, [ removeMutation ]);
     const handleLogout = useCallback(() => {
         return logout({
@@ -208,44 +207,11 @@ const Profile = () => {
                 >
                     {watches.map((watch) => {
                         return (
-                            <Card
+                            <WatchItemCard
                                 key = {watch.match}
-                                variant = 'outlined'
-                            >
-                                <CardContent
-                                    sx = {{
-                                        '&:last-child': {
-                                            paddingBottom: 2,
-                                        },
-                                        alignItems: 'center',
-                                        display: 'flex',
-                                        justifyContent: 'space-between',
-                                        padding: 2,
-                                    }}
-                                >
-                                    <Typography
-                                        component = {Link}
-                                        sx = {{
-                                            color: 'text.primary',
-                                            fontWeight: 800,
-                                            textDecoration: 'none',
-                                        }}
-                                        to = {`/v2/search/${encodeURIComponent(watch.match)}`}
-                                    >
-                                        {watch.match}
-                                    </Typography>
-                                    <Button
-                                        aria-label = {`Ta bort bevakningen ${watch.match}`}
-                                        color = 'secondary'
-                                        data-match = {watch.match}
-                                        onClick = {handleWatchDelete}
-                                        startIcon = {<DeleteOutlineIcon />}
-                                        variant = 'text'
-                                    >
-                                        {'Ta bort'}
-                                    </Button>
-                                </CardContent>
-                            </Card>
+                                match = {watch.match}
+                                onDelete = {handleWatchDelete}
+                            />
                         );
                     })}
                 </Stack>

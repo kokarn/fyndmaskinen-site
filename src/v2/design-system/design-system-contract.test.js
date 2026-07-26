@@ -87,6 +87,20 @@ describe('V2 design-system contract', () => {
         expect(accountSource).toContain("to = '/admin'");
     });
 
+    it('keeps every admin tool destination inside the V2 experience', () => {
+        const appSource = fs.readFileSync(path.resolve(v2Root, '..', 'App.js'), 'utf8');
+        const adminSource = fs.readFileSync(path.join(v2Root, 'pages', 'Admin.js'), 'utf8');
+
+        expect(appSource).toContain("path = '/deals/isbn'");
+        expect(appSource).toContain('<V2IsbnDeals />');
+        expect(appSource).toContain("path = '/barcode'");
+        expect(appSource).toContain('<V2Barcode />');
+        expect(appSource).toContain("path = '/barcode/quagga'");
+        expect(appSource).toContain("path = '/barcode/zxing'");
+        expect(adminSource).toContain('<FeatureLinkCard');
+        expect(adminSource).toContain('<StatisticCard');
+    });
+
     it('showcases every reusable design-system component', () => {
         const showcase = fs.readFileSync(path.join(v2Root, 'pages', 'DesignSystem.js'), 'utf8');
         const components = fs.readdirSync(path.resolve(__dirname))
@@ -97,6 +111,7 @@ describe('V2 design-system contract', () => {
                 'DesignSection.js',
                 'DesignSwatch.js',
                 'theme.js',
+                'ToolPageShell.js',
             ].includes(name))
             .map((name) => path.basename(name, '.js'));
         const missingComponents = components.filter((component) => {

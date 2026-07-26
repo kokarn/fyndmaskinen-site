@@ -7,17 +7,11 @@ import {
 } from '@auth0/auth0-react';
 import {
     Box,
-    Card,
-    CardActionArea,
-    CardContent,
     CircularProgress,
     Stack,
     Typography,
 } from '@mui/material';
 import Grid from '@mui/material/Grid';
-import {
-    Link,
-} from 'react-router-dom';
 import {
     useQuery,
 } from 'react-query';
@@ -27,7 +21,9 @@ import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 
 import sources from '../../sources';
 import AccountPageShell from '../design-system/AccountPageShell';
+import FeatureLinkCard from '../design-system/FeatureLinkCard';
 import SourceMark from '../design-system/SourceMark';
+import StatisticCard from '../design-system/StatisticCard';
 
 const STALE_TIME = 300000;
 const adminLinks = [
@@ -145,46 +141,12 @@ const Admin = () => {
                                 md = {4}
                                 xs = {12}
                             >
-                                <Card
-                                    sx = {{
-                                        height: '100%',
-                                    }}
-                                >
-                                    <CardActionArea
-                                        component = {Link}
-                                        sx = {{
-                                            height: '100%',
-                                        }}
-                                        to = {link.to}
-                                    >
-                                        <CardContent>
-                                            <Stack
-                                                alignItems = 'flex-start'
-                                                spacing = {2}
-                                            >
-                                                <link.icon
-                                                    color = 'primary'
-                                                    sx = {{
-                                                        fontSize: 36,
-                                                    }}
-                                                />
-                                                <Box>
-                                                    <Typography
-                                                        variant = 'h6'
-                                                    >
-                                                        {link.label}
-                                                    </Typography>
-                                                    <Typography
-                                                        color = 'text.secondary'
-                                                        variant = 'body2'
-                                                    >
-                                                        {link.description}
-                                                    </Typography>
-                                                </Box>
-                                            </Stack>
-                                        </CardContent>
-                                    </CardActionArea>
-                                </Card>
+                                <FeatureLinkCard
+                                    description = {link.description}
+                                    icon = {link.icon}
+                                    label = {link.label}
+                                    to = {link.to}
+                                />
                             </Grid>
                         );
                     })}
@@ -217,41 +179,19 @@ const Admin = () => {
                                     sm = {4}
                                     xs = {6}
                                 >
-                                    <Card
-                                        variant = 'outlined'
-                                    >
-                                        <CardContent>
-                                            <Stack
-                                                alignItems = 'center'
-                                                direction = 'row'
-                                                spacing = {1.5}
-                                            >
-                                                {source && (
-                                                    <SourceMark
-                                                        compact
-                                                        label = {source.label}
-                                                        sourceId = {source.id}
-                                                    />
-                                                )}
-                                                <Box>
-                                                    <Typography
-                                                        color = 'text.secondary'
-                                                        variant = 'caption'
-                                                    >
-                                                        {source?.label || item.type}
-                                                    </Typography>
-                                                    <Typography
-                                                        sx = {{
-                                                            fontWeight: 800,
-                                                        }}
-                                                        variant = 'body1'
-                                                    >
-                                                        {new Intl.NumberFormat('sv-SE').format(item.count)}
-                                                    </Typography>
-                                                </Box>
-                                            </Stack>
-                                        </CardContent>
-                                    </Card>
+                                    <StatisticCard
+                                        label = {source?.label || item.type}
+                                        mark = {source
+                                            ? (
+                                                <SourceMark
+                                                    compact
+                                                    label = {source.label}
+                                                    sourceId = {source.id}
+                                                />
+                                            )
+                                            : null}
+                                        value = {new Intl.NumberFormat('sv-SE').format(item.count)}
+                                    />
                                 </Grid>
                             );
                         })}

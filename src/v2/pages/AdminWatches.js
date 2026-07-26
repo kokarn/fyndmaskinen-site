@@ -6,22 +6,16 @@ import {
     useAuth0,
 } from '@auth0/auth0-react';
 import {
-    Card,
-    CardContent,
-    Chip,
     CircularProgress,
     Stack,
-    Typography,
 } from '@mui/material';
-import {
-    Link,
-} from 'react-router-dom';
 import {
     useQuery,
 } from 'react-query';
 
 import getAllWatches from '../../features/get-all-watches';
 import AccountPageShell from '../design-system/AccountPageShell';
+import WatchGroupCard from '../design-system/WatchGroupCard';
 
 const STALE_TIME = 600000;
 
@@ -81,56 +75,11 @@ const AdminWatches = () => {
                     const userWatches = groupedByUser[ email ];
 
                     return (
-                        <Card
+                        <WatchGroupCard
                             key = {email}
-                            variant = 'outlined'
-                        >
-                            <CardContent>
-                                <Stack
-                                    spacing = {1.5}
-                                >
-                                    <Stack
-                                        alignItems = 'baseline'
-                                        direction = {{
-                                            sm: 'row',
-                                            xs: 'column',
-                                        }}
-                                        justifyContent = 'space-between'
-                                    >
-                                        <Typography
-                                            sx = {{
-                                                fontWeight: 800,
-                                            }}
-                                        >
-                                            {email}
-                                        </Typography>
-                                        <Typography
-                                            color = 'text.secondary'
-                                        >
-                                            {`${userWatches.length} bevakningar`}
-                                        </Typography>
-                                    </Stack>
-                                    <Stack
-                                        direction = 'row'
-                                        flexWrap = 'wrap'
-                                        gap = {1}
-                                    >
-                                        {userWatches.map((match) => {
-                                            return (
-                                                <Chip
-                                                    clickable
-                                                    component = {Link}
-                                                    key = {match}
-                                                    label = {match}
-                                                    to = {`/v2/search/${encodeURIComponent(match)}`}
-                                                    variant = 'outlined'
-                                                />
-                                            );
-                                        })}
-                                    </Stack>
-                                </Stack>
-                            </CardContent>
-                        </Card>
+                            label = {email}
+                            watches = {userWatches}
+                        />
                     );
                 })}
             </Stack>

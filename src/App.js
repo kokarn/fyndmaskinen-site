@@ -44,6 +44,8 @@ import V2SearchResults from './v2/pages/SearchResults';
 import V2Profile from './v2/pages/Profile';
 import V2Admin from './v2/pages/Admin';
 import V2AdminWatches from './v2/pages/AdminWatches';
+import V2Barcode from './v2/pages/Barcode';
+import V2IsbnDeals from './v2/pages/IsbnDeals';
 
 // eslint-disable-next-line no-process-env, no-undef
 const PUBLIC_URL = process.env.PUBLIC_URL;
@@ -149,6 +151,8 @@ const App = () => {
         '/v2',
         '/profile',
         '/admin',
+        '/barcode',
+        '/deals/isbn',
     ];
     const usesV2 = v2Paths.some((path) => {
         return window.location.pathname.startsWith(path);
@@ -181,6 +185,30 @@ const App = () => {
                     <Route
                         element = {<V2AdminWatches />}
                         path = '/admin/watches'
+                    />
+                    <Route
+                        element = {<V2IsbnDeals />}
+                        path = '/deals/isbn'
+                    />
+                    <Route
+                        element = {<V2Barcode />}
+                        path = '/barcode'
+                    />
+                    <Route
+                        element = {<V2Barcode
+                            variant = 'quagga'
+                        />}
+                        path = '/barcode/quagga'
+                    />
+                    <Route
+                        element = {<V2Barcode
+                            variant = 'zxing'
+                        />}
+                        path = '/barcode/zxing'
+                    />
+                    <Route
+                        element = {<V2Barcode />}
+                        path = '/barcode/html5-qrcode'
                     />
                 </Routes>
             </V2Provider>

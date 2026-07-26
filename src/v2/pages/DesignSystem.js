@@ -15,6 +15,7 @@ import {
 import {
     Helmet,
 } from 'react-helmet';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 
 import sources from '../../sources';
 import AppShell from '../design-system/AppShell';
@@ -22,6 +23,7 @@ import AccountActions from '../design-system/AccountActions';
 import Brand from '../design-system/Brand';
 import DesignSection from '../design-system/DesignSection';
 import DesignSwatch from '../design-system/DesignSwatch';
+import FeatureLinkCard from '../design-system/FeatureLinkCard';
 import FilterPanel from '../design-system/FilterPanel';
 import LandingHero from '../design-system/LandingHero';
 import PageContainer from '../design-system/PageContainer';
@@ -30,6 +32,9 @@ import SearchBox from '../design-system/SearchBox';
 import SearchLoading from '../design-system/SearchLoading';
 import SaveSearchButton from '../design-system/SaveSearchButton';
 import SourceMark from '../design-system/SourceMark';
+import StatisticCard from '../design-system/StatisticCard';
+import WatchGroupCard from '../design-system/WatchGroupCard';
+import WatchItemCard from '../design-system/WatchItemCard';
 import {
     colors,
 } from '../design-system/theme';
@@ -290,6 +295,64 @@ const DesignSystem = () => {
                             <AccountActions />
                             <SaveSearchButton
                                 searchPhrase = 'designklassiker'
+                            />
+                        </Stack>
+                    </DesignSection>
+                    <DesignSection
+                        description = 'Samma navigations- och statistikmönster används av adminverktygen.'
+                        title = 'Verktyg och statistik'
+                    >
+                        <Grid
+                            container
+                            spacing = {2}
+                        >
+                            <Grid
+                                item
+                                md = {6}
+                                xs = {12}
+                            >
+                                <FeatureLinkCard
+                                    description = 'Jämför auktionspriser med Bokbörsen.'
+                                    icon = {MenuBookIcon}
+                                    label = 'ISBN-fyndkollen'
+                                    to = '/deals/isbn'
+                                />
+                            </Grid>
+                            <Grid
+                                item
+                                md = {3}
+                                xs = {6}
+                            >
+                                <StatisticCard
+                                    label = 'Tradera'
+                                    mark = {
+                                        <SourceMark
+                                            compact
+                                            label = 'Tradera'
+                                            sourceId = 'tradera'
+                                        />
+                                    }
+                                    value = '12 540'
+                                />
+                            </Grid>
+                        </Grid>
+                    </DesignSection>
+                    <DesignSection
+                        description = 'Bevakningar visas konsekvent på profil- och adminsidor.'
+                        title = 'Bevakningskort'
+                    >
+                        <Stack
+                            spacing = {2}
+                        >
+                            <WatchItemCard
+                                match = 'stringhylla'
+                            />
+                            <WatchGroupCard
+                                label = 'exempel@fyndmaskinen.se'
+                                watches = {[
+                                    'stringhylla',
+                                    'designklassiker',
+                                ]}
                             />
                         </Stack>
                     </DesignSection>
