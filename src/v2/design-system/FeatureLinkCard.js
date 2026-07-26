@@ -32,7 +32,14 @@ const FeatureLinkCard = ({
             >
                 <CardContent>
                     <Stack
-                        alignItems = 'flex-start'
+                        alignItems = {{
+                            sm: 'flex-start',
+                            xs: 'center',
+                        }}
+                        direction = {{
+                            sm: 'column',
+                            xs: 'row',
+                        }}
                         spacing = {2}
                     >
                         <Icon
@@ -41,7 +48,11 @@ const FeatureLinkCard = ({
                                 fontSize: 36,
                             }}
                         />
-                        <Box>
+                        <Box
+                            sx = {{
+                                minWidth: 0,
+                            }}
+                        >
                             <Typography
                                 variant = 'h6'
                             >

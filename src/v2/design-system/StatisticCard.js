@@ -14,6 +14,10 @@ const StatisticCard = ({
 }) => {
     return (
         <Card
+            sx = {{
+                height: '100%',
+                width: '100%',
+            }}
             variant = 'outlined'
         >
             <CardContent>
@@ -21,11 +25,19 @@ const StatisticCard = ({
                     alignItems = 'center'
                     direction = 'row'
                     spacing = {1.5}
+                    sx = {{
+                        minWidth: 0,
+                    }}
                 >
                     {mark}
-                    <Box>
+                    <Box
+                        sx = {{
+                            minWidth: 0,
+                        }}
+                    >
                         <Typography
                             color = 'text.secondary'
+                            noWrap
                             variant = 'caption'
                         >
                             {label}

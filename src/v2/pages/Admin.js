@@ -6,6 +6,7 @@ import {
     useAuth0,
 } from '@auth0/auth0-react';
 import {
+    Alert,
     Box,
     CircularProgress,
     Stack,
@@ -107,7 +108,9 @@ const Admin = () => {
     }, [ getAccessTokenSilently ]);
 
     const {
-        data: itemCounts,
+        data: itemCounts = [],
+        error: itemCountsError,
+        isError,
         isFetching,
     } = useQuery([
         'item-counts',
@@ -137,6 +140,7 @@ const Admin = () => {
                     {adminLinks.map((link) => {
                         return (
                             <Grid
+                                item
                                 key = {link.to}
                                 md = {4}
                                 xs = {12}
@@ -165,6 +169,16 @@ const Admin = () => {
                             size = {24}
                         />
                     )}
+                    {isError && (
+                        <Alert
+                            severity = 'warning'
+                            sx = {{
+                                marginBottom: 2,
+                            }}
+                        >
+                            {itemCountsError?.message || 'Kunde inte hämta databasstatistik.'}
+                        </Alert>
+                    )}
                     <Grid
                         container
                         spacing = {1.5}
@@ -174,10 +188,11 @@ const Admin = () => {
 
                             return (
                                 <Grid
+                                    item
                                     key = {item.type}
                                     lg = {3}
-                                    sm = {4}
-                                    xs = {6}
+                                    sm = {6}
+                                    xs = {12}
                                 >
                                     <StatisticCard
                                         label = {source?.label || item.type}

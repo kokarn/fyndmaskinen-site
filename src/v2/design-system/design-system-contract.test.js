@@ -103,6 +103,17 @@ describe('V2 design-system contract', () => {
         expect(adminSource).toContain('<StatisticCard');
     });
 
+    it('keeps admin cards responsive and count failures non-fatal', () => {
+        const adminSource = fs.readFileSync(path.join(v2Root, 'pages', 'Admin.js'), 'utf8');
+        const featureCardSource = fs.readFileSync(path.resolve(__dirname, 'FeatureLinkCard.js'), 'utf8');
+
+        expect(adminSource).toContain('item\n                                key = {link.to}');
+        expect(adminSource).toContain('item\n                                    key = {item.type}');
+        expect(adminSource).toContain('data: itemCounts = []');
+        expect(adminSource).toContain('isError');
+        expect(featureCardSource).toContain("xs: 'row'");
+    });
+
     it('keeps the shared header within narrow mobile viewports', () => {
         const shellSource = fs.readFileSync(path.resolve(__dirname, 'AppShell.js'), 'utf8');
         const accountSource = fs.readFileSync(path.resolve(__dirname, 'AccountActions.js'), 'utf8');
