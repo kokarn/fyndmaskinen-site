@@ -110,6 +110,8 @@ describe('V2 design-system contract', () => {
         expect(saveSource).toContain('authorizationParams: AUTH_OPTIONS');
         expect(saveSource).toContain('payload.errors');
         expect(profileSource).toContain('authorizationParams: AUTH_OPTIONS');
+        expect(profileSource).toContain("textAlign = 'center'");
+        expect(profileSource).toContain("'&:last-child': {");
     });
 
     it('keeps admin cards responsive and count failures non-fatal', () => {

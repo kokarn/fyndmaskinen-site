@@ -195,9 +195,17 @@ const Profile = () => {
                     <Card
                         variant = 'outlined'
                     >
-                        <CardContent>
+                        <CardContent
+                            sx = {{
+                                '&:last-child': {
+                                    paddingBottom: 3,
+                                },
+                                padding: 3,
+                            }}
+                        >
                             <Typography
                                 color = 'text.secondary'
+                                textAlign = 'center'
                             >
                                 {'Du har inga aktiva bevakningar ännu.'}
                             </Typography>
