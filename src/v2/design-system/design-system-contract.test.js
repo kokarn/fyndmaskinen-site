@@ -103,6 +103,15 @@ describe('V2 design-system contract', () => {
         expect(adminSource).toContain('<StatisticCard');
     });
 
+    it('uses Auth0 v2 token options when saving and reading watches', () => {
+        const saveSource = fs.readFileSync(path.resolve(__dirname, 'SaveSearchButton.js'), 'utf8');
+        const profileSource = fs.readFileSync(path.join(v2Root, 'pages', 'Profile.js'), 'utf8');
+
+        expect(saveSource).toContain('authorizationParams: AUTH_OPTIONS');
+        expect(saveSource).toContain('payload.errors');
+        expect(profileSource).toContain('authorizationParams: AUTH_OPTIONS');
+    });
+
     it('keeps admin cards responsive and count failures non-fatal', () => {
         const adminSource = fs.readFileSync(path.join(v2Root, 'pages', 'Admin.js'), 'utf8');
         const featureCardSource = fs.readFileSync(path.resolve(__dirname, 'FeatureLinkCard.js'), 'utf8');

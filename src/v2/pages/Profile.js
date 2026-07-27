@@ -53,7 +53,9 @@ const Profile = () => {
     const queryClient = useQueryClient();
 
     useEffect(() => {
-        getAccessTokenSilently(AUTH_OPTIONS)
+        getAccessTokenSilently({
+            authorizationParams: AUTH_OPTIONS,
+        })
             .then(setAccessToken)
             .catch(console.error);
     }, [ getAccessTokenSilently ]);

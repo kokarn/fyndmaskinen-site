@@ -37,15 +37,26 @@ const SaveSearchButton = ({
     const queryClient = useQueryClient();
     const showNotification = useNotification();
     const mutation = useMutation(async () => {
-        const accessToken = await getAccessTokenSilently(AUTH_OPTIONS);
+        const accessToken = await getAccessTokenSilently({
+            authorizationParams: AUTH_OPTIONS,
+        });
         const response = await addWatch(accessToken, user.email, searchPhrase);
 
         if (!response.ok) {
             throw new Error('Bevakningen kunde inte sparas');
         }
 
-        return response;
+        const payload = await response.json();
+
+        if (payload.errors) {
+            throw new Error(payload.errors[ 0 ]?.message || 'Bevakningen kunde inte sparas');
+        }
+
+        return payload.data.addWatch;
     }, {
+        onError: () => {
+            showNotification('Bevakningen kunde inte sparas', 'error');
+        },
         onSuccess: () => {
             queryClient.invalidateQueries('watches');
             showNotification('Bevakningen är sparad', 'success');
@@ -57,6 +68,7 @@ const SaveSearchButton = ({
                 appState: {
                     returnTo: window.location.pathname,
                 },
+                authorizationParams: AUTH_OPTIONS,
             });
         }
 
