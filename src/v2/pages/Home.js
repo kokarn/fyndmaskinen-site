@@ -78,6 +78,13 @@ const Home = () => {
         sources,
         sourceState,
     };
+    const mobileFilterAction = (
+        <FilterDrawer
+            filterProps = {filterProps}
+            fullWidth
+            label = 'Filter'
+        />
+    );
     const {
         data: auctionHouseCount = 0,
     } = useQuery('getAuctionHouseCount', async () => {
@@ -106,12 +113,16 @@ const Home = () => {
                 </title>
             </Helmet>
             <LandingHero
+                mobileAction = {mobileFilterAction}
                 onSearch = {handleSearch}
             />
             <PageContainer>
                 <Box
                     sx = {{
-                        display: 'flex',
+                        display: {
+                            sm: 'flex',
+                            xs: 'none',
+                        },
                         justifyContent: 'center',
                         paddingY: {
                             sm: 3,

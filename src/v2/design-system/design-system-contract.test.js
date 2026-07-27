@@ -133,11 +133,18 @@ describe('V2 design-system contract', () => {
 
     it('keeps mobile result actions together and exposes filters on the landing page', () => {
         const homeSource = fs.readFileSync(path.join(v2Root, 'pages', 'Home.js'), 'utf8');
+        const heroSource = fs.readFileSync(path.resolve(__dirname, 'LandingHero.js'), 'utf8');
+        const searchSource = fs.readFileSync(path.resolve(__dirname, 'SearchBox.js'), 'utf8');
         const resultsSource = fs.readFileSync(path.join(v2Root, 'pages', 'SearchResults.js'), 'utf8');
 
         expect(homeSource).toContain('<FilterDrawer');
+        expect(homeSource).toContain('mobileAction = {mobileFilterAction}');
         expect(homeSource).toContain('getAuctionHouseCount');
         expect(homeSource).toContain('<LandingCoverage');
+        expect(heroSource).toContain('mobileAction = {mobileAction}');
+        expect(searchSource).toContain('gridTemplateAreas: {');
+        expect(searchSource).toContain("xs: '\"input input\" \"search action\"'");
+        expect(searchSource).toContain('gridArea: \'action\'');
         expect(resultsSource).toContain("direction = 'row'");
         expect(resultsSource).toContain('flex: 1');
         expect(resultsSource).toContain('<FilterDrawer');

@@ -9,6 +9,7 @@ import PageContainer from './PageContainer';
 import SearchBox from './SearchBox';
 
 const LandingHero = ({
+    mobileAction,
     onSearch,
 }) => {
     return (
@@ -83,6 +84,7 @@ const LandingHero = ({
                         }}
                     >
                         <SearchBox
+                            mobileAction = {mobileAction}
                             onSearch = {onSearch}
                         />
                     </Box>
@@ -93,7 +95,12 @@ const LandingHero = ({
 };
 
 LandingHero.propTypes = {
+    mobileAction: PropTypes.node,
     onSearch: PropTypes.func.isRequired,
+};
+
+LandingHero.defaultProps = {
+    mobileAction: null,
 };
 
 export default LandingHero;

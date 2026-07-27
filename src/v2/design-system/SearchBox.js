@@ -5,14 +5,15 @@ import {
 import PropTypes from 'prop-types';
 import SearchIcon from '@mui/icons-material/Search';
 import {
+    Box,
     Button,
     InputAdornment,
-    Stack,
     TextField,
 } from '@mui/material';
 
 const SearchBox = ({
     defaultValue,
+    mobileAction,
     onSearch,
 }) => {
     const inputRef = useRef(null);
@@ -26,15 +27,20 @@ const SearchBox = ({
     }, [ onSearch ]);
 
     return (
-        <Stack
+        <Box
             component = 'form'
-            direction = {{
-                sm: 'row',
-                xs: 'column',
-            }}
             onSubmit = {handleSubmit}
-            spacing = {1.5}
             sx = {{
+                display: 'grid',
+                gap: 1.5,
+                gridTemplateAreas: {
+                    sm: '"input search"',
+                    xs: '"input input" "search action"',
+                },
+                gridTemplateColumns: {
+                    sm: 'minmax(0, 1fr) auto',
+                    xs: 'minmax(0, 1fr) minmax(0, 1fr)',
+                },
                 width: '100%',
             }}
         >
@@ -62,6 +68,7 @@ const SearchBox = ({
                             xs: 54,
                         },
                     },
+                    gridArea: 'input',
                 }}
             />
             <Button
@@ -69,6 +76,7 @@ const SearchBox = ({
                 size = 'large'
                 sx = {{
                     flexShrink: 0,
+                    gridArea: 'search',
                     minHeight: {
                         xs: 52,
                     },
@@ -81,16 +89,32 @@ const SearchBox = ({
             >
                 {'Sök alla'}
             </Button>
-        </Stack>
+            {mobileAction && (
+                <Box
+                    sx = {{
+                        display: {
+                            sm: 'none',
+                            xs: 'block',
+                        },
+                        gridArea: 'action',
+                        minWidth: 0,
+                    }}
+                >
+                    {mobileAction}
+                </Box>
+            )}
+        </Box>
     );
 };
 
 SearchBox.defaultProps = {
     defaultValue: '',
+    mobileAction: null,
 };
 
 SearchBox.propTypes = {
     defaultValue: PropTypes.string,
+    mobileAction: PropTypes.node,
     onSearch: PropTypes.func.isRequired,
 };
 
