@@ -80,6 +80,7 @@ const Home = () => {
     };
     const mobileFilterAction = (
         <FilterDrawer
+            applyLabel = 'Spara filter'
             filterProps = {filterProps}
             fullWidth
             label = 'Filter'
@@ -131,6 +132,7 @@ const Home = () => {
                     }}
                 >
                     <FilterDrawer
+                        applyLabel = 'Spara filter'
                         filterProps = {filterProps}
                         label = 'Välj filter'
                     />

@@ -64,7 +64,7 @@ describe('V2 design-system contract', () => {
         const resultsSource = fs.readFileSync(path.join(v2Root, 'pages', 'SearchResults.js'), 'utf8');
 
         expect(resultsSource).toContain("isFetching\n                                ? 'Söker efter fynd…'");
-        expect(filterSource).toContain("{'Visa resultat'}");
+        expect(filterSource).toContain("applyLabel: 'Visa resultat'");
         expect(cardSource).toContain("justifyContent: 'space-between'");
     });
 
@@ -138,6 +138,7 @@ describe('V2 design-system contract', () => {
         const resultsSource = fs.readFileSync(path.join(v2Root, 'pages', 'SearchResults.js'), 'utf8');
 
         expect(homeSource).toContain('<FilterDrawer');
+        expect(homeSource).toContain("applyLabel = 'Spara filter'");
         expect(homeSource).toContain('mobileAction = {mobileFilterAction}');
         expect(homeSource).toContain('getAuctionHouseCount');
         expect(homeSource).toContain('<LandingCoverage');

@@ -13,6 +13,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import FilterPanel from './FilterPanel';
 
 const FilterDrawer = ({
+    applyLabel,
     buttonSx,
     filterProps,
     fullWidth,
@@ -51,6 +52,7 @@ const FilterDrawer = ({
                 >
                     <FilterPanel
                         {...filterProps}
+                        applyLabel = {applyLabel}
                         onApply = {handleClose}
                     />
                 </Box>
@@ -60,12 +62,14 @@ const FilterDrawer = ({
 };
 
 FilterDrawer.defaultProps = {
+    applyLabel: 'Visa resultat',
     buttonSx: {},
     fullWidth: false,
     label: 'Filter',
 };
 
 FilterDrawer.propTypes = {
+    applyLabel: PropTypes.string,
     buttonSx: PropTypes.shape({}),
     filterProps: PropTypes.shape({
         maxPrice: PropTypes.string.isRequired,

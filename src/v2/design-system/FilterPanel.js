@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 
 const FilterPanel = ({
+    applyLabel,
     maxPrice,
     onApply,
     onMaxPriceChange,
@@ -133,7 +134,7 @@ const FilterPanel = ({
                         onClick = {onApply}
                         variant = 'contained'
                     >
-                        {'Visa resultat'}
+                        {applyLabel}
                     </Button>
                 )}
             </Stack>
@@ -142,6 +143,7 @@ const FilterPanel = ({
 };
 
 FilterPanel.propTypes = {
+    applyLabel: PropTypes.string,
     maxPrice: PropTypes.string.isRequired,
     onApply: PropTypes.func,
     onMaxPriceChange: PropTypes.func.isRequired,
@@ -158,6 +160,7 @@ FilterPanel.propTypes = {
 };
 
 FilterPanel.defaultProps = {
+    applyLabel: 'Visa resultat',
     onApply: null,
 };
 
