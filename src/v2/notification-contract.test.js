@@ -82,5 +82,9 @@ describe('V2 notification inbox and Web Push contract', () => {
         expect(workerSource).toContain('showNotification');
         expect(workerSource).toContain("self.addEventListener('notificationclick'");
         expect(workerSource).toContain('clients.openWindow');
+        expect(workerSource).toContain('cleanupOutdatedCaches()');
+        expect(workerSource).toContain('self.skipWaiting()');
+        expect(indexSource).toContain('onUpdate: (registration)');
+        expect(indexSource).toContain("type: 'SKIP_WAITING'");
     });
 });
