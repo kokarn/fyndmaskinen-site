@@ -13,6 +13,7 @@ describe('V2 notification inbox and Web Push contract', () => {
         const apiSource = read(srcRoot, 'features', 'notifications.js');
 
         expect(apiSource).toContain('getNotifications(limit: $limit)');
+        expect(apiSource).toContain('currentPrice');
         expect(apiSource).toContain('unreadNotificationCount');
         expect(apiSource).toContain('markNotificationRead(id: $id)');
         expect(apiSource).toContain('markAllNotificationsRead');
@@ -52,6 +53,7 @@ describe('V2 notification inbox and Web Push contract', () => {
         expect(inboxSource).toContain('Du har inga notiser ännu.');
         expect(inboxSource).toContain('Markera alla som lästa');
         expect(inboxSource).toContain('<NotificationCard');
+        expect(read(v2Root, 'design-system', 'NotificationCard.js')).toContain('formatPrice(notification.currentPrice)');
     });
 
     it('only asks for push permission after an explicit action and explains fallback states', () => {
