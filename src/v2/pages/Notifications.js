@@ -92,7 +92,7 @@ const Notifications = () => {
     }, {
         onSuccess: invalidateNotifications,
     });
-    const handleOpen = useCallback(async(notification) => {
+    const handleOpen = useCallback(async (notification) => {
         if (!notification.read) {
             try {
                 await readMutation.mutateAsync(notification.id);
@@ -136,7 +136,9 @@ const Notifications = () => {
                             : 'Inga olästa notiser'}
                     </Typography>
                     <Button
-                        disabled = {!data.unreadNotificationCount || readAllMutation.isLoading}
+                        disabled = {
+                            !data.unreadNotificationCount || readAllMutation.isLoading
+                        }
                         onClick = {handleReadAll}
                         startIcon = {<DoneAllIcon />}
                         variant = 'outlined'

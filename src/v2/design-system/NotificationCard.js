@@ -38,7 +38,7 @@ const NotificationCard = ({
                     : 'primary.main',
                 boxShadow: notification.read
                     ? 'none'
-                    : undefined,
+                    : null,
                 overflow: 'hidden',
             }}
         >

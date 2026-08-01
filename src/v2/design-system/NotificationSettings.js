@@ -30,7 +30,9 @@ const AUTH_OPTIONS = {
 };
 
 const decodeVapidKey = (key) => {
-    const padding = '='.repeat((4 - key.length % 4) % 4);
+    /* eslint-disable no-magic-numbers, no-mixed-operators */
+    const padding = '='.repeat((4 - (key.length % 4)) % 4);
+    /* eslint-enable no-magic-numbers, no-mixed-operators */
     const base64 = (key + padding).replace(/-/gu, '+').replace(/_/gu, '/');
     const raw = window.atob(base64);
 
@@ -96,7 +98,7 @@ const NotificationSettings = () => {
         getAccessTokenSilently, supported,
     ]);
 
-    const handleEnable = useCallback(async() => {
+    const handleEnable = useCallback(async () => {
         setError('');
         setIsBusy(true);
 
@@ -105,6 +107,7 @@ const NotificationSettings = () => {
 
             if (permission !== 'granted') {
                 setError('Pushnotiser är inte tillåtna i webbläsaren. Ändra behörigheten i webbläsarens inställningar om du vill aktivera dem.');
+
                 return;
             }
 
@@ -135,7 +138,7 @@ const NotificationSettings = () => {
         }
     }, [ accessToken ]);
 
-    const handleDisable = useCallback(async() => {
+    const handleDisable = useCallback(async () => {
         setError('');
         setIsBusy(true);
 
@@ -215,9 +218,11 @@ const NotificationSettings = () => {
                             <Button
                                 disabled = {isBusy}
                                 onClick = {handleDisable}
-                                startIcon = {isBusy
+                                startIcon = {
+                                    isBusy
                                     ? <CircularProgress size = {20} />
-                                    : <NotificationsOffIcon />}
+                                    : <NotificationsOffIcon />
+                                }
                                 variant = 'outlined'
                             >
                                 {'Stäng av pushnotiser'}
@@ -227,9 +232,11 @@ const NotificationSettings = () => {
                             <Button
                                 disabled = {!canEnable || isBusy}
                                 onClick = {handleEnable}
-                                startIcon = {isBusy
+                                startIcon = {
+                                    isBusy
                                     ? <CircularProgress size = {20} />
-                                    : <NotificationsActiveIcon />}
+                                    : <NotificationsActiveIcon />
+                                }
                                 variant = 'contained'
                             >
                                 {'Aktivera pushnotiser'}

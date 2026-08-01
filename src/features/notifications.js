@@ -37,7 +37,7 @@ const notificationFields = `
     read
 `;
 
-const getNotifications = (accessToken, limit = 50) => {
+const getNotifications = (accessToken, limit = 50) => { // eslint-disable-line no-magic-numbers
     return requestGraphql(accessToken, `
         query Notifications($limit: Int) {
             getNotifications(limit: $limit) {
