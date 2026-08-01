@@ -52,8 +52,9 @@ describe('V2 notification inbox and Web Push contract', () => {
         expect(inboxSource).toContain('Det gick inte att hämta dina notiser.');
         expect(inboxSource).toContain('Du har inga notiser ännu.');
         expect(inboxSource).toContain('Markera alla som lästa');
-        expect(inboxSource).toContain('<NotificationCard');
-        expect(read(v2Root, 'design-system', 'NotificationCard.js')).toContain('formatPrice(notification.currentPrice)');
+        expect(inboxSource).toContain('<ResultCard');
+        expect(inboxSource).toContain('item = {notificationItem(notification)}');
+        expect(inboxSource).not.toContain('<NotificationCard');
     });
 
     it('only asks for push permission after an explicit action and explains fallback states', () => {
