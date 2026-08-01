@@ -54,6 +54,8 @@ describe('V2 notification inbox and Web Push contract', () => {
         expect(inboxSource).toContain('Markera alla som lästa');
         expect(inboxSource).toContain('<ResultCard');
         expect(inboxSource).toContain('item = {notificationItem(notification)}');
+        expect(inboxSource).toContain('eyebrow = {`Bevakning: ${notification.watchMatch}`}');
+        expect(read(v2Root, 'design-system', 'ResultCard.js')).toContain("label = {eyebrow}");
         expect(inboxSource).not.toContain('<NotificationCard');
     });
 
