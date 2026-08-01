@@ -18,6 +18,8 @@ import {
     Link,
 } from 'react-router-dom';
 
+import NotificationBell from './NotificationBell';
+
 const ADMIN_EMAIL = 'kokarn@gmail.com';
 
 const AccountActions = () => {
@@ -61,6 +63,7 @@ const AccountActions = () => {
                 flexShrink: 0,
             }}
         >
+            <NotificationBell />
             {user?.email === ADMIN_EMAIL && (
                 <>
                     <Button

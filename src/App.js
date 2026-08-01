@@ -47,6 +47,7 @@ import V2AdminWatches from './v2/pages/AdminWatches';
 import V2Barcode from './v2/pages/Barcode';
 import V2Deals from './v2/pages/Deals';
 import V2IsbnDeals from './v2/pages/IsbnDeals';
+import V2Notifications from './v2/pages/Notifications';
 
 // eslint-disable-next-line no-process-env, no-undef
 const PUBLIC_URL = process.env.PUBLIC_URL;
@@ -151,6 +152,7 @@ const App = () => {
     const v2Paths = [
         '/v2',
         '/profile',
+        '/notifications',
         '/admin',
         '/barcode',
         '/deals',
@@ -178,6 +180,10 @@ const App = () => {
                     <Route
                         element = {<V2Profile />}
                         path = '/profile'
+                    />
+                    <Route
+                        element = {<V2Notifications />}
+                        path = '/notifications'
                     />
                     <Route
                         element = {<V2Admin />}

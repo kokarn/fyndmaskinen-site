@@ -69,4 +69,50 @@ self.addEventListener('message', (event) => {
   }
 });
 
+// Web Push notifications from saved-search matches.
+self.addEventListener('push', (event) => {
+  let payload = {};
+
+  try {
+    payload = event.data ? event.data.json() : {};
+  } catch (error) {
+    payload = {
+      body: event.data ? event.data.text() : '',
+    };
+  }
+
+  const title = payload.title || 'Nytt fynd från Fyndmaskinen';
+  const options = {
+    body: payload.body || payload.itemDescription || 'En av dina bevakningar har hittat något nytt.',
+    data: {
+      url: payload.itemUrl || payload.url || '/notifications',
+    },
+    icon: '/logo192.png',
+    badge: '/logo192.png',
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener('notificationclick', (event) => {
+  const destination = event.notification.data && event.notification.data.url
+    ? event.notification.data.url
+    : '/notifications';
+
+  event.notification.close();
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true })
+      .then((windowClients) => {
+        const absoluteDestination = new URL(destination, self.location.origin).href;
+        const existingClient = windowClients.find((client) => client.url === absoluteDestination);
+
+        if (existingClient) {
+          return existingClient.focus();
+        }
+
+        return self.clients.openWindow(absoluteDestination);
+      })
+  );
+});
+
 // Any other custom service worker logic can go here.
