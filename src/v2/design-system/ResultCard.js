@@ -13,6 +13,7 @@ import sources from '../../sources';
 import SourceMark from './SourceMark';
 import {
     density,
+    shadows,
 } from './theme';
 
 const {
@@ -52,7 +53,7 @@ const ResultCard = ({
                     ? 'primary.main'
                     : 'border.subtle',
                 boxShadow: notification && !notification.read
-                    ? 3
+                    ? shadows.card
                     : 0,
                 height: '100%',
                 position: 'relative',
