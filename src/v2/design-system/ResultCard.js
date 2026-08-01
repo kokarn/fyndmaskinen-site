@@ -13,6 +13,7 @@ import sources from '../../sources';
 import SourceMark from './SourceMark';
 import {
     density,
+    shadows,
 } from './theme';
 
 const {
@@ -47,6 +48,13 @@ const ResultCard = ({
     return (
         <Card
             sx = {{
+                border: '2px solid',
+                borderColor: notification && !notification.read
+                    ? 'primary.main'
+                    : 'border.subtle',
+                boxShadow: notification && !notification.read
+                    ? shadows.card
+                    : 0,
                 height: '100%',
                 position: 'relative',
             }}
@@ -94,18 +102,33 @@ const ResultCard = ({
                         width: '100%',
                     }}
                 >
-                    {eyebrow && (
-                        <Chip
-                            color = 'secondary'
-                            label = {eyebrow}
-                            size = 'small'
-                            sx = {{
-                                alignSelf: 'flex-start',
-                                marginBottom: 1,
-                                maxWidth: '100%',
-                            }}
-                        />
-                    )}
+                    <Stack
+                        alignItems = 'center'
+                        direction = 'row'
+                        justifyContent = 'space-between'
+                        marginBottom = {eyebrow || notification
+                            ? 1
+                            : 0}
+                        spacing = {1}
+                    >
+                        {eyebrow && (
+                            <Chip
+                                color = 'secondary'
+                                label = {eyebrow}
+                                size = 'small'
+                                sx = {{
+                                    maxWidth: '100%',
+                                }}
+                            />
+                        )}
+                        {notification && !notification.read && (
+                            <Chip
+                                color = 'primary'
+                                label = 'Ny'
+                                size = 'small'
+                            />
+                        )}
+                    </Stack>
                     <Typography
                         fontWeight = {750}
                         sx = {{
