@@ -44,6 +44,7 @@ const NotificationCard = ({
         >
             <ButtonBase
                 aria-label = {`Öppna ${notification.itemTitle}`}
+                // eslint-disable-next-line react/jsx-no-bind
                 onClick = {handleOpen}
                 sx = {{
                     alignItems: 'stretch',

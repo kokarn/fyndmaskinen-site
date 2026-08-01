@@ -106,7 +106,10 @@ const NotificationSettings = () => {
             const permission = await Notification.requestPermission();
 
             if (permission !== 'granted') {
-                setError('Pushnotiser är inte tillåtna i webbläsaren. Ändra behörigheten i webbläsarens inställningar om du vill aktivera dem.');
+                setError(
+                    'Pushnotiser är inte tillåtna i webbläsaren. ' +
+                    'Ändra behörigheten i webbläsarens inställningar om du vill aktivera dem.',
+                );
 
                 return;
             }
@@ -165,7 +168,8 @@ const NotificationSettings = () => {
     if (!supported) {
         guidance = 'Den här webbläsaren stöder inte pushnotiser.';
     } else if (needsIosInstall) {
-        guidance = 'På iPhone och iPad: lägg till Fyndmaskinen på hemskärmen och öppna appen därifrån innan push kan aktiveras.';
+        guidance = 'På iPhone och iPad: lägg till Fyndmaskinen på hemskärmen ' +
+            'och öppna appen därifrån innan push kan aktiveras.';
     } else if (supported && Notification.permission === 'denied') {
         guidance = 'Pushnotiser är blockerade. Tillåt dem i webbläsarens inställningar för webbplatsen.';
     } else if (subscription) {

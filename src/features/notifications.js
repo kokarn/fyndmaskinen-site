@@ -1,3 +1,4 @@
+/* eslint-disable id-blacklist */
 const requestGraphql = (accessToken, query, variables = {}) => {
     return fetch(`${window.API_HOSTNAME}/graphql`, {
         body: JSON.stringify({

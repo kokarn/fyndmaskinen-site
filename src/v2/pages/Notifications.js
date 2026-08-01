@@ -3,6 +3,7 @@ import {
     useEffect,
     useState,
 } from 'react';
+/* eslint-disable id-blacklist */
 import {
     useAuth0,
 } from '@auth0/auth0-react';
