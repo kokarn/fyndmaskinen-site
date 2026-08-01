@@ -51,6 +51,7 @@ const ResultCard = ({
         >
             <CardActionArea
                 href = {item.url}
+                // eslint-disable-next-line react/jsx-no-bind
                 onClick = {handleClick}
                 sx = {{
                     display: 'flex',
