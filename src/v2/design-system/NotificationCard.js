@@ -21,6 +21,16 @@ const formatCreatedAt = (createdAt) => {
     }).format(new Date(createdAt));
 };
 
+const formatPrice = (currentPrice) => {
+    return currentPrice === -1
+        ? 'Förhandsvisning'
+        : new Intl.NumberFormat('sv-SE', {
+            currency: 'SEK',
+            maximumFractionDigits: 0,
+            style: 'currency',
+        }).format(currentPrice);
+};
+
 const NotificationCard = ({
     notification,
     onOpen,
@@ -106,6 +116,12 @@ const NotificationCard = ({
                         >
                             {notification.itemTitle}
                         </Typography>
+                        <Typography
+                            fontSize = '1rem'
+                            fontWeight = {850}
+                        >
+                            {formatPrice(notification.currentPrice)}
+                        </Typography>
                         {notification.itemDescription && (
                             <Typography
                                 color = 'text.secondary'
@@ -146,6 +162,7 @@ const NotificationCard = ({
 NotificationCard.propTypes = {
     notification: PropTypes.shape({
         createdAt: PropTypes.string,
+        currentPrice: PropTypes.number.isRequired,
         id: PropTypes.string.isRequired,
         imageUrl: PropTypes.string,
         itemDescription: PropTypes.string,
