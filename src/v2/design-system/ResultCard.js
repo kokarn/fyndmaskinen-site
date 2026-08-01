@@ -4,6 +4,7 @@ import {
     CardActionArea,
     CardContent,
     CardMedia,
+    Chip,
     Stack,
     Typography,
 } from '@mui/material';
@@ -19,6 +20,7 @@ const {
 } = density;
 
 const ResultCard = ({
+    eyebrow,
     item,
     notification,
     onOpen,
@@ -92,6 +94,18 @@ const ResultCard = ({
                         width: '100%',
                     }}
                 >
+                    {eyebrow && (
+                        <Chip
+                            color = 'secondary'
+                            label = {eyebrow}
+                            size = 'small'
+                            sx = {{
+                                alignSelf: 'flex-start',
+                                marginBottom: 1,
+                                maxWidth: '100%',
+                            }}
+                        />
+                    )}
                     <Typography
                         fontWeight = {750}
                         sx = {{
@@ -133,6 +147,7 @@ const ResultCard = ({
 };
 
 ResultCard.propTypes = {
+    eyebrow: PropTypes.string,
     item: PropTypes.shape({
         currentPrice: PropTypes.number.isRequired,
         imageUrl: PropTypes.string,
@@ -149,6 +164,7 @@ ResultCard.propTypes = {
 };
 
 ResultCard.defaultProps = {
+    eyebrow: '',
     notification: null,
     onOpen: null,
 };
