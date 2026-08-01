@@ -220,8 +220,10 @@ const NotificationSettings = () => {
                                 onClick = {handleDisable}
                                 startIcon = {
                                     isBusy
-                                    ? <CircularProgress size = {20} />
-                                    : <NotificationsOffIcon />
+                                        ? <CircularProgress
+                                            size = {20}
+                                        />
+                                        : <NotificationsOffIcon />
                                 }
                                 variant = 'outlined'
                             >
@@ -234,8 +236,10 @@ const NotificationSettings = () => {
                                 onClick = {handleEnable}
                                 startIcon = {
                                     isBusy
-                                    ? <CircularProgress size = {20} />
-                                    : <NotificationsActiveIcon />
+                                        ? <CircularProgress
+                                            size = {20}
+                                        />
+                                        : <NotificationsActiveIcon />
                                 }
                                 variant = 'contained'
                             >

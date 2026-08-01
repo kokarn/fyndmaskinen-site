@@ -153,7 +153,9 @@ const Notifications = () => {
                         role = 'status'
                         spacing = {1.5}
                     >
-                        <CircularProgress size = {24} />
+                        <CircularProgress
+                            size = {24}
+                        />
                         <Typography>
                             {'Hämtar notiser…'}
                         </Typography>
