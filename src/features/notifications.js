@@ -34,6 +34,7 @@ const notificationFields = `
     itemUrl
     itemDescription
     imageUrl
+    currentPrice
     createdAt
     read
 `;
