@@ -106,10 +106,10 @@ const NotificationSettings = () => {
             const permission = await Notification.requestPermission();
 
             if (permission !== 'granted') {
-                setError(
-                    'Pushnotiser är inte tillåtna i webbläsaren. ' +
-                    'Ändra behörigheten i webbläsarens inställningar om du vill aktivera dem.',
-                );
+                const permissionError = 'Pushnotiser är inte tillåtna i webbläsaren. ' +
+                    'Ändra behörigheten i webbläsarens inställningar om du vill aktivera dem.';
+
+                setError(permissionError);
 
                 return;
             }
