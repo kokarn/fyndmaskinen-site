@@ -29,6 +29,9 @@ import FilterDrawer from '../design-system/FilterDrawer';
 import FilterPanel from '../design-system/FilterPanel';
 import LandingCoverage from '../design-system/LandingCoverage';
 import LandingHero from '../design-system/LandingHero';
+import NotificationBell from '../design-system/NotificationBell';
+import NotificationCard from '../design-system/NotificationCard';
+import NotificationSettings from '../design-system/NotificationSettings';
 import PageContainer from '../design-system/PageContainer';
 import ResultCard from '../design-system/ResultCard';
 import SearchBox from '../design-system/SearchBox';
@@ -297,9 +300,24 @@ const DesignSystem = () => {
                             spacing = {2}
                         >
                             <AccountActions />
+                            <NotificationBell />
                             <SaveSearchButton
                                 searchPhrase = 'designklassiker'
                             />
+                            <NotificationCard
+                                notification = {{
+                                    createdAt: '2026-08-01T10:30:00.000Z',
+                                    id: 'example-notification',
+                                    imageUrl: 'https://fyndmaskinen.se/images/no-image.jpg',
+                                    itemDescription: 'Ett exempel på en ny träff från en sparad bevakning.',
+                                    itemTitle: 'Ny träff: Stringhylla i teak',
+                                    itemUrl: '#notification-card',
+                                    read: false,
+                                    watchMatch: 'stringhylla',
+                                }}
+                                onOpen = {handleApply}
+                            />
+                            <NotificationSettings />
                         </Stack>
                     </DesignSection>
                     <DesignSection

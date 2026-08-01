@@ -31,6 +31,7 @@ import getWatches from '../../features/get-watches';
 import getWatchLimit from '../../features/get-watch-limit';
 import removeWatch from '../../features/remove-watch';
 import AccountPageShell from '../design-system/AccountPageShell';
+import NotificationSettings from '../design-system/NotificationSettings';
 import WatchItemCard from '../design-system/WatchItemCard';
 
 const AUTH_OPTIONS = {
@@ -225,6 +226,7 @@ const Profile = () => {
                         );
                     })}
                 </Stack>
+                <NotificationSettings />
                 <Stack
                     direction = {{
                         sm: 'row',

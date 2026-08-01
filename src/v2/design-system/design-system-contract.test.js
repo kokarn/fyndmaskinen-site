@@ -131,12 +131,15 @@ describe('V2 design-system contract', () => {
     it('keeps the shared header within narrow mobile viewports', () => {
         const shellSource = fs.readFileSync(path.resolve(__dirname, 'AppShell.js'), 'utf8');
         const accountSource = fs.readFileSync(path.resolve(__dirname, 'AccountActions.js'), 'utf8');
+        const bellSource = fs.readFileSync(path.resolve(__dirname, 'NotificationBell.js'), 'utf8');
         const brandSource = fs.readFileSync(path.resolve(__dirname, 'Brand.js'), 'utf8');
 
         expect(shellSource).toContain("overflowX: 'hidden'");
         expect(shellSource).toContain('minWidth: 0');
         expect(accountSource).toContain("aria-label = 'Bevakningar'");
         expect(accountSource).toContain("aria-label = 'Admin'");
+        expect(accountSource).toContain('<NotificationBell />');
+        expect(bellSource).toContain("aria-label = 'Notiser'");
         expect(brandSource).toContain("xs: 'none'");
         expect(brandSource).toContain("src = '/logo192.png'");
         expect(brandSource).not.toContain('DoneIcon');
