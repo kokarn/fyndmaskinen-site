@@ -11,6 +11,7 @@ import {
     Alert,
     Button,
     CircularProgress,
+    Grid,
     Stack,
     Typography,
 } from '@mui/material';
@@ -27,11 +28,21 @@ import {
     markNotificationRead,
 } from '../../features/notifications';
 import AccountPageShell from '../design-system/AccountPageShell';
-import NotificationCard from '../design-system/NotificationCard';
+import ResultCard from '../design-system/ResultCard';
 
 const AUTH_OPTIONS = {
     audience: 'https://fyndmaskinen.se',
     scope: 'read:users email read:current_user',
+};
+
+const notificationItem = (notification) => {
+    return {
+        currentPrice: notification.currentPrice,
+        imageUrl: notification.imageUrl,
+        title: notification.itemTitle,
+        type: notification.itemType,
+        url: notification.itemUrl,
+    };
 };
 
 const Notifications = () => {
@@ -176,15 +187,31 @@ const Notifications = () => {
                         {'Du har inga notiser ännu.'}
                     </Alert>
                 )}
-                {notifications.map((notification) => {
-                    return (
-                        <NotificationCard
-                            key = {notification.id}
-                            notification = {notification}
-                            onOpen = {handleOpen}
-                        />
-                    );
-                })}
+                <Grid
+                    container
+                    spacing = {{
+                        sm: 1.5,
+                        xs: 1,
+                    }}
+                >
+                    {notifications.map((notification) => {
+                        return (
+                            <Grid
+                                item
+                                key = {notification.id}
+                                lg = {3}
+                                sm = {4}
+                                xs = {12}
+                            >
+                                <ResultCard
+                                    item = {notificationItem(notification)}
+                                    notification = {notification}
+                                    onOpen = {handleOpen}
+                                />
+                            </Grid>
+                        );
+                    })}
+                </Grid>
             </Stack>
         </AccountPageShell>
     );
