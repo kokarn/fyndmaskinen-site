@@ -31,6 +31,7 @@ const notificationFields = `
     id
     watchMatch
     itemTitle
+    itemType
     itemUrl
     itemDescription
     imageUrl

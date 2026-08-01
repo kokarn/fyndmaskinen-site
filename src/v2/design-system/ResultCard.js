@@ -20,6 +20,8 @@ const {
 
 const ResultCard = ({
     item,
+    notification,
+    onOpen,
 }) => {
     const source = sources.find((candidate) => {
         return candidate.ids
@@ -33,6 +35,12 @@ const ResultCard = ({
             maximumFractionDigits: 0,
             style: 'currency',
         }).format(item.currentPrice);
+    const handleClick = (event) => {
+        if (onOpen) {
+            event.preventDefault();
+            onOpen(notification);
+        }
+    };
 
     return (
         <Card
@@ -43,6 +51,7 @@ const ResultCard = ({
         >
             <CardActionArea
                 href = {item.url}
+                onClick = {handleClick}
                 sx = {{
                     display: 'flex',
                     flexDirection: {
@@ -130,6 +139,17 @@ ResultCard.propTypes = {
         type: PropTypes.string.isRequired,
         url: PropTypes.string.isRequired,
     }).isRequired,
+    notification: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        itemUrl: PropTypes.string.isRequired,
+        read: PropTypes.bool.isRequired,
+    }),
+    onOpen: PropTypes.func,
+};
+
+ResultCard.defaultProps = {
+    notification: null,
+    onOpen: null,
 };
 
 export default ResultCard;
