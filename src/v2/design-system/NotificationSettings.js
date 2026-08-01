@@ -221,8 +221,8 @@ const NotificationSettings = () => {
                                 startIcon = {
                                     isBusy
                                         ? <CircularProgress
-                                            size = {20}
-                                        />
+                                                size = {20}
+                                            />
                                         : <NotificationsOffIcon />
                                 }
                                 variant = 'outlined'
@@ -237,8 +237,8 @@ const NotificationSettings = () => {
                                 startIcon = {
                                     isBusy
                                         ? <CircularProgress
-                                            size = {20}
-                                        />
+                                                size = {20}
+                                            />
                                         : <NotificationsActiveIcon />
                                 }
                                 variant = 'contained'
