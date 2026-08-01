@@ -221,8 +221,9 @@ const NotificationSettings = () => {
                                 startIcon = {
                                     isBusy
                                         ? <CircularProgress
-                                                size = {20}
-                                            />
+                                            // eslint-disable-next-line react/jsx-indent-props
+                                            size = {20}
+                                        />
                                         : <NotificationsOffIcon />
                                 }
                                 variant = 'outlined'
@@ -237,8 +238,9 @@ const NotificationSettings = () => {
                                 startIcon = {
                                     isBusy
                                         ? <CircularProgress
-                                                size = {20}
-                                            />
+                                            // eslint-disable-next-line react/jsx-indent-props
+                                            size = {20}
+                                        />
                                         : <NotificationsActiveIcon />
                                 }
                                 variant = 'contained'
