@@ -1,5 +1,5 @@
 export const createV2SearchPath = (searchPhrase) => {
-    return `/v2/search/${encodeURIComponent(searchPhrase.trim())}`;
+    return `/search/${encodeURIComponent(searchPhrase.trim())}`;
 };
 
 export const getDefaultSourceState = (availableSources) => {

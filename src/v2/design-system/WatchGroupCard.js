@@ -55,7 +55,7 @@ const WatchGroupCard = ({
                                     component = {Link}
                                     key = {match}
                                     label = {match}
-                                    to = {`/v2/search/${encodeURIComponent(match)}`}
+                                    to = {`/search/${encodeURIComponent(match)}`}
                                     variant = 'outlined'
                                 />
                             );

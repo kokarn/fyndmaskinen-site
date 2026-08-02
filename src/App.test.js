@@ -19,8 +19,8 @@ jest.mock('@ericblade/quagga2', () => {
 
 import App from './App';
 
-it('renders the V2 design system without crashing', () => {
-    window.history.pushState({}, '', '/v2/design-system');
+it('renders the design system without crashing', () => {
+    window.history.pushState({}, '', '/design-system');
     const container = document.createElement('div');
     const root = createRoot(container);
     const queryClient = new QueryClient();

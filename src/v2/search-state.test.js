@@ -4,8 +4,8 @@ import {
 } from './search-state';
 
 describe('V2 search state', () => {
-    it('creates an encoded V2 search route', () => {
-        expect(createV2SearchPath('poul henningsen')).toBe('/v2/search/poul%20henningsen');
+    it('creates an encoded canonical search route', () => {
+        expect(createV2SearchPath('poul henningsen')).toBe('/search/poul%20henningsen');
     });
 
     it('expands enabled source groups for the search API', () => {

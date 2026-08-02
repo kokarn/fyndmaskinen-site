@@ -113,6 +113,25 @@ describe('V2 design-system contract', () => {
         expect(accountSource).toContain("to = '/admin'");
     });
 
+    it('uses V2 as the only public application experience', () => {
+        const appSource = fs.readFileSync(path.resolve(v2Root, '..', 'App.js'), 'utf8');
+        const brandSource = fs.readFileSync(path.resolve(__dirname, 'Brand.js'), 'utf8');
+        const searchStateSource = fs.readFileSync(path.join(v2Root, 'search-state.js'), 'utf8');
+        const watchItemSource = fs.readFileSync(path.resolve(__dirname, 'WatchItemCard.js'), 'utf8');
+        const watchGroupSource = fs.readFileSync(path.resolve(__dirname, 'WatchGroupCard.js'), 'utf8');
+
+        expect(appSource).toContain("path = '/'");
+        expect(appSource).toContain("path = '/search/:searchString'");
+        expect(appSource).not.toContain("from './pages/main'");
+        expect(appSource).not.toContain("from './pages/search'");
+        expect(appSource).not.toContain('createTheme');
+        expect(appSource).not.toContain('usesV2');
+        expect(brandSource).toContain("to = '/'");
+        expect(searchStateSource).toContain('return `/search/${encodeURIComponent(searchPhrase.trim())}`;');
+        expect(watchItemSource).toContain('to = {`/search/${encodeURIComponent(match)}`}');
+        expect(watchGroupSource).toContain('to = {`/search/${encodeURIComponent(match)}`}');
+    });
+
     it('keeps every admin tool destination inside the V2 experience', () => {
         const appSource = fs.readFileSync(path.resolve(v2Root, '..', 'App.js'), 'utf8');
         const adminSource = fs.readFileSync(path.join(v2Root, 'pages', 'Admin.js'), 'utf8');
