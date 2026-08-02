@@ -181,13 +181,23 @@ describe('V2 design-system contract', () => {
 
         expect(shellSource).toContain("overflowX: 'hidden'");
         expect(shellSource).toContain('minWidth: 0');
-        expect(accountSource).toContain("aria-label = 'Bevakningar'");
         expect(accountSource).toContain("aria-label = 'Admin'");
         expect(accountSource).toContain('<NotificationBell />');
+        expect(accountSource).not.toContain("{'Bevakningar'}");
+        expect(accountSource.indexOf("aria-label = 'Admin'"))
+            .toBeLessThan(accountSource.indexOf('<NotificationBell />'));
         expect(bellSource).toContain("aria-label = 'Notiser'");
         expect(brandSource).toContain("xs: 'none'");
         expect(brandSource).toContain("src = '/logo192.png'");
         expect(brandSource).not.toContain('DoneIcon');
+    });
+
+    it('shows each admin statistic source once and right-aligns mobile values', () => {
+        const statisticSource = fs.readFileSync(path.resolve(__dirname, 'StatisticCard.js'), 'utf8');
+
+        expect(statisticSource).toContain('{!mark && (');
+        expect(statisticSource).toContain("xs: 'right'");
+        expect(statisticSource).toContain("marginLeft: 'auto'");
     });
 
     it('keeps mobile result actions together and exposes filters on the landing page', () => {
