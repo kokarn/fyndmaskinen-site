@@ -87,10 +87,13 @@ describe('V2 design-system contract', () => {
     it('keeps mobile search feedback stable and actionable', () => {
         const cardSource = fs.readFileSync(path.resolve(__dirname, 'ResultCard.js'), 'utf8');
         const filterSource = fs.readFileSync(path.resolve(__dirname, 'FilterPanel.js'), 'utf8');
+        const searchBoxSource = fs.readFileSync(path.resolve(__dirname, 'SearchBox.js'), 'utf8');
         const resultsSource = fs.readFileSync(path.join(v2Root, 'pages', 'SearchResults.js'), 'utf8');
 
         expect(resultsSource).toContain("isFetching\n                                ? 'Söker efter fynd…'");
         expect(filterSource).toContain("applyLabel: 'Visa resultat'");
+        expect(searchBoxSource).toContain("{'Sök'}");
+        expect(searchBoxSource).not.toContain("{'Sök alla'}");
         expect(cardSource).toContain("justifyContent: 'space-between'");
     });
 
