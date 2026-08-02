@@ -2,7 +2,12 @@ const escapeGraphQLString = (value) => {
     return JSON.stringify(String(value));
 };
 
-const addWatch = (accessToken, notificationEmail, newMatchString, filters = {}) => {
+const addWatch = ({
+    accessToken,
+    filters = {},
+    newMatchString,
+    notificationEmail,
+}) => {
     const filterPayload = Object.keys(filters).length > 0
         ? `, filters: ${escapeGraphQLString(JSON.stringify(filters))}`
         : '';

@@ -41,7 +41,12 @@ const SaveSearchButton = ({
         const accessToken = await getAccessTokenSilently({
             authorizationParams: AUTH_OPTIONS,
         });
-        const response = await addWatch(accessToken, user.email, searchPhrase, filters);
+        const response = await addWatch({
+            accessToken,
+            filters,
+            newMatchString: searchPhrase,
+            notificationEmail: user.email,
+        });
 
         if (!response.ok) {
             throw new Error('Bevakningen kunde inte sparas');
