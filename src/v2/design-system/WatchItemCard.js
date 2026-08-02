@@ -6,6 +6,8 @@ import {
     Button,
     Card,
     CardContent,
+    Chip,
+    Stack,
     Typography,
 } from '@mui/material';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -13,10 +15,38 @@ import {
     Link,
 } from 'react-router-dom';
 
+import availableSources from '../../sources';
+import SourceMark from './SourceMark';
+
+const getSourceDisplay = (sourceId) => {
+    const source = availableSources.find((candidate) => {
+        return candidate.id === sourceId || candidate.ids?.includes(sourceId);
+    });
+
+    return {
+        id: source?.id || sourceId,
+        label: source?.label || sourceId,
+    };
+};
+
 const WatchItemCard = ({
     match,
+    maxPrice,
     onDelete,
+    sources,
 }) => {
+    const displaySources = sources === null
+        ? null
+        : [
+            ...new Map(sources.map((sourceId) => {
+                const source = getSourceDisplay(sourceId);
+
+                return [
+                    source.id,
+                    source,
+                ];
+            })).values(),
+        ];
     const handleDelete = useCallback((event) => {
         onDelete(event.currentTarget.dataset.match);
     }, [ onDelete ]);
@@ -36,17 +66,51 @@ const WatchItemCard = ({
                     padding: 2,
                 }}
             >
-                <Typography
-                    component = {Link}
-                    sx = {{
-                        color: 'text.primary',
-                        fontWeight: 800,
-                        textDecoration: 'none',
-                    }}
-                    to = {`/search/${encodeURIComponent(match)}`}
+                <Stack
+                    spacing = {1}
                 >
-                    {match}
-                </Typography>
+                    <Typography
+                        component = {Link}
+                        sx = {{
+                            color: 'text.primary',
+                            fontWeight: 800,
+                            textDecoration: 'none',
+                        }}
+                        to = {`/search/${encodeURIComponent(match)}`}
+                    >
+                        {match}
+                    </Typography>
+                    <Stack
+                        direction = 'row'
+                        flexWrap = 'wrap'
+                        gap = {0.75}
+                    >
+                        {displaySources === null && (
+                            <Chip
+                                label = 'Alla marknadsplatser'
+                                size = 'small'
+                                variant = 'outlined'
+                            />
+                        )}
+                        {displaySources?.map((source) => {
+                            return (
+                                <SourceMark
+                                    compact
+                                    key = {source.id}
+                                    label = {source.label}
+                                    sourceId = {source.id}
+                                />
+                            );
+                        })}
+                        {maxPrice !== null && (
+                            <Chip
+                                label = {`Maxpris: ${maxPrice.toLocaleString('sv-SE')} kr`}
+                                size = 'small'
+                                variant = 'outlined'
+                            />
+                        )}
+                    </Stack>
+                </Stack>
                 {onDelete && (
                     <Button
                         aria-label = {`Ta bort bevakningen ${match}`}
@@ -65,12 +129,16 @@ const WatchItemCard = ({
 };
 
 WatchItemCard.defaultProps = {
+    maxPrice: null,
     onDelete: null,
+    sources: null,
 };
 
 WatchItemCard.propTypes = {
     match: PropTypes.string.isRequired,
+    maxPrice: PropTypes.number,
     onDelete: PropTypes.func,
+    sources: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default WatchItemCard;
