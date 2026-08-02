@@ -7,18 +7,16 @@ import {
     useAuth0,
 } from '@auth0/auth0-react';
 import {
-    Box,
     Button,
     Card,
     CardContent,
     Skeleton,
     Stack,
-    TextField,
     Typography,
 } from '@mui/material';
 
 import LogoutIcon from '@mui/icons-material/Logout';
-import SearchIcon from '@mui/icons-material/Search';
+
 
 import {
     useMutation,
@@ -26,7 +24,6 @@ import {
     useQueryClient,
 } from 'react-query';
 
-import addWatch from '../../features/add-watch';
 import getWatches from '../../features/get-watches';
 import getWatchLimit from '../../features/get-watch-limit';
 import removeWatch from '../../features/remove-watch';
@@ -47,9 +44,6 @@ const Profile = () => {
     } = useAuth0();
     const [
         accessToken, setAccessToken,
-    ] = useState('');
-    const [
-        newWatch, setNewWatch,
     ] = useState('');
     const queryClient = useQueryClient();
 
@@ -82,18 +76,6 @@ const Profile = () => {
         placeholderData: 0,
         refetchOnWindowFocus: false,
     });
-    const addMutation = useMutation(() => {
-        return addWatch({
-            accessToken,
-            newMatchString: newWatch.trim(),
-            notificationEmail: user.email,
-        });
-    }, {
-        onSuccess: () => {
-            setNewWatch('');
-            queryClient.invalidateQueries('watches');
-        },
-    });
     const removeMutation = useMutation((match) => {
         return removeWatch(accessToken, match);
     }, {
@@ -101,17 +83,7 @@ const Profile = () => {
             queryClient.invalidateQueries('watches');
         },
     });
-    const handleSubmit = useCallback((event) => {
-        event.preventDefault();
-        if (newWatch.trim()) {
-            addMutation.mutate();
-        }
-    }, [
-        addMutation, newWatch,
-    ]);
-    const handleNewWatchChange = useCallback((event) => {
-        setNewWatch(event.target.value);
-    }, []);
+
     const handleWatchDelete = useCallback((match) => {
         removeMutation.mutate(match);
     }, [ removeMutation ]);
@@ -120,8 +92,6 @@ const Profile = () => {
             returnTo: window.location.origin,
         });
     }, [ logout ]);
-    const atLimit = Boolean(watchLimit && watches.length >= watchLimit);
-
     return (
         <AccountPageShell
             description = 'Spara sökningar och få koll när nya fynd dyker upp.'
@@ -130,42 +100,6 @@ const Profile = () => {
             <Stack
                 spacing = {3}
             >
-                <Card>
-                    <CardContent>
-                        <Box
-                            component = 'form'
-                            onSubmit = {handleSubmit}
-                        >
-                            <Stack
-                                alignItems = {{
-                                    sm: 'flex-start',
-                                }}
-                                direction = {{
-                                    sm: 'row',
-                                    xs: 'column',
-                                }}
-                                spacing = {1.5}
-                            >
-                                <TextField
-                                    disabled = {atLimit}
-                                    fullWidth
-                                    label = 'Ny bevakning'
-                                    onChange = {handleNewWatchChange}
-                                    placeholder = 'Till exempel: stringhylla'
-                                    value = {newWatch}
-                                />
-                                <Button
-                                    disabled = {atLimit || addMutation.isLoading || !newWatch.trim()}
-                                    startIcon = {<SearchIcon />}
-                                    type = 'submit'
-                                    variant = 'contained'
-                                >
-                                    {'Lägg till'}
-                                </Button>
-                            </Stack>
-                        </Box>
-                    </CardContent>
-                </Card>
                 <Stack
                     alignItems = 'center'
                     direction = 'row'
