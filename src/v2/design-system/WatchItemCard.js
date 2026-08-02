@@ -1,16 +1,19 @@
 import PropTypes from 'prop-types';
 import {
     useCallback,
+    useState,
 } from 'react';
 import {
     Button,
     Card,
     CardContent,
     Chip,
+    Collapse,
     Stack,
     Typography,
 } from '@mui/material';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
     Link,
 } from 'react-router-dom';
@@ -35,6 +38,9 @@ const WatchItemCard = ({
     onDelete,
     sources,
 }) => {
+    const [
+        sourcesOpen, setSourcesOpen,
+    ] = useState(false);
     const displaySources = sources === null
         ? null
         : [
@@ -50,6 +56,12 @@ const WatchItemCard = ({
     const handleDelete = useCallback((event) => {
         onDelete(event.currentTarget.dataset.match);
     }, [ onDelete ]);
+    const handleSourcesToggle = useCallback(() => {
+        setSourcesOpen((previous) => !previous);
+    }, []);
+    const sourceSummary = displaySources === null
+        ? 'Alla marknadsplatser'
+        : `${displaySources.length} marknadsplatser`;
 
     return (
         <Card
@@ -68,6 +80,9 @@ const WatchItemCard = ({
             >
                 <Stack
                     spacing = {1}
+                    sx = {{
+                        minWidth: 0,
+                    }}
                 >
                     <Typography
                         component = {Link}
@@ -81,27 +96,51 @@ const WatchItemCard = ({
                         {match}
                     </Typography>
                     <Stack
-                        direction = 'row'
-                        flexWrap = 'wrap'
-                        gap = {0.75}
+                        alignItems = 'flex-start'
+                        spacing = {0.75}
                     >
-                        {displaySources === null && (
-                            <Chip
-                                label = 'Alla marknadsplatser'
-                                size = 'small'
-                                variant = 'outlined'
-                            />
-                        )}
-                        {displaySources?.map((source) => {
-                            return (
-                                <SourceMark
-                                    compact
-                                    key = {source.id}
-                                    label = {source.label}
-                                    sourceId = {source.id}
-                                />
-                            );
-                        })}
+                        <Button
+                            aria-expanded = {sourcesOpen}
+                            endIcon = {<ExpandMoreIcon />}
+                            onClick = {handleSourcesToggle}
+                            size = 'small'
+                            sx = {{
+                                justifyContent: 'flex-start',
+                                paddingX: 0.75,
+                                textAlign: 'left',
+                            }}
+                            variant = 'text'
+                        >
+                            {sourceSummary}
+                        </Button>
+                        <Collapse
+                            in = {sourcesOpen}
+                        >
+                            <Stack
+                                direction = 'row'
+                                flexWrap = 'wrap'
+                                gap = {0.75}
+                            >
+                                {displaySources === null && (
+                                    <Typography
+                                        color = 'text.secondary'
+                                        variant = 'caption'
+                                    >
+                                        {'Den här bevakningen söker på alla marknadsplatser.'}
+                                    </Typography>
+                                )}
+                                {displaySources?.map((source) => {
+                                    return (
+                                        <SourceMark
+                                            compact
+                                            key = {source.id}
+                                            label = {source.label}
+                                            sourceId = {source.id}
+                                        />
+                                    );
+                                })}
+                            </Stack>
+                        </Collapse>
                         {maxPrice !== null && (
                             <Chip
                                 label = {`Maxpris: ${maxPrice.toLocaleString('sv-SE')} kr`}
