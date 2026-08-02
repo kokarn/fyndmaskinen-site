@@ -25,6 +25,7 @@ const ResultCard = ({
     item,
     notification,
     onOpen,
+    watchLabel,
 }) => {
     const source = sources.find((candidate) => {
         return candidate.ids
@@ -106,12 +107,21 @@ const ResultCard = ({
                         alignItems = 'center'
                         direction = 'row'
                         justifyContent = 'space-between'
-                        marginBottom = {eyebrow || notification
+                        marginBottom = {eyebrow || notification || watchLabel
                             ? 1
                             : 0}
                         spacing = {1}
                     >
-                        {eyebrow && (
+                        {watchLabel && (
+                            <Typography
+                                color = 'text.secondary'
+                                noWrap
+                                variant = 'caption'
+                            >
+                                {`Bevakning: ${watchLabel}`}
+                            </Typography>
+                        )}
+                        {eyebrow && !watchLabel && (
                             <Chip
                                 color = 'secondary'
                                 label = {eyebrow}
@@ -184,12 +194,14 @@ ResultCard.propTypes = {
         read: PropTypes.bool.isRequired,
     }),
     onOpen: PropTypes.func,
+    watchLabel: PropTypes.string,
 };
 
 ResultCard.defaultProps = {
     eyebrow: '',
     notification: null,
     onOpen: null,
+    watchLabel: '',
 };
 
 export default ResultCard;

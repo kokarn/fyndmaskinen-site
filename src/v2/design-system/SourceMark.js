@@ -12,6 +12,16 @@ import {
 } from './theme';
 
 const SOURCE_TINT_OPACITY = 0.1;
+const sourceIconPaths = {
+    blocket: '/images/icons/blocket.png',
+    bukowskis: '/images/icons/bukowskis.png',
+    tradera: '/images/icons/tradera-40x40.png',
+    'uppsala-auktionskammare': '/images/icons/uppsala-auktionskammare.png',
+};
+const sourceInitials = {
+    auction2000: 'A',
+    auctionet: 'A',
+};
 
 const SourceMark = ({
     compact,
@@ -19,12 +29,26 @@ const SourceMark = ({
     sourceId,
 }) => {
     const color = sourceColors[ sourceId ] || sourceColors.fallback;
+    const iconPath = sourceIconPaths[ sourceId ];
 
     return (
         <Chip
-            avatar = {compact
-                ? null
-                : (
+            avatar = {iconPath
+                ? (
+                    <Avatar
+                        alt = ''
+                        src = {iconPath}
+                        sx = {{
+                            '&.MuiAvatar-root': {
+                                backgroundColor: 'background.paper',
+                                objectFit: 'contain',
+                            },
+                        }}
+                    />
+                )
+                : compact
+                    ? null
+                    : (
                     <Avatar
                         sx = {{
                             '&.MuiAvatar-root': {
@@ -34,7 +58,7 @@ const SourceMark = ({
                             },
                         }}
                     >
-                        {label.charAt(0)}
+                        {sourceInitials[ sourceId ] || '•'}
                     </Avatar>
                 )}
             label = {label}
