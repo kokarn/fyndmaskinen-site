@@ -30,6 +30,17 @@ describe('V2 design-system contract', () => {
         expect(offenders).toEqual([]);
     });
 
+    it('uses marketplace icons consistently in shared source marks and filters', () => {
+        const sourceMarkSource = fs.readFileSync(path.resolve(__dirname, 'SourceMark.js'), 'utf8');
+        const filterSource = fs.readFileSync(path.resolve(__dirname, 'FilterPanel.js'), 'utf8');
+
+        expect(sourceMarkSource).toContain("tradera: '/images/icons/tradera-40x40.png'");
+        expect(sourceMarkSource).toContain("blocket: '/images/icons/blocket.png'");
+        expect(sourceMarkSource).not.toContain('label.charAt(0)');
+        expect(filterSource).toContain('<SourceMark');
+        expect(filterSource).toContain('sourceId = {source.id}');
+    });
+
     it('uses explicit surface tokens instead of derived palette shades', () => {
         const offenders = collectJavaScriptFiles(v2Root)
             .filter((filePath) => filePath !== themePath)
