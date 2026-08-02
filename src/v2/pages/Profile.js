@@ -225,7 +225,9 @@ const Profile = () => {
                             <WatchItemCard
                                 key = {watch.match}
                                 match = {watch.match}
+                                maxPrice = {watch.maxPrice}
                                 onDelete = {handleWatchDelete}
+                                sources = {watch.sources}
                             />
                         );
                     })}
