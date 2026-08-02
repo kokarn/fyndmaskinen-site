@@ -57,7 +57,9 @@ const WatchItemCard = ({
         onDelete(event.currentTarget.dataset.match);
     }, [ onDelete ]);
     const handleSourcesToggle = useCallback(() => {
-        setSourcesOpen((previous) => !previous);
+        setSourcesOpen((previous) => {
+            return !previous;
+        });
     }, []);
     const sourceSummary = displaySources === null
         ? 'Alla marknadsplatser'
