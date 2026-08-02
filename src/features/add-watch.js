@@ -1,9 +1,28 @@
-const addWatch = (accessToken, notificationEmail, newMatchString) => {
+const escapeGraphQLString = (value) => {
+    return JSON.stringify(String(value));
+};
+
+const addWatch = ({
+    accessToken,
+    filters = {},
+    newMatchString,
+    notificationEmail,
+}) => {
+    const filterPayload = Object.keys(filters).length > 0
+        ? `, filters: ${escapeGraphQLString(JSON.stringify(filters))}`
+        : '';
+
     return fetch(`${window.API_HOSTNAME}/graphql`, {
         body: JSON.stringify({
             query: `mutation {
-                addWatch(match: "${newMatchString}", notify: "${notificationEmail}") {
+                addWatch(
+                    match: ${escapeGraphQLString(newMatchString)},
+                    notify: ${escapeGraphQLString(notificationEmail)}${filterPayload}
+                ) {
+                    filterVersion
                     match
+                    maxPrice
+                    sources
                 }
             }`,
         }),

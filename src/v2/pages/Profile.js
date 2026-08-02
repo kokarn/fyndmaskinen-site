@@ -83,7 +83,11 @@ const Profile = () => {
         refetchOnWindowFocus: false,
     });
     const addMutation = useMutation(() => {
-        return addWatch(accessToken, user.email, newWatch.trim());
+        return addWatch({
+            accessToken,
+            newMatchString: newWatch.trim(),
+            notificationEmail: user.email,
+        });
     }, {
         onSuccess: () => {
             setNewWatch('');

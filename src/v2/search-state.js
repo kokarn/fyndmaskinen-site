@@ -22,3 +22,21 @@ export const getEnabledSourceIds = (sourceState, availableSources) => {
             return source.ids || [ source.id ];
         });
 };
+
+export const buildWatchFilters = ({
+    availableSources,
+    maxPrice,
+    sourceState,
+}) => {
+    const filters = {
+        sources: getEnabledSourceIds(sourceState, availableSources),
+        version: 1,
+    };
+    const numericMaxPrice = Number(maxPrice);
+
+    if (maxPrice !== '' && Number.isFinite(numericMaxPrice) && numericMaxPrice >= 0) {
+        filters.maxPrice = numericMaxPrice;
+    }
+
+    return filters;
+};
