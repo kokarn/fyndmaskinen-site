@@ -87,7 +87,7 @@ const SearchBox = ({
                 type = 'submit'
                 variant = 'contained'
             >
-                {'Sök alla'}
+                {'Sök'}
             </Button>
             {mobileAction && (
                 <Box
