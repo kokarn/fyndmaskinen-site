@@ -5,10 +5,13 @@ const cardSource = fs.readFileSync(path.resolve(__dirname, 'WatchItemCard.js'), 
 const profileSource = fs.readFileSync(path.resolve(__dirname, '..', 'pages', 'Profile.js'), 'utf8');
 
 describe('watch filter display', () => {
-    it('renders persisted source and price filters in the shared watch card', () => {
+    it('condenses persisted sources behind an expandable summary', () => {
+        expect(cardSource).toContain('useState(false)');
+        expect(cardSource).toContain('<Collapse');
+        expect(cardSource).toContain('Alla marknadsplatser');
+        expect(cardSource).toContain('${displaySources.length} marknadsplatser');
         expect(cardSource).toContain('<SourceMark');
         expect(cardSource).toContain("Maxpris: ${maxPrice.toLocaleString('sv-SE')} kr");
-        expect(cardSource).toContain("Alla marknadsplatser");
         expect(profileSource).toContain('maxPrice = {watch.maxPrice}');
         expect(profileSource).toContain('sources = {watch.sources}');
     });
