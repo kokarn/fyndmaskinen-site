@@ -63,7 +63,9 @@ const WatchItemCard = ({
     }, []);
     const allSourcesSelected = displaySources === null
         || availableSources.every((source) => {
-            return displaySources.some((selected) => selected.id === source.id);
+            return displaySources.some((selected) => {
+                return selected.id === source.id;
+            });
         });
     const sourceSummary = allSourcesSelected
         ? 'Alla marknadsplatser'
@@ -132,7 +134,8 @@ const WatchItemCard = ({
                                         color = 'text.secondary'
                                         variant = 'caption'
                                     >
-                                        {'Alla anslutna marknadsplatser ingår. “Mindre auktionshus” samlar många auktionshus i ett val.'}
+                                        {'Alla anslutna marknadsplatser ingår. '
+                                            + '“Mindre auktionshus” samlar många auktionshus i ett val.'}
                                     </Typography>
                                 )}
                                 {!allSourcesSelected && displaySources?.map((source) => {
