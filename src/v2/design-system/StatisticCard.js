@@ -27,21 +27,29 @@ const StatisticCard = ({
                     spacing = {1.5}
                     sx = {{
                         minWidth: 0,
+                        width: '100%',
                     }}
                 >
                     {mark}
                     <Box
                         sx = {{
+                            marginLeft: 'auto',
                             minWidth: 0,
+                            textAlign: {
+                                sm: 'left',
+                                xs: 'right',
+                            },
                         }}
                     >
-                        <Typography
-                            color = 'text.secondary'
-                            noWrap
-                            variant = 'caption'
-                        >
-                            {label}
-                        </Typography>
+                        {!mark && (
+                            <Typography
+                                color = 'text.secondary'
+                                noWrap
+                                variant = 'caption'
+                            >
+                                {label}
+                            </Typography>
+                        )}
                         <Typography
                             sx = {{
                                 fontWeight: 800,

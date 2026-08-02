@@ -13,7 +13,6 @@ import {
 } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
     Link,
 } from 'react-router-dom';
@@ -63,7 +62,6 @@ const AccountActions = () => {
                 flexShrink: 0,
             }}
         >
-            <NotificationBell />
             {user?.email === ADMIN_EMAIL && (
                 <>
                     <Button
@@ -96,34 +94,7 @@ const AccountActions = () => {
                     </IconButton>
                 </>
             )}
-            <Button
-                component = {Link}
-                startIcon = {<VisibilityIcon />}
-                sx = {{
-                    display: {
-                        sm: 'inline-flex',
-                        xs: 'none',
-                    },
-                }}
-                to = '/profile'
-                variant = 'text'
-            >
-                {'Bevakningar'}
-            </Button>
-            <IconButton
-                aria-label = 'Bevakningar'
-                color = 'secondary'
-                component = {Link}
-                sx = {{
-                    display: {
-                        sm: 'none',
-                        xs: 'inline-flex',
-                    },
-                }}
-                to = '/profile'
-            >
-                <VisibilityIcon />
-            </IconButton>
+            <NotificationBell />
             <Avatar
                 alt = {user?.name || 'Profil'}
                 component = {Link}
