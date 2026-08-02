@@ -37,8 +37,23 @@ describe('V2 design-system contract', () => {
         expect(sourceMarkSource).toContain("tradera: '/images/icons/tradera-40x40.png'");
         expect(sourceMarkSource).toContain("blocket: '/images/icons/blocket.png'");
         expect(sourceMarkSource).not.toContain('label.charAt(0)');
+        expect(sourceMarkSource).toContain('backgroundColor: alpha(color, SOURCE_TINT_OPACITY)');
+        expect(sourceMarkSource).toContain('borderColor: color');
         expect(filterSource).toContain('<SourceMark');
         expect(filterSource).toContain('sourceId = {source.id}');
+    });
+
+    it('reserves a distinct platform color for every marketplace', () => {
+        const themeSource = fs.readFileSync(themePath, 'utf8');
+        const sourceColorBlock = themeSource.match(/const sourceColors = \{([\s\S]*?)\n\};/u)[ 1 ];
+        const platformColors = [ ...sourceColorBlock.matchAll(/:\s*'(#[0-9A-F]{6})'/gu) ]
+            .map((match) => match[ 1 ]);
+
+        expect(platformColors).toHaveLength(7);
+        expect(new Set(platformColors).size).toBe(platformColors.length);
+        expect(sourceColorBlock).not.toContain('colors.');
+        expect(themeSource).toContain("blocket: '#0071EB'");
+        expect(themeSource).toContain("tradera: '#003B29'");
     });
 
     it('uses explicit surface tokens instead of derived palette shades', () => {
