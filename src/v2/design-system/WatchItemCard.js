@@ -37,11 +37,16 @@ const WatchItemCard = ({
 }) => {
     const displaySources = sources === null
         ? null
-        : [ ...new Map(sources.map((sourceId) => {
-            const source = getSourceDisplay(sourceId);
+        : [
+            ...new Map(sources.map((sourceId) => {
+                const source = getSourceDisplay(sourceId);
 
-            return [ source.id, source ];
-        })).values() ];
+                return [
+                    source.id,
+                    source,
+                ];
+            })).values(),
+        ];
     const handleDelete = useCallback((event) => {
         onDelete(event.currentTarget.dataset.match);
     }, [ onDelete ]);
