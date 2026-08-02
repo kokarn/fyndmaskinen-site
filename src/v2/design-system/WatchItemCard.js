@@ -134,8 +134,7 @@ const WatchItemCard = ({
                                         color = 'text.secondary'
                                         variant = 'caption'
                                     >
-                                        {'Alla anslutna marknadsplatser ingår. '
-                                            + '“Mindre auktionshus” samlar många auktionshus i ett val.'}
+                                        {'Alla anslutna marknadsplatser ingår.'}
                                     </Typography>
                                 )}
                                 {!allSourcesSelected && displaySources?.map((source) => {

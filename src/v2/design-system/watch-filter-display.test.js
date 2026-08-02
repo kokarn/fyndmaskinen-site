@@ -11,9 +11,12 @@ describe('watch filter display', () => {
         expect(cardSource).toContain('const allSourcesSelected');
         expect(cardSource).toContain("? 'Alla marknadsplatser'");
         expect(cardSource).toContain('${displaySources.length} valda marknadsplatser');
+        expect(cardSource).not.toContain('samlar många auktionshus i ett val');
         expect(cardSource).toContain('<SourceMark');
         expect(cardSource).toContain("Maxpris: ${maxPrice.toLocaleString('sv-SE')} kr");
         expect(profileSource).toContain('maxPrice = {watch.maxPrice}');
         expect(profileSource).toContain('sources = {watch.sources}');
+        expect(profileSource).not.toContain("label = 'Ny bevakning'");
+        expect(profileSource).not.toContain("{'Lägg till'}");
     });
 });
