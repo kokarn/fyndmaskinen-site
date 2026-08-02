@@ -8,8 +8,9 @@ describe('watch filter display', () => {
     it('condenses persisted sources behind an expandable summary', () => {
         expect(cardSource).toContain('useState(false)');
         expect(cardSource).toContain('<Collapse');
-        expect(cardSource).toContain('Alla marknadsplatser');
-        expect(cardSource).toContain('${displaySources.length} marknadsplatser');
+        expect(cardSource).toContain('const allSourcesSelected');
+        expect(cardSource).toContain("? 'Alla marknadsplatser'");
+        expect(cardSource).toContain('${displaySources.length} valda marknadsplatser');
         expect(cardSource).toContain('<SourceMark');
         expect(cardSource).toContain("Maxpris: ${maxPrice.toLocaleString('sv-SE')} kr");
         expect(profileSource).toContain('maxPrice = {watch.maxPrice}');

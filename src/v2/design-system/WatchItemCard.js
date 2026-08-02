@@ -61,9 +61,15 @@ const WatchItemCard = ({
             return !previous;
         });
     }, []);
-    const sourceSummary = displaySources === null
+    const allSourcesSelected = displaySources === null
+        || availableSources.every((source) => {
+            return displaySources.some((selected) => {
+                return selected.id === source.id;
+            });
+        });
+    const sourceSummary = allSourcesSelected
         ? 'Alla marknadsplatser'
-        : `${displaySources.length} marknadsplatser`;
+        : `${displaySources.length} valda marknadsplatser`;
 
     return (
         <Card
@@ -123,15 +129,16 @@ const WatchItemCard = ({
                                 flexWrap = 'wrap'
                                 gap = {0.75}
                             >
-                                {displaySources === null && (
+                                {allSourcesSelected && (
                                     <Typography
                                         color = 'text.secondary'
                                         variant = 'caption'
                                     >
-                                        {'Den här bevakningen söker på alla marknadsplatser.'}
+                                        {'Alla anslutna marknadsplatser ingår. '
+                                            + '“Mindre auktionshus” samlar många auktionshus i ett val.'}
                                     </Typography>
                                 )}
-                                {displaySources?.map((source) => {
+                                {!allSourcesSelected && displaySources?.map((source) => {
                                     return (
                                         <SourceMark
                                             compact
