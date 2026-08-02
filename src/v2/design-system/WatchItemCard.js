@@ -43,7 +43,7 @@ const WatchItemCard = ({
                         fontWeight: 800,
                         textDecoration: 'none',
                     }}
-                    to = {`/v2/search/${encodeURIComponent(match)}`}
+                    to = {`/search/${encodeURIComponent(match)}`}
                 >
                     {match}
                 </Typography>

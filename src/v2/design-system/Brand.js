@@ -20,7 +20,7 @@ const Brand = () => {
                 minWidth: 0,
                 textDecoration: 'none',
             }}
-            to = '/v2'
+            to = '/'
         >
             <Box
                 alt = ''
