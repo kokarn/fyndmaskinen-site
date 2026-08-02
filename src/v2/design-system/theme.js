@@ -18,12 +18,12 @@ const colors = {
 
 const sourceColors = {
     auction2000: '#8B6330',
-    auctionet: '#2E8A6C',
-    blocket: '#3568D4',
-    bukowskis: '#765082',
+    auctionet: '#CC1647',
+    blocket: '#0071EB',
+    bukowskis: '#302D2A',
     fallback: '#58716B',
-    tradera: colors.accent,
-    'uppsala-auktionskammare': '#8B6330',
+    tradera: '#003B29',
+    'uppsala-auktionskammare': '#7A263A',
 };
 
 const borders = {
