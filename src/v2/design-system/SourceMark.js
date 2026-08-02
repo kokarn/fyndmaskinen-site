@@ -66,12 +66,10 @@ const SourceMark = ({
             label = {label}
             size = 'small'
             sx = {{
-                backgroundColor: compact
-                    ? color
-                    : 'background.paper',
-                color: compact
-                    ? 'primary.contrastText'
-                    : 'text.primary',
+                backgroundColor: alpha(color, SOURCE_TINT_OPACITY),
+                border: '1px solid',
+                borderColor: color,
+                color: color,
                 fontWeight: 750,
             }}
         />
