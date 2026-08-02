@@ -92,6 +92,7 @@ const Profile = () => {
             returnTo: window.location.origin,
         });
     }, [ logout ]);
+
     return (
         <AccountPageShell
             description = 'Spara sökningar och få koll när nya fynd dyker upp.'
