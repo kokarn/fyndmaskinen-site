@@ -31,36 +31,38 @@ const SourceMark = ({
     const color = sourceColors[ sourceId ] || sourceColors.fallback;
     const iconPath = sourceIconPaths[ sourceId ];
 
+    const avatar = iconPath
+        ? (
+            <Avatar
+                alt = ''
+                src = {iconPath}
+                sx = {{
+                    '&.MuiAvatar-root': {
+                        backgroundColor: 'background.paper',
+                        objectFit: 'contain',
+                    },
+                }}
+            />
+        )
+        : (
+            <Avatar
+                sx = {{
+                    '&.MuiAvatar-root': {
+                        backgroundColor: alpha(color, SOURCE_TINT_OPACITY),
+                        color: color,
+                        fontWeight: 900,
+                    },
+                }}
+            >
+                {sourceInitials[ sourceId ] || '•'}
+            </Avatar>
+        );
+
     return (
         <Chip
-            avatar = {iconPath
-                ? (
-                    <Avatar
-                        alt = ''
-                        src = {iconPath}
-                        sx = {{
-                            '&.MuiAvatar-root': {
-                                backgroundColor: 'background.paper',
-                                objectFit: 'contain',
-                            },
-                        }}
-                    />
-                )
-                : compact
-                    ? null
-                    : (
-                    <Avatar
-                        sx = {{
-                            '&.MuiAvatar-root': {
-                                backgroundColor: alpha(color, SOURCE_TINT_OPACITY),
-                                color: color,
-                                fontWeight: 900,
-                            },
-                        }}
-                    >
-                        {sourceInitials[ sourceId ] || '•'}
-                    </Avatar>
-                )}
+            avatar = {compact && !iconPath
+                ? null
+                : avatar}
             label = {label}
             size = 'small'
             sx = {{
