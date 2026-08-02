@@ -4,8 +4,11 @@ const getWatches = ({
     const accessToken = queryKey[ 1 ];
     const query = `{
         getWatches {
+            filterVersion
             notify
             match
+            maxPrice
+            sources
         }
     }`;
 

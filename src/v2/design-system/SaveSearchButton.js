@@ -25,6 +25,7 @@ const AUTH_OPTIONS = {
 };
 
 const SaveSearchButton = ({
+    filters,
     fullWidth,
     searchPhrase,
 }) => {
@@ -40,7 +41,7 @@ const SaveSearchButton = ({
         const accessToken = await getAccessTokenSilently({
             authorizationParams: AUTH_OPTIONS,
         });
-        const response = await addWatch(accessToken, user.email, searchPhrase);
+        const response = await addWatch(accessToken, user.email, searchPhrase, filters);
 
         if (!response.ok) {
             throw new Error('Bevakningen kunde inte sparas');
@@ -95,6 +96,11 @@ const SaveSearchButton = ({
 };
 
 SaveSearchButton.propTypes = {
+    filters: PropTypes.shape({
+        maxPrice: PropTypes.number,
+        sources: PropTypes.arrayOf(PropTypes.string).isRequired,
+        version: PropTypes.number.isRequired,
+    }).isRequired,
     fullWidth: PropTypes.bool,
     searchPhrase: PropTypes.string.isRequired,
 };

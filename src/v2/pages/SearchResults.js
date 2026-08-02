@@ -33,6 +33,7 @@ import SearchBox from '../design-system/SearchBox';
 import SearchLoading from '../design-system/SearchLoading';
 import SaveSearchButton from '../design-system/SaveSearchButton';
 import {
+    buildWatchFilters,
     createV2SearchPath,
     getDefaultSourceState,
     getEnabledSourceIds,
@@ -185,6 +186,11 @@ const SearchResults = () => {
                             }}
                         >
                             <SaveSearchButton
+                                filters = {buildWatchFilters({
+                                    availableSources: sources,
+                                    maxPrice,
+                                    sourceState,
+                                })}
                                 fullWidth
                                 searchPhrase = {searchPhrase}
                             />
