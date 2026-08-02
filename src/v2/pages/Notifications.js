@@ -204,10 +204,10 @@ const Notifications = () => {
                                 xs = {12}
                             >
                                 <ResultCard
-                                    eyebrow = {`Bevakning: ${notification.watchMatch}`}
                                     item = {notificationItem(notification)}
                                     notification = {notification}
                                     onOpen = {handleOpen}
+                                    watchLabel = {notification.watchMatch}
                                 />
                             </Grid>
                         );

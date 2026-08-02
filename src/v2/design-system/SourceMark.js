@@ -12,6 +12,16 @@ import {
 } from './theme';
 
 const SOURCE_TINT_OPACITY = 0.1;
+const sourceIconPaths = {
+    blocket: '/images/icons/blocket.png',
+    bukowskis: '/images/icons/bukowskis.png',
+    tradera: '/images/icons/tradera-40x40.png',
+    'uppsala-auktionskammare': '/images/icons/uppsala-auktionskammare.png',
+};
+const sourceInitials = {
+    auction2000: 'A',
+    auctionet: 'A',
+};
 
 const SourceMark = ({
     compact,
@@ -19,24 +29,40 @@ const SourceMark = ({
     sourceId,
 }) => {
     const color = sourceColors[ sourceId ] || sourceColors.fallback;
+    const iconPath = sourceIconPaths[ sourceId ];
+
+    const avatar = iconPath
+        ? (
+            <Avatar
+                alt = ''
+                src = {iconPath}
+                sx = {{
+                    '&.MuiAvatar-root': {
+                        backgroundColor: 'background.paper',
+                        objectFit: 'contain',
+                    },
+                }}
+            />
+        )
+        : (
+            <Avatar
+                sx = {{
+                    '&.MuiAvatar-root': {
+                        backgroundColor: alpha(color, SOURCE_TINT_OPACITY),
+                        color: color,
+                        fontWeight: 900,
+                    },
+                }}
+            >
+                {sourceInitials[ sourceId ] || '•'}
+            </Avatar>
+        );
 
     return (
         <Chip
-            avatar = {compact
+            avatar = {compact && !iconPath
                 ? null
-                : (
-                    <Avatar
-                        sx = {{
-                            '&.MuiAvatar-root': {
-                                backgroundColor: alpha(color, SOURCE_TINT_OPACITY),
-                                color: color,
-                                fontWeight: 900,
-                            },
-                        }}
-                    >
-                        {label.charAt(0)}
-                    </Avatar>
-                )}
+                : avatar}
             label = {label}
             size = 'small'
             sx = {{

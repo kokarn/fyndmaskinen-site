@@ -14,6 +14,8 @@ import {
     Typography,
 } from '@mui/material';
 
+import SourceMark from './SourceMark';
+
 const FilterPanel = ({
     applyLabel,
     maxPrice,
@@ -80,7 +82,12 @@ const FilterPanel = ({
                                     />
                                 )}
                                 key = {source.id}
-                                label = {source.label}
+                                label = {(
+                                    <SourceMark
+                                        label = {source.label}
+                                        sourceId = {source.id}
+                                    />
+                                )}
                             />
                         );
                     })}
