@@ -26,6 +26,16 @@ const sourceColors = {
     'uppsala-auktionskammare': '#7A263A',
 };
 
+// Quality-tier dots for the ISBN scan breakdown. Ordered best -> worst; the
+// unknown tier uses the neutral border tone so it stays visually recessive.
+const conditionColors = {
+    acceptabelt: '#D9803B',
+    'ej-angivet': '#C9D8D2',
+    gott: '#E0A93B',
+    'mycket-gott': '#4FB07E',
+    nyskick: '#2E9E6B',
+};
+
 const borders = {
     strong: alpha(colors.ink, 0.12),
     subtle: alpha(colors.ink, 0.08),
@@ -128,6 +138,7 @@ const theme = createTheme({
 export {
     borders,
     colors,
+    conditionColors,
     density,
     shadows,
     sourceColors,
