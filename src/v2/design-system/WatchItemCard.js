@@ -83,7 +83,9 @@ const WatchItemCard = ({
     }, []);
     const handleEditOpen = useCallback(() => {
         setEditSourceState(getSourceStateFromIds(sources, availableSources));
-        setEditMaxPrice(maxPrice === null ? '' : String(maxPrice));
+        setEditMaxPrice(maxPrice === null
+            ? ''
+            : String(maxPrice));
         setEditing(true);
     }, [
         maxPrice,

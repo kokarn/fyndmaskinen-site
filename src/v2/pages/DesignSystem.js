@@ -374,7 +374,10 @@ const DesignSystem = () => {
                                 match = 'stringhylla'
                                 maxPrice = {2500}
                                 onEditSave = {handleWatchEditDemo}
-                                sources = {[ 'tradera', 'blocket' ]}
+                                sources = {[
+                                    'tradera',
+                                    'blocket',
+                                ]}
                             />
                             <WatchGroupCard
                                 label = 'exempel@fyndmaskinen.se'
