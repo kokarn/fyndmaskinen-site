@@ -19,4 +19,16 @@ describe('watch filter display', () => {
         expect(profileSource).not.toContain("label = 'Ny bevakning'");
         expect(profileSource).not.toContain("{'Lägg till'}");
     });
+
+    it('lets an existing watch edit its filters in place', () => {
+        expect(cardSource).toContain('onEditSave');
+        expect(cardSource).toContain('<FilterPanel');
+        expect(cardSource).toContain('getSourceStateFromIds');
+        expect(cardSource).toContain('buildWatchFilters');
+        expect(cardSource).toContain("{'Ändra filter'}");
+        expect(cardSource).toContain('showSort = {false}');
+        expect(profileSource).toContain('updateWatch');
+        expect(profileSource).toContain('onEditSave = {handleWatchEdit}');
+        expect(profileSource).toContain("queryClient.invalidateQueries('watches')");
+    });
 });

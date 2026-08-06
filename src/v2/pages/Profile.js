@@ -27,6 +27,7 @@ import {
 import getWatches from '../../features/get-watches';
 import getWatchLimit from '../../features/get-watch-limit';
 import removeWatch from '../../features/remove-watch';
+import updateWatch from '../../features/update-watch';
 import AccountPageShell from '../design-system/AccountPageShell';
 import NotificationSettings from '../design-system/NotificationSettings';
 import WatchItemCard from '../design-system/WatchItemCard';
@@ -83,10 +84,31 @@ const Profile = () => {
             queryClient.invalidateQueries('watches');
         },
     });
+    const editMutation = useMutation(({
+        filters,
+        match,
+    }) => {
+        return updateWatch({
+            accessToken,
+            filters,
+            match,
+            notificationEmail: user?.email,
+        });
+    }, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('watches');
+        },
+    });
 
     const handleWatchDelete = useCallback((match) => {
         removeMutation.mutate(match);
     }, [ removeMutation ]);
+    const handleWatchEdit = useCallback((match, filters) => {
+        editMutation.mutate({
+            filters,
+            match,
+        });
+    }, [ editMutation ]);
     const handleLogout = useCallback(() => {
         return logout({
             returnTo: window.location.origin,
@@ -158,10 +180,12 @@ const Profile = () => {
                     {watches.map((watch) => {
                         return (
                             <WatchItemCard
+                                isSaving = {editMutation.isLoading}
                                 key = {watch.match}
                                 match = {watch.match}
                                 maxPrice = {watch.maxPrice}
                                 onDelete = {handleWatchDelete}
+                                onEditSave = {handleWatchEdit}
                                 sources = {watch.sources}
                             />
                         );
