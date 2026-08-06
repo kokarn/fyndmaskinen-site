@@ -398,7 +398,7 @@ const DesignSystem = () => {
                         />
                     </DesignSection>
                     <DesignSection
-                        description = 'Lägsta pris per skick för en skannad ISBN. Tiers sorteras från bäst till sämst; okänt skick tonas ned.'
+                        description = 'Lägsta pris per skick för en skannad ISBN. Sorteras bäst till sämst.'
                         title = 'ISBN – pris per skick'
                     >
                         <Box
