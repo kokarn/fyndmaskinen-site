@@ -19,6 +19,11 @@ import WatchGroupCard from '../design-system/WatchGroupCard';
 
 const STALE_TIME = 600000;
 
+const AUTH_OPTIONS = {
+    audience: 'https://fyndmaskinen.se',
+    scope: 'read:users email read:current_user',
+};
+
 const AdminWatches = () => {
     const {
         getAccessTokenSilently,
@@ -29,8 +34,7 @@ const AdminWatches = () => {
 
     useEffect(() => {
         getAccessTokenSilently({
-            audience: 'https://fyndmaskinen.se',
-            scope: 'read:users email read:current_user',
+            authorizationParams: AUTH_OPTIONS,
         })
             .then(setAccessToken)
             .catch(console.error);
