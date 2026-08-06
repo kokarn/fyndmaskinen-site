@@ -39,15 +39,38 @@ export const normalizeBokborsenResults = (payload) => {
     return normalizedItems.map((item, index) => {
         return {
             author: item?.author || '',
+            conditions: normalizeConditions(item?.conditions),
             id: item?.id || item?.isbn || item?.url || `${index}`,
             imageUrl: item?.imageUrl || item?.image || item?.thumbnail || '',
             isbn: item?.isbn || item?.ISBN || '',
+            listingCount: Number(item?.listingCount) || 0,
             price: item?.price || item?.priceLow || item?.currentPrice || '',
             priceHigh: item?.priceHigh || '',
             title: item?.title || item?.name || 'Okänd titel',
             url: item?.url || item?.link || '',
         };
     });
+};
+
+// Keep only well-formed condition tiers with a numeric lowest price. The
+// backend already sorts them best -> worst, so preserve the incoming order.
+export const normalizeConditions = (rawConditions) => {
+    if (!Array.isArray(rawConditions)) {
+        return [];
+    }
+
+    return rawConditions
+        .map((tier) => {
+            return {
+                count: Number(tier?.count) || 0,
+                id: tier?.id || '',
+                label: tier?.label || '',
+                lowestPrice: Number(tier?.lowestPrice),
+            };
+        })
+        .filter((tier) => {
+            return tier.id && tier.label && !Number.isNaN(tier.lowestPrice);
+        });
 };
 
 const fetchBokborsenByIsbn = async ({

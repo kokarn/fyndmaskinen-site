@@ -3,8 +3,11 @@ import {
     Alert,
     Box,
     CircularProgress,
+    Stack,
     Typography,
 } from '@mui/material';
+
+import IsbnQualityList from '../../v2/design-system/IsbnQualityList';
 
 const formatPrice = (price) => {
     return new Intl.NumberFormat('sv-SE', {
@@ -36,10 +39,6 @@ const BokborsenResults = ({
                     size = {24}
                 />
                 <Typography
-                    color = '#fff'
-                    sx = {{
-                        textShadow: '0 0 4px black',
-                    }}
                     variant = 'body1'
                 >
                     {'Söker i Bokbörsen...'}
@@ -73,67 +72,90 @@ const BokborsenResults = ({
     }
 
     return results.map((book) => {
+        const hasConditions = book.conditions?.length > 0;
         const hasPriceRange = book.price && book.priceHigh && book.price !== book.priceHigh;
 
         return (
-            <Box
+            <Stack
                 key = {book.id}
+                spacing = {1.5}
                 sx = {{
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    borderRadius: 2,
-                    display: 'flex',
-                    gap: 2,
                     marginTop: 2,
-                    padding: 3,
                 }}
             >
-                {book.imageUrl && (
+                <Box
+                    sx = {{
+                        alignItems: 'center',
+                        backgroundColor: 'background.paper',
+                        border: '1px solid',
+                        borderColor: 'border.subtle',
+                        borderRadius: 2,
+                        display: 'flex',
+                        gap: 1.5,
+                        padding: 1.5,
+                    }}
+                >
+                    {book.imageUrl && (
+                        <Box
+                            alt = {book.title}
+                            component = 'img'
+                            src = {book.imageUrl}
+                            sx = {{
+                                borderRadius: 1,
+                                flexShrink: 0,
+                                height: 'auto',
+                                maxHeight: 72,
+                                objectFit: 'contain',
+                                width: 52,
+                            }}
+                        />
+                    )}
                     <Box
-                        alt = {book.title}
-                        component = 'img'
-                        src = {book.imageUrl}
                         sx = {{
-                            borderRadius: 1,
-                            flexShrink: 0,
-                            height: 'auto',
-                            maxHeight: 140,
-                            objectFit: 'contain',
-                            width: 90,
+                            minWidth: 0,
                         }}
-                    />
-                )}
-                <Box>
-                    <Typography
-                        sx = {{
-                            fontWeight: 600,
-                        }}
-                        variant = 'h5'
                     >
-                        {book.title}
-                    </Typography>
-                    {book.author && (
+                        <Typography
+                            sx = {{
+                                fontWeight: 700,
+                                lineHeight: 1.2,
+                            }}
+                            variant = 'subtitle1'
+                        >
+                            {book.title}
+                        </Typography>
                         <Typography
                             color = 'text.secondary'
                             variant = 'body2'
                         >
-                            {book.author}
+                            {[
+                                book.author,
+                                book.isbn || detectedCode,
+                            ].filter(Boolean).join(' · ')}
                         </Typography>
-                    )}
-                    {book.price && (
+                    </Box>
+                </Box>
+
+                {hasConditions
+                    ? (
+                        <IsbnQualityList
+                            conditions = {book.conditions}
+                            listingCount = {book.listingCount}
+                        />
+                    )
+                    : book.price && (
                         <Typography
                             sx = {{
                                 fontWeight: 700,
-                                marginTop: 1,
                             }}
-                            variant = 'h4'
+                            variant = 'h5'
                         >
                             {hasPriceRange
                                 ? `${formatPrice(book.price)} – ${formatPrice(book.priceHigh)}`
                                 : formatPrice(book.price)}
                         </Typography>
                     )}
-                </Box>
-            </Box>
+            </Stack>
         );
     });
 };
@@ -152,8 +174,16 @@ BokborsenResults.propTypes = {
     isFetching: PropTypes.bool.isRequired,
     results: PropTypes.arrayOf(PropTypes.shape({
         author: PropTypes.string,
+        conditions: PropTypes.arrayOf(PropTypes.shape({
+            count: PropTypes.number,
+            id: PropTypes.string,
+            label: PropTypes.string,
+            lowestPrice: PropTypes.number,
+        })),
         id: PropTypes.string,
         imageUrl: PropTypes.string,
+        isbn: PropTypes.string,
+        listingCount: PropTypes.number,
         price: PropTypes.oneOfType([
             PropTypes.number,
             PropTypes.string,

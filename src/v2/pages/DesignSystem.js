@@ -27,6 +27,7 @@ import DesignSwatch from '../design-system/DesignSwatch';
 import FeatureLinkCard from '../design-system/FeatureLinkCard';
 import FilterDrawer from '../design-system/FilterDrawer';
 import FilterPanel from '../design-system/FilterPanel';
+import IsbnQualityList from '../design-system/IsbnQualityList';
 import LandingCoverage from '../design-system/LandingCoverage';
 import LandingHero from '../design-system/LandingHero';
 import NotificationBell from '../design-system/NotificationBell';
@@ -395,6 +396,52 @@ const DesignSystem = () => {
                             ]}
                             type = 'matching'
                         />
+                    </DesignSection>
+                    <DesignSection
+                        description = 'Lägsta pris per skick för en skannad ISBN. Tiers sorteras från bäst till sämst; okänt skick tonas ned.'
+                        title = 'ISBN – pris per skick'
+                    >
+                        <Box
+                            sx = {{
+                                maxWidth: 420,
+                            }}
+                        >
+                            <IsbnQualityList
+                                conditions = {[
+                                    {
+                                        count: 4,
+                                        id: 'nyskick',
+                                        label: 'Nyskick',
+                                        lowestPrice: 149,
+                                    },
+                                    {
+                                        count: 7,
+                                        id: 'mycket-gott',
+                                        label: 'Mycket gott skick',
+                                        lowestPrice: 99,
+                                    },
+                                    {
+                                        count: 9,
+                                        id: 'gott',
+                                        label: 'Gott skick',
+                                        lowestPrice: 69,
+                                    },
+                                    {
+                                        count: 2,
+                                        id: 'acceptabelt',
+                                        label: 'Acceptabelt skick',
+                                        lowestPrice: 39,
+                                    },
+                                    {
+                                        count: 1,
+                                        id: 'ej-angivet',
+                                        label: 'Skick ej angivet',
+                                        lowestPrice: 59,
+                                    },
+                                ]}
+                                listingCount = {23}
+                            />
+                        </Box>
                     </DesignSection>
                     <DesignSection
                         description = 'Marknadsplatser representeras konsekvent i landning, filter och resultatkort.'
