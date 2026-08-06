@@ -143,8 +143,16 @@ const WatchItemCard = ({
                     '&:last-child': {
                         paddingBottom: 2,
                     },
-                    alignItems: 'center',
+                    alignItems: {
+                        sm: 'center',
+                        xs: 'stretch',
+                    },
                     display: 'flex',
+                    flexDirection: {
+                        sm: 'row',
+                        xs: 'column',
+                    },
+                    gap: 1.5,
                     justifyContent: 'space-between',
                     padding: 2,
                 }}
@@ -152,6 +160,7 @@ const WatchItemCard = ({
                 <Stack
                     spacing = {1}
                     sx = {{
+                        flex: 1,
                         minWidth: 0,
                     }}
                 >
@@ -222,8 +231,18 @@ const WatchItemCard = ({
                     </Stack>
                 </Stack>
                 <Stack
-                    alignItems = 'flex-end'
+                    direction = {{
+                        sm: 'column',
+                        xs: 'row',
+                    }}
                     spacing = {0.5}
+                    sx = {{
+                        alignItems: {
+                            sm: 'flex-end',
+                            xs: 'stretch',
+                        },
+                        flexShrink: 0,
+                    }}
                 >
                     {onEditSave && (
                         <Button
@@ -231,6 +250,13 @@ const WatchItemCard = ({
                             aria-label = {`Ändra filter för ${match}`}
                             onClick = {handleEditOpen}
                             startIcon = {<TuneIcon />}
+                            sx = {{
+                                flex: {
+                                    sm: 'none',
+                                    xs: 1,
+                                },
+                                whiteSpace: 'nowrap',
+                            }}
                             variant = 'text'
                         >
                             {'Ändra filter'}
@@ -243,6 +269,13 @@ const WatchItemCard = ({
                             data-match = {match}
                             onClick = {handleDelete}
                             startIcon = {<DeleteOutlineIcon />}
+                            sx = {{
+                                flex: {
+                                    sm: 'none',
+                                    xs: 1,
+                                },
+                                whiteSpace: 'nowrap',
+                            }}
                             variant = 'text'
                         >
                             {'Ta bort'}
