@@ -14,11 +14,18 @@ import {
 } from '@mui/material';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import TuneIcon from '@mui/icons-material/Tune';
 import {
     Link,
 } from 'react-router-dom';
 
 import availableSources from '../../sources';
+import {
+    buildWatchFilters,
+    getDefaultSourceState,
+    getSourceStateFromIds,
+} from '../search-state';
+import FilterPanel from './FilterPanel';
 import SourceMark from './SourceMark';
 
 const getSourceDisplay = (sourceId) => {
@@ -33,14 +40,27 @@ const getSourceDisplay = (sourceId) => {
 };
 
 const WatchItemCard = ({
+    isSaving,
     match,
     maxPrice,
     onDelete,
+    onEditSave,
     sources,
 }) => {
     const [
         sourcesOpen, setSourcesOpen,
     ] = useState(false);
+    const [
+        editing, setEditing,
+    ] = useState(false);
+    const [
+        editSourceState, setEditSourceState,
+    ] = useState(() => {
+        return getDefaultSourceState(availableSources);
+    });
+    const [
+        editMaxPrice, setEditMaxPrice,
+    ] = useState('');
     const displaySources = sources === null
         ? null
         : [
@@ -61,6 +81,47 @@ const WatchItemCard = ({
             return !previous;
         });
     }, []);
+    const handleEditOpen = useCallback(() => {
+        setEditSourceState(getSourceStateFromIds(sources, availableSources));
+        setEditMaxPrice(maxPrice === null ? '' : String(maxPrice));
+        setEditing(true);
+    }, [
+        maxPrice,
+        sources,
+    ]);
+    const handleEditCancel = useCallback(() => {
+        setEditing(false);
+    }, []);
+    const handleEditSourceChange = useCallback((event) => {
+        const sourceId = event.target.value;
+
+        setEditSourceState((previous) => {
+            return {
+                ...previous,
+                [ sourceId ]: !previous[ sourceId ],
+            };
+        });
+    }, []);
+    const handleEditMaxPriceChange = useCallback((event) => {
+        setEditMaxPrice(event.target.value.replace(/[^0-9]/gu, ''));
+    }, []);
+    const handleEditReset = useCallback(() => {
+        setEditSourceState(getDefaultSourceState(availableSources));
+        setEditMaxPrice('');
+    }, []);
+    const handleEditSave = useCallback(() => {
+        onEditSave(match, buildWatchFilters({
+            availableSources,
+            maxPrice: editMaxPrice,
+            sourceState: editSourceState,
+        }));
+        setEditing(false);
+    }, [
+        editMaxPrice,
+        editSourceState,
+        match,
+        onEditSave,
+    ]);
     const allSourcesSelected = displaySources === null
         || availableSources.every((source) => {
             return displaySources.some((selected) => {
@@ -158,33 +219,93 @@ const WatchItemCard = ({
                         )}
                     </Stack>
                 </Stack>
-                {onDelete && (
-                    <Button
-                        aria-label = {`Ta bort bevakningen ${match}`}
-                        color = 'secondary'
-                        data-match = {match}
-                        onClick = {handleDelete}
-                        startIcon = {<DeleteOutlineIcon />}
-                        variant = 'text'
-                    >
-                        {'Ta bort'}
-                    </Button>
-                )}
+                <Stack
+                    alignItems = 'flex-end'
+                    spacing = {0.5}
+                >
+                    {onEditSave && (
+                        <Button
+                            aria-expanded = {editing}
+                            aria-label = {`Ändra filter för ${match}`}
+                            onClick = {handleEditOpen}
+                            startIcon = {<TuneIcon />}
+                            variant = 'text'
+                        >
+                            {'Ändra filter'}
+                        </Button>
+                    )}
+                    {onDelete && (
+                        <Button
+                            aria-label = {`Ta bort bevakningen ${match}`}
+                            color = 'secondary'
+                            data-match = {match}
+                            onClick = {handleDelete}
+                            startIcon = {<DeleteOutlineIcon />}
+                            variant = 'text'
+                        >
+                            {'Ta bort'}
+                        </Button>
+                    )}
+                </Stack>
             </CardContent>
+            {onEditSave && (
+                <Collapse
+                    in = {editing}
+                    unmountOnExit
+                >
+                    <CardContent
+                        sx = {{
+                            '&:last-child': {
+                                paddingBottom: 2,
+                            },
+                            paddingTop: 0,
+                            paddingX: 2,
+                        }}
+                    >
+                        <FilterPanel
+                            applyLabel = {isSaving
+                                ? 'Sparar…'
+                                : 'Spara filter'}
+                            maxPrice = {editMaxPrice}
+                            onApply = {handleEditSave}
+                            onMaxPriceChange = {handleEditMaxPriceChange}
+                            onReset = {handleEditReset}
+                            onSourceChange = {handleEditSourceChange}
+                            showSort = {false}
+                            sourceState = {editSourceState}
+                            sources = {availableSources}
+                        />
+                        <Button
+                            fullWidth
+                            onClick = {handleEditCancel}
+                            sx = {{
+                                marginTop: 1,
+                            }}
+                            variant = 'text'
+                        >
+                            {'Avbryt'}
+                        </Button>
+                    </CardContent>
+                </Collapse>
+            )}
         </Card>
     );
 };
 
 WatchItemCard.defaultProps = {
+    isSaving: false,
     maxPrice: null,
     onDelete: null,
+    onEditSave: null,
     sources: null,
 };
 
 WatchItemCard.propTypes = {
+    isSaving: PropTypes.bool,
     match: PropTypes.string.isRequired,
     maxPrice: PropTypes.number,
     onDelete: PropTypes.func,
+    onEditSave: PropTypes.func,
     sources: PropTypes.arrayOf(PropTypes.string),
 };
 

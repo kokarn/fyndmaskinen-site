@@ -23,6 +23,25 @@ export const getEnabledSourceIds = (sourceState, availableSources) => {
         });
 };
 
+export const getSourceStateFromIds = (sourceIds, availableSources) => {
+    if (!Array.isArray(sourceIds)) {
+        return getDefaultSourceState(availableSources);
+    }
+
+    const selectedIds = new Set(sourceIds);
+
+    return Object.fromEntries(availableSources.map((source) => {
+        const groupIds = source.ids || [ source.id ];
+
+        return [
+            source.id,
+            groupIds.every((id) => {
+                return selectedIds.has(id);
+            }),
+        ];
+    }));
+};
+
 export const buildWatchFilters = ({
     availableSources,
     maxPrice,

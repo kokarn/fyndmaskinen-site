@@ -24,6 +24,7 @@ const FilterPanel = ({
     onReset,
     onSortChange,
     onSourceChange,
+    showSort,
     sort,
     sourceState,
     sources,
@@ -104,37 +105,39 @@ const FilterPanel = ({
                     type = 'number'
                     value = {maxPrice}
                 />
-                <FormControl
-                    fullWidth
-                >
-                    <InputLabel
-                        id = 'v2-sort-label'
+                {showSort && (
+                    <FormControl
+                        fullWidth
                     >
-                        {'Sortera'}
-                    </InputLabel>
-                    <Select
-                        label = 'Sortera'
-                        labelId = 'v2-sort-label'
-                        onChange = {onSortChange}
-                        value = {sort}
-                    >
-                        <MenuItem
-                            value = 'relevance'
+                        <InputLabel
+                            id = 'v2-sort-label'
                         >
-                            {'Mest relevant'}
-                        </MenuItem>
-                        <MenuItem
-                            value = 'price_asc'
+                            {'Sortera'}
+                        </InputLabel>
+                        <Select
+                            label = 'Sortera'
+                            labelId = 'v2-sort-label'
+                            onChange = {onSortChange}
+                            value = {sort}
                         >
-                            {'Lägsta pris'}
-                        </MenuItem>
-                        <MenuItem
-                            value = 'price_desc'
-                        >
-                            {'Högsta pris'}
-                        </MenuItem>
-                    </Select>
-                </FormControl>
+                            <MenuItem
+                                value = 'relevance'
+                            >
+                                {'Mest relevant'}
+                            </MenuItem>
+                            <MenuItem
+                                value = 'price_asc'
+                            >
+                                {'Lägsta pris'}
+                            </MenuItem>
+                            <MenuItem
+                                value = 'price_desc'
+                            >
+                                {'Högsta pris'}
+                            </MenuItem>
+                        </Select>
+                    </FormControl>
+                )}
                 {onApply && (
                     <Button
                         fullWidth
@@ -155,9 +158,10 @@ FilterPanel.propTypes = {
     onApply: PropTypes.func,
     onMaxPriceChange: PropTypes.func.isRequired,
     onReset: PropTypes.func.isRequired,
-    onSortChange: PropTypes.func.isRequired,
+    onSortChange: PropTypes.func,
     onSourceChange: PropTypes.func.isRequired,
-    sort: PropTypes.string.isRequired,
+    showSort: PropTypes.bool,
+    sort: PropTypes.string,
     sources: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string.isRequired,
         label: PropTypes.string.isRequired,
@@ -169,6 +173,9 @@ FilterPanel.propTypes = {
 FilterPanel.defaultProps = {
     applyLabel: 'Visa resultat',
     onApply: null,
+    onSortChange: null,
+    showSort: true,
+    sort: 'relevance',
 };
 
 export default FilterPanel;

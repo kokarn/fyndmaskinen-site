@@ -102,6 +102,9 @@ const DesignSystem = () => {
             return previous;
         });
     }, []);
+    const handleWatchEditDemo = useCallback(() => {
+        // Showcase-only no-op; the real handler saves via updateWatch on the profile.
+    }, []);
     const handleReset = useCallback(() => {
         setMaxPrice('');
         setSort('relevance');
@@ -369,6 +372,9 @@ const DesignSystem = () => {
                         >
                             <WatchItemCard
                                 match = 'stringhylla'
+                                maxPrice = {2500}
+                                onEditSave = {handleWatchEditDemo}
+                                sources = {[ 'tradera', 'blocket' ]}
                             />
                             <WatchGroupCard
                                 label = 'exempel@fyndmaskinen.se'
