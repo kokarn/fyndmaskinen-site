@@ -1,7 +1,10 @@
+/* eslint-env node, jest */
+/* eslint-disable no-sync, no-template-curly-in-string, no-magic-numbers, prefer-named-capture-group */
 import fs from 'fs';
 import path from 'path';
 
-const v2Root = path.resolve(__dirname, '..');
+const designRoot = __dirname;
+const srcRoot = path.resolve(__dirname, '..');
 const themePath = path.resolve(__dirname, 'theme.js');
 
 const collectJavaScriptFiles = (directory) => {
@@ -20,12 +23,18 @@ const collectJavaScriptFiles = (directory) => {
     });
 };
 
-describe('V2 design-system contract', () => {
+describe('Design-system contract', () => {
     it('keeps raw color values in the theme source of truth', () => {
-        const offenders = collectJavaScriptFiles(v2Root)
-            .filter((filePath) => filePath !== themePath)
-            .filter((filePath) => /#[0-9a-f]{3,8}|rgba?\(/iu.test(fs.readFileSync(filePath, 'utf8')))
-            .map((filePath) => path.relative(v2Root, filePath));
+        const offenders = collectJavaScriptFiles(designRoot)
+            .filter((filePath) => {
+                return filePath !== themePath;
+            })
+            .filter((filePath) => {
+                return /#[0-9a-f]{3,8}|rgba?\(/iu.test(fs.readFileSync(filePath, 'utf8'));
+            })
+            .map((filePath) => {
+                return path.relative(designRoot, filePath);
+            });
 
         expect(offenders).toEqual([]);
     });
@@ -47,7 +56,9 @@ describe('V2 design-system contract', () => {
         const themeSource = fs.readFileSync(themePath, 'utf8');
         const sourceColorBlock = themeSource.match(/const sourceColors = \{([\s\S]*?)\n\};/u)[ 1 ];
         const platformColors = [ ...sourceColorBlock.matchAll(/:\s*'(#[0-9A-F]{6})'/gu) ]
-            .map((match) => match[ 1 ]);
+            .map((match) => {
+                return match[ 1 ];
+            });
 
         expect(platformColors).toHaveLength(7);
         expect(new Set(platformColors).size).toBe(platformColors.length);
@@ -57,10 +68,16 @@ describe('V2 design-system contract', () => {
     });
 
     it('uses explicit surface tokens instead of derived palette shades', () => {
-        const offenders = collectJavaScriptFiles(v2Root)
-            .filter((filePath) => filePath !== themePath)
-            .filter((filePath) => fs.readFileSync(filePath, 'utf8').includes('secondary.light'))
-            .map((filePath) => path.relative(v2Root, filePath));
+        const offenders = collectJavaScriptFiles(designRoot)
+            .filter((filePath) => {
+                return filePath !== themePath;
+            })
+            .filter((filePath) => {
+                return fs.readFileSync(filePath, 'utf8').includes('secondary.light');
+            })
+            .map((filePath) => {
+                return path.relative(designRoot, filePath);
+            });
 
         expect(offenders).toEqual([]);
     });
@@ -68,7 +85,7 @@ describe('V2 design-system contract', () => {
     it('defines compact listing density in the design system', () => {
         const themeSource = fs.readFileSync(themePath, 'utf8');
         const cardSource = fs.readFileSync(path.resolve(__dirname, 'ResultCard.js'), 'utf8');
-        const resultsSource = fs.readFileSync(path.join(v2Root, 'pages', 'SearchResults.js'), 'utf8');
+        const resultsSource = fs.readFileSync(path.join(srcRoot, 'pages', 'SearchResults.js'), 'utf8');
 
         expect(themeSource).toContain('resultCard:');
         expect(cardSource).toContain('resultCard.imageHeight');
@@ -77,7 +94,7 @@ describe('V2 design-system contract', () => {
 
     it('uses a mobile list and a shared loading indicator', () => {
         const cardSource = fs.readFileSync(path.resolve(__dirname, 'ResultCard.js'), 'utf8');
-        const resultsSource = fs.readFileSync(path.join(v2Root, 'pages', 'SearchResults.js'), 'utf8');
+        const resultsSource = fs.readFileSync(path.join(srcRoot, 'pages', 'SearchResults.js'), 'utf8');
 
         expect(cardSource).toContain("xs: 'row'");
         expect(resultsSource).toContain('xs = {12}');
@@ -88,7 +105,7 @@ describe('V2 design-system contract', () => {
         const cardSource = fs.readFileSync(path.resolve(__dirname, 'ResultCard.js'), 'utf8');
         const filterSource = fs.readFileSync(path.resolve(__dirname, 'FilterPanel.js'), 'utf8');
         const searchBoxSource = fs.readFileSync(path.resolve(__dirname, 'SearchBox.js'), 'utf8');
-        const resultsSource = fs.readFileSync(path.join(v2Root, 'pages', 'SearchResults.js'), 'utf8');
+        const resultsSource = fs.readFileSync(path.join(srcRoot, 'pages', 'SearchResults.js'), 'utf8');
 
         expect(resultsSource).toContain("isFetching\n                                ? 'Söker efter fynd…'");
         expect(filterSource).toContain("applyLabel: 'Visa resultat'");
@@ -97,29 +114,29 @@ describe('V2 design-system contract', () => {
         expect(cardSource).toContain("justifyContent: 'space-between'");
     });
 
-    it('exposes real account and saved-search actions in V2', () => {
+    it('exposes real account and saved-search actions in the app', () => {
         const shellSource = fs.readFileSync(path.resolve(__dirname, 'AppShell.js'), 'utf8');
-        const resultsSource = fs.readFileSync(path.join(v2Root, 'pages', 'SearchResults.js'), 'utf8');
+        const resultsSource = fs.readFileSync(path.join(srcRoot, 'pages', 'SearchResults.js'), 'utf8');
 
         expect(shellSource).toContain('<AccountActions />');
         expect(resultsSource).toContain('<SaveSearchButton');
     });
 
-    it('keeps profile and admin navigation inside the V2 experience', () => {
-        const appSource = fs.readFileSync(path.resolve(v2Root, '..', 'App.js'), 'utf8');
+    it('keeps profile and admin navigation inside the app', () => {
+        const appSource = fs.readFileSync(path.join(srcRoot, 'App.js'), 'utf8');
         const accountSource = fs.readFileSync(path.resolve(__dirname, 'AccountActions.js'), 'utf8');
 
         expect(appSource).toContain("path = '/profile'");
-        expect(appSource).toContain('<V2Profile />');
+        expect(appSource).toContain('<Profile />');
         expect(appSource).toContain("path = '/admin'");
-        expect(appSource).toContain('<V2Admin />');
+        expect(appSource).toContain('<Admin />');
         expect(accountSource).toContain("to = '/admin'");
     });
 
-    it('uses V2 as the only public application experience', () => {
-        const appSource = fs.readFileSync(path.resolve(v2Root, '..', 'App.js'), 'utf8');
+    it('uses a single public application experience', () => {
+        const appSource = fs.readFileSync(path.join(srcRoot, 'App.js'), 'utf8');
         const brandSource = fs.readFileSync(path.resolve(__dirname, 'Brand.js'), 'utf8');
-        const searchStateSource = fs.readFileSync(path.join(v2Root, 'search-state.js'), 'utf8');
+        const searchStateSource = fs.readFileSync(path.join(srcRoot, 'search-state.js'), 'utf8');
         const watchItemSource = fs.readFileSync(path.resolve(__dirname, 'WatchItemCard.js'), 'utf8');
         const watchGroupSource = fs.readFileSync(path.resolve(__dirname, 'WatchGroupCard.js'), 'utf8');
 
@@ -135,16 +152,16 @@ describe('V2 design-system contract', () => {
         expect(watchGroupSource).toContain('to = {`/search/${encodeURIComponent(match)}`}');
     });
 
-    it('keeps every admin tool destination inside the V2 experience', () => {
-        const appSource = fs.readFileSync(path.resolve(v2Root, '..', 'App.js'), 'utf8');
-        const adminSource = fs.readFileSync(path.join(v2Root, 'pages', 'Admin.js'), 'utf8');
+    it('keeps every admin tool destination inside the app', () => {
+        const appSource = fs.readFileSync(path.join(srcRoot, 'App.js'), 'utf8');
+        const adminSource = fs.readFileSync(path.join(srcRoot, 'pages', 'Admin.js'), 'utf8');
 
         expect(appSource).toContain("path = '/deals/isbn'");
-        expect(appSource).toContain('<V2IsbnDeals />');
+        expect(appSource).toContain('<IsbnDeals />');
         expect(appSource).toContain("path = '/deals'");
-        expect(appSource).toContain('<V2Deals />');
+        expect(appSource).toContain('<Deals />');
         expect(appSource).toContain("path = '/barcode'");
-        expect(appSource).toContain('<V2Barcode />');
+        expect(appSource).toContain('<Barcode />');
         expect(appSource).toContain("path = '/barcode/quagga'");
         expect(appSource).toContain("path = '/barcode/zxing'");
         expect(adminSource).toContain('<FeatureLinkCard');
@@ -153,7 +170,7 @@ describe('V2 design-system contract', () => {
 
     it('uses Auth0 v2 token options when saving and reading watches', () => {
         const saveSource = fs.readFileSync(path.resolve(__dirname, 'SaveSearchButton.js'), 'utf8');
-        const profileSource = fs.readFileSync(path.join(v2Root, 'pages', 'Profile.js'), 'utf8');
+        const profileSource = fs.readFileSync(path.join(srcRoot, 'pages', 'Profile.js'), 'utf8');
 
         expect(saveSource).toContain('authorizationParams: AUTH_OPTIONS');
         expect(saveSource).toContain('payload.errors');
@@ -163,11 +180,11 @@ describe('V2 design-system contract', () => {
     });
 
     it('keeps admin cards responsive and count failures non-fatal', () => {
-        const adminSource = fs.readFileSync(path.join(v2Root, 'pages', 'Admin.js'), 'utf8');
+        const adminSource = fs.readFileSync(path.join(srcRoot, 'pages', 'Admin.js'), 'utf8');
         const featureCardSource = fs.readFileSync(path.resolve(__dirname, 'FeatureLinkCard.js'), 'utf8');
 
         expect(adminSource).toContain("display: 'grid'");
-        expect(adminSource).toContain("gridTemplateColumns: {");
+        expect(adminSource).toContain('gridTemplateColumns: {');
         expect(adminSource).not.toContain('<Grid');
         expect(adminSource).toContain('data: itemCounts = []');
         expect(adminSource).toContain('isError');
@@ -204,10 +221,10 @@ describe('V2 design-system contract', () => {
     });
 
     it('keeps mobile result actions together and exposes filters on the landing page', () => {
-        const homeSource = fs.readFileSync(path.join(v2Root, 'pages', 'Home.js'), 'utf8');
+        const homeSource = fs.readFileSync(path.join(srcRoot, 'pages', 'Home.js'), 'utf8');
         const heroSource = fs.readFileSync(path.resolve(__dirname, 'LandingHero.js'), 'utf8');
         const searchSource = fs.readFileSync(path.resolve(__dirname, 'SearchBox.js'), 'utf8');
-        const resultsSource = fs.readFileSync(path.join(v2Root, 'pages', 'SearchResults.js'), 'utf8');
+        const resultsSource = fs.readFileSync(path.join(srcRoot, 'pages', 'SearchResults.js'), 'utf8');
 
         expect(homeSource).toContain('<FilterDrawer');
         expect(homeSource).toContain("applyLabel = 'Spara filter'");
@@ -216,7 +233,7 @@ describe('V2 design-system contract', () => {
         expect(homeSource).toContain('<LandingCoverage');
         expect(heroSource).toContain('mobileAction = {mobileAction}');
         expect(searchSource).toContain('gridTemplateAreas: {');
-        expect(searchSource).toContain("xs: '\"input input\" \"search action\"'");
+        expect(searchSource).toContain("xs: '\"input input\" \"action search\"'");
         expect(searchSource).toContain('gridArea: \'action\'');
         expect(resultsSource).toContain("direction = 'row'");
         expect(resultsSource).toContain('flex: 1');
@@ -224,18 +241,26 @@ describe('V2 design-system contract', () => {
     });
 
     it('showcases every reusable design-system component', () => {
-        const showcase = fs.readFileSync(path.join(v2Root, 'pages', 'DesignSystem.js'), 'utf8');
+        const showcase = fs.readFileSync(path.join(srcRoot, 'pages', 'DesignSystem.js'), 'utf8');
         const components = fs.readdirSync(path.resolve(__dirname))
-            .filter((name) => name.endsWith('.js'))
-            .filter((name) => !name.endsWith('.test.js'))
-            .filter((name) => ![
-                'AccountPageShell.js',
-                'DesignSection.js',
-                'DesignSwatch.js',
-                'theme.js',
-                'ToolPageShell.js',
-            ].includes(name))
-            .map((name) => path.basename(name, '.js'));
+            .filter((name) => {
+                return name.endsWith('.js');
+            })
+            .filter((name) => {
+                return !name.endsWith('.test.js');
+            })
+            .filter((name) => {
+                return ![
+                    'AccountPageShell.js',
+                    'DesignSection.js',
+                    'DesignSwatch.js',
+                    'theme.js',
+                    'ToolPageShell.js',
+                ].includes(name);
+            })
+            .map((name) => {
+                return path.basename(name, '.js');
+            });
         const missingComponents = components.filter((component) => {
             return !showcase.includes(`<${component}`);
         });

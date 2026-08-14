@@ -20,7 +20,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 
-import sources from '../../sources';
+import sources from '../sources';
 import AccountPageShell from '../design-system/AccountPageShell';
 import FeatureLinkCard from '../design-system/FeatureLinkCard';
 import SourceMark from '../design-system/SourceMark';

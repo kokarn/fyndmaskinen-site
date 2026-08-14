@@ -24,10 +24,10 @@ import {
     useQueryClient,
 } from 'react-query';
 
-import getWatches from '../../features/get-watches';
-import getWatchLimit from '../../features/get-watch-limit';
-import removeWatch from '../../features/remove-watch';
-import updateWatch from '../../features/update-watch';
+import getWatches from '../features/get-watches';
+import getWatchLimit from '../features/get-watch-limit';
+import removeWatch from '../features/remove-watch';
+import updateWatch from '../features/update-watch';
 import AccountPageShell from '../design-system/AccountPageShell';
 import NotificationSettings from '../design-system/NotificationSettings';
 import WatchItemCard from '../design-system/WatchItemCard';

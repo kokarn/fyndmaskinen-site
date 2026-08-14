@@ -13,7 +13,7 @@ import {
     useQuery,
 } from 'react-query';
 
-import getAllWatches from '../../features/get-all-watches';
+import getAllWatches from '../features/get-all-watches';
 import AccountPageShell from '../design-system/AccountPageShell';
 import WatchGroupCard from '../design-system/WatchGroupCard';
 

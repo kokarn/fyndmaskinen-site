@@ -20,10 +20,10 @@ import {
     Helmet,
 } from 'react-helmet';
 
-import sources from '../../sources';
-import doSearch from '../../features/search';
-import useDebounce from '../../hooks/useDebounce';
-import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+import sources from '../sources';
+import doSearch from '../features/search';
+import useDebounce from '../hooks/useDebounce';
+import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
 import AppShell from '../design-system/AppShell';
 import FilterPanel from '../design-system/FilterPanel';
 import FilterDrawer from '../design-system/FilterDrawer';
@@ -110,6 +110,12 @@ const SearchResults = () => {
         sources,
         sourceState,
     };
+    const mobileFilterAction = (
+        <FilterDrawer
+            filterProps = {filterProps}
+            fullWidth
+        />
+    );
 
     return (
         <AppShell>
@@ -130,7 +136,9 @@ const SearchResults = () => {
                 <PageContainer>
                     <SearchBox
                         defaultValue = {searchPhrase}
+                        mobileAction = {mobileFilterAction}
                         onSearch = {handleSearch}
+                        rounded
                     />
                 </PageContainer>
             </Box>
@@ -199,6 +207,8 @@ const SearchResults = () => {
                             buttonSx = {{
                                 display: {
                                     md: 'none',
+                                    sm: 'inline-flex',
+                                    xs: 'none',
                                 },
                                 flex: 1,
                             }}

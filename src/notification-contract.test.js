@@ -1,14 +1,15 @@
+/* eslint-env node, jest */
+/* eslint-disable no-sync, no-template-curly-in-string, no-magic-numbers, prefer-named-capture-group */
 import fs from 'fs';
 import path from 'path';
 
-const srcRoot = path.resolve(__dirname, '..');
-const v2Root = path.resolve(__dirname);
+const srcRoot = __dirname;
 
 const read = (...parts) => {
     return fs.readFileSync(path.join(...parts), 'utf8');
 };
 
-describe('V2 notification inbox and Web Push contract', () => {
+describe('Notification inbox and Web Push contract', () => {
     it('uses the backend notification GraphQL contract', () => {
         const apiSource = read(srcRoot, 'features', 'notifications.js');
 
@@ -24,29 +25,29 @@ describe('V2 notification inbox and Web Push contract', () => {
     });
 
     it('keeps notification access authenticated with the Auth0 v2 options shape', () => {
-        const bellSource = read(v2Root, 'design-system', 'NotificationBell.js');
-        const inboxSource = read(v2Root, 'pages', 'Notifications.js');
-        const settingsSource = read(v2Root, 'design-system', 'NotificationSettings.js');
+        const bellSource = read(srcRoot, 'design-system', 'NotificationBell.js');
+        const inboxSource = read(srcRoot, 'pages', 'Notifications.js');
+        const settingsSource = read(srcRoot, 'design-system', 'NotificationSettings.js');
 
         [ bellSource, inboxSource, settingsSource ].forEach((source) => {
             expect(source).toContain('authorizationParams: AUTH_OPTIONS');
         });
     });
 
-    it('adds an icon-only bell to the authenticated header and keeps notifications in V2', () => {
+    it('adds an icon-only bell to the authenticated header and keeps notifications in the app', () => {
         const appSource = read(srcRoot, 'App.js');
-        const accountSource = read(v2Root, 'design-system', 'AccountActions.js');
-        const bellSource = read(v2Root, 'design-system', 'NotificationBell.js');
+        const accountSource = read(srcRoot, 'design-system', 'AccountActions.js');
+        const bellSource = read(srcRoot, 'design-system', 'NotificationBell.js');
 
         expect(accountSource).toContain('<NotificationBell />');
         expect(bellSource).toContain("aria-label = 'Notiser'");
         expect(bellSource).toContain("to = '/notifications'");
         expect(appSource).toContain("path = '/notifications'");
-        expect(appSource).toContain('<V2Notifications />');
+        expect(appSource).toContain('<Notifications />');
     });
 
     it('provides Swedish inbox loading, error, empty, read and mark-all states', () => {
-        const inboxSource = read(v2Root, 'pages', 'Notifications.js');
+        const inboxSource = read(srcRoot, 'pages', 'Notifications.js');
 
         expect(inboxSource).toContain('Hämtar notiser…');
         expect(inboxSource).toContain('Det gick inte att hämta dina notiser.');
@@ -55,16 +56,16 @@ describe('V2 notification inbox and Web Push contract', () => {
         expect(inboxSource).toContain('<ResultCard');
         expect(inboxSource).toContain('item = {notificationItem(notification)}');
         expect(inboxSource).toContain('watchLabel = {notification.watchMatch}');
-        expect(read(v2Root, 'design-system', 'ResultCard.js')).toContain("variant = 'caption'");
-        expect(read(v2Root, 'design-system', 'ResultCard.js')).toContain('{`Bevakning: ${watchLabel}`}');
-        expect(read(v2Root, 'design-system', 'ResultCard.js')).not.toContain("label = {eyebrow}");
-        expect(read(v2Root, 'design-system', 'ResultCard.js')).toContain("label = 'Ny'");
-        expect(read(v2Root, 'design-system', 'ResultCard.js')).toContain("borderColor: notification && !notification.read");
+        expect(read(srcRoot, 'design-system', 'ResultCard.js')).toContain("variant = 'caption'");
+        expect(read(srcRoot, 'design-system', 'ResultCard.js')).toContain('{`Bevakning: ${watchLabel}`}');
+        expect(read(srcRoot, 'design-system', 'ResultCard.js')).not.toContain("label = {eyebrow}");
+        expect(read(srcRoot, 'design-system', 'ResultCard.js')).toContain("label = 'Ny'");
+        expect(read(srcRoot, 'design-system', 'ResultCard.js')).toContain("borderColor: notification && !notification.read");
         expect(inboxSource).not.toContain('<NotificationCard');
     });
 
     it('only asks for push permission after an explicit action and explains fallback states', () => {
-        const settingsSource = read(v2Root, 'design-system', 'NotificationSettings.js');
+        const settingsSource = read(srcRoot, 'design-system', 'NotificationSettings.js');
 
         expect(settingsSource).toContain('Aktivera pushnotiser');
         expect(settingsSource).toContain('Notification.requestPermission()');

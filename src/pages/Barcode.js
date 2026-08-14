@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 
-import BarcodeHtml5Qrcode from '../../pages/barcode/html5-qrcode';
-import BarcodeQuagga from '../../pages/barcode/quagga';
-import BarcodeZXing from '../../pages/barcode/zxing';
+import BarcodeHtml5Qrcode from '../pages/barcode/html5-qrcode';
+import BarcodeQuagga from '../pages/barcode/quagga';
+import BarcodeZXing from '../pages/barcode/zxing';
 import ToolPageShell from '../design-system/ToolPageShell';
 
 const variants = {

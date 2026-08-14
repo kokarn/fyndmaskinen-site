@@ -22,7 +22,7 @@ import {
     getWebPushPublicKey,
     removePushSubscription,
     savePushSubscription,
-} from '../../features/notifications';
+} from '../features/notifications';
 
 const AUTH_OPTIONS = {
     audience: 'https://fyndmaskinen.se',

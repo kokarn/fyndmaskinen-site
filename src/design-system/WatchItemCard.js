@@ -19,7 +19,7 @@ import {
     Link,
 } from 'react-router-dom';
 
-import availableSources from '../../sources';
+import availableSources from '../sources';
 import {
     buildWatchFilters,
     getDefaultSourceState,

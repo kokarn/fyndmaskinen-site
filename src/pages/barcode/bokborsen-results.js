@@ -7,7 +7,7 @@ import {
     Typography,
 } from '@mui/material';
 
-import IsbnQualityList from '../../v2/design-system/IsbnQualityList';
+import IsbnQualityList from '../../design-system/IsbnQualityList';
 
 const formatPrice = (price) => {
     return new Intl.NumberFormat('sv-SE', {

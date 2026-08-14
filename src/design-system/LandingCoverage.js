@@ -15,8 +15,8 @@ const LandingCoverage = ({
         <Box
             component = 'section'
             sx = {{
-                borderColor: 'border.subtle',
                 borderTop: '1px solid',
+                borderTopColor: 'border.subtle',
                 paddingBottom: {
                     sm: 7,
                     xs: 4,

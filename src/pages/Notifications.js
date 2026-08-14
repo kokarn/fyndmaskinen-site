@@ -26,7 +26,7 @@ import {
     getNotifications,
     markAllNotificationsRead,
     markNotificationRead,
-} from '../../features/notifications';
+} from '../features/notifications';
 import AccountPageShell from '../design-system/AccountPageShell';
 import ResultCard from '../design-system/ResultCard';
 

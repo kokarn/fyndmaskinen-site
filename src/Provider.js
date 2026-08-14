@@ -6,7 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 import theme from './design-system/theme';
 
-const V2Provider = ({
+const Provider = ({
     children,
 }) => {
     return (
@@ -19,8 +19,8 @@ const V2Provider = ({
     );
 };
 
-V2Provider.propTypes = {
+Provider.propTypes = {
     children: PropTypes.node.isRequired,
 };
 
-export default V2Provider;
+export default Provider;

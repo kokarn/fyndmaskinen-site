@@ -1,12 +1,16 @@
 import {
     useCallback,
+    useMemo,
 } from 'react';
 import {
     useNavigate,
 } from 'react-router-dom';
-import {
-    Box,
-} from '@mui/material';
+import ChairIcon from '@mui/icons-material/Chair';
+import DiamondIcon from '@mui/icons-material/Diamond';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import PaletteIcon from '@mui/icons-material/Palette';
+import SpeakerIcon from '@mui/icons-material/Speaker';
+import StorefrontIcon from '@mui/icons-material/Storefront';
 import {
     useQuery,
 } from 'react-query';
@@ -14,17 +18,63 @@ import {
     Helmet,
 } from 'react-helmet';
 
-import sources from '../../sources';
+import sources from '../sources';
 import AppShell from '../design-system/AppShell';
 import FilterDrawer from '../design-system/FilterDrawer';
+import LandingCategories from '../design-system/LandingCategories';
 import LandingCoverage from '../design-system/LandingCoverage';
+import LandingFinds from '../design-system/LandingFinds';
 import LandingHero from '../design-system/LandingHero';
 import PageContainer from '../design-system/PageContainer';
-import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
+import {
+    getRandomItems,
+} from '../features/search';
 import {
     createV2SearchPath,
     getDefaultSourceState,
+    getEnabledSourceIds,
 } from '../search-state';
+
+const RANDOM_ITEMS_STALE_MS = 300_000; // eslint-disable-line no-magic-numbers
+const CATEGORIES = [
+    {
+        icon: <ChairIcon />,
+        id: 'mobler',
+        label: 'Möbler',
+        term: 'möbler',
+    },
+    {
+        icon: <PaletteIcon />,
+        id: 'konst',
+        label: 'Konst',
+        term: 'konst',
+    },
+    {
+        icon: <StorefrontIcon />,
+        id: 'vintage',
+        label: 'Vintage',
+        term: 'vintage',
+    },
+    {
+        icon: <SpeakerIcon />,
+        id: 'ljud-bild',
+        label: 'Ljud & bild',
+        term: 'stereo',
+    },
+    {
+        icon: <MenuBookIcon />,
+        id: 'bocker',
+        label: 'Böcker',
+        term: 'böcker',
+    },
+    {
+        icon: <DiamondIcon />,
+        id: 'ur-smycken',
+        label: 'Ur & smycken',
+        term: 'armbandsur',
+    },
+];
 
 const Home = () => {
     const navigate = useNavigate();
@@ -86,6 +136,33 @@ const Home = () => {
             label = 'Filter'
         />
     );
+    const desktopFilterAction = (
+        <FilterDrawer
+            applyLabel = 'Spara filter'
+            buttonSx = {{
+                borderRadius: 999,
+                height: '100%',
+                minHeight: 64,
+                paddingX: 3.5,
+                whiteSpace: 'nowrap',
+            }}
+            filterProps = {filterProps}
+            label = 'Välj filter'
+        />
+    );
+    const enabledSourceIds = useMemo(() => {
+        return getEnabledSourceIds(sourceState, sources);
+    }, [ sourceState ]);
+    const {
+        data: randomItems = [],
+        isFetching: isFetchingRandomItems,
+    } = useQuery([
+        'v2-random',
+        enabledSourceIds,
+    ], getRandomItems, {
+        refetchOnWindowFocus: false,
+        staleTime: RANDOM_ITEMS_STALE_MS,
+    });
     const {
         data: auctionHouseCount = 0,
     } = useQuery('getAuctionHouseCount', async () => {
@@ -114,29 +191,21 @@ const Home = () => {
                 </title>
             </Helmet>
             <LandingHero
+                filterAction = {desktopFilterAction}
+                footer = {(
+                    <LandingCategories
+                        categories = {CATEGORIES}
+                        onSelect = {handleSearch}
+                    />
+                )}
                 mobileAction = {mobileFilterAction}
                 onSearch = {handleSearch}
             />
+            <LandingFinds
+                isLoading = {isFetchingRandomItems}
+                items = {randomItems}
+            />
             <PageContainer>
-                <Box
-                    sx = {{
-                        display: {
-                            sm: 'flex',
-                            xs: 'none',
-                        },
-                        justifyContent: 'center',
-                        paddingY: {
-                            sm: 3,
-                            xs: 2.5,
-                        },
-                    }}
-                >
-                    <FilterDrawer
-                        applyLabel = 'Spara filter'
-                        filterProps = {filterProps}
-                        label = 'Välj filter'
-                    />
-                </Box>
                 <LandingCoverage
                     auctionHouseCount = {auctionHouseCount}
                     sources = {sources}

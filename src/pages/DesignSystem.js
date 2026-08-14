@@ -17,7 +17,7 @@ import {
 } from 'react-helmet';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 
-import sources from '../../sources';
+import sources from '../sources';
 import AppShell from '../design-system/AppShell';
 import AccountActions from '../design-system/AccountActions';
 import Brand from '../design-system/Brand';
@@ -28,7 +28,9 @@ import FeatureLinkCard from '../design-system/FeatureLinkCard';
 import FilterDrawer from '../design-system/FilterDrawer';
 import FilterPanel from '../design-system/FilterPanel';
 import IsbnQualityList from '../design-system/IsbnQualityList';
+import LandingCategories from '../design-system/LandingCategories';
 import LandingCoverage from '../design-system/LandingCoverage';
+import LandingFinds from '../design-system/LandingFinds';
 import LandingHero from '../design-system/LandingHero';
 import NotificationBell from '../design-system/NotificationBell';
 import NotificationCard from '../design-system/NotificationCard';
@@ -54,6 +56,26 @@ const sampleItem = {
     url: '#result-card',
 };
 const SAMPLE_COUNTDOWN_MS = 3_600_000; // eslint-disable-line no-magic-numbers
+const sampleCategories = [
+    {
+        icon: <MenuBookIcon />,
+        id: 'bocker',
+        label: 'Böcker',
+        term: 'böcker',
+    },
+    {
+        icon: <MenuBookIcon />,
+        id: 'konst',
+        label: 'Konst',
+        term: 'konst',
+    },
+    {
+        icon: <MenuBookIcon />,
+        id: 'mobler',
+        label: 'Möbler',
+        term: 'möbler',
+    },
+];
 
 const DesignSystem = () => {
     const [
@@ -484,7 +506,17 @@ const DesignSystem = () => {
                         >
                             <Brand />
                             <LandingHero
+                                footer = {(
+                                    <LandingCategories
+                                        categories = {sampleCategories}
+                                        onSelect = {handleSearch}
+                                    />
+                                )}
                                 onSearch = {handleSearch}
+                            />
+                            <LandingFinds
+                                isLoading = {false}
+                                items = {[ sampleItem ]}
                             />
                             <LandingCoverage
                                 auctionHouseCount = {138}

@@ -14,10 +14,10 @@ import {
 } from 'react-query';
 import PropTypes from 'prop-types';
 
-import addWatch from '../../features/add-watch';
+import addWatch from '../features/add-watch';
 import {
     useNotification,
-} from '../../components/notification';
+} from '../components/notification';
 
 const AUTH_OPTIONS = {
     audience: 'https://fyndmaskinen.se',

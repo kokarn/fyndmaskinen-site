@@ -90,4 +90,46 @@ const doSearch = ({
     return false;
 };
 
+// Landing-page fetcher for a random selection of live items. Deliberately
+// leaner than doSearch: no analytics events, since a home-page visit is not a
+// search. queryKey[ 1 ] is the array of enabled source ids.
+export const getRandomItems = ({
+    queryKey,
+}) => {
+    const sources = queryKey[ 1 ];
+    const query = `{
+        getRandomItems( sources: "${sources}" ) {
+            title
+            url
+            currentPrice
+            imageUrl
+            type
+        }
+    }`;
+
+    return fetch(
+        `${ window.API_HOSTNAME }/graphql`,
+        {
+            body: JSON.stringify({
+                query: query,
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+        },
+    )
+        .then((response) => {
+            return response.json();
+        })
+        .then((response) => {
+            return normalizeSearchItems(response?.data?.getRandomItems);
+        })
+        .catch((fetchError) => {
+            console.error(fetchError);
+
+            return [];
+        });
+};
+
 export default doSearch;

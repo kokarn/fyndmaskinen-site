@@ -9,7 +9,7 @@ import {
     Typography,
 } from '@mui/material';
 
-import sources from '../../sources';
+import sources from '../sources';
 import SourceMark from './SourceMark';
 import {
     density,

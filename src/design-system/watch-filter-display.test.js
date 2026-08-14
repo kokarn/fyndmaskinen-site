@@ -1,3 +1,5 @@
+/* eslint-env node, jest */
+/* eslint-disable no-sync, no-template-curly-in-string, no-magic-numbers, prefer-named-capture-group */
 import fs from 'fs';
 import path from 'path';
 

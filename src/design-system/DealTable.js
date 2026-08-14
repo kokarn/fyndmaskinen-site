@@ -15,7 +15,7 @@ import {
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import Countdown from 'react-countdown-now';
 
-import countdownRenderer from '../../countown-renderer';
+import countdownRenderer from '../countown-renderer';
 
 const columns = {
     matching: [

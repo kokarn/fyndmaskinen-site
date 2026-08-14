@@ -1,4 +1,4 @@
-import IsbnDeals from '../../pages/isbn-deals';
+import IsbnDeals from '../pages/isbn-deals';
 import ToolPageShell from '../design-system/ToolPageShell';
 
 const V2IsbnDeals = () => {
